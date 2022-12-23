@@ -1,5 +1,10 @@
 .wrapper {
+  box-sizing: border-box;
   width: 100%;
   background-color: grey;
   padding: 24px;
+
+  h1 {
+    border-bottom: solid black;
+  }
 }
