@@ -8,8 +8,10 @@ function App() {
   return (
     <div className='wrapper'>
       <SideNavBar />
-      <DashBoard />
-      <RightSide />
+      <div className='body'>
+        <DashBoard />
+        <RightSide />
+      </div>
     </div>
   );
 }
