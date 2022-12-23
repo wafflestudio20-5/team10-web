@@ -1,12 +1,8 @@
 import React from 'react';
-import { Subject } from './subject';
+import { Card } from './card';
+import styles from './cards.module.scss';
 
-type Subject = {
-  id: number;
-  name: string;
-};
-
-const subjects: Subject[] = [
+const subjects = [
   {
     id: 1,
     name: '논리와 비판적 사고',
@@ -18,12 +14,12 @@ const subjects: Subject[] = [
   { id: 3, name: '와플학개론' },
 ];
 
-export const Subjects = () => {
+export const Cards = () => {
   return (
-    <>
+    <div className={styles.cardsContainer}>
       {subjects.map((subject) => {
-        return <Subject key={subject.id} subject={subject}></Subject>;
+        return <Card key={subject.id} subject={subject}></Card>;
       })}
-    </>
+    </div>
   );
 };
