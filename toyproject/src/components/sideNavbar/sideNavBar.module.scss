@@ -1,0 +1,10 @@
+.wrapper {
+  width: 84px;
+  background-color: skyblue;
+}
+
+@media screen and (max-width: 760px) {
+  .wrapper {
+    display: none;
+  }
+}

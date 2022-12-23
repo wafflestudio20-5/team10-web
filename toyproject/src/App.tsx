@@ -6,11 +6,11 @@ import { RightSide } from './components/dashboard/rightSide';
 
 function App() {
   return (
-    <>
+    <div className='wrapper'>
       <SideNavBar />
       <DashBoard />
       <RightSide />
-    </>
+    </div>
   );
 }
 

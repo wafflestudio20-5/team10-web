@@ -1,0 +1,11 @@
+.wrapper {
+  width: 240px;
+  padding: 24px;
+  background-color: aquamarine;
+}
+
+@media screen and (max-width: 1000px) {
+  .wrapper {
+    width: 100%;
+  }
+}
