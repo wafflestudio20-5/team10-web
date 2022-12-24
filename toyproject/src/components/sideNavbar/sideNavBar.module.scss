@@ -1,3 +1,8 @@
+.container {
+  height: 100vh;
+  display: flex;
+}
+
 .wrapper {
   box-sizing: border-box;
   width: 84px;
@@ -8,4 +13,18 @@
   // .wrapper {
   //   display: none;
   // }
+}
+
+.buttonContainer {
+  box-sizing: border-box;
+  width: 84px;
+  height: auto;
+  border: solid black;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.buttonContainer:hover {
+  background-color: white;
 }
