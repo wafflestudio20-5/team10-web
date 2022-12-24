@@ -11,5 +11,12 @@ type CardType = {
 };
 
 export const Card = ({ subject }: CardType) => {
-  return <div className={styles.cardContainer}>{subject.name}</div>;
+  return (
+    <div className={styles.cardContainer}>
+      <div className={styles.cardColor}></div>
+      <section>
+        <a href='www.naver.com'>{subject.name}</a>
+      </section>
+    </div>
+  );
 };

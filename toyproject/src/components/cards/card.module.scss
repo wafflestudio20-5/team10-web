@@ -5,4 +5,23 @@
   box-shadow: 6px 7px 9px 0px rgba(0, 0, 0, 0.43);
   -webkit-box-shadow: 6px 7px 9px 0px rgba(0, 0, 0, 0.43);
   -moz-box-shadow: 6px 7px 9px 0px rgba(0, 0, 0, 0.43);
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  a:hover {
+    text-decoration-line: underline;
+  }
+
+  section {
+    display: flex;
+    padding: 10px;
+  }
+}
+
+.cardColor {
+  background-color: darkblue;
+  height: 50%;
 }
