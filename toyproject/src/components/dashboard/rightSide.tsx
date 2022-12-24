@@ -3,6 +3,16 @@ import styles from './rightSide.module.scss';
 
 export const RightSide = () => {
   return (
-    <div className={styles.wrapper}>여기가 오른쪽 공지랑 이것저것입니다.</div>
+    <div className={styles.wrapper}>
+      <h2>할일</h2>
+      <section>
+        <ul>
+          <li>수업 OT 공지</li>
+          <li>퀴즈 공지</li>
+        </ul>
+      </section>
+      <h2>최근 피드백</h2>
+      공부를 열심히 하자
+    </div>
   );
 };

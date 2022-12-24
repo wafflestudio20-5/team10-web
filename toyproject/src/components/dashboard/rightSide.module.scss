@@ -2,7 +2,14 @@
   box-sizing: border-box;
   width: 240px;
   padding: 24px;
-  background-color: aquamarine;
+  padding-top: 35px;
+  h2 {
+    border-bottom: solid black;
+  }
+  // ul {
+  //   list-style-type: none;
+  //   padding-left: 0;
+  // }
 }
 
 @media screen and (max-width: 1000px) {
