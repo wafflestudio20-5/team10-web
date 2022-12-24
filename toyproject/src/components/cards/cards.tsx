@@ -12,6 +12,9 @@ const subjects = [
     name: '컴퓨터구조',
   },
   { id: 3, name: '와플학개론' },
+  { id: 4, name: '와플학개론' },
+  { id: 5, name: '와플학개론' },
+  { id: 6, name: '와플학개론' },
 ];
 
 export const Cards = () => {
