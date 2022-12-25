@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="290c869b-db95-469b-b2ba-81a776cd72fe" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/toyproject/src/global.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/SignUp.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/SignUp.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/SignUp.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/SignUp.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/hi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/panghwi.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/testtttt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +21,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
         <option value="CSS File" />
       </list>
     </option>
@@ -60,7 +66,7 @@
       <workItem from="1671708725171" duration="782000" />
       <workItem from="1671711593972" duration="1973000" />
       <workItem from="1671713631537" duration="1059000" />
-      <workItem from="1671974124847" duration="2070000" />
+      <workItem from="1671974124847" duration="5873000" />
     </task>
     <servers />
   </component>
