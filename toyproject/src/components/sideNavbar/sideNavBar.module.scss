@@ -18,13 +18,36 @@
   box-sizing: border-box;
   width: 84px;
   height: auto;
-  border: solid black;
   display: flex;
   align-items: center;
   flex-direction: column;
   color: white;
+  padding: 5px;
+
+  svg {
+    fill: white;
+  }
+}
+
+.logoContainer {
+  box-sizing: border-box;
+  width: 84px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.logoContainer :hover {
+  cursor: pointer;
 }
 
 .buttonContainer:hover {
-  background-color: black;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  svg {
+    fill: black;
+  }
 }

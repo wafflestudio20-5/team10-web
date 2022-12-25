@@ -2,10 +2,13 @@
   position: absolute;
   height: 100vh;
   z-index: 1;
-  background-color: pink;
+  background-color: white;
   width: 320px;
   left: 84px;
   padding: 20px;
+  box-shadow: 6px 11px 15px -4px rgba(0, 0, 0, 0.56);
+  -webkit-box-shadow: 6px 11px 15px -4px rgba(0, 0, 0, 0.56);
+  -moz-box-shadow: 6px 11px 15px -4px rgba(0, 0, 0, 0.56);
 
   header {
     align-items: center;
@@ -28,4 +31,8 @@
   position: absolute;
   right: 10px;
   border: solid black;
+}
+
+.closeButton:hover {
+  cursor: pointer;
 }

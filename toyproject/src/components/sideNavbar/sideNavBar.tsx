@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styles from './sideNavBar.module.scss';
-import book from '../../svg/book.svg';
-import calendar from '../../svg/calendar.svg';
-import dashboard from '../../svg/dashboard.svg';
-import question from '../../svg/question.svg';
+import { ReactComponent as Book } from '../../svg/book.svg';
+import { ReactComponent as Calender } from '../../svg/calendar.svg';
+import { ReactComponent as DashBoard } from '../../svg/dashboard.svg';
+import { ReactComponent as Question } from '../../svg/question.svg';
 import snulogo from '../../svg/snulogo.svg';
-import userIcon from '../../svg/userIcon.svg';
+import { ReactComponent as UserIcon } from '../../svg/userIcon.svg';
 import { SubjectModal } from './modal/subjectModal';
 
 export const SideNavBar = () => {
@@ -25,28 +25,27 @@ export const SideNavBar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <div className={styles.buttonContainer}>
-          {/* <img src={snulogo} alt='snulogo'></img> */}
-          로고
+        <div className={styles.logoContainer}>
+          <img src={snulogo} alt='snulogo'></img>
         </div>
         <div className={styles.buttonContainer}>
-          <img src={userIcon} alt='userIcon'></img>
+          <UserIcon></UserIcon>
           계정
         </div>
         <div className={styles.buttonContainer}>
-          <img src={dashboard} alt='dashboard'></img>
+          <DashBoard></DashBoard>
           대시보드
         </div>
         <div className={styles.buttonContainer} onClick={openSubjectModal}>
-          {/* <img src={book} alt='book'></img> */}
+          <Book></Book>
           과목
         </div>
         <div className={styles.buttonContainer}>
-          {/* <img src={calendar} alt='calendar'></img> */}
+          <Calender></Calender>
           캘린더
         </div>
         <div className={styles.buttonContainer}>
-          <img src={question} alt='question'></img>
+          <Question></Question>
           이용안내
         </div>
       </div>
