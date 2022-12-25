@@ -10,12 +10,14 @@ import { SubjectModal } from './modal/subjectModal';
 
 export const SideNavBar = () => {
   const [isModal, setIsModal] = useState(false);
+  const [isSelected, setIsSelected] = useState<number>(0);
 
   const openSubjectModal = () => {
     setIsModal(true);
   };
   const closeSubjectModal = () => {
     setIsModal(false);
+    setIsSelected(0);
   };
 
   const openAuthModal = () => {
@@ -28,23 +30,51 @@ export const SideNavBar = () => {
         <div className={styles.logoContainer}>
           <img src={snulogo} alt='snulogo'></img>
         </div>
-        <div className={styles.buttonContainer}>
+        <div
+          className={`${styles['buttonContainer']} ${
+            isSelected === 1 ? styles['selected'] : ''
+          }`}
+          onClick={() => setIsSelected(1)}
+        >
           <UserIcon></UserIcon>
           계정
         </div>
-        <div className={styles.buttonContainer}>
+        <div
+          className={`${styles['buttonContainer']} ${
+            isSelected === 2 ? styles['selected'] : ''
+          }`}
+          onClick={() => setIsSelected(2)}
+        >
           <DashBoard></DashBoard>
           대시보드
         </div>
-        <div className={styles.buttonContainer} onClick={openSubjectModal}>
+        <div
+          className={`${styles['buttonContainer']} ${
+            isSelected === 3 ? styles['selected'] : ''
+          }`}
+          onClick={() => {
+            setIsSelected(3);
+            openSubjectModal();
+          }}
+        >
           <Book></Book>
           과목
         </div>
-        <div className={styles.buttonContainer}>
+        <div
+          className={`${styles['buttonContainer']} ${
+            isSelected === 4 ? styles['selected'] : ''
+          }`}
+          onClick={() => setIsSelected(4)}
+        >
           <Calender></Calender>
           캘린더
         </div>
-        <div className={styles.buttonContainer}>
+        <div
+          className={`${styles['buttonContainer']} ${
+            isSelected === 5 ? styles['selected'] : ''
+          }`}
+          onClick={() => setIsSelected(5)}
+        >
           <Question></Question>
           이용안내
         </div>

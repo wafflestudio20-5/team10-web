@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './subjectModal.module.scss';
+import { ReactComponent as CloseButton } from '../../../svg/close.svg';
 
 type SubjectModalType = {
   closeSubjectModal: () => void;
@@ -8,9 +9,11 @@ type SubjectModalType = {
 export const SubjectModal = ({ closeSubjectModal }: SubjectModalType) => {
   return (
     <div className={styles.modal}>
-      <span className={styles.closeButton} onClick={closeSubjectModal}>
-        닫기 버튼
-      </span>
+      <CloseButton
+        width='15px'
+        height='15px'
+        onClick={closeSubjectModal}
+      ></CloseButton>
       <header>과목</header>
       <section>
         <ul>

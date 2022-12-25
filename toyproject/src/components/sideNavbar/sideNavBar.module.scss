@@ -29,6 +29,16 @@
   }
 }
 
+.buttonContainer:hover,
+.buttonContainer.selected {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  svg {
+    fill: black;
+  }
+}
+
 .logoContainer {
   box-sizing: border-box;
   width: 84px;
@@ -41,13 +51,4 @@
 
 .logoContainer :hover {
   cursor: pointer;
-}
-
-.buttonContainer:hover {
-  background-color: white;
-  color: black;
-  cursor: pointer;
-  svg {
-    fill: black;
-  }
 }

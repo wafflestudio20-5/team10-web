@@ -25,14 +25,15 @@
     list-style-type: none;
     padding-left: 0;
   }
-}
+  svg {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    border: solid black;
+    padding: 10px;
+  }
 
-.closeButton {
-  position: absolute;
-  right: 10px;
-  border: solid black;
-}
-
-.closeButton:hover {
-  cursor: pointer;
+  svg:hover {
+    cursor: pointer;
+  }
 }
