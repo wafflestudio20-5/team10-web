@@ -1,11 +1,11 @@
 .cardContainer {
   width: 265px;
   height: 260px;
-  border: solid black;
-  box-shadow: 6px 7px 9px 0px rgba(0, 0, 0, 0.43);
-  -webkit-box-shadow: 6px 7px 9px 0px rgba(0, 0, 0, 0.43);
-  -moz-box-shadow: 6px 7px 9px 0px rgba(0, 0, 0, 0.43);
-
+  border-radius: 5px;
+  border: solid black 0.5px;
+  box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.34);
+  -webkit-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.34);
   a {
     text-decoration: none;
     color: black;
@@ -21,7 +21,15 @@
   }
 }
 
+.cardContainer:hover {
+  box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.56);
+  -webkit-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.56);
+  -moz-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.56);
+}
+
 .cardColor {
   background-color: darkblue;
   height: 50%;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
