@@ -43,7 +43,10 @@ export const SideNavBar = () => {
           className={`${styles['buttonContainer']} ${
             isSelected === 2 ? styles['selected'] : ''
           }`}
-          onClick={() => setIsSelected(2)}
+          onClick={() => {
+            setIsSelected(2);
+            closeSubjectModal();
+          }}
         >
           <DashBoard></DashBoard>
           대시보드
@@ -64,7 +67,10 @@ export const SideNavBar = () => {
           className={`${styles['buttonContainer']} ${
             isSelected === 4 ? styles['selected'] : ''
           }`}
-          onClick={() => setIsSelected(4)}
+          onClick={() => {
+            setIsSelected(4);
+            closeSubjectModal();
+          }}
         >
           <Calender></Calender>
           캘린더
@@ -73,7 +79,10 @@ export const SideNavBar = () => {
           className={`${styles['buttonContainer']} ${
             isSelected === 5 ? styles['selected'] : ''
           }`}
-          onClick={() => setIsSelected(5)}
+          onClick={() => {
+            setIsSelected(5);
+            closeSubjectModal();
+          }}
         >
           <Question></Question>
           이용안내

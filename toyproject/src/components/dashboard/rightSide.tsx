@@ -4,7 +4,7 @@ import styles from './rightSide.module.scss';
 export const RightSide = () => {
   return (
     <div className={styles.wrapper}>
-      <h2>할일</h2>
+      <h2>할 일</h2>
       <section>
         <ul>
           <li>수업 OT 공지</li>
