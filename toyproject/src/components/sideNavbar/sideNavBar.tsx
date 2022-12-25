@@ -89,7 +89,10 @@ export const SideNavBar = () => {
         </div>
       </div>
       {isModal && (
-        <SubjectModal closeSubjectModal={closeSubjectModal}></SubjectModal>
+        <SubjectModal
+          isOpen={isModal}
+          closeSubjectModal={closeSubjectModal}
+        ></SubjectModal>
       )}
     </div>
   );
