@@ -9,14 +9,18 @@ import { ReactComponent as UserIcon } from '../../svg/userIcon.svg';
 import { SubjectModal } from './modal/subjectModal';
 
 export const SideNavBar = () => {
-  const [isModal, setIsModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSelected, setIsSelected] = useState<number>(0);
-
+  const [aniState, setAniState] = useState(false);
   const openSubjectModal = () => {
-    setIsModal(true);
+    setIsModalOpen(true);
   };
   const closeSubjectModal = () => {
-    setIsModal(false);
+    setAniState(true);
+    setTimeout(() => {
+      setAniState(false);
+      setIsModalOpen(false);
+    }, 500);
     setIsSelected(0);
   };
 
@@ -88,9 +92,10 @@ export const SideNavBar = () => {
           이용안내
         </div>
       </div>
-      {isModal && (
+      {isModalOpen && (
         <SubjectModal
-          isOpen={isModal}
+          isModalOpen={isModalOpen}
+          aniState={aniState}
           closeSubjectModal={closeSubjectModal}
         ></SubjectModal>
       )}

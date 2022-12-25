@@ -40,7 +40,7 @@
 }
 
 .modal.close {
-  animation: scaleBack 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  animation: scaleBack 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
 /* Show modal content from bottom to top */
@@ -62,6 +62,6 @@
     transform: scale(1) translateX(0);
   }
   100% {
-    transform: scale(0.8) translateX(-1000px);
+    transform: scale(1) translateX(-500px);
   }
 }
