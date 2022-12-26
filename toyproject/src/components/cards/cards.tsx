@@ -19,7 +19,7 @@ const subjects = [
 
 export const Cards = () => {
   return (
-    <div className={styles.cardsContainer}>
+    <div className={styles['cards-container']}>
       {subjects.map((subject) => {
         return <Card key={subject.id} subject={subject}></Card>;
       })}

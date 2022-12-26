@@ -12,8 +12,8 @@ type CardType = {
 
 export const Card = ({ subject }: CardType) => {
   return (
-    <div className={styles.cardContainer}>
-      <div className={styles.cardColor}></div>
+    <div className={styles['card-container']}>
+      <div className={styles['card-color']}></div>
       <section>
         <a href='www.naver.com'>{subject.name}</a>
       </section>

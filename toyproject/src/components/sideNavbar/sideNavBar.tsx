@@ -31,11 +31,11 @@ export const SideNavBar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <div className={styles.logoContainer}>
+        <div className={styles['logo-container']}>
           <img src={snulogo} alt='snulogo'></img>
         </div>
         <div
-          className={`${styles['buttonContainer']} ${
+          className={`${styles['button-container']} ${
             isSelected === 1 ? styles['selected'] : ''
           }`}
           onClick={() => setIsSelected(1)}
@@ -44,7 +44,7 @@ export const SideNavBar = () => {
           계정
         </div>
         <div
-          className={`${styles['buttonContainer']} ${
+          className={`${styles['button-container']} ${
             isSelected === 2 ? styles['selected'] : ''
           }`}
           onClick={() => {
@@ -56,7 +56,7 @@ export const SideNavBar = () => {
           대시보드
         </div>
         <div
-          className={`${styles['buttonContainer']} ${
+          className={`${styles['button-container']} ${
             isSelected === 3 ? styles['selected'] : ''
           }`}
           onClick={() => {
@@ -68,7 +68,7 @@ export const SideNavBar = () => {
           과목
         </div>
         <div
-          className={`${styles['buttonContainer']} ${
+          className={`${styles['button-container']} ${
             isSelected === 4 ? styles['selected'] : ''
           }`}
           onClick={() => {
@@ -80,7 +80,7 @@ export const SideNavBar = () => {
           캘린더
         </div>
         <div
-          className={`${styles['buttonContainer']} ${
+          className={`${styles['button-container']} ${
             isSelected === 5 ? styles['selected'] : ''
           }`}
           onClick={() => {
