@@ -4,11 +4,9 @@ import { ReactComponent as CloseButton } from '../../../svg/close.svg';
 type SubjectModalType = {
   closeSubjectModal: () => void;
   aniState: boolean;
-  isModalOpen: boolean;
 };
 
 export const SubjectModal = ({
-  isModalOpen,
   aniState,
   closeSubjectModal,
 }: SubjectModalType) => {

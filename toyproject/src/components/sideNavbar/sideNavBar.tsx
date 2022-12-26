@@ -7,25 +7,42 @@ import { ReactComponent as Question } from '../../svg/question.svg';
 import snulogo from '../../svg/snulogo.svg';
 import { ReactComponent as UserIcon } from '../../svg/userIcon.svg';
 import { SubjectModal } from './modal/subjectModal';
+import { AuthModal } from './modal/authModal';
 
 export const SideNavBar = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [subjectModal, setSubjectModal] = useState<boolean>(false);
+  const [authModal, setAuthModal] = useState<boolean>(false);
   const [isSelected, setIsSelected] = useState<number>(0);
   const [aniState, setAniState] = useState(false);
   const openSubjectModal = () => {
-    setIsModalOpen(true);
+    setSubjectModal(true);
   };
   const closeSubjectModal = () => {
     setAniState(true);
     setTimeout(() => {
       setAniState(false);
-      setIsModalOpen(false);
+      setSubjectModal(false);
     }, 500);
     setIsSelected(0);
   };
 
   const openAuthModal = () => {
-    console.log('auth');
+    setAuthModal(true);
+  };
+
+  const closeAuthModal = () => {
+    setAuthModal(false);
+  };
+
+  //modal을 띄우지 않는 button을 클릭시 다른 모달 state를 모두 false로 만듦
+  const closeOtherModal = () => {
+    if (subjectModal) {
+      setSubjectModal(false);
+    } else if (authModal) {
+      setAuthModal(false);
+    } else {
+      return null;
+    }
   };
 
   return (
@@ -38,7 +55,12 @@ export const SideNavBar = () => {
           className={`${styles['button-container']} ${
             isSelected === 1 ? styles['selected'] : ''
           }`}
-          onClick={() => setIsSelected(1)}
+          // 계정과 과목 모달 띄울땐 그 외의 모달 state를 false로 함
+          onClick={() => {
+            setIsSelected(1);
+            closeOtherModal();
+            openAuthModal();
+          }}
         >
           <UserIcon></UserIcon>
           계정
@@ -49,7 +71,7 @@ export const SideNavBar = () => {
           }`}
           onClick={() => {
             setIsSelected(2);
-            closeSubjectModal();
+            closeOtherModal();
           }}
         >
           <DashBoard></DashBoard>
@@ -61,6 +83,7 @@ export const SideNavBar = () => {
           }`}
           onClick={() => {
             setIsSelected(3);
+            closeOtherModal();
             openSubjectModal();
           }}
         >
@@ -73,7 +96,7 @@ export const SideNavBar = () => {
           }`}
           onClick={() => {
             setIsSelected(4);
-            closeSubjectModal();
+            closeOtherModal();
           }}
         >
           <Calender></Calender>
@@ -85,19 +108,24 @@ export const SideNavBar = () => {
           }`}
           onClick={() => {
             setIsSelected(5);
-            closeSubjectModal();
+            closeOtherModal();
           }}
         >
           <Question></Question>
           이용안내
         </div>
       </div>
-      {isModalOpen && (
+      {subjectModal && (
         <SubjectModal
-          isModalOpen={isModalOpen}
           aniState={aniState}
           closeSubjectModal={closeSubjectModal}
         ></SubjectModal>
+      )}
+      {authModal && (
+        <AuthModal
+          aniState={aniState}
+          closeAuthModal={closeAuthModal}
+        ></AuthModal>
       )}
     </div>
   );
