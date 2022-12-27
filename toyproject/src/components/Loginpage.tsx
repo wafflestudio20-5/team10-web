@@ -22,16 +22,11 @@ function Loginpage() {
     <div>
       <header className={styles.header}>
         <a href='https://my.snu.ac.kr'>
-          <img
-            src={loginHeader}
-            className={styles.img}
-            alt='Login Header'
-            title='Login Header'
-          />
+          <img src={loginHeader} alt='Login Header' title='Login Header' />
         </a>
       </header>
       <div className={styles.content}>
-        <article className={styles.loginform}>
+        <article>
           <section className={styles.logincontainer}>
             <form>
               <input
@@ -57,27 +52,22 @@ function Loginpage() {
             </form>
           </section>
           <section className={styles.socialLogin}>
-            <h3 className={styles.socialLoginHeader}>
+            <h3>
               소셜 로그인 서비스
-              <p className={styles.socialLoginDescription}>
+              <p>
                 ※ 서울대학교 구성원 중 계정에 소셜 로그인 정보를 등록한 사용자만
                 이용하실 수 있습니다.
               </p>
             </h3>
-            <a className={styles.kakaoLogin}>
-              <img
-                src={kakao}
-                className={styles.kakaoimg}
-                alt='kakao'
-                title='kakao'
-              />
-              <span className={styles.kakaoText}>카카오</span>
+            <a>
+              <img src={kakao} alt='kakao' title='kakao' />
+              <span>카카오</span>
             </a>
           </section>
         </article>
       </div>
       <footer className={styles.footer}>
-        <address className={styles.address}>
+        <address>
           <p className={styles.copyright}>
             COPYRIGHT (C)2022 SEOUL NATIONAL UNIVERSITY. ALL RIGHTS RESERVED
           </p>

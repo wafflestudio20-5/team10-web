@@ -3,11 +3,11 @@
   text-align: center;
   background: #193988;
   position: relative;
-}
 
-.img {
-  width: 211px;
-  height: 51px;
+  img {
+    width: 211px;
+    height: 51px;
+  }
 }
 
 .content {
@@ -15,15 +15,15 @@
   margin: 0 auto;
   display: block;
   box-sizing: border-box;
-}
 
-.loginform {
-  max-width: 589px;
-  margin: 0 auto;
-  padding: 0;
-  display: block;
-  text-align: center;
-  box-sizing: border-box;
+  article {
+    max-width: 589px;
+    margin: 0 auto;
+    padding: 0;
+    display: block;
+    text-align: center;
+    box-sizing: border-box;
+  }
 }
 
 .logincontainer {
@@ -63,66 +63,66 @@
   margin: 18px auto 0;
 }
 
+.socialLogin {
+  text-align: center;
+  box-sizing: border-box;
+
+  h3 {
+    font-size: 1.5em;
+    letter-spacing: -0.7px;
+    margin: 0;
+    padding: 0 0 20px 0;
+    text-align: left;
+    box-sizing: border-box;
+
+    p {
+      font-size: 15px;
+      font-weight: 200;
+      margin: 0;
+      padding: 20px 0 0 15px;
+    }
+  }
+
+  a {
+    display: inline-block;
+    width: 19%;
+    padding: 17px 0;
+    border: 1px solid #dcdcdc;
+    text-align: center;
+    vertical-align: middle;
+
+    img {
+      width: 31px;
+      height: 31px;
+      top: 50%;
+      vertical-align: middle;
+    }
+
+    span {
+      font-size: 14px;
+      text-align: left;
+      padding: 0 0 0 10px;
+      vertical-align: middle;
+      top: 50%;
+    }
+  }
+}
+
 .footer {
   padding: 27px 0;
   background: #f8f8f8;
   display: block;
-}
 
-.address {
-  text-align: center;
-  font-style: normal;
-  font-size: 15px;
-  letter-spacing: -0.5px;
-}
+  address {
+    text-align: center;
+    font-style: normal;
+    font-size: 15px;
+    letter-spacing: -0.5px;
 
-.copyright {
-  color: #adadad;
-  margin: 0;
-  padding: 0;
-}
-
-.socialLogin {
-  text-align: center;
-  box-sizing: border-box;
-}
-.socialLoginHeader {
-  font-size: 1.5em;
-  letter-spacing: -0.7px;
-  margin: 0;
-  padding: 0 0 20px 0;
-  text-align: left;
-  box-sizing: border-box;
-}
-
-.socialLoginDescription {
-  font-size: 15px;
-  font-weight: 200;
-  margin: 0;
-  padding: 20px 0 0 15px;
-}
-
-.kakaoLogin {
-  display: inline-block;
-  width: 19%;
-  padding: 17px 0;
-  border: 1px solid #dcdcdc;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.kakaoimg {
-  width: 31px;
-  height: 31px;
-  top: 50%;
-  vertical-align: middle;
-}
-
-.kakaoText {
-  font-size: 14px;
-  text-align: left;
-  //   position: relative;
-  padding: 0 0 0 10px;
-  vertical-align: middle;
-  top: 50%;
+    .copyright {
+      color: #adadad;
+      margin: 0;
+      padding: 0;
+    }
+  }
 }
