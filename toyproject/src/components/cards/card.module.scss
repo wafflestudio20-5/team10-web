@@ -6,6 +6,8 @@
   box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.34);
   -webkit-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.34);
   -moz-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.34);
+  overflow: hidden;
+
   a {
     text-decoration: none;
     color: black;
@@ -30,6 +32,4 @@
 .card-color {
   background-color: #0f0f6f;
   height: 50%;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
 }
