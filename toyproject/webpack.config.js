@@ -1,18 +1,18 @@
 module.exports = {
   entry: {
-    dev: './src/index.tsx',
+    dev: "./src/index.tsx",
   },
   output: {
-    filename: './build/index.js',
+    filename: "./build/index.js",
   },
-  devtool: 'source-map',
+  devtool: "source-map",
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
   module: {
     loaders: [
       // Typescript
-      { test: /\.tsx?$/, loader: 'ts-loader' },
+      { test: /\.tsx?$/, loader: "ts-loader" },
     ],
   },
 };
