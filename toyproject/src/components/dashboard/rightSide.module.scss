@@ -1,0 +1,22 @@
+.wrapper {
+  box-sizing: border-box;
+  width: 300px;
+  padding: 24px;
+  padding-top: 40px;
+  h2 {
+    border-bottom: solid black;
+    font-weight: 400;
+    font-size: 18px;
+    padding-bottom: 5px;
+  }
+  // ul {
+  //   list-style-type: none;
+  //   padding-left: 0;
+  // }
+}
+
+@media screen and (max-width: 1000px) {
+  .wrapper {
+    width: 100%;
+  }
+}
