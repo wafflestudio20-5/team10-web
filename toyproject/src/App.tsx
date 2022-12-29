@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import { SideNavBar } from './components/sideNavbar/sideNavBar';
-import { DashBoard } from './components/dashboard/dashBoard';
-import { RightSide } from './components/dashboard/rightSide';
+import { SideNavBar } from './components/sideNavbar/SideNavBar';
+import { DashBoard } from './components/dashboard/DashBoard';
+import { RightSide } from './components/dashboard/RightSide';
 
 function App() {
   return (

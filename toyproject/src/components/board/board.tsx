@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './board.module.scss';
+import styles from './Board.module.scss';
 
 export default function Board() {
   return <div></div>;

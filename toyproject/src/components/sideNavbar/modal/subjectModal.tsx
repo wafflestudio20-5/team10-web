@@ -1,4 +1,4 @@
-import styles from './subjectModal.module.scss';
+import styles from './SubjectModal.module.scss';
 import { ReactComponent as CloseButton } from '../../../svg/close.svg';
 
 type SubjectModalType = {

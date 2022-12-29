@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import styles from './sideNavBar.module.scss';
+import styles from './SideNavBar.module.scss';
 import { ReactComponent as Book } from '../../svg/book.svg';
 import { ReactComponent as Calender } from '../../svg/calendar.svg';
 import { ReactComponent as DashBoard } from '../../svg/dashboard.svg';
 import { ReactComponent as Question } from '../../svg/question.svg';
 import snulogo from '../../svg/snulogo.svg';
 import { ReactComponent as UserIcon } from '../../svg/userIcon.svg';
-import { SubjectModal } from './modal/subjectModal';
-import { AuthModal } from './modal/authModal';
+import { SubjectModal } from './modal/SubjectModal';
+import { AuthModal } from './modal/AuthModal';
 
 export const SideNavBar = () => {
   const [subjectModal, setSubjectModal] = useState<boolean>(false);

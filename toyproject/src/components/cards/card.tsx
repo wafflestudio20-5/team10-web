@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './card.module.scss';
+import styles from './Card.module.scss';
 
 type subject = {
   id: number;

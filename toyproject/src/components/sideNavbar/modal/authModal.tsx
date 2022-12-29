@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './authModal.module.scss';
+import styles from './AuthModal.module.scss';
 import { ReactComponent as CloseButton } from '../../../svg/close.svg';
 
 type AuthModalType = {
