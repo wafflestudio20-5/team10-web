@@ -1,0 +1,35 @@
+.card-container {
+  width: 265px;
+  height: 260px;
+  border-radius: 5px;
+  border: solid black 0.5px;
+  box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.34);
+  -webkit-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.34);
+  overflow: hidden;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  a:hover {
+    text-decoration-line: underline;
+  }
+
+  section {
+    display: flex;
+    padding: 10px;
+  }
+}
+
+.card-container:hover {
+  box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.56);
+  -webkit-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.56);
+  -moz-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.56);
+}
+
+.card-color {
+  background-color: #0f0f6f;
+  height: 50%;
+}
