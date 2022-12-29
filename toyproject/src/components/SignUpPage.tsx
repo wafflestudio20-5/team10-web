@@ -2,7 +2,9 @@ import React, {useEffect, useState} from "react";
 import ReactMarkdown from "react-markdown";
 import {ToastContainer, toast} from "react-toastify";
 import styles from "./SignUp.module.scss";
+import headerStyles from './LoginHeader.module.scss'
 import {Term1, Term2, Term3} from "./TermsOfService.js";
+import loginHeader from "../resources/loginHeader.png";
 
 
 /** 이용 약관 */
@@ -131,6 +133,9 @@ export default function SignUpPage() {
 
     return (
         <div className={styles.signup}>
+            <header className={styles.header}><a href='https://my.snu.ac.kr'>
+                <img src={loginHeader} alt='Login Header' title='Login Header'/>
+            </a></header>
             <ProgressElement currentStage={currentStage}/>
             {
                 currentStage === 0 ?
@@ -140,16 +145,22 @@ export default function SignUpPage() {
                             <h2>개인정보 입력</h2>
                             <div className={styles.notice}>※ 인적정보가 등록된 구성원만 계정 신청을 할 수 있습니다.</div>
                             <ul className={styles.user_wrapper}>
-                                <li className={styles.usertype} onClick={() => setUserInfo({...userInfo, type: "student"})}>
-                                    <div className={styles.radio}><div className={userInfo.type === "student" ? styles.on : styles.inner}></div></div>
+                                <li className={styles.usertype}
+                                    onClick={() => setUserInfo({...userInfo, type: "student"})}>
+                                    <div className={styles.radio}>
+                                        <div className={userInfo.type === "student" ? styles.on : styles.inner}></div>
+                                    </div>
                                     <img src={userInfo.type === "student"
                                         ? "https://nsso.snu.ac.kr/sso/resources/snu/usr/images/student_on.svg"
                                         : "https://nsso.snu.ac.kr/sso/resources/snu/usr/images/student.svg"}
                                          alt="student" className={styles.image}/>
                                     <h4>학생 ∙ 졸업생</h4>
                                 </li>
-                                <li className={styles.usertype} onClick={() => setUserInfo({...userInfo, type: "professor"})}>
-                                    <div className={styles.radio}><div className={userInfo.type === "professor" ? styles.on : styles.inner}></div></div>
+                                <li className={styles.usertype}
+                                    onClick={() => setUserInfo({...userInfo, type: "professor"})}>
+                                    <div className={styles.radio}>
+                                        <div className={userInfo.type === "professor" ? styles.on : styles.inner}></div>
+                                    </div>
                                     <img src={userInfo.type === "professor"
                                         ? "https://nsso.snu.ac.kr/sso/resources/snu/usr/images/teacher_on.svg"
                                         : "https://nsso.snu.ac.kr/sso/resources/snu/usr/images/teacher.svg"}
@@ -185,18 +196,19 @@ export default function SignUpPage() {
                                         }/>
                                         {
                                             pwChecking ?
-                                            <img className="password-alert" src={
-                                                pwRepeat === userInfo.password
-                                                    ? "https://cdn-icons-png.flaticon.com/512/5610/5610944.png"
-                                                    : "https://cdn-icons-png.flaticon.com/512/1828/1828843.png"
-                                            } alt="비밀번호 확인"/> : null
+                                                <img className={styles.alert} src={
+                                                    pwRepeat === userInfo.password
+                                                        ? "https://cdn-icons-png.flaticon.com/512/5610/5610944.png"
+                                                        : "https://cdn-icons-png.flaticon.com/512/1828/1828843.png"
+                                                } alt="비밀번호 확인"/> : null
                                         }
                                     </div>
                                 </div>
                             </div>
                             <button className={styles.next} onClick={
-                                () => setCurrentStage(currentStage+1)
-                            }>다음</button>
+                                () => setCurrentStage(currentStage + 1)
+                            }>다음
+                            </button>
                         </div>
                         :
                         <div className={styles.signup}>
@@ -204,6 +216,15 @@ export default function SignUpPage() {
                             <button className={styles.next}>돌아가기</button>
                         </div>
             }
+            <footer className={headerStyles.footer}>
+                <address>
+                    <p className={headerStyles.copyright}>
+                        COPYRIGHT (C)2022 SEOUL NATIONAL UNIVERSITY. ALL RIGHTS RESERVED
+                    </p>
+                    08826 서울특별시 관악구 관악로 1 서울대학교 TEL 02-880-5114 FAX
+                    02-885-5272
+                </address>
+            </footer>
             <ToastContainer/>
         </div>
     );

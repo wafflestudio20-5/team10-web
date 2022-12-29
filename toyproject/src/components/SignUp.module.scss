@@ -13,6 +13,16 @@
         padding: 20px;
         box-sizing: border-box;
     }
+    .header {
+        padding: 35px 0;
+        text-align: center;
+        background: #193988;
+        position: relative;
+        img {
+            width: 211px;
+            height: 51px;
+        }
+    }
 }
 
 .tos{
@@ -49,7 +59,7 @@
 }
 
 .progress {
-    margin: auto;
+    margin: 50px auto;
     padding: 0;
     display: flex;
     .step {
@@ -59,7 +69,7 @@
         border: 1px solid #E7EBF3;
         border-radius: 15%;
         padding: 24px 0 24px 0;
-        margin: auto 30px 70px 30px;
+        margin: auto 30px 20px 30px;
         background-color: #EAF2FF;
         display: flex;
         flex-direction: column;
@@ -93,11 +103,10 @@
     }
 }
 
-
 .next {
     width: 146px;
     height: 44px;
-    margin: 20px auto auto auto;
+    margin: 20px auto 50px auto;
     background-color: #1B3B86;
     border: none;
     color: white;
@@ -193,7 +202,7 @@
     width: 746px;
     box-sizing: border-box;
     margin: auto auto 100px auto;
-    padding: 40px;
+    padding: 70px;
     background-color: #F9FAFD;
     border-top: 1px solid #CDD7EC;
     border-bottom: 1px solid #CDD7EC;
