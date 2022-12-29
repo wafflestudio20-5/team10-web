@@ -6,9 +6,26 @@
   <component name="ChangeListManager">
     <list default="true" id="290c869b-db95-469b-b2ba-81a776cd72fe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/Loginpage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/LoginPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/global.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/SignUp.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/SignUp.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/SignUpPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/SignUpPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/board/boardHeader/boardHeader.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/board/boardHeader/BoardHeader.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/board/boardHeader/boardHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/board/boardHeader/BoardHeader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/board/boardSideBar/boardSideBar.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/board/boardSideBar/BoardSideBar.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/board/boardSideBar/boardSideBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/board/boardSideBar/BoardSideBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/cards/card.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/cards/Card.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/cards/card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/cards/Card.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/cards/cards.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/cards/Cards.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/cards/cards.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/cards/Cards.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/dashboard/dashBoard.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/dashboard/DashBoard.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/dashboard/dashBoard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/dashboard/DashBoard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/dashboard/rightSide.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/dashboard/RightSide.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/dashboard/rightSide.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/dashboard/RightSide.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/sideNavbar/modal/authModal.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/sideNavbar/modal/AuthModal.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/sideNavbar/modal/authModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/sideNavbar/modal/AuthModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/sideNavbar/modal/subjectModal.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/sideNavbar/modal/SubjectModal.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/sideNavbar/modal/subjectModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/sideNavbar/modal/SubjectModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/sideNavbar/sideNavBar.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/sideNavbar/SideNavBar.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/sideNavbar/sideNavBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/sideNavbar/SideNavBar.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
