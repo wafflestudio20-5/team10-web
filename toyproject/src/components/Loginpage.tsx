@@ -1,21 +1,21 @@
 // import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState } from 'react';
 
-import loginHeader from "../resources/loginHeader.png";
-import kakao from "../resources/kakao.png";
-import styles from "./LoginHeader.module.scss";
+import loginHeader from '../resources/loginHeader.png';
+import kakao from '../resources/kakao.png';
+import styles from './LoginHeader.module.scss';
 
 function Loginpage() {
-  const [ID, setID] = useState("");
-  const [password, setPassword] = useState("");
+  const [ID, setID] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // 로그인 api 호출
     // 메인 화면으로 전환
     console.log(ID, password);
-    setID("");
-    setPassword("");
+    setID('');
+    setPassword('');
   };
 
   return (
