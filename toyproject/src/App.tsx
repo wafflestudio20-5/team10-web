@@ -4,8 +4,8 @@ import { SideNavBar } from './components/sideNavbar/SideNavBar';
 import { DashBoard } from './components/dashboard/DashBoard';
 import { RightSide } from './components/dashboard/RightSide';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import SignUp from './components/SignUp';
-import Loginpage from './components/LoginPage';
+import SignUpPage from './components/SignUpPage';
+import LoginPage from './components/LoginPage';
 import BoardPage from './components/board/BoardPage';
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
           path='/login/new'
           element={
             <>
-              <SignUp></SignUp>
+              <SignUpPage></SignUpPage>
             </>
           }
         ></Route>
@@ -38,7 +38,7 @@ function App() {
           path='/login'
           element={
             <>
-              <Loginpage></Loginpage>
+              <LoginPage></LoginPage>
             </>
           }
         ></Route>

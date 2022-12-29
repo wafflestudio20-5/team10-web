@@ -5,7 +5,7 @@ import loginHeader from '../resources/loginHeader.png';
 import kakao from '../resources/kakao.png';
 import styles from './LoginHeader.module.scss';
 
-function Loginpage() {
+function LoginPage() {
   const [ID, setID] = useState('');
   const [password, setPassword] = useState('');
 
@@ -78,4 +78,4 @@ function Loginpage() {
     </div>
   );
 }
-export default Loginpage;
+export default LoginPage;

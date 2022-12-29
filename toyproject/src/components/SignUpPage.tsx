@@ -116,7 +116,7 @@ const ProgressElement = ({currentStage}: { currentStage: number }) => {
     )
 }
 
-export default function SignUp() {
+export default function SignUpPage() {
 
     /** 현재 회원가입 진행 상황 */
     const [currentStage, setCurrentStage] = useState<number>(0);
