@@ -6,6 +6,7 @@ import { RightSide } from './components/dashboard/RightSide';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import Loginpage from './components/LoginPage';
+import BoardPage from './components/board/BoardPage';
 
 function App() {
   return (
@@ -38,6 +39,14 @@ function App() {
           element={
             <>
               <Loginpage></Loginpage>
+            </>
+          }
+        ></Route>
+        <Route
+          path='/:subjectname/board'
+          element={
+            <>
+              <BoardPage></BoardPage>
             </>
           }
         ></Route>
