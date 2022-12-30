@@ -1,11 +1,11 @@
 import React from 'react';
-import BoardHeader from './boardHeader/BoardHeader';
-import BoardSideBar from './boardSideBar/BoardSideBar';
-import Board from './boardNav/BoardNav';
+import styles from './BoardDetailPage.module.scss';
 import { SideNavBar } from '../sideNavbar/SideNavBar';
-import styles from './BoardNavPage.module.scss';
+import BoardHeader from './boardHeader/BoardHeader';
+import BoardDetail from './boardDetail/BoardDetail';
+import BoardSideBar from './boardSideBar/BoardSideBar';
 
-function BoardNavPage() {
+export default function BoardDetailPage() {
   return (
     <div className='wrapper'>
       <SideNavBar></SideNavBar>
@@ -13,11 +13,9 @@ function BoardNavPage() {
         <BoardHeader></BoardHeader>
         <div className={styles.body}>
           <BoardSideBar></BoardSideBar>
-          <Board></Board>
+          <BoardDetail></BoardDetail>
         </div>
       </section>
     </div>
   );
 }
-
-export default BoardNavPage;
