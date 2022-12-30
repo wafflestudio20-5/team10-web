@@ -5,6 +5,7 @@ import styles from './SignUp.module.scss';
 import headerStyles from './LoginHeader.module.scss';
 import { Term1, Term2, Term3 } from '../TermsOfService.js';
 import loginHeader from '../../resources/loginHeader.png';
+import {useNavigate} from "react-router-dom";
 
 /** 이용 약관 */
 interface Term {
@@ -207,6 +208,7 @@ export default function SignUpPage() {
   });
   const [pwChecking, setPwChecking] = useState<boolean>(false);
   const [pwRepeat, setPwRepeat] = useState<string>('');
+  const nav = useNavigate();
 
   return (
     <div className={styles.signup}>
@@ -337,7 +339,7 @@ export default function SignUpPage() {
       ) : (
         <div className={styles.signup}>
           <h2 className={styles.done}>회원가입이 완료되었습니다.</h2>
-          <button className={styles.next}>돌아가기</button>
+          <button className={styles.next} onClick={()=>nav("/login")}>돌아가기</button>
         </div>
       )}
       <footer className={headerStyles.footer}>
