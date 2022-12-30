@@ -1,7 +1,7 @@
 import React from 'react';
 import BoardHeader from './boardHeader/BoardHeader';
 import BoardSideBar from './boardSideBar/BoardSideBar';
-import Board from './boardNav/BoardNav';
+import BoardNav from './boardNav/BoardNav';
 import { SideNavBar } from '../sideNavbar/SideNavBar';
 import styles from './BoardNavPage.module.scss';
 
@@ -13,7 +13,7 @@ function BoardNavPage() {
         <BoardHeader></BoardHeader>
         <div className={styles.body}>
           <BoardSideBar></BoardSideBar>
-          <Board></Board>
+          <BoardNav></BoardNav>
         </div>
       </section>
     </div>

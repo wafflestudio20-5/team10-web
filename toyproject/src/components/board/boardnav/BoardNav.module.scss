@@ -1,4 +1,17 @@
 .wrapper {
   background-color: aqua;
   width: 100%;
+
+  h2 {
+    padding-left: 20px;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  nav {
+    margin: 20px;
+    border: solid RGB(199, 205, 209);
+  }
 }

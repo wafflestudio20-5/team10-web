@@ -6,7 +6,6 @@ import { RightSide } from './components/dashboard/RightSide';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SignUpPage from './components/auth/SignUpPage';
 import LoginPage from './components/auth/LoginPage';
-import BoardPage from './components/board/BoardNavPage';
 import BoardDetailPage from './components/board/BoardDetailPage';
 import BoardNavPage from './components/board/BoardNavPage';
 
