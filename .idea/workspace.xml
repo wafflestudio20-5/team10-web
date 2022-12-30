@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="290c869b-db95-469b-b2ba-81a776cd72fe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/SignUp.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/SignUp.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/SignUpPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/SignUpPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/board/boardnav/BoardNav.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/board/boardNav/BoardNav.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/board/boardnav/BoardNav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/board/boardNav/BoardNav.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +63,7 @@
       <workItem from="1671711593972" duration="1973000" />
       <workItem from="1671713631537" duration="1059000" />
       <workItem from="1671974124847" duration="5873000" />
+      <workItem from="1672372776892" duration="1174000" />
     </task>
     <servers />
   </component>
