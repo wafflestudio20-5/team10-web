@@ -4,8 +4,8 @@ import { SideNavBar } from './components/sideNavbar/SideNavBar';
 import { DashBoard } from './components/dashboard/DashBoard';
 import { RightSide } from './components/dashboard/RightSide';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import SignUpPage from './components/signUp/SignUpPage';
-import LoginPage from './components/login/LoginPage';
+import SignUpPage from './components/auth/SignUpPage';
+import LoginPage from './components/auth/LoginPage';
 import BoardPage from './components/board/BoardNavPage';
 
 function App() {

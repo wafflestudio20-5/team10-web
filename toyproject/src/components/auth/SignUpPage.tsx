@@ -3,8 +3,8 @@ import ReactMarkdown from 'react-markdown';
 import { ToastContainer, toast } from 'react-toastify';
 import styles from './SignUp.module.scss';
 import headerStyles from './LoginHeader.module.scss';
-import { Term1, Term2, Term3 } from '.././TermsOfService.js';
-import loginHeader from '../resources/loginHeader.png';
+import { Term1, Term2, Term3 } from '../TermsOfService.js';
+import loginHeader from '../../resources/loginHeader.png';
 
 /** 이용 약관 */
 interface Term {

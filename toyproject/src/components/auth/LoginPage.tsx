@@ -1,8 +1,8 @@
 // import { Link } from "react-router-dom";
 import { useState } from 'react';
 
-import loginHeader from '../resources/loginHeader.png';
-import kakao from '../resources/kakao.png';
+import loginHeader from '../../resources/loginHeader.png';
+import kakao from '../../resources/kakao.png';
 import styles from './LoginHeader.module.scss';
 
 function LoginPage() {
