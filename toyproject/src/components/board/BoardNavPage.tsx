@@ -1,9 +1,9 @@
 import React from 'react';
 import BoardHeader from './boardHeader/BoardHeader';
 import BoardSideBar from './boardSideBar/BoardSideBar';
-import Board from './board/Board';
+import Board from './boardnav/BoardNav';
 import { SideNavBar } from '../sideNavbar/SideNavBar';
-import styles from './BoardPage.module.scss';
+import styles from './BoardNavPage.module.scss';
 
 function BoardPage() {
   return (

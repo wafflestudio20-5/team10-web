@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Board.module.scss';
+import styles from './BoardNav.module.scss';
 
 export default function Board() {
   return (
