@@ -1,19 +1,27 @@
 .wrapper {
   background-color: aqua;
-  width: 100%;
+  // width: 100%;
+  flex-grow: 1;
 
   h2 {
     padding-left: 20px;
   }
 
+  ul {
+    padding-left: 0;
+  }
+
   li {
-    width: 400px;
+    border: solid RGB(199, 205, 209);
+    width: 100%;
     height: 75px;
     list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: start;
   }
 
   nav {
     margin: 20px;
-    border: solid RGB(199, 205, 209);
   }
 }
