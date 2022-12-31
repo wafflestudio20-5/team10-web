@@ -1,11 +1,11 @@
 import React from 'react';
-import styles from './BoardDetailPage.module.scss';
+import styles from './NoticeBoardPage.module.scss';
 import { SideNavBar } from '../sideNavbar/SideNavBar';
 import BoardHeader from './boardHeader/BoardHeader';
-import BoardDetail from './boardDetail/BoardDetail';
 import BoardSideBar from './boardSideBar/BoardSideBar';
+import BoardDetail from './boardDetail/BoardDetail';
 
-export default function BoardDetailPage() {
+export default function NoticeBoardPage() {
   return (
     <div className='wrapper'>
       <SideNavBar></SideNavBar>
@@ -13,6 +13,7 @@ export default function BoardDetailPage() {
         <BoardHeader></BoardHeader>
         <div className={styles.body}>
           <BoardSideBar></BoardSideBar>
+          {/* props전달하여 boarddetail 컴포넌트 재사용 하기 */}
           <BoardDetail></BoardDetail>
         </div>
       </section>

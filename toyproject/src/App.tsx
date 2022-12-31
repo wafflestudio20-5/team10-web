@@ -3,11 +3,12 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SignUpPage from './components/auth/SignUpPage';
 import LoginPage from './components/auth/LoginPage';
-import BoardDetailPage from './components/board/BoardDetailPage';
 import BoardNavPage from './components/board/BoardNavPage';
 import AssignmentPage from './components/assignments/AssignmentPage';
 import AssignmentDetailsPage from './components/assignments/AssignmentDetailsPage';
 import DashBoardPage from './components/dashboard/DashBoardPage';
+import QnABoardPage from './components/board/QnABoardPage';
+import NoticeBoardPage from './components/board/NoticeBoardPage';
 
 function App() {
   return (
@@ -46,10 +47,18 @@ function App() {
           }
         ></Route>
         <Route
-          path='/:subjectname/board'
+          path='/:subjectname/qnaboard'
           element={
             <>
-              <BoardDetailPage></BoardDetailPage>
+              <QnABoardPage />
+            </>
+          }
+        ></Route>
+        <Route
+          path='/:subjectname/noticeboard'
+          element={
+            <>
+              <NoticeBoardPage></NoticeBoardPage>
             </>
           }
         ></Route>
