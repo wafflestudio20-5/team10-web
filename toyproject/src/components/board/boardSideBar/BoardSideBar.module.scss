@@ -22,3 +22,9 @@
     border-bottom: solid #292980;
   }
 }
+
+@media screen and (max-width: 680px) {
+  .wrapper {
+    display: none;
+  }
+}
