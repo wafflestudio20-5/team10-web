@@ -1,5 +1,5 @@
 .wrapper {
-  background-color: aqua;
+  // background-color: aqua;
   // width: 100%;
   flex-grow: 1;
 
@@ -9,16 +9,24 @@
 
   ul {
     padding-left: 0;
+    box-sizing: border-box;
+    border-top: solid RGB(199, 205, 209);
+    border-left: solid RGB(199, 205, 209);
   }
 
   li {
-    border: solid RGB(199, 205, 209);
-    width: 100%;
+    width: auto;
     height: 75px;
     list-style: none;
     display: flex;
     align-items: center;
-    justify-content: start;
+    padding-left: 30px;
+    border-right: solid RGB(199, 205, 209);
+    border-bottom: solid RGB(199, 205, 209);
+  }
+
+  li:hover {
+    cursor: pointer;
   }
 
   nav {

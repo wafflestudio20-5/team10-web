@@ -13,11 +13,11 @@ export default function BoardNav() {
         <ul>
           <li>
             <FontAwesomeIcon icon={faClipboardList} size='lg'></FontAwesomeIcon>
-            공지 게시판
+            &nbsp; 공지 게시판
           </li>
           <li>
             <FontAwesomeIcon icon={faClipboardQuestion} size='lg' />
-            qna 게시판
+            &nbsp; qna 게시판
           </li>
         </ul>
       </nav>
