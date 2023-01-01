@@ -7,7 +7,7 @@ import styles from './BoardNavPage.module.scss';
 
 function BoardNavPage() {
   return (
-    <div className='wrapper'>
+    <div className={styles.wrapper}>
       <SideNavBar></SideNavBar>
       <section>
         <BoardHeader></BoardHeader>

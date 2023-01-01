@@ -7,7 +7,7 @@ import BoardDetail from '../boardDetail/BoardDetail';
 
 export default function NoticeBoardPage() {
   return (
-    <div className='wrapper'>
+    <div className={styles.wrapper}>
       <SideNavBar></SideNavBar>
       <section>
         <BoardHeader></BoardHeader>

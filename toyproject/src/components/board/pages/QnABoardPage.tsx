@@ -6,7 +6,7 @@ import BoardSideBar from '../boardSideBar/BoardSideBar';
 import styles from './QnABoardPage.module.scss';
 export default function QnABoardPage() {
   return (
-    <div className='wrapper'>
+    <div className={styles.wrapper}>
       <SideNavBar></SideNavBar>
       <section>
         <BoardHeader></BoardHeader>

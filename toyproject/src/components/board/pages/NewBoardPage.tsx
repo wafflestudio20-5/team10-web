@@ -7,7 +7,7 @@ import PostingBoard from '../boardNew/PostingBoard';
 
 export default function NewBoardPage() {
   return (
-    <div className='wrapper'>
+    <div className={styles.wrapper}>
       <SideNavBar></SideNavBar>
       <section>
         <BoardHeader></BoardHeader>

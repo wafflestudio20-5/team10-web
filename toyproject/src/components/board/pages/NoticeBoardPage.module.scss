@@ -1,7 +1,10 @@
-.body {
+.wrapper {
   display: flex;
+  section {
+    width: 100%;
+  }
 }
 
-section {
-  width: 100%;
+.body {
+  display: flex;
 }
