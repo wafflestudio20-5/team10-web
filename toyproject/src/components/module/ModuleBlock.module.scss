@@ -1,0 +1,43 @@
+.wrapper {
+  background-color: white;
+}
+
+.moduleContainer {
+  padding: 39px 9px 24px 9px;
+  box-sizing: border-box;
+
+  header {
+    background-color: #f5f5f5;
+    border: 1px solid #c7cdd1;
+    padding: 17px 6px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+
+    .caretDown {
+      height: 16px;
+      width: 16px;
+      padding: 0 5px;
+    }
+  }
+
+  article {
+    padding: 12px 6px 12px 10px;
+    box-sizing: border-box;
+    border: 1px solid #c7cdd1;
+    border-top: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    display: flex;
+
+    .paperClip {
+      color: #929a9f;
+      height: 18px;
+      padding: 6px;
+    }
+    span {
+      padding: 5px;
+    }
+  }
+}
