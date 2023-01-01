@@ -8,6 +8,7 @@ import snulogo from '../../svg/snulogo.svg';
 import { ReactComponent as UserIcon } from '../../svg/userIcon.svg';
 import { SubjectModal } from './modal/SubjectModal';
 import { AuthModal } from './modal/AuthModal';
+import { Link } from 'react-router-dom';
 
 export const SideNavBar = () => {
   const [subjectModal, setSubjectModal] = useState<boolean>(false);
@@ -75,7 +76,7 @@ export const SideNavBar = () => {
           }}
         >
           <DashBoard></DashBoard>
-          대시보드
+          <Link to='/'>대시보드</Link>
         </div>
         <div
           className={`${styles['button-container']} ${
