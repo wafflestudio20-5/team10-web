@@ -1,5 +1,51 @@
+.block {
+  margin: 24px 9px 9px 9px;
+  border: 1px solid #C7CDD1;
+  .header {
+    padding: 12px 6px;
+    background-color: #F5F5F5;
+    display: flex;
+    .toggle {
+      margin: 0;
+      background-color: inherit;
+      height: 30px;
+      box-sizing: border-box;
+      padding: 3px 0;
+      flex-grow: 1;
+      cursor: pointer;
+      text-align: left;
+      border: none;
+      display: flex;
+      .arrow {
+        width: 12px;
+        height: 12px;
+        margin: auto 10px;
+      }
+      .category {
+        margin: auto 0;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .icon {
+        margin: auto 10px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+    .weight {
+      height: 24px;
+      box-sizing: border-box;
+      margin: auto 10px;
+      padding: 3px 10px;
+      font-size: small;
+      border: 1px solid #BEBEBE;
+      border-radius: 12px;
+    }
+  }
+}
+
 .assignment {
   height: 67px;
   display: flex;
-
+  border-top: 1px solid #C7CDD1;
 }

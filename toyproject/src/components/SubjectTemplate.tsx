@@ -1,12 +1,8 @@
-import React, { useState } from "react";
-import styles from "./SubjectTemplate.module.scss";
-import { SideNavBar } from "./sideNavbar/SideNavBar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBars,
-  faChevronRight,
-  faChevronLeft,
-} from "@fortawesome/free-solid-svg-icons";
+import React, {useState} from 'react';
+import styles from './SubjectTemplate.module.scss';
+import {SideNavBar} from "./sideNavbar/SideNavBar";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBars, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 
 const ListElement = ({ current, name }: { current: string; name: string }) => {
   return (
