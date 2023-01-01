@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="290c869b-db95-469b-b2ba-81a776cd72fe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentDetailsPage.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentDetailsPage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/assignments/Assignment.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/assignments/Assignment.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/assignments/Assignment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentBlock.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +64,8 @@
       <workItem from="1671974124847" duration="5873000" />
       <workItem from="1672372776892" duration="1858000" />
       <workItem from="1672386281519" duration="1427000" />
-      <workItem from="1672402316145" duration="1961000" />
+      <workItem from="1672402316145" duration="2831000" />
+      <workItem from="1672410735874" duration="62000" />
     </task>
     <servers />
   </component>
