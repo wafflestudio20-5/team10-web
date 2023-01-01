@@ -9,6 +9,7 @@ import AssignmentDetailsPage from './components/assignments/AssignmentDetailsPag
 import DashBoardPage from './components/dashboard/DashBoardPage';
 import QnABoardPage from './components/board/pages/QnABoardPage';
 import NoticeBoardPage from './components/board/pages/NoticeBoardPage';
+import NewBoardPage from './components/board/pages/NewBoardPage';
 
 function App() {
   return (
@@ -59,6 +60,14 @@ function App() {
           element={
             <>
               <NoticeBoardPage></NoticeBoardPage>
+            </>
+          }
+        ></Route>
+        <Route
+          path='/:subjectname/board/new'
+          element={
+            <>
+              <NewBoardPage></NewBoardPage>
             </>
           }
         ></Route>
