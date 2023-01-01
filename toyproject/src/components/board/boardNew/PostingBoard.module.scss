@@ -1,9 +1,11 @@
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+.container {
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-body {
-  display: flex;
+  body {
+    display: flex;
+  }
 }

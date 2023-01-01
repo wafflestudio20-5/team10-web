@@ -3,7 +3,7 @@ import styles from './PostingBoard.module.scss';
 
 export default function PostingBoard() {
   return (
-    <div>
+    <div className={styles.container}>
       <header>
         <h2>게시글 작성</h2>
         <div className={styles['button-container']}>
