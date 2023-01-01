@@ -1,12 +1,12 @@
 import React from 'react';
 import AssignmentBlock from "./AssignmentBlock";
+import styles from "./AssignmentPage.module.scss";
+import SubjectTemplate from "../SubjectTemplate";
 
 export default function AssignmentPage() {
     return (
-        <div>
-            <AssignmentBlock sort="시험" assignments={
-                []
-            }/>
-        </div>
+        <SubjectTemplate subject="컴퓨터구조" page="과제" content="과제3">
+
+        </SubjectTemplate>
     )
 }
