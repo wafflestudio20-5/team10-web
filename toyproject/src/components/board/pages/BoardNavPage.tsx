@@ -1,8 +1,8 @@
 import React from 'react';
-import BoardHeader from './boardHeader/BoardHeader';
-import BoardSideBar from './boardSideBar/BoardSideBar';
-import BoardNav from './boardNav/BoardNav';
-import { SideNavBar } from '../sideNavbar/SideNavBar';
+import BoardHeader from '../boardHeader/BoardHeader';
+import BoardSideBar from '../boardSideBar/BoardSideBar';
+import BoardNav from '../boardNav/BoardNav';
+import { SideNavBar } from '../../sideNavbar/SideNavBar';
 import styles from './BoardNavPage.module.scss';
 
 function BoardNavPage() {

@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './NoticeBoardPage.module.scss';
-import { SideNavBar } from '../sideNavbar/SideNavBar';
-import BoardHeader from './boardHeader/BoardHeader';
-import BoardSideBar from './boardSideBar/BoardSideBar';
-import BoardDetail from './boardDetail/BoardDetail';
+import { SideNavBar } from '../../sideNavbar/SideNavBar';
+import BoardHeader from '../boardHeader/BoardHeader';
+import BoardSideBar from '../boardSideBar/BoardSideBar';
+import BoardDetail from '../boardDetail/BoardDetail';
 
 export default function NoticeBoardPage() {
   return (

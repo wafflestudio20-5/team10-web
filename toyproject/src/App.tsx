@@ -3,12 +3,12 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SignUpPage from './components/auth/SignUpPage';
 import LoginPage from './components/auth/LoginPage';
-import BoardNavPage from './components/board/BoardNavPage';
+import BoardNavPage from './components/board/pages/BoardNavPage';
 import AssignmentPage from './components/assignments/AssignmentPage';
 import AssignmentDetailsPage from './components/assignments/AssignmentDetailsPage';
 import DashBoardPage from './components/dashboard/DashBoardPage';
-import QnABoardPage from './components/board/QnABoardPage';
-import NoticeBoardPage from './components/board/NoticeBoardPage';
+import QnABoardPage from './components/board/pages/QnABoardPage';
+import NoticeBoardPage from './components/board/pages/NoticeBoardPage';
 
 function App() {
   return (

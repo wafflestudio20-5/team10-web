@@ -1,8 +1,8 @@
 import React from 'react';
-import { SideNavBar } from '../sideNavbar/SideNavBar';
-import BoardHeader from './boardHeader/BoardHeader';
-import BoardDetail from './boardDetail/BoardDetail';
-import BoardSideBar from './boardSideBar/BoardSideBar';
+import { SideNavBar } from '../../sideNavbar/SideNavBar';
+import BoardHeader from '../boardHeader/BoardHeader';
+import BoardDetail from '../boardDetail/BoardDetail';
+import BoardSideBar from '../boardSideBar/BoardSideBar';
 import styles from './QnABoardPage.module.scss';
 export default function QnABoardPage() {
   return (
