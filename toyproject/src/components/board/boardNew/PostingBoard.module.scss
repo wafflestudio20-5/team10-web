@@ -7,6 +7,37 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    .button-container {
+      .cancel {
+        padding: 9px 15px;
+        height: 35px;
+        width: 60px;
+        background-color: white;
+        border: solid 1px;
+        border-radius: 5px;
+      }
+
+      .cancel:hover {
+        cursor: pointer;
+        background-color: #0b4b95;
+        color: white;
+      }
+
+      .submit {
+        margin-left: 10px;
+        padding: 9px 15px;
+        height: 35px;
+        width: 60px;
+        background-color: #167ef4;
+        color: white;
+        border: solid;
+        border-radius: 5px;
+      }
+      .submit:hover {
+        cursor: pointer;
+        background-color: #0b4b95;
+      }
+    }
   }
 
   body {

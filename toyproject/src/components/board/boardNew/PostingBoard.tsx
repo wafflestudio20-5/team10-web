@@ -7,8 +7,8 @@ export default function PostingBoard() {
       <header>
         <h2>게시글 작성</h2>
         <div className={styles['button-container']}>
-          <button>취소</button>
-          <button>등록</button>
+          <button className={styles.cancel}>취소</button>
+          <button className={styles.submit}>등록</button>
         </div>
       </header>
       <body>
