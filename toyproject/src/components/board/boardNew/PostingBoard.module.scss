@@ -1,4 +1,8 @@
 .container {
+  //   width: 100%;
+  flex-grow: 1;
+  padding: 20px;
+  padding-top: 0;
   header {
     display: flex;
     align-items: center;
@@ -7,5 +11,48 @@
 
   body {
     display: flex;
+    border-top: solid #808080;
+    padding-top: 20px;
+  }
+}
+
+.title-container {
+  display: flex;
+  flex-direction: column;
+  .title {
+    width: 160px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .content {
+    width: 160px;
+    height: 425px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  input {
+    padding: 10px 12px;
+    height: 16px;
+    border: #ced4d9 solid;
+    border-radius: 5px;
+  }
+
+  textarea {
+    resize: none;
+    height: 425px;
+    margin-top: 20px;
+    padding: 8px;
+    border: #ced4d9 solid;
+    border-radius: 5px;
   }
 }

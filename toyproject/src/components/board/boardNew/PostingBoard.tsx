@@ -12,8 +12,14 @@ export default function PostingBoard() {
         </div>
       </header>
       <body>
-        <div className={styles.name}>제목 내용 파일첨부</div>
-        <div className={styles['input-container']}> 여기 본문</div>
+        <div className={styles['title-container']}>
+          <div className={styles.title}>제목</div>
+          <div className={styles.content}>내용</div>
+        </div>
+        <div className={styles['input-container']}>
+          <input placeholder='제목 입력'></input>
+          <textarea placeholder='내용 입력'></textarea>
+        </div>
       </body>
     </div>
   );
