@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './BoardDetail.module.scss';
+import { Link } from 'react-router-dom';
 
 type Writing = {
   id: number;
@@ -38,7 +39,9 @@ export default function BoardDetail() {
     <div className={styles.wrapper}>
       <header>
         <h2>과목명-과목 게시판</h2>
-        <button className={styles['create-button']}>글쓰기</button>
+        <button className={styles['create-button']}>
+          <Link to='/:subjectname/board/new'>글쓰기</Link>
+        </button>
       </header>
       <div className={styles.explain}>
         과목명의 게시판입니다. 공지 및 각종 질문을 올리는 곳입니다.

@@ -18,6 +18,11 @@
     height: 38px;
     border-radius: 5px;
     border: solid;
+
+    a {
+      text-decoration: none;
+      color: white;
+    }
   }
 
   .create-button:hover {
