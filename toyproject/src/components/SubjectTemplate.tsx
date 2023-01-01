@@ -27,7 +27,7 @@ export default function SubjectTemplate({
 }: {
   subject: string; // 과목명
   page: string; // 세부 페이지 종류 (ex. 모듈, 게시판, 과제 등등)
-  content: string | undefined; // 세부 항목의 제목 (ex. 게시글 제목. 페이지의 메인 화면이면 undefined)
+  content?: string | undefined; // 세부 항목의 제목 (ex. 게시글 제목. 페이지의 메인 화면이면 undefined)
   children?: React.ReactNode;
 }) {
   const [toggleNav, setToggleNav] = useState<boolean>(true);
