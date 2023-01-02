@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AssignmentBlock from "./AssignmentBlock";
 import styles from "./AssignmentPage.module.scss";
 import SubjectTemplate from "../SubjectTemplate";
@@ -9,6 +9,10 @@ export default function AssignmentPage() {
 
     const {subjectName} = useParams<string>();
     const [isCategorized, setIsCategorized] = useState(true);
+    const [assignmentsByTime, setAssignmentsByTime] = useState<AssigmentBlockInterface>({
+        category: "마감일 순",
+        assignments: []
+    });
 
     // 테스트용 임시데이터
     const assignments: AssigmentBlockInterface[] = [
@@ -16,12 +20,12 @@ export default function AssignmentPage() {
             category: "Exam",
             assignments: [
                 {
-                    assignment: {name: "Exam1", dueDate: "2022/12/25", maxGrade: 100, weight: 30},
+                    assignment: {name: "Exam1", dueDate: "2022년 12월 25일 23:59", maxGrade: 90, weight: 30},
                     isGraded: true,
                     grade: 80,
                 },
                 {
-                    assignment: {name: "Exam2", dueDate: "2023/02/04", maxGrade: 120, weight: 20},
+                    assignment: {name: "Exam2", dueDate: "2023년 2월 1일 23:59", maxGrade: 120, weight: 20},
                     isGraded: false,
                     grade: -1,
                 }
@@ -31,13 +35,17 @@ export default function AssignmentPage() {
             category: "Programming",
             assignments: [
                 {
-                    assignment: {name: "토이프로젝트", dueDate: "2023/02/04", maxGrade: 100, weight: 50},
+                    assignment: {name: "토이프로젝트", dueDate: "2023년 2월 4일 23:59", maxGrade: 100, weight: 50},
                     isGraded: true,
                     grade: 100,
                 }
             ]
         }
     ]
+
+    useEffect(() => {
+        // 마감일 순 정렬 알고리즘 (아직 Date format 확정이 안돼서 구현불가)
+    }, [])
 
     return (
         <SubjectTemplate subject="와플학개론" page="과제" content={undefined}>

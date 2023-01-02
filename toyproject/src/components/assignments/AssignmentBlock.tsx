@@ -21,10 +21,22 @@ export interface AssigmentBlockInterface {
     assignments: UserAssignmentInterface[]
 }
 
-const Assignment = ({assignment}: {assignment: UserAssignmentInterface}) => {
+const Assignment = ({assignment}: { assignment: UserAssignmentInterface }) => {
     return (
         <div className={styles.assignment}>
-
+            <FontAwesomeIcon icon={faPenToSquare} className={styles.pen_icon}/>
+            <div className={styles.right}>
+                <p className={styles.top}>{assignment.assignment.name}</p>
+                <p className={styles.bottom}>
+                    <b>마감  </b>
+                    {assignment.assignment.dueDate + "  |  "}
+                    {
+                        assignment.isGraded
+                            ? "" + assignment.grade + "/" + assignment.assignment.maxGrade
+                            : "채점되지 않음"
+                    }
+                </p>
+            </div>
         </div>
     )
 }
