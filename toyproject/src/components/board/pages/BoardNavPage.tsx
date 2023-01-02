@@ -4,7 +4,7 @@ import SubjectTemplate from '../../SubjectTemplate';
 
 function BoardNavPage() {
   return (
-    <SubjectTemplate subject='와플학개론' page='과제' content={undefined}>
+    <SubjectTemplate subject='와플학개론' page='게시판' content={undefined}>
       <BoardNav></BoardNav>
     </SubjectTemplate>
   );

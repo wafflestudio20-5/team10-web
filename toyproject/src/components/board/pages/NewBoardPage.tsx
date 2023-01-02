@@ -4,7 +4,7 @@ import SubjectTemplate from '../../SubjectTemplate';
 
 export default function NewBoardPage() {
   return (
-    <SubjectTemplate subject='와플학개론' page='과제' content={undefined}>
+    <SubjectTemplate subject='와플학개론' page='게시판' content={undefined}>
       <PostingBoard></PostingBoard>
     </SubjectTemplate>
   );
