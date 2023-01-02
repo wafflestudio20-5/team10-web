@@ -3,10 +3,21 @@ import styles from './SubjectTemplate.module.scss';
 import {SideNavBar} from "./sideNavbar/SideNavBar";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars, faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const ListElement = ({ current, name }: { current: string; name: string }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const pages = ["모듈", "게시판", "강의계획서", "수강생", "과제", "성적"];
+  const address = ["", "/boardnav", "/syllabus", "/students", "/assignments", "grades"];
+
   return (
-    <li className={current === name ? styles.current : undefined}>
+    <li className={current === name ? styles.current : undefined}
+        onClick={() => navigate(
+            current === "모듈"
+            ? location.pathname + address[pages.indexOf(name)]
+            : location.pathname.replace(address[pages.indexOf(current)], address[pages.indexOf(name)])
+        )}>
       {name}
       {current === name && (
         <FontAwesomeIcon icon={faChevronRight} className={styles.arrow} />
@@ -27,7 +38,6 @@ export default function SubjectTemplate({
   children?: React.ReactNode;
 }) {
   const [toggleNav, setToggleNav] = useState<boolean>(true);
-  const pages = ["모듈", "게시판", "강의계획서", "수강생", "과제", "성적"];
 
   return (
     <div className={styles.wrapper}>
