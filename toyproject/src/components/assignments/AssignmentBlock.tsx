@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import styles from "./Assignment.module.scss";
 import {faCaretDown, faCaretRight, faPenToSquare, faFileExport} from "@fortawesome/free-solid-svg-icons";
+import {useNavigate} from "react-router-dom";
 
 export interface AssignmentInterface {      // Assignment-Unique
     name: string,
@@ -22,8 +23,9 @@ export interface AssigmentBlockInterface {
 }
 
 const Assignment = ({assignment}: { assignment: UserAssignmentInterface }) => {
+    const navigate = useNavigate();
     return (
-        <div className={styles.assignment}>
+        <div className={styles.assignment} onClick={() => navigate(assignment.assignment.name)}>
             <FontAwesomeIcon icon={faPenToSquare} className={styles.pen_icon}/>
             <div className={styles.right}>
                 <p className={styles.top}>{assignment.assignment.name}</p>
