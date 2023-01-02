@@ -32,7 +32,12 @@ export const SideNavBar = () => {
   };
 
   const closeAuthModal = () => {
-    setAuthModal(false);
+    setAniState(true);
+    setTimeout(() => {
+      setAniState(false);
+      setAuthModal(false);
+    }, 500);
+    setIsSelected(0);
   };
 
   //modal을 띄우지 않는 button을 클릭시 다른 모달 state를 모두 false로 만듦
