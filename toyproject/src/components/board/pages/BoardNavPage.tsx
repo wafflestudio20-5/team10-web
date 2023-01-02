@@ -1,6 +1,4 @@
 import React from 'react';
-import BoardHeader from '../boardHeader/BoardHeader';
-import BoardSideBar from '../boardSideBar/BoardSideBar';
 import BoardNav from '../boardNav/BoardNav';
 import SubjectTemplate from '../../SubjectTemplate';
 

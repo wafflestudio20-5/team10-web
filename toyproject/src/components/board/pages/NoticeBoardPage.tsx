@@ -1,7 +1,4 @@
 import React from 'react';
-import styles from './NoticeBoardPage.module.scss';
-import { SideNavBar } from '../../sideNavbar/SideNavBar';
-import BoardHeader from '../boardHeader/BoardHeader';
 import BoardDetail from '../boardDetail/BoardDetail';
 import SubjectTemplate from '../../SubjectTemplate';
 
