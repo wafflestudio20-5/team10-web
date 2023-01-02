@@ -1,7 +1,14 @@
 import React from 'react';
 import styles from './PostingBoard.module.scss';
+import { useBoardContext } from '../../../context/BoardContext';
 
 export default function PostingBoard() {
+  const { handleInputContent, handleInputTitle } = useBoardContext();
+
+  //   const onChangeInput = (e: React.ChangeEventHandler<HTMLInputElement>) => {
+  //     console.log(e.target.value);
+  //   };
+
   return (
     <div className={styles.container}>
       <header>
@@ -17,7 +24,10 @@ export default function PostingBoard() {
           <div className={styles.content}>내용</div>
         </div>
         <div className={styles['input-container']}>
-          <input placeholder='제목 입력'></input>
+          <input
+            placeholder='제목 입력'
+            //   onChange={onChangeInput}
+          ></input>
           <textarea placeholder='내용 입력'></textarea>
         </div>
       </body>
