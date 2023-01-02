@@ -2,21 +2,13 @@ import React from 'react';
 import BoardHeader from '../boardHeader/BoardHeader';
 import BoardSideBar from '../boardSideBar/BoardSideBar';
 import BoardNav from '../boardNav/BoardNav';
-import { SideNavBar } from '../../sideNavbar/SideNavBar';
-import styles from './BoardNavPage.module.scss';
+import SubjectTemplate from '../../SubjectTemplate';
 
 function BoardNavPage() {
   return (
-    <div className={styles.wrapper}>
-      <SideNavBar></SideNavBar>
-      <section>
-        <BoardHeader></BoardHeader>
-        <div className={styles.body}>
-          <BoardSideBar></BoardSideBar>
-          <BoardNav></BoardNav>
-        </div>
-      </section>
-    </div>
+    <SubjectTemplate subject='와플학개론' page='과제' content={undefined}>
+      <BoardNav></BoardNav>
+    </SubjectTemplate>
   );
 }
 
