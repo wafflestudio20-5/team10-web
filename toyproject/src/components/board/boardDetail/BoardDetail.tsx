@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './BoardDetail.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 type Writing = {
   id: number;
@@ -35,16 +35,18 @@ const InitialWritings: Writing[] = [
 ];
 
 export default function BoardDetail() {
+  const { subjectname } = useParams();
+
   return (
     <div className={styles.wrapper}>
       <header>
-        <h2>과목명-과목 게시판</h2>
+        <h2>{subjectname}-과목 게시판</h2>
         <button className={styles['create-button']}>
-          <Link to='/:subjectname/board/new'>글쓰기</Link>
+          <Link to={`/${subjectname}/board/new`}>글쓰기</Link>
         </button>
       </header>
       <div className={styles.explain}>
-        과목명의 게시판입니다. 공지 및 각종 질문을 올리는 곳입니다.
+        {subjectname}의 게시판입니다. 공지 및 각종 질문을 올리는 곳입니다.
       </div>
       <div className={styles['search-container']}>
         검색결과 - number 개<input placeholder='검색어입력'></input>
@@ -55,7 +57,7 @@ export default function BoardDetail() {
           <span className={styles.title}>제목</span>
           <span className={styles.username}>작성자</span>
           <span className={styles.created_at}>등록일시</span>
-          <span className={styles.viewed}>1</span>
+          <span className={styles.viewed}>조회수</span>
         </div>
         <ul>
           {InitialWritings.map((item) => {
