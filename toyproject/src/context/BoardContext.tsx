@@ -3,6 +3,8 @@ import React, { createContext, useContext, useState } from 'react';
 type BoardContextType = {
   handleInputTitle: (input: string) => void;
   handleInputContent: (input: string) => void;
+  inputTitle: string;
+  inputContent: string;
 };
 
 const BoardContext = createContext<BoardContextType>({} as BoardContextType);
@@ -27,6 +29,8 @@ export function BoardProvider({ children }: { children: React.ReactNode }) {
       value={{
         handleInputTitle,
         handleInputContent,
+        inputTitle,
+        inputContent,
       }}
     >
       {children}

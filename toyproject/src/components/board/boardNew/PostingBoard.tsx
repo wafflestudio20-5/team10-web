@@ -4,7 +4,8 @@ import { useBoardContext } from '../../../context/BoardContext';
 import { useNavigate } from 'react-router-dom';
 
 export default function PostingBoard() {
-  const { handleInputContent, handleInputTitle } = useBoardContext();
+  const { handleInputContent, handleInputTitle, inputContent, inputTitle } =
+    useBoardContext();
   const navigate = useNavigate();
 
   const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,6 +18,9 @@ export default function PostingBoard() {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    //fetch 함수부분
+    handleInputContent('');
+    handleInputTitle('');
   };
 
   const goBack = () => {
