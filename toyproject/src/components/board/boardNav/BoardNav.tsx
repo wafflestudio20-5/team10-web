@@ -5,15 +5,17 @@ import {
   faClipboardList,
   faClipboardQuestion,
 } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 export default function BoardNav() {
+  const { subjectname } = useParams();
+
   return (
     <div className={styles.wrapper}>
       <h2>전체 게시판</h2>
       <nav>
         <ul>
           <li>
-            <Link to='/:subjectname/noticeboard'>
+            <Link to={`/${subjectname}/noticeboard`}>
               <FontAwesomeIcon
                 icon={faClipboardList}
                 size='lg'
@@ -22,7 +24,7 @@ export default function BoardNav() {
             </Link>
           </li>
           <li>
-            <Link to='/:subjectname/qnaboard'>
+            <Link to={`/${subjectname}/qnaboard`}>
               <FontAwesomeIcon icon={faClipboardQuestion} size='lg' />
               &nbsp; qna 게시판
             </Link>
