@@ -20,10 +20,33 @@
   }
 }
 
+@mixin content {
+  padding: 12px 6px 12px 10px;
+  box-sizing: border-box;
+  border: 1px solid #c7cdd1;
+  border-top: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  display: flex;
+  overflow: hidden;
+
+  &:hover {
+    background-color: #eef7ff;
+  }
+  .paperClip {
+    color: #929a9f;
+    height: 18px;
+    padding: 6px;
+  }
+  span {
+    padding: 5px;
+  }
+}
+
 .moduleContainer {
   padding: 39px 9px 24px 9px;
   box-sizing: border-box;
-
   header {
     background-color: #f5f5f5;
     border: 1px solid #c7cdd1;
@@ -31,11 +54,9 @@
     font-size: 16px;
     font-weight: 700;
     line-height: 20px;
-
     &:hover {
       cursor: pointer;
     }
-
     .caret {
       height: 16px;
       width: 16px;
@@ -44,60 +65,23 @@
   }
   .contentContainer {
     padding: 0;
-    // animation: scaleTop 0.3s cubic-bezier(0.25, 0.25, 0.75, 0.75) forwards;
-    // z-index: -1;
-    // overflow: hidden;
-    // max-height: fit-content;
-    // transition: max-height 0.3s ease-out; // 애니메이션 속성 설정해주기
-
-    .content {
-      padding: 12px 6px 12px 10px;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+    box-sizing: border-box;
+    &Show {
+      padding: 0;
+      height: auto;
+      max-height: 9999px;
+      transition: all 0.5s cubic-bezier(1, 0, 1, 0);
       box-sizing: border-box;
-      border: 1px solid #c7cdd1;
-      border-top: 0;
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 20px;
-      display: flex;
-
-      // &:first-child,
-      // &:nth-last-child(n) ~ & {
-      //   margin-top: -n * 54px;
-      //   transition: 0.5s;
-      // }
-      &:hover {
-        background-color: #eef7ff;
+      overflow: hidden;
+      .contentShow {
+        @include content();
       }
-      .paperClip {
-        color: #929a9f;
-        height: 18px;
-        padding: 6px;
-      }
-      span {
-        padding: 5px;
-      }
+    }
+    .content {
+      @include content();
     }
   }
 }
-// .contentContainer.close {
-//   animation: scaleBack 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-// }
-
-// @keyframes scaleTop {
-//   0% {
-//     /* 모달 콘텐츠를 좌측에 위치시킴 */
-//     transform: scale(1) translateY(-400px);
-//   }
-//   100% {
-//     /* 모달 콘텐츠를 본래 위치로 돌려놓음 */
-//     transform: scale(1) translateY(0);
-//   }
-// }
-// @keyframes scaleBack {
-//   0% {
-//     transform: scale(1) translateY(0);
-//   }
-//   100% {
-//     transform: scale(1) translateY(-500px);
-//   }
-// }

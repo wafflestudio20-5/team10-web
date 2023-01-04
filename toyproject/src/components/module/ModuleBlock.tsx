@@ -32,26 +32,26 @@ const Module = ({
         {module.name}
       </header>
 
-      {openedToggles[module.id] && (
-        <article
-          className=// {`${styles["contentContainer"]} ${
-          //   openedToggles[module.id]
-          //     ? styles["close"]
-          //     : styles["contentContainer"]
-          // }`}
-          {styles.contentContainer}
-        >
-          {module.contents.map((content) => (
-            <section key={content} className={styles.content}>
-              <FontAwesomeIcon
-                icon={faPaperclip}
-                className={styles.paperClip}
-              />
-              <span>{content}</span>
-            </section>
-          ))}
-        </article>
-      )}
+      <article
+        className={
+          openedToggles[module.id]
+            ? styles.contentContainerShow
+            : styles.contentContainer
+        }
+      >
+        {module.contents.map((content) => (
+          <section
+            key={content}
+            className={
+              openedToggles[module.id] ? styles.contentShow : styles.content
+            }
+          >
+            <FontAwesomeIcon icon={faPaperclip} className={styles.paperClip} />
+            <span>{content}</span>
+          </section>
+        ))}
+      </article>
+      {/* )} */}
     </div>
   );
 };
@@ -61,6 +61,7 @@ export default function ModuleBlock() {
     // 예시 모듈 데이터
     { id: 0, name: "1주차", contents: ["Lecture note 1", "Lecture note 2"] },
     { id: 1, name: "2주차", contents: ["Lecture note 3", "Lecture note 4"] },
+    { id: 2, name: "3주차", contents: ["Lecture note 5", "Lecture note 6"] },
   ];
 
   // module의 개수와 같은 개수의 1로 이루어진 배열 생성 (처음에는 모든 모듈이 열려 있는 상태)
@@ -90,19 +91,12 @@ export default function ModuleBlock() {
     }
   };
 
-  // 펼쳐진 상태에 따라 버튼 이름 바꾸기
-  const NamingButton = (openedToggles: boolean[]) => {
-    if (openedToggles.includes(true)) {
-      return "모든 모듈 접기";
-    } else {
-      return "모든 모듈 펼치기";
-    }
-  };
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.headerbar}>
-        <button onClick={handleAllToggle}>{NamingButton(openedToggles)}</button>
+        <button onClick={handleAllToggle}>
+          {openedToggles.includes(true) ? "모든 모듈 접기" : "모든 모듈 펼치기"}
+        </button>
       </div>
       <article>
         {modules.map((module) => (
