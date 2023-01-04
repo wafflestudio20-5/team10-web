@@ -11,6 +11,7 @@ import DashBoardPage from './components/dashboard/DashBoardPage';
 import QnABoardPage from './components/board/pages/QnABoardPage';
 import NoticeBoardPage from './components/board/pages/NoticeBoardPage';
 import NewBoardPage from './components/board/pages/NewBoardPage';
+import { BoardProvider } from './context/BoardContext';
 
 function App() {
   return (
@@ -23,7 +24,14 @@ function App() {
         <Route path='/:subjectname/boardnav' element={<BoardNavPage />} />
         <Route path='/:subjectname/qnaboard' element={<QnABoardPage />} />
         <Route path='/:subjectname/noticeboard' element={<NoticeBoardPage />} />
-        <Route path='/:subjectname/board/new' element={<NewBoardPage />} />
+        <Route
+          path='/:subjectname/board/new'
+          element={
+            <BoardProvider>
+              <NewBoardPage />
+            </BoardProvider>
+          }
+        />
         <Route path='/:subjectname/assignments' element={<AssignmentPage />} />
         <Route
           path='/:subjectname/assignments/:assignmentID'

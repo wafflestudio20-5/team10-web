@@ -25,10 +25,6 @@
     border-bottom: solid RGB(199, 205, 209);
   }
 
-  li:hover {
-    cursor: pointer;
-  }
-
   nav {
     margin: 20px;
   }
@@ -36,5 +32,9 @@
   a {
     text-decoration: none;
     color: black;
+  }
+
+  a:hover {
+    cursor: pointer;
   }
 }
