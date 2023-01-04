@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 import loginHeader from "../../resources/loginHeader.png";
-import kakao from "../../resources/kakao.png";
-import styles from "./LoginHeader.module.scss";
+import google from "../../resources/google.png";
+import styles from "./LoginPage.module.scss";
 
 function LoginPage() {
   const [ID, setID] = useState("");
@@ -63,8 +63,8 @@ function LoginPage() {
               </p>
             </h3>
             <a>
-              <img src={kakao} alt='kakao' title='kakao' />
-              <span>카카오</span>
+              <img src={google} alt='google' title='google' />
+              <span>구글</span>
             </a>
           </section>
         </article>
