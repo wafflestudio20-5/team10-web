@@ -58,9 +58,26 @@
   line-height: 41px;
   font-size: 18px;
   border-radius: 5px;
-  display: table;
   width: 77%;
   margin: 18px auto 0;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.signUpButton {
+  border: 1px solid #02acc4;
+  background-color: #02acc4;
+  color: #fff !important;
+  padding: 0 39px !important;
+  line-height: 41px;
+  font-size: 18px;
+  border-radius: 5px;
+  width: 77%;
+  margin: 18px auto 0;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .socialLogin {

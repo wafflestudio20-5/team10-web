@@ -33,7 +33,14 @@ const Module = ({
       </header>
 
       {openedToggles[module.id] && (
-        <article className={styles.contentContainer}>
+        <article
+          className=// {`${styles["contentContainer"]} ${
+          //   openedToggles[module.id]
+          //     ? styles["close"]
+          //     : styles["contentContainer"]
+          // }`}
+          {styles.contentContainer}
+        >
           {module.contents.map((content) => (
             <section key={content} className={styles.content}>
               <FontAwesomeIcon

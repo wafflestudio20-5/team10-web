@@ -44,7 +44,11 @@
   }
   .contentContainer {
     padding: 0;
-    // animation: scaleTop 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    // animation: scaleTop 0.3s cubic-bezier(0.25, 0.25, 0.75, 0.75) forwards;
+    // z-index: -1;
+    // overflow: hidden;
+    // max-height: fit-content;
+    // transition: max-height 0.3s ease-out; // 애니메이션 속성 설정해주기
 
     .content {
       padding: 12px 6px 12px 10px;
@@ -75,17 +79,18 @@
     }
   }
 }
+// .contentContainer.close {
+//   animation: scaleBack 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+// }
 
 // @keyframes scaleTop {
 //   0% {
 //     /* 모달 콘텐츠를 좌측에 위치시킴 */
-//     transform: scale(1) translateY(-1000px);
-//     opacity: 0;
+//     transform: scale(1) translateY(-400px);
 //   }
 //   100% {
 //     /* 모달 콘텐츠를 본래 위치로 돌려놓음 */
 //     transform: scale(1) translateY(0);
-//     opacity: 1;
 //   }
 // }
 // @keyframes scaleBack {
