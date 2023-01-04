@@ -40,7 +40,7 @@ export default function BoardDetail() {
   return (
     <div className={styles.wrapper}>
       <header>
-        <h2>{subjectname}-과목 게시판</h2>
+        <h2>{subjectname} - 과목 게시판</h2>
         <button className={styles['create-button']}>
           <Link to={`/${subjectname}/board/new`}>글쓰기</Link>
         </button>

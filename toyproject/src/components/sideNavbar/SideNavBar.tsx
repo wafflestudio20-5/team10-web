@@ -71,18 +71,20 @@ export const SideNavBar = () => {
           <UserIcon></UserIcon>
           계정
         </div>
-        <div
-          className={`${styles['button-container']} ${
-            isSelected === 2 ? styles['selected'] : ''
-          }`}
-          onClick={() => {
-            setIsSelected(2);
-            closeOtherModal();
-          }}
-        >
-          <DashBoard></DashBoard>
-          <Link to='/'>대시보드</Link>
-        </div>
+        <Link to='/'>
+          <div
+            className={`${styles['button-container']} ${
+              isSelected === 2 ? styles['selected'] : ''
+            }`}
+            onClick={() => {
+              setIsSelected(2);
+              closeOtherModal();
+            }}
+          >
+            <DashBoard></DashBoard>
+            대시보드
+          </div>
+        </Link>
         <div
           className={`${styles['button-container']} ${
             isSelected === 3 ? styles['selected'] : ''
