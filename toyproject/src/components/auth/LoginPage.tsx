@@ -1,21 +1,22 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
-import loginHeader from "../../resources/loginHeader.png";
-import google from "../../resources/google.png";
-import styles from "./LoginPage.module.scss";
+import loginHeader from '../../resources/loginHeader.png';
+import google from '../../resources/google.png';
+import styles from './LoginPage.module.scss';
+import { GoogleLogin } from '@react-oauth/google';
 
 function LoginPage() {
-  const [ID, setID] = useState("");
-  const [password, setPassword] = useState("");
+  const [ID, setID] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // 로그인 api 호출
     // 메인 화면으로 전환
     console.log(ID, password);
-    setID("");
-    setPassword("");
+    setID('');
+    setPassword('');
   };
 
   return (
@@ -62,10 +63,18 @@ function LoginPage() {
                 이용하실 수 있습니다.
               </p>
             </h3>
-            <a>
+            {/* <a>
               <img src={google} alt='google' title='google' />
               <span>구글</span>
-            </a>
+            </a> */}
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                console.log(credentialResponse);
+              }}
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            ></GoogleLogin>
           </section>
         </article>
       </div>
