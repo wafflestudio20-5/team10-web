@@ -46,7 +46,7 @@
   min-width: 155px;
   border-radius: 5px;
   margin-bottom: 11px;
-  font-family: "NotoSansKR";
+  font-family: 'NotoSansKR';
   box-sizing: border-box;
 }
 
@@ -100,7 +100,7 @@
     }
   }
 
-  a {
+  .google-login-button {
     display: inline-block;
     width: 19%;
     padding: 17px 0;
@@ -122,6 +122,9 @@
       vertical-align: middle;
       top: 50%;
     }
+  }
+  .google-login-button:hover {
+    cursor: pointer;
   }
 }
 

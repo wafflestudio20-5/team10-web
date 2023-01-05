@@ -4,11 +4,18 @@ import { useState } from 'react';
 import loginHeader from '../../resources/loginHeader.png';
 import google from '../../resources/google.png';
 import styles from './LoginPage.module.scss';
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { useSessionContext } from '../../context/SessionContext';
 
 function LoginPage() {
   const [ID, setID] = useState('');
   const [password, setPassword] = useState('');
+
+  const { handleGoogleToken } = useSessionContext();
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => console.log(tokenResponse),
+    flow: 'auth-code',
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,18 +70,22 @@ function LoginPage() {
                 이용하실 수 있습니다.
               </p>
             </h3>
-            {/* <a>
+            <div
+              className={styles['google-login-button']}
+              onClick={() => login()}
+            >
               <img src={google} alt='google' title='google' />
-              <span>구글</span>
-            </a> */}
-            <GoogleLogin
+              <span>구글 계정으로 로그인</span>
+            </div>
+            {/* <GoogleLogin
               onSuccess={(credentialResponse) => {
                 console.log(credentialResponse);
+                handleGoogleToken(credentialResponse.credential);
               }}
               onError={() => {
                 console.log('Login Failed');
               }}
-            ></GoogleLogin>
+            ></GoogleLogin> */}
           </section>
         </article>
       </div>
