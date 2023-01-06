@@ -1,5 +1,5 @@
 import React from 'react';
-import BoardDetail from '../boardDetail/BoardDetail';
+import BoardList from '../boardList/BoardList';
 import SubjectTemplate from '../../SubjectTemplate';
 import { useParams } from 'react-router-dom';
 export default function QnABoardPage() {
@@ -7,8 +7,8 @@ export default function QnABoardPage() {
 
   return (
     <SubjectTemplate subject={`${subjectname}`} page='게시판' content={'Q&A'}>
-      {/* props 전달하여 boardDetail 부분 재사용하기 */}
-      <BoardDetail></BoardDetail>
+      {/* props 전달하여 boardlist 부분 재사용하기 */}
+      <BoardList category='qnaboard'></BoardList>
     </SubjectTemplate>
   );
 }

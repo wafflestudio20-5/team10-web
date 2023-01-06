@@ -1,0 +1,130 @@
+.wrapper {
+  // background-color: azure;
+  flex-grow: 1;
+  margin: 20px;
+  overflow: scroll;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .create-button {
+    background-color: #167ef4;
+    color: white;
+    padding: 9px 15px;
+    width: 80px;
+    height: 38px;
+    border-radius: 5px;
+    border: solid;
+
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+
+  .create-button:hover {
+    cursor: pointer;
+    background-color: #0c417e;
+  }
+
+  .explain {
+    background-color: #e8eef2;
+    height: 55px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+  }
+  .search-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 12px;
+    align-items: center;
+  }
+
+  input {
+    padding: 10px 12px;
+    border-radius: 5px;
+    width: 190px;
+    border-color: #ced4d9;
+    border-style: solid;
+  }
+
+  body {
+    margin-top: 20px;
+
+    .category {
+      display: flex;
+      border-top: solid #e6e9ec;
+      border-bottom: solid #808080;
+    }
+
+    ul {
+      padding: 0;
+      margin-top: 0;
+    }
+
+    li {
+      display: flex;
+      border-bottom: solid #e6e9ec;
+    }
+  }
+}
+
+.no {
+  box-sizing: border-box;
+  // width: 70px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 70px;
+}
+
+.title {
+  box-sizing: border-box;
+  // width: 425px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  flex: 1 1 425px;
+
+  a {
+    text-decoration: none;
+    color: black;
+    border: solid transparent;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.username {
+  box-sizing: border-box;
+  // width: 150px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  flex: 1 1 150px;
+}
+.created_at {
+  box-sizing: border-box;
+  // width: 150px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  flex: 1 1 150px;
+}
+
+.viewed {
+  box-sizing: border-box;
+  // width: 100px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  flex: 1 1 100px;
+}

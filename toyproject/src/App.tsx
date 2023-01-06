@@ -12,6 +12,7 @@ import QnABoardPage from './components/board/pages/QnABoardPage';
 import NoticeBoardPage from './components/board/pages/NoticeBoardPage';
 import NewBoardPage from './components/board/pages/NewBoardPage';
 import { BoardProvider } from './context/BoardContext';
+import BoardDetailPage from './components/board/pages/BoardDetailPage';
 
 function App() {
   return (
@@ -23,6 +24,16 @@ function App() {
         <Route path='/:subjectname' element={<ModulePage />} />
         <Route path='/:subjectname/boardnav' element={<BoardNavPage />} />
         <Route path='/:subjectname/qnaboard' element={<QnABoardPage />} />
+        {/*이렇게 같은 컴포넌트를 url만 다르게 해서 랜더링 해도 되는 것인가..?*/}
+        <Route
+          path='/:subjectname/qnaboard/:qnaBoardId'
+          element={<BoardDetailPage />}
+        />
+        <Route
+          path='/:subjectname/noticeboard/:noticeBoardId'
+          element={<BoardDetailPage />}
+        />
+
         <Route path='/:subjectname/noticeboard' element={<NoticeBoardPage />} />
         <Route
           path='/:subjectname/board/new'
