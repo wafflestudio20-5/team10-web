@@ -1,0 +1,117 @@
+.wrapper {
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  h1 {
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 31px;
+  }
+
+  .list-button {
+    background-color: #6a6d80;
+    color: white;
+    padding: 9px 15px;
+    width: 80px;
+    height: 38px;
+    border-radius: 5px;
+    border: solid;
+  }
+  .list-button:hover {
+    background-color: #3f424edb;
+    cursor: pointer;
+  }
+
+  body {
+    border-top: solid #6a6d80;
+    border-bottom: solid #808080;
+  }
+
+  h2 {
+    font-size: 20px;
+    line-height: 24px;
+    background-color: #edf1f7;
+    display: block;
+    border-bottom: 1px solid rgb(190, 190, 190);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 15px 20px;
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .explain-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    padding-left: 0;
+  }
+
+  .content-name {
+    font-family: Pretendard;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 17px;
+    white-space: break-spaces;
+    color: rgb(51, 51, 51);
+    font-weight: 700;
+    margin-left: 20px;
+  }
+  .content {
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    white-space: break-spaces;
+    color: rgb(51, 51, 51);
+    margin-left: 5px;
+  }
+  article {
+    padding: 20px;
+    border-top: solid #cccccc;
+  }
+}
+
+.previous-container {
+  border: solid #cccccc;
+  border-radius: 10px;
+  display: flex;
+  overflow: hidden;
+  margin-bottom: 20px;
+  height: 50px;
+}
+
+.previous-title {
+  display: flex;
+  background-color: #f9f9f9;
+  padding: 0 20px;
+  width: 90px;
+  border-right: solid #cccccc;
+  align-items: center;
+  font-family: Pretendard;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 17px;
+  white-space: break-spaces;
+  color: rgb(51, 51, 51);
+  font-weight: 700;
+}
+
+.previous {
+  display: flex;
+  align-items: center;
+  font-family: Pretendard;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  padding: 17px 20px;
+}
