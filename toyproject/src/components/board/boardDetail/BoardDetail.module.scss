@@ -27,7 +27,7 @@
     cursor: pointer;
   }
 
-  body {
+  section {
     border-top: solid #6a6d80;
     border-bottom: solid #808080;
   }
@@ -77,6 +77,33 @@
   article {
     padding: 20px;
     border-top: solid #cccccc;
+  }
+
+  textarea {
+    resize: none;
+    margin-top: 20px;
+    height: 90px;
+  }
+
+  .comment-button {
+    background-color: #6a6d80;
+    color: white;
+    padding: 9px 15px;
+    width: 80px;
+    height: 38px;
+    border-radius: 5px;
+    border: solid;
+    margin-top: 20px;
+    align-self: flex-end;
+  }
+  .comment-button:hover {
+    background-color: #3f424edb;
+    cursor: pointer;
+  }
+
+  footer {
+    display: flex;
+    flex-direction: column;
   }
 }
 

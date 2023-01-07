@@ -10,7 +10,7 @@ export default function BoardDetail() {
         <h1>제목</h1>
         <button className={styles['list-button']}>목록</button>
       </header>
-      <body>
+      <section>
         <h2>강의자료 어쩌구 저쩌구</h2>
         <div className={styles['explain-container']}>
           <div className={styles.flex}>
@@ -29,11 +29,11 @@ export default function BoardDetail() {
           <div className={styles['previous-title']}>이전글</div>
           <div className={styles.previous}>어쩌구 저쩌구</div>
         </div>
-      </body>
+      </section>
       <footer>
         <h3>댓글</h3>
-        <textarea>댓글입력</textarea>
-        <button>댓글등록</button>
+        <textarea placeholder={'댓글입력'}></textarea>
+        <button className={styles['comment-button']}>댓글등록</button>
       </footer>
     </div>
   );

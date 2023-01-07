@@ -55,7 +55,7 @@ export default function BoardList({ category }: BoardListType) {
       <div className={styles['search-container']}>
         검색결과 - number 개<input placeholder='검색어입력'></input>
       </div>
-      <body>
+      <section>
         <div className={styles.category}>
           <span className={styles.no}>no</span>
           <span className={styles.title}>제목</span>
@@ -66,21 +66,27 @@ export default function BoardList({ category }: BoardListType) {
         <ul>
           {InitialWritings.map((item) => {
             return (
-              <li>
+              <li key={item.id}>
                 <span className={styles.no}>{item.id}</span>
-                <span className={styles.title}>
+                <span className={styles.title} key={item.id}>
                   <Link to={`/${subjectname}/${category}/${item.id}`}>
                     {item.title}
                   </Link>
                 </span>
-                <span className={styles.username}>{item.username}</span>
-                <span className={styles.created_at}>{item.created_at}</span>
-                <span className={styles.viewed}>{item.viewed}</span>
+                <span className={styles.username} key={item.id}>
+                  {item.username}
+                </span>
+                <span className={styles.created_at} key={item.id}>
+                  {item.created_at}
+                </span>
+                <span className={styles.viewed} key={item.id}>
+                  {item.viewed}
+                </span>
               </li>
             );
           })}
         </ul>
-      </body>
+      </section>
       <footer>여기에 bottom nav button 이부분 회의</footer>
     </div>
   );
