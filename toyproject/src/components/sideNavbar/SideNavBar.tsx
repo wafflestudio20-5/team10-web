@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import styles from './sideNavBar.module.scss';
+import styles from './SideNavBar.module.scss';
 import { ReactComponent as Book } from '../../svg/book.svg';
 import { ReactComponent as Calender } from '../../svg/calendar.svg';
 import { ReactComponent as DashBoard } from '../../svg/dashboard.svg';
 import { ReactComponent as Question } from '../../svg/question.svg';
 import snulogo from '../../svg/snulogo.svg';
 import { ReactComponent as UserIcon } from '../../svg/userIcon.svg';
-import { SubjectModal } from './modal/subjectModal';
-import { AuthModal } from './modal/authModal';
+import { SubjectModal } from './modal/SubjectModal';
+import { AuthModal } from './modal/AuthModal';
+import { Link } from 'react-router-dom';
 
 export const SideNavBar = () => {
   const [subjectModal, setSubjectModal] = useState<boolean>(false);
@@ -31,7 +32,12 @@ export const SideNavBar = () => {
   };
 
   const closeAuthModal = () => {
-    setAuthModal(false);
+    setAniState(true);
+    setTimeout(() => {
+      setAniState(false);
+      setAuthModal(false);
+    }, 500);
+    setIsSelected(0);
   };
 
   //modal을 띄우지 않는 button을 클릭시 다른 모달 state를 모두 false로 만듦
@@ -65,18 +71,20 @@ export const SideNavBar = () => {
           <UserIcon></UserIcon>
           계정
         </div>
-        <div
-          className={`${styles['button-container']} ${
-            isSelected === 2 ? styles['selected'] : ''
-          }`}
-          onClick={() => {
-            setIsSelected(2);
-            closeOtherModal();
-          }}
-        >
-          <DashBoard></DashBoard>
-          대시보드
-        </div>
+        <Link to='/'>
+          <div
+            className={`${styles['button-container']} ${
+              isSelected === 2 ? styles['selected'] : ''
+            }`}
+            onClick={() => {
+              setIsSelected(2);
+              closeOtherModal();
+            }}
+          >
+            <DashBoard></DashBoard>
+            대시보드
+          </div>
+        </Link>
         <div
           className={`${styles['button-container']} ${
             isSelected === 3 ? styles['selected'] : ''

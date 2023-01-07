@@ -1,5 +1,9 @@
 .container {
   display: flex;
+
+  a {
+    text-decoration: none;
+  }
 }
 
 .wrapper {
@@ -37,6 +41,11 @@
   svg {
     fill: white;
   }
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
 }
 
 .button-container:hover,
@@ -46,6 +55,10 @@
   cursor: pointer;
   svg {
     fill: black;
+  }
+
+  a {
+    color: black;
   }
 }
 

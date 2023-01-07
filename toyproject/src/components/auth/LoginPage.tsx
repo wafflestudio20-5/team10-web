@@ -1,21 +1,29 @@
-// import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
-import loginHeader from "../resources/loginHeader.png";
-import kakao from "../resources/kakao.png";
-import styles from "./LoginHeader.module.scss";
+import loginHeader from '../../resources/loginHeader.png';
+import google from '../../resources/google.png';
+import styles from './LoginPage.module.scss';
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { useSessionContext } from '../../context/SessionContext';
 
-function Loginpage() {
-  const [ID, setID] = useState("");
-  const [password, setPassword] = useState("");
+function LoginPage() {
+  const [ID, setID] = useState('');
+  const [password, setPassword] = useState('');
+
+  const { handleGoogleToken } = useSessionContext();
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => console.log(tokenResponse),
+    flow: 'auth-code',
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // 로그인 api 호출
     // 메인 화면으로 전환
     console.log(ID, password);
-    setID("");
-    setPassword("");
+    setID('');
+    setPassword('');
   };
 
   return (
@@ -50,6 +58,9 @@ function Loginpage() {
                 onClick={handleSubmit}
               />
             </form>
+            <Link to='/login/new'>
+              <button className={styles.signUpButton}>회원가입</button>
+            </Link>
           </section>
           <section className={styles.socialLogin}>
             <h3>
@@ -59,10 +70,22 @@ function Loginpage() {
                 이용하실 수 있습니다.
               </p>
             </h3>
-            <a>
-              <img src={kakao} alt='kakao' title='kakao' />
-              <span>카카오</span>
-            </a>
+            <div
+              className={styles['google-login-button']}
+              onClick={() => login()}
+            >
+              <img src={google} alt='google' title='google' />
+              <span>구글 계정으로 로그인</span>
+            </div>
+            {/* <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                console.log(credentialResponse);
+                handleGoogleToken(credentialResponse.credential);
+              }}
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            ></GoogleLogin> */}
           </section>
         </article>
       </div>
@@ -78,4 +101,4 @@ function Loginpage() {
     </div>
   );
 }
-export default Loginpage;
+export default LoginPage;

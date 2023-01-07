@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './dashBoard.module.scss';
-import { Cards } from '../cards/cards';
+import styles from './DashBoard.module.scss';
+import { Cards } from '../cards/Cards';
 
 export const DashBoard = () => {
   return (

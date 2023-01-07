@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './rightSide.module.scss';
+import styles from './RightSide.module.scss';
 
 export const RightSide = () => {
   return (

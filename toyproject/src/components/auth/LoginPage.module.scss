@@ -46,7 +46,7 @@
   min-width: 155px;
   border-radius: 5px;
   margin-bottom: 11px;
-  font-family: "NotoSansKR";
+  font-family: 'NotoSansKR';
   box-sizing: border-box;
 }
 
@@ -58,9 +58,26 @@
   line-height: 41px;
   font-size: 18px;
   border-radius: 5px;
-  display: table;
   width: 77%;
   margin: 18px auto 0;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.signUpButton {
+  border: 1px solid #02acc4;
+  background-color: #02acc4;
+  color: #fff !important;
+  padding: 0 39px !important;
+  line-height: 41px;
+  font-size: 18px;
+  border-radius: 5px;
+  width: 77%;
+  margin: 18px auto 0;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .socialLogin {
@@ -83,7 +100,7 @@
     }
   }
 
-  a {
+  .google-login-button {
     display: inline-block;
     width: 19%;
     padding: 17px 0;
@@ -92,8 +109,8 @@
     vertical-align: middle;
 
     img {
-      width: 31px;
-      height: 31px;
+      width: 25px;
+      height: 25px;
       top: 50%;
       vertical-align: middle;
     }
@@ -105,6 +122,9 @@
       vertical-align: middle;
       top: 50%;
     }
+  }
+  .google-login-button:hover {
+    cursor: pointer;
   }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card } from './card';
-import styles from './cards.module.scss';
+import { Card } from './Card';
+import styles from './Cards.module.scss';
 
 const subjects = [
   {
