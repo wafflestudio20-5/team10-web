@@ -105,6 +105,10 @@
     display: flex;
     flex-direction: column;
   }
+
+  textarea {
+    border-radius: 10px;
+  }
 }
 
 .previous-container {
