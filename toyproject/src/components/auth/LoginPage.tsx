@@ -1,29 +1,35 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
-import loginHeader from '../../resources/loginHeader.png';
-import google from '../../resources/google.png';
-import styles from './LoginPage.module.scss';
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
-import { useSessionContext } from '../../context/SessionContext';
+import loginHeader from "../../resources/loginHeader.png";
+import google from "../../resources/google.png";
+import styles from "./LoginPage.module.scss";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { useSessionContext } from "../../context/SessionContext";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
-  const [ID, setID] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const { handleGoogleToken } = useSessionContext();
-  const login = useGoogleLogin({
-    onSuccess: (tokenResponse) => console.log(tokenResponse),
-    flow: 'auth-code',
-  });
+  // const { handleGoogleToken } = useSessionContext();
+  const { user } = useSessionContext();
+  const { login } = useSessionContext();
+
+  const navigate = useNavigate();
+
+  // 일반 로그인하고 구별하기 위해서 login -> socialLogin 함수 이름 변경함
+  // const socialLogin = useGoogleLogin({
+  //   onSuccess: (tokenResponse) => console.log(tokenResponse),
+  //   flow: "auth-code",
+  // });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // 로그인 api 호출
-    // 메인 화면으로 전환
-    console.log(ID, password);
-    setID('');
-    setPassword('');
+    login(email, password);
+    setEmail("");
+    setPassword("");
+    navigate("/");
   };
 
   return (
@@ -41,8 +47,8 @@ function LoginPage() {
                 type='text'
                 className={styles.idAndPwInput}
                 placeholder='아이디'
-                value={ID}
-                onChange={(e) => setID(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 type='password'
@@ -70,13 +76,13 @@ function LoginPage() {
                 이용하실 수 있습니다.
               </p>
             </h3>
-            <div
-              className={styles['google-login-button']}
-              onClick={() => login()}
+            {/* <div
+              className={styles["google-login-button"]}
+              onClick={() => socialLogin()}
             >
               <img src={google} alt='google' title='google' />
               <span>구글 계정으로 로그인</span>
-            </div>
+            </div> */}
             {/* <GoogleLogin
               onSuccess={(credentialResponse) => {
                 console.log(credentialResponse);
