@@ -7,6 +7,7 @@ import styles from './LoginPage.module.scss';
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 import { useSessionContext } from '../../context/SessionContext';
 import kakaoLogin from '../../resources/kakaologin.png';
+import { KAKAO_AUTH_URL } from '../../lib/api';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -76,12 +77,13 @@ function LoginPage() {
                 이용하실 수 있습니다.
               </p>
             </h3>
-
-            <img
-              className={styles['kakao-login']}
-              src={kakaoLogin}
-              alt='kakaoLogin'
-            ></img>
+            <a href={KAKAO_AUTH_URL}>
+              <img
+                className={styles['kakao-login']}
+                src={kakaoLogin}
+                alt='kakaoLogin'
+              ></img>
+            </a>
           </section>
         </article>
       </div>
