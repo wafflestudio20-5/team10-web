@@ -1,16 +1,16 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
-import loginHeader from "../../resources/loginHeader.png";
-import google from "../../resources/google.png";
-import styles from "./LoginPage.module.scss";
-import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
-import { useSessionContext } from "../../context/SessionContext";
-import { useNavigate } from "react-router-dom";
+import loginHeader from '../../resources/loginHeader.png';
+import google from '../../resources/google.png';
+import styles from './LoginPage.module.scss';
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { useSessionContext } from '../../context/SessionContext';
+import kakaoLogin from '../../resources/kakaologin.png';
 
 function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   // const { handleGoogleToken } = useSessionContext();
   const { user } = useSessionContext();
@@ -27,9 +27,9 @@ function LoginPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     login(email, password);
-    setEmail("");
-    setPassword("");
-    navigate("/");
+    setEmail('');
+    setPassword('');
+    navigate('/');
   };
 
   return (
@@ -76,22 +76,12 @@ function LoginPage() {
                 이용하실 수 있습니다.
               </p>
             </h3>
-            {/* <div
-              className={styles["google-login-button"]}
-              onClick={() => socialLogin()}
-            >
-              <img src={google} alt='google' title='google' />
-              <span>구글 계정으로 로그인</span>
-            </div> */}
-            {/* <GoogleLogin
-              onSuccess={(credentialResponse) => {
-                console.log(credentialResponse);
-                handleGoogleToken(credentialResponse.credential);
-              }}
-              onError={() => {
-                console.log('Login Failed');
-              }}
-            ></GoogleLogin> */}
+
+            <img
+              className={styles['kakao-login']}
+              src={kakaoLogin}
+              alt='kakaoLogin'
+            ></img>
           </section>
         </article>
       </div>
