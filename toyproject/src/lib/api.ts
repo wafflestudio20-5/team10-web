@@ -13,15 +13,21 @@ const url = (path: string, param?: Record<string, string>) => {
 
 const auth = (token: string) => ({ Authorization: `Bearer ${token}` });
 
-const CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
-const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
-
-export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
 export const apiLogin = (email: string, password: string) => {
   return axios.post<User>(
     url('/authentication/login/'),
     { email, password },
     { withCredentials: true }
   );
+};
+
+//kakaotalk social login 관련 변수
+
+const CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
+const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+
+export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+export const kakaoLogin = () => {
+  return axios({});
 };

@@ -38,6 +38,7 @@ export default function BoardDetail() {
             </div>
           </div>
           <article>본문</article>
+          {/* 여기 previous id 혹은 본문 받아서 연결해야 함*/}
           <div className={styles['previous-container']}>
             <div className={styles['previous-title']}>이전글</div>
             <div className={styles.previous}>어쩌구 저쩌구</div>
