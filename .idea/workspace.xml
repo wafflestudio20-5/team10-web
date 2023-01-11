@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="290c869b-db95-469b-b2ba-81a776cd72fe" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentBlock.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/auth/SignUp.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/auth/SignUp.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/auth/SignUpPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/auth/SignUpPage.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="290c869b-db95-469b-b2ba-81a776cd72fe" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -72,7 +67,7 @@
       <workItem from="1672557569730" duration="7206000" />
       <workItem from="1672564822852" duration="266000" />
       <workItem from="1672577784354" duration="6943000" />
-      <workItem from="1672666480641" duration="7270000" />
+      <workItem from="1672666480641" duration="7610000" />
     </task>
     <servers />
   </component>
