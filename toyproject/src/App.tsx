@@ -12,6 +12,7 @@ import QnABoardPage from "./components/board/pages/QnABoardPage";
 import NoticeBoardPage from "./components/board/pages/NoticeBoardPage";
 import NewBoardPage from "./components/board/pages/NewBoardPage";
 import StudentsPage from "./components/students/StudentsPage";
+import GradesPage from "./components/grades/GradesPage";
 import { BoardProvider } from "./context/BoardContext";
 import BoardDetailPage from "./components/board/pages/BoardDetailPage";
 import { SessionProvider } from "./context/SessionContext";
@@ -58,6 +59,7 @@ function App() {
             path='/:subjectname/assignments/:assignmentID'
             element={<AssignmentDetailsPage />}
           />
+          <Route path='/:subjectname/grades' element={<GradesPage />} />{" "}
           <Route path='/kakaoLogin' element={<KakaoLoginPage />} />
         </Routes>
       </BrowserRouter>

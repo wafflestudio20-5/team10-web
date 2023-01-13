@@ -6,7 +6,7 @@ export const UserBar = () => {
 
   return (
     <div className={styles.wrapper}>
-      <span className={styles.welcome}>{user?.email}님, 환영합니다.</span>
+      <span className={styles.welcome}>{user?.username}님, 환영합니다.</span>
       <button className={styles.logoutButton}>로그아웃</button>
     </div>
   );
