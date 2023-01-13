@@ -8,14 +8,6 @@ const url = (path: string, param?: Record<string, string>) => {
 
 const auth = (token: string) => ({ Authorization: `Token ${token}` });
 
-export const apiLogin = (email: string, password: string) => {
-  return axios.post<User>(
-    url("/authentication/login/"),
-    { email, password },
-    { withCredentials: true }
-  );
-};
-
 export const apiSignUp = (
   email: string,
   password: string,
@@ -28,6 +20,21 @@ export const apiSignUp = (
     { email, password, username, student_id, is_professor },
     { withCredentials: true }
   );
+};
+
+export const apiLogin = (email: string, password: string) => {
+  return axios.post<User>(
+    url("/authentication/login/"),
+    { email, password },
+    { withCredentials: true }
+  );
+};
+
+export const apiLogout = (token: string) => {
+  return axios.get(url("/authentication/logout/"), {
+    withCredentials: true,
+    headers: auth(token),
+  });
 };
 
 //kakaotalk social login 관련 변수

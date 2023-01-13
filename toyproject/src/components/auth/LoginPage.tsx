@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import loginHeader from "../../resources/loginHeader.png";
 import google from "../../resources/google.png";
@@ -13,7 +13,6 @@ function LoginPage() {
   const [password, setPassword] = useState("");
 
   // const { handleGoogleToken } = useSessionContext();
-  const { user } = useSessionContext();
   const { login } = useSessionContext();
 
   // 일반 로그인하고 구별하기 위해서 login -> socialLogin 함수 이름 변경함

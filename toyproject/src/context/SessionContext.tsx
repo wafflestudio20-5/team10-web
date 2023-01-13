@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { User } from "../lib/types";
-import { apiLogin } from "../lib/api";
+import { apiLogin, apiLogout } from "../lib/api";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,8 +8,10 @@ import "react-toastify/dist/ReactToastify.css";
 type SessionContextType = {
   isLoggedIn: boolean;
   user: User | null;
+  token: string | null;
   login: (username: string, password: string) => Promise<any>;
-  handleGoogleToken: (input: string | undefined) => void;
+  logout: (token: string) => Promise<any>;
+  // handleGoogleToken: (input: string | undefined) => void;
 };
 
 const SessionContext = createContext<SessionContextType>(
@@ -20,16 +22,18 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [isLoggedIn, setIsLogggedIn] = useState(false);
   const [googleToken, setGoogleToken] = useState<string | undefined>("");
   const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
-  const handleGoogleToken = (input: string | undefined) => {
-    setGoogleToken(input);
-  };
+  // const handleGoogleToken = (input: String | undefined) => {
+  //   setGoogleToken(input);
+  // };
 
   const navigate = useNavigate();
   const login = (email: string, password: string): Promise<any> => {
     return apiLogin(email, password)
       .then((res) => {
         setUser(res.data);
+        setToken(res.data.token);
         navigate("/");
       })
       .catch((err) => {
@@ -41,9 +45,26 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       });
   };
 
+  const logout = (token: string) => {
+    return apiLogout(token)
+      .then((res) => {
+        setUser(null);
+        setToken(null);
+        navigate("/login/");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <SessionContext.Provider
-      value={{ isLoggedIn, user, login, handleGoogleToken }}
+      value={{
+        isLoggedIn,
+        user,
+        token,
+        login,
+        logout,
+        //  handleGoogleToken
+      }}
     >
       {children}
       <ToastContainer />
