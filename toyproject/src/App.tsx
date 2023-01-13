@@ -20,8 +20,8 @@ import KakaoLoginPage from "./components/auth/KakaoLoginPage";
 
 function App() {
   return (
-    <SessionProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <SessionProvider>
         <Routes>
           <Route path='/' element={<DashBoardPage />} />
           <Route path='/login/new' element={<SignUpPage />} />
@@ -61,9 +61,9 @@ function App() {
           />
           <Route path='/:subjectname/grades' element={<GradesPage />} />{" "}
           <Route path='/kakaoLogin' element={<KakaoLoginPage />} />
-        </Routes>
-      </BrowserRouter>
-    </SessionProvider>
+        </Routes>{" "}
+      </SessionProvider>
+    </BrowserRouter>
   );
 }
 
