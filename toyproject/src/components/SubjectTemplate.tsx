@@ -3,7 +3,7 @@ import styles from "./SubjectTemplate.module.scss";
 import { SideNavBar } from "./sideNavbar/SideNavBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { UserBar } from "./UserBar/UserBar";
 
 const ListElement = ({ current, name }: { current: string; name: string }) => {
@@ -56,13 +56,15 @@ export default function SubjectTemplate({
             className={styles.nav_icon}
             onClick={() => setToggleNav(!toggleNav)}
           />
-          <p className={styles.title}>{subject}</p>
+          <Link to={`/${subject}`}>
+            <p className={styles.title}>{subject}</p>
+          </Link>
           <FontAwesomeIcon icon={faChevronRight} className={styles.arrow} />
           <p className={styles.title}>{page}</p>
           {content && (
             <div className={`${styles.header} ${styles.content}`}>
               <FontAwesomeIcon icon={faChevronRight} className={styles.arrow} />
-              <p className={styles.title}>{content}</p>
+              <p className={styles.contentTitle}>{content}</p>
             </div>
           )}
           <UserBar />

@@ -1,7 +1,7 @@
 import SubjectTemplate from "../SubjectTemplate";
 import styles from "./GradesPage.module.scss";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSessionContext } from "../../context/SessionContext";
 
 export default function GradesPage() {
