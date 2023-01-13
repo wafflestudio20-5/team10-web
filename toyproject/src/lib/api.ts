@@ -6,7 +6,7 @@ const url = (path: string, param?: Record<string, string>) => {
   return (
     // (process.env.NODE_ENV === "production"
     //   ?
-    `https://virtserver.swaggerhub.com/LimSusu/asdfds/1.0.0${path}`
+    `https://etl-dxnn.onrender.com${path}`
     // : path) + (param ? "?" + new URLSearchParams(param).toString() : "")
   );
 };
