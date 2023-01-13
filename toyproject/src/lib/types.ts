@@ -12,3 +12,18 @@ export type User = {
     }
   ];
 };
+
+// 이용 약관
+export interface Term {
+  title: string;
+  content: JSX.Element;
+}
+
+// 회원 가입하는 유저 정보 양식
+export interface SignUpRequestBody {
+  email: string;
+  password: string;
+  username: string;
+  student_id: string;
+  is_professor: boolean;
+}

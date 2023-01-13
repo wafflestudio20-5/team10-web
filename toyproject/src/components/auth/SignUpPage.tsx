@@ -8,24 +8,13 @@ import loginHeader from "../../resources/loginHeader.png";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAt, faMinus } from "@fortawesome/free-solid-svg-icons";
-
-/** 이용 약관 */
-interface Term {
-  title: string;
-  content: JSX.Element;
-}
+import { Term } from "../../lib/types";
+import { SignUpRequestBody } from "../../lib/types";
+import { apiSignUp } from "../../lib/api";
 
 // 학번 양식 (정규표현식)
 const studentIdRegex: RegExp = /\d{4}-\d{5}/;
 
-/** 회원 가입하는 유저 정보 양식 */
-interface UserInfo {
-  email: string;
-  password: string;
-  username: string;
-  student_id: string;
-  is_professor: boolean;
-}
 const TermsElement = ({
   currentStage,
   setCurrentStage,
@@ -202,7 +191,7 @@ const ProgressElement = ({ currentStage }: { currentStage: number }) => {
 export default function SignUpPage() {
   /** 현재 회원가입 진행 상황 */
   const [currentStage, setCurrentStage] = useState<number>(0);
-  const [userInfo, setUserInfo] = useState<UserInfo>({
+  const [userInfo, setUserInfo] = useState<SignUpRequestBody>({
     email: "",
     password: "",
     username: "",
@@ -216,6 +205,21 @@ export default function SignUpPage() {
   const [idOfEmail, setIdOfEmail] = useState<string>("");
   const [domainOfEmail, setDomainOfEmail] = useState<string>("");
   const nav = useNavigate();
+
+  const signUp = (userinfo: SignUpRequestBody) =>
+    apiSignUp(
+      userinfo.email,
+      userinfo.password,
+      userinfo.username,
+      userinfo.student_id,
+      userinfo.is_professor
+    )
+      .then((res) => {
+        setCurrentStage(currentStage + 1);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
   return (
     <div className={styles.signup}>
@@ -416,8 +420,7 @@ export default function SignUpPage() {
           <button
             className={styles.next}
             onClick={() => {
-              setCurrentStage(currentStage + 1);
-              console.log(userInfo);
+              signUp(userInfo);
             }}
           >
             다음

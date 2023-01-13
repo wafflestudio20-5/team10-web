@@ -1,6 +1,6 @@
 import axios from "axios";
 // import { useCallback, useEffect, useRef, useState } from "react";
-import { User } from "./types";
+import { SignUpRequestBody, User } from "./types";
 
 const url = (path: string, param?: Record<string, string>) => {
   return `https://etl-dxnn.onrender.com${path}`;
@@ -12,6 +12,20 @@ export const apiLogin = (email: string, password: string) => {
   return axios.post<User>(
     url("/authentication/login/"),
     { email, password },
+    { withCredentials: true }
+  );
+};
+
+export const apiSignUp = (
+  email: string,
+  password: string,
+  username: string,
+  student_id: string,
+  is_professor: boolean
+) => {
+  return axios.post<SignUpRequestBody>(
+    url("/authentication/signup/"),
+    { email, password, username, student_id, is_professor },
     { withCredentials: true }
   );
 };
