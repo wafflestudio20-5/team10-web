@@ -1,22 +1,30 @@
-import React, {useState} from 'react';
-import styles from './SubjectTemplate.module.scss';
-import {SideNavBar} from "./sideNavbar/SideNavBar";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBars, faChevronRight} from "@fortawesome/free-solid-svg-icons";
-import {useLocation, useNavigate} from "react-router-dom";
+import React, { useState } from "react";
+import styles from "./SubjectTemplate.module.scss";
+import { SideNavBar } from "./sideNavbar/SideNavBar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { useLocation, useNavigate } from "react-router-dom";
+import { UserBar } from "./UserBar/UserBar";
 
 const ListElement = ({ current, name }: { current: string; name: string }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const pages = ["모듈", "게시판", "강의계획서", "수강생", "과제", "성적"];
-  const address = ["", "/boardnav", "/syllabus", "/students", "/assignments", "/grades"];
+  const address = [
+    "",
+    "/boardnav",
+    "/syllabus",
+    "/students",
+    "/assignments",
+    "/grades",
+  ];
   const subject = location.pathname.split("/")[1];
 
   return (
-    <li className={current === name ? styles.current : undefined}
-        onClick={() => navigate(
-            "../" + subject + address[pages.indexOf(name)]
-        )}>
+    <li
+      className={current === name ? styles.current : undefined}
+      onClick={() => navigate("../" + subject + address[pages.indexOf(name)])}
+    >
       {name}
       {current === name && (
         <FontAwesomeIcon icon={faChevronRight} className={styles.arrow} />
@@ -57,6 +65,7 @@ export default function SubjectTemplate({
               <p className={styles.title}>{content}</p>
             </div>
           )}
+          <UserBar />
         </header>
         <div className={styles.body}>
           {toggleNav && (

@@ -26,12 +26,10 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     apiLogin(email, password)
       .then((res) => {
         setUser(res.data);
-        // console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
-    // .finally(() => navigate("/"));
   };
 
   return (
