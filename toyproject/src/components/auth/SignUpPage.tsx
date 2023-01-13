@@ -22,12 +22,10 @@ const studentIdRegex: RegExp = /\d{4}-\d{5}/;
 interface UserInfo {
   email: string;
   password: string;
-  student_id: string;
   username: string;
+  student_id: string;
   is_professor: boolean;
-  is_staff: boolean;
 }
-
 const TermsElement = ({
   currentStage,
   setCurrentStage,
@@ -207,14 +205,16 @@ export default function SignUpPage() {
   const [userInfo, setUserInfo] = useState<UserInfo>({
     email: "",
     password: "",
-    student_id: "",
     username: "",
+    student_id: "",
     is_professor: false,
-    is_staff: false,
   });
   const [pwChecking, setPwChecking] = useState<boolean>(false);
   const [pwRepeat, setPwRepeat] = useState<string>("");
-  const [customEmail, setCustomEmail] = useState<boolean>(false);
+  const [firstStudent_id, setFirstStudent_id] = useState<string>("");
+  const [lastStudent_id, setLastStudent_id] = useState<string>("");
+  const [idOfEmail, setIdOfEmail] = useState<string>("");
+  const [domainOfEmail, setDomainOfEmail] = useState<string>("");
   const nav = useNavigate();
 
   return (
@@ -307,14 +307,26 @@ export default function SignUpPage() {
                   type='text'
                   placeholder='2022'
                   className={`${styles.input} ${styles.short}`}
-                  // onChange setUserInfo expected
+                  onChange={(event) => {
+                    setFirstStudent_id(event.target.value);
+                    setUserInfo({
+                      ...userInfo,
+                      student_id: `${event.target.value}-${lastStudent_id}`,
+                    });
+                  }}
                 />
-                <FontAwesomeIcon icon={faMinus} className={styles.at} />
+                <FontAwesomeIcon icon={faMinus} className={styles.minus} />
                 <input
                   type='text'
                   placeholder='12345'
                   className={`${styles.input} ${styles.short}`}
-                  // onChange setUserInfo expected
+                  onChange={(event) => {
+                    setLastStudent_id(event.target.value);
+                    setUserInfo({
+                      ...userInfo,
+                      student_id: `${firstStudent_id}-${event.target.value}`,
+                    });
+                  }}
                 />
               </div>
             </div>
@@ -324,23 +336,46 @@ export default function SignUpPage() {
                 <input
                   type='text'
                   placeholder='wafflestudio'
-                  className={`${styles.input} ${styles.short}`}
-                  onChange={(event) =>
-                    setUserInfo({ ...userInfo, email: event.target.value })
-                  }
+                  className={styles.idOfEmail}
+                  onChange={(event) => {
+                    setIdOfEmail(event.target.value);
+                    setUserInfo({
+                      ...userInfo,
+                      email: `${event.target.value}@${domainOfEmail}`,
+                    });
+                  }}
                 />
                 <FontAwesomeIcon icon={faAt} className={styles.at} />
-                {!customEmail && (
-                  <select className={`${styles.input} ${styles.short}`}>
-                    <option value='snu.ac.kr'>snu.ac.kr</option>
-                    <option value='gmail.com'>gmail.com</option>
-                    <option value='naver.com'>naver.com</option>
-                    <option value='yahoo.com'>yahoo.com</option>
-                    <option value='daum.net'>daum.net</option>
-                    <option value='narasarang.or.kr'>narasarang.or.kr</option>
-                    <option>직접 입력</option>
-                  </select>
-                )}
+                <input
+                  defaultValue={domainOfEmail}
+                  className={styles.domainInput}
+                  onChange={(event) => {
+                    setDomainOfEmail(event.target.value);
+                    setUserInfo({
+                      ...userInfo,
+                      email: `${idOfEmail}@${event.target.value}`,
+                    });
+                  }}
+                ></input>
+                <select
+                  className={styles.domainOption}
+                  value={domainOfEmail}
+                  onChange={(event) => {
+                    setDomainOfEmail(event.target.value);
+                    setUserInfo({
+                      ...userInfo,
+                      email: `${idOfEmail}@${event.target.value}`,
+                    });
+                  }}
+                >
+                  <option>직접 입력</option>
+                  <option value='snu.ac.kr'>snu.ac.kr</option>
+                  <option value='gmail.com'>gmail.com</option>
+                  <option value='naver.com'>naver.com</option>
+                  <option value='yahoo.com'>yahoo.com</option>
+                  <option value='daum.net'>daum.net</option>
+                  <option value='narasarang.or.kr'>narasarang.or.kr</option>
+                </select>
               </div>
             </div>
             <div className={styles.wrapper}>
@@ -348,9 +383,9 @@ export default function SignUpPage() {
               <input
                 type='password'
                 className={styles.input}
-                onChange={(event) =>
-                  setUserInfo({ ...userInfo, password: event.target.value })
-                }
+                onChange={(event) => {
+                  setUserInfo({ ...userInfo, password: event.target.value });
+                }}
               />
             </div>
             <div className={styles.wrapper}>
@@ -380,7 +415,10 @@ export default function SignUpPage() {
           </div>
           <button
             className={styles.next}
-            onClick={() => setCurrentStage(currentStage + 1)}
+            onClick={() => {
+              setCurrentStage(currentStage + 1);
+              console.log(userInfo);
+            }}
           >
             다음
           </button>
