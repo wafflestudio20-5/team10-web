@@ -12,23 +12,21 @@ export default function StudentsPage() {
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchType, setSearchType] = useState<string>("");
 
-  const [students, setStudents] = useState([
+  const originStudents = [
     { id: 0, name: "김가영", subject: subjectname, type: "student" },
     { id: 1, name: "김나영", subject: subjectname, type: "student" },
     { id: 2, name: "이가영", subject: subjectname, type: "professor" },
     { id: 3, name: "김다영", subject: subjectname, type: "student" },
     { id: 4, name: "김라영", subject: subjectname, type: "student" },
-  ]);
+  ];
+  const [students, setStudents] = useState(originStudents);
 
   const filterStudents = () => {
-    if (searchValue) {
-      setStudents(
-        students.filter((student) => student.name.includes(searchValue))
-      );
-    }
-    if (searchType) {
-      setStudents(students.filter((student) => student.type === searchType));
-    }
+    const newStudents = originStudents.filter(
+      (student) =>
+        student.name.includes(searchValue) && student.type.includes(searchType)
+    );
+    setStudents(newStudents);
   };
 
   useEffect(() => {
