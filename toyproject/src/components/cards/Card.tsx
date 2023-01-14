@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Card.module.scss";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type subject = {
   id: number;
@@ -22,7 +22,7 @@ export const Card = ({ subject }: CardType) => {
     <div className={styles["card-container"]}>
       <div className={styles["card-color"]} onClick={goToModule}></div>
       <section>
-        <a href={`/${subject.name}/`}>{subject.name}</a>
+        <Link to={`/${subject.name}/`}>{subject.name}</Link>
       </section>
     </div>
   );
