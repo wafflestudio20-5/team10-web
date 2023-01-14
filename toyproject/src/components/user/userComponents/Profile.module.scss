@@ -1,12 +1,27 @@
 .profileContainer {
+  position: relative;
   display: flex;
+  align-items: center;
+  margin-bottom: 30px;
 
   .hide {
+    position: absolute;
+    left: 25px;
     width: 32px;
     height: 32px;
     background-image: url(../../../svg/pencil.svg);
-    background-color: black;
+    z-index: 2;
+    display: none;
+
+    &:hover {
+      display: block;
+      background-color: red;
+    }
   }
+
+  // .hide:hover {
+  //   background-color: red;
+  // }
 
   .svg-container {
     display: flex;
@@ -24,8 +39,6 @@
       color: #6363b680;
     }
   }
-
-  margin-bottom: 30px;
 }
 
 .user {
