@@ -1,5 +1,7 @@
 import styles from './SubjectModal.module.scss';
 import { ReactComponent as CloseButton } from '../../../svg/close.svg';
+import { useSubjectContext } from '../../../context/SubjectContext';
+import { Link } from 'react-router-dom';
 
 type SubjectModalType = {
   closeSubjectModal: () => void;
@@ -10,6 +12,8 @@ export const SubjectModal = ({
   aniState,
   closeSubjectModal,
 }: SubjectModalType) => {
+  const { subjects } = useSubjectContext();
+
   return (
     <div
       className={`${styles['modal']} ${
@@ -24,11 +28,16 @@ export const SubjectModal = ({
       <header>과목</header>
       <section>
         <ul>
-          <li>논비사</li>
-          <li>논비사</li>
-          <li>논비사</li>
-          <li>논비사</li>
-          <li>논비사</li>
+          {subjects &&
+            subjects.map((subject) => {
+              return (
+                <li key={subject.id}>
+                  <Link to={`/${subject.name}`} onClick={closeSubjectModal}>
+                    {subject.name}
+                  </Link>
+                </li>
+              );
+            })}
         </ul>
       </section>
       <footer>여기가 바닥</footer>

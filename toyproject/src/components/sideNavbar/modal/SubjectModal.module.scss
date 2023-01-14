@@ -37,6 +37,16 @@
   svg:hover {
     cursor: pointer;
   }
+
+  li {
+    width: 316px;
+    height: 80px;
+  }
+
+  a {
+    text-decoration: none;
+    color: #2282f9;
+  }
 }
 
 .modal.close {
