@@ -1,12 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 // import { useCallback, useEffect, useRef, useState } from "react";
-import { SignUpRequestBody, User } from './types';
+import { SignUpRequestBody, User } from "./types";
 
 const url = (path: string, param?: Record<string, string>) => {
   return `https://etl-dxnn.onrender.com${path}`;
 };
 
-const auth = (token: string) => ({ Authorization: `Token ${token}` });
+const auth = (token: string | null) => ({ Authorization: `Token ${token}` });
 
 export const apiSignUp = (
   email: string,
@@ -16,7 +16,7 @@ export const apiSignUp = (
   is_professor: boolean
 ) => {
   return axios.post<SignUpRequestBody>(
-    url('/authentication/signup/'),
+    url("/authentication/signup/"),
     { email, password, username, student_id, is_professor },
     { withCredentials: true }
   );
@@ -24,14 +24,21 @@ export const apiSignUp = (
 
 export const apiLogin = (email: string, password: string) => {
   return axios.post<User>(
-    url('/authentication/login/'),
+    url("/authentication/login/"),
     { email, password },
     { withCredentials: true }
   );
 };
 
 export const apiLogout = (token: string) => {
-  return axios.get(url('/authentication/logout/'), {
+  return axios.get(url("/authentication/logout/"), {
+    withCredentials: true,
+    headers: auth(token),
+  });
+};
+
+export const apiSubjects = async (token: string | null) => {
+  return await axios.get(url("/etl/class/list/"), {
     withCredentials: true,
     headers: auth(token),
   });
