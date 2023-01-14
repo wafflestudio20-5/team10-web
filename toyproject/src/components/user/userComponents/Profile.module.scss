@@ -1,0 +1,52 @@
+.profileContainer {
+  display: flex;
+
+  .hide {
+    width: 32px;
+    height: 32px;
+    background-image: url(../../../svg/pencil.svg);
+    background-color: black;
+  }
+
+  .svg-container {
+    display: flex;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border: solid #b9b9b9;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .svg-container:hover {
+    background-color: #6363b680;
+    svg {
+      color: #6363b680;
+    }
+  }
+
+  margin-bottom: 30px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  font-family: 'Helvetica Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 48px;
+  margin-left: 30px;
+}
+
+@media screen and (max-width: 800px) {
+  .user {
+    font-size: 20px;
+  }
+
+  @media screen and (max-width: 500px) {
+    .user {
+      font-size: 15px;
+    }
+  }
+}

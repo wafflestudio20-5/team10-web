@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './UserPage.module.scss';
 import { SideNavBar } from '../../sideNavbar/SideNavBar';
 import Content from '../userComponents/Content';
+import Profile from '../userComponents/Profile';
 
 export default function UserPage() {
   return (
@@ -10,6 +11,7 @@ export default function UserPage() {
       <div className={styles.right}>
         <div className={styles.header}>username의 계정</div>
         <div className={styles.body}>
+          <Profile></Profile>
           <div className={styles.title}>개인정보</div>
           <Content
             title={'전체이름:'}
