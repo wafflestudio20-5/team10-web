@@ -17,7 +17,7 @@ import { BoardProvider } from './context/BoardContext';
 import BoardDetailPage from './components/board/pages/BoardDetailPage';
 import { SessionProvider } from './context/SessionContext';
 import KakaoLoginPage from './components/auth/KakaoLoginPage';
-import UserPage from './components/user/UserPage';
+import UserPage from './components/user/page/UserPage';
 import { SubjectProvider } from './context/SubjectContext';
 
 function App() {
