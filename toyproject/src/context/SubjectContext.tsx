@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { apiSubjects } from "../lib/api";
-import { useSessionContext } from "../context/SessionContext";
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { apiSubjects } from '../lib/api';
+import { useSessionContext } from '../context/SessionContext';
 
 type SubjectType = { id: number; name: string };
 

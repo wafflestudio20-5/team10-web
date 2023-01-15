@@ -12,6 +12,7 @@ export default function Content({
     <div className={styles.wrapper}>
       <div className={styles.content}>{title}</div>
       <div className={styles.content}>{content}</div>
+      <div></div>
     </div>
   );
 }
