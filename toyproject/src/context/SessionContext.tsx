@@ -1,9 +1,9 @@
-import { createContext, useContext, useState } from "react";
-import { User } from "../lib/types";
-import { apiLogin, apiLogout } from "../lib/api";
-import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { createContext, useContext, useState } from 'react';
+import { User } from '../lib/types';
+import { apiLogin, apiLogout } from '../lib/api';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type SessionContextType = {
   isLoggedIn: boolean;
@@ -11,7 +11,6 @@ type SessionContextType = {
   token: string | null;
   login: (username: string, password: string) => Promise<any>;
   logout: (token: string) => Promise<any>;
-  // handleGoogleToken: (input: string | undefined) => void;
 };
 
 const SessionContext = createContext<SessionContextType>(
@@ -20,13 +19,8 @@ const SessionContext = createContext<SessionContextType>(
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [isLoggedIn, setIsLogggedIn] = useState(false);
-  const [googleToken, setGoogleToken] = useState<string | undefined>("");
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
-
-  // const handleGoogleToken = (input: String | undefined) => {
-  //   setGoogleToken(input);
-  // };
 
   const navigate = useNavigate();
   const login = (email: string, password: string): Promise<any> => {
@@ -34,13 +28,13 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       .then((res) => {
         setUser(res.data);
         setToken(res.data.token);
-        navigate("/");
+        navigate('/');
       })
       .catch((err) => {
         console.log(err);
-        toast("이메일 또는 비밀번호가 틀렸습니다.", {
-          position: "top-center",
-          theme: "colored",
+        toast('이메일 또는 비밀번호가 틀렸습니다.', {
+          position: 'top-center',
+          theme: 'colored',
         });
       });
   };
@@ -50,7 +44,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       .then((res) => {
         setUser(null);
         setToken(null);
-        navigate("/login/");
+        navigate('/login/');
       })
       .catch((err) => console.log(err));
   };
@@ -63,7 +57,6 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         token,
         login,
         logout,
-        //  handleGoogleToken
       }}
     >
       {children}

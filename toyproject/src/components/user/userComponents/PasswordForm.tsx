@@ -8,6 +8,15 @@ export default function PasswordForm({
   content: string;
 }) {
   const [passwordBox, setPasswordBox] = useState<boolean>(false);
+  const [previousPw, setPreviousPw] = useState('');
+  const [newPw, setNewPw] = useState('');
+
+  const handlePreviousPw = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPreviousPw(event.target.value);
+  };
+  const handleNewPw = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewPw(event.target.value);
+  };
 
   const togglePasswordBox = () => {
     setPasswordBox((prev) => !prev);
@@ -18,29 +27,40 @@ export default function PasswordForm({
     hiddenPassword += '*';
   }
 
+  const onSubmit = () => {};
+
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.title}>{title}</div>
-      {!passwordBox && (
-        <div className={styles.content}>
-          {hiddenPassword}
-          <div className={styles.edit}>
-            <button onClick={togglePasswordBox}>편집</button>
-          </div>
-        </div>
-      )}
-      {passwordBox && (
-        <div className={styles.content}>
-          <div className={styles.container}>
-            <input placeholder='기존 비밀번호' type={'password'}></input>
-            <input placeholder='새 비밀번호' type={'password'}></input>
-            <div className={styles['button-container']}>
-              <button onClick={togglePasswordBox}>취소</button>
-              <button>저장</button>
+    <form onSubmit={onSubmit}>
+      <div className={styles.wrapper}>
+        <div className={styles.title}>{title}</div>
+        {!passwordBox && (
+          <div className={styles.content}>
+            {hiddenPassword}
+            <div className={styles.edit}>
+              <button onClick={togglePasswordBox}>편집</button>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+        {passwordBox && (
+          <div className={styles.content}>
+            <div className={styles.container}>
+              이전 비밀번호:
+              <input type={'password'} onChange={handlePreviousPw}></input>새
+              비밀번호:
+              <input type={'password'} onChange={handleNewPw}></input>
+              <div className={styles['button-container']}>
+                <button
+                  className={styles['cancel-button']}
+                  onClick={togglePasswordBox}
+                >
+                  취소
+                </button>
+                <button className={styles['submit-button']}>저장</button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </form>
   );
 }
