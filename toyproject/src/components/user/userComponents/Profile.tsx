@@ -8,8 +8,8 @@ export default function Profile() {
     <div className={styles.profileContainer}>
       <div className={styles['svg-container']}>
         <FontAwesomeIcon icon={faUser} size='5x' color='#D9D9D9' />
+        <div className={styles.hide}></div>
       </div>
-      <div className={styles.hide}></div>
       <div className={styles.user}>안동하(학번 이거도 userContext로)</div>
     </div>
   );
