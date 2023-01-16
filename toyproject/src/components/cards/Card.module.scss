@@ -7,19 +7,18 @@
   -webkit-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.34);
   -moz-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.34);
   overflow: hidden;
-
-  a {
-    text-decoration: none;
-    color: black;
-  }
-
-  a:hover {
-    text-decoration-line: underline;
+  &:hover {
+    cursor: pointer;
   }
 
   section {
     display: flex;
     padding: 10px;
+    text-decoration: none;
+    color: black;
+    &:hover {
+      text-decoration-line: underline;
+    }
   }
 }
 

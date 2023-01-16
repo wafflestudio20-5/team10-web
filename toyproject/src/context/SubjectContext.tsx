@@ -1,11 +1,13 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useSessionContext } from '../context/SessionContext';
-import { apiSubjects } from '../lib/api';
-
-type SubjectType = { id: number; name: string };
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { apiSubjects } from "../lib/api";
+import { useSessionContext } from "../context/SessionContext";
+import { SubjectType } from "../lib/types";
 
 type SubjectContextType = {
   subjects: SubjectType[] | undefined;
+  mySubjects: SubjectType[] | undefined;
+  curSubject: number;
+  handleClick: (id: number) => void;
 };
 
 const SubjectContext = createContext<SubjectContextType>(
@@ -14,10 +16,11 @@ const SubjectContext = createContext<SubjectContextType>(
 
 //default 붙이면 prettier 이상하게 적용됨
 export function SubjectProvider({ children }: { children: React.ReactNode }) {
-  const { token } = useSessionContext();
+  const { token, user } = useSessionContext();
   const [subjects, setSubjects] = useState<SubjectType[] | undefined>(
     undefined
   );
+  const [curSubject, setCurSubject] = useState<number>(-1);
 
   const getSubjects = (token: string | null) => {
     apiSubjects(token)
@@ -31,8 +34,16 @@ export function SubjectProvider({ children }: { children: React.ReactNode }) {
     if (token) getSubjects(token);
   }, [token]);
 
+  const mySubjects = user?.classes;
+
+  const handleClick = (id: number) => {
+    setCurSubject(id);
+  };
+
   return (
-    <SubjectContext.Provider value={{ subjects }}>
+    <SubjectContext.Provider
+      value={{ subjects, mySubjects, curSubject, handleClick }}
+    >
       {children}
     </SubjectContext.Provider>
   );

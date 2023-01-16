@@ -6,12 +6,7 @@ export type User = {
   student_id: string;
   is_professor: boolean;
   is_superuser: boolean;
-  classes: [
-    {
-      id: Number;
-      name: string;
-    }
-  ];
+  classes: SubjectType[];
   token: string | null;
 };
 
@@ -37,3 +32,11 @@ export interface StudentsOfSubject {
   student_id: string;
   is_professor: boolean;
 }
+
+export type SubjectType = {
+  id: number;
+  name: string;
+  created_by: {
+    username: string;
+  };
+};
