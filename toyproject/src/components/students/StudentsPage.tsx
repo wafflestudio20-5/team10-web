@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import styles from "./StudentsPage.module.scss";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Searchbar from "../Searchbar";
 import { useSessionContext } from "../../context/SessionContext";
 import { useSubjectContext } from "../../context/SubjectContext";
@@ -25,22 +25,18 @@ export default function StudentsPage() {
   //   { id: 4, name: "김라영", subject: subjectname, type: "student" },
   // ];
 
-  const [originalStudents, setOriginalStudents] = useState<
+  const [students, setStudents] = useState<StudentsOfSubject[] | undefined>([]);
+  const [studentsToShow, setStudentsToShow] = useState<
     StudentsOfSubject[] | undefined
-  >(undefined);
-  const [students, setStudents] = useState<StudentsOfSubject[] | undefined>(
-    originalStudents
-  );
+  >(students);
 
   const getStudentsOfSubject = (token: string | null, id: number) => {
     apiStudentsOfSubject(token, id)
       .then((res) => {
-        setOriginalStudents(res.data.results);
-        // console.log(res.data.results);
+        setStudents(res.data.results);
       })
       .catch((err) => console.log(err));
   };
-
   useEffect(() => {
     if (token) {
       curSubject && getStudentsOfSubject(token, curSubject.id);
@@ -48,21 +44,25 @@ export default function StudentsPage() {
   }, [token]);
 
   const filterStudents = () => {
-    let newStudents = originalStudents;
+    let filteredStudents = students;
     if (searchType === "student") {
-      newStudents = newStudents?.filter((student) => !student.is_professor);
+      filteredStudents = filteredStudents?.filter(
+        (student) => !student.is_professor
+      );
     } else if (searchType === "professor") {
-      newStudents = newStudents?.filter((student) => student.is_professor);
+      filteredStudents = filteredStudents?.filter(
+        (student) => student.is_professor
+      );
     }
-    newStudents = newStudents?.filter((student) =>
-      student.username.includes(searchValue)
+    filteredStudents = filteredStudents?.filter((student) =>
+      student.username?.includes(searchValue)
     );
-    setStudents(newStudents);
+    setStudentsToShow(filteredStudents);
   };
 
   useEffect(() => {
     filterStudents();
-  }, [searchValue, searchType]);
+  }, [students, searchValue, searchType]);
 
   const handleType = (type: boolean) => {
     if (type === true) {
@@ -71,7 +71,6 @@ export default function StudentsPage() {
       return "학생";
     }
   };
-
   return (
     <SubjectTemplate subject={subjectname as string} page='수강생'>
       <section>
@@ -90,7 +89,7 @@ export default function StudentsPage() {
         </select>
       </section>
 
-      {students && (
+      {studentsToShow && (
         <table className={styles.table}>
           <thead>
             <tr>
@@ -101,7 +100,7 @@ export default function StudentsPage() {
             </tr>
           </thead>
           <tbody>
-            {students?.map((student) => (
+            {studentsToShow?.map((student) => (
               <tr key={student.id}>
                 <td className={styles.pic}>
                   <FontAwesomeIcon
