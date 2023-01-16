@@ -7,7 +7,7 @@ export const Cards = () => {
   const { mySubjects } = useSubjectContext();
 
   return (
-    <div className={styles["cards-container"]}>
+    <div className={styles.cardsContainer}>
       {mySubjects &&
         mySubjects.map((subject) => {
           return <Card key={subject.id} subject={subject}></Card>;

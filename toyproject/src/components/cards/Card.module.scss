@@ -1,4 +1,4 @@
-.card-container {
+.cardContainer {
   width: 265px;
   height: 260px;
   border-radius: 5px;
@@ -8,7 +8,14 @@
   -moz-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.34);
   overflow: hidden;
   &:hover {
+    box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.56);
+    -webkit-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.56);
+    -moz-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.56);
     cursor: pointer;
+  }
+  .cardColor {
+    background-color: #0f0f6f;
+    height: 50%;
   }
 
   section {
@@ -20,19 +27,4 @@
       text-decoration-line: underline;
     }
   }
-}
-
-.card-container:hover {
-  box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.56);
-  -webkit-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.56);
-  -moz-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.56);
-}
-
-.card-color {
-  background-color: #0f0f6f;
-  height: 50%;
-}
-
-.card-color:hover {
-  cursor: pointer;
 }

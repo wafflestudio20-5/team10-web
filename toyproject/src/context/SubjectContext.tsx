@@ -6,8 +6,8 @@ import { SubjectType } from "../lib/types";
 type SubjectContextType = {
   subjects: SubjectType[] | undefined;
   mySubjects: SubjectType[] | undefined;
-  curSubject: number;
-  handleClick: (id: number) => void;
+  curSubject: SubjectType | undefined;
+  handleClick: (subject: SubjectType) => void;
 };
 
 const SubjectContext = createContext<SubjectContextType>(
@@ -20,7 +20,9 @@ export function SubjectProvider({ children }: { children: React.ReactNode }) {
   const [subjects, setSubjects] = useState<SubjectType[] | undefined>(
     undefined
   );
-  const [curSubject, setCurSubject] = useState<number>(-1);
+  const [curSubject, setCurSubject] = useState<SubjectType | undefined>(
+    undefined
+  );
 
   const getSubjects = (token: string | null) => {
     apiSubjects(token)
@@ -36,8 +38,8 @@ export function SubjectProvider({ children }: { children: React.ReactNode }) {
 
   const mySubjects = user?.classes;
 
-  const handleClick = (id: number) => {
-    setCurSubject(id);
+  const handleClick = (subject: SubjectType) => {
+    setCurSubject(subject);
   };
 
   return (

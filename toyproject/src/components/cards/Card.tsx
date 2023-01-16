@@ -2,33 +2,25 @@ import React from "react";
 import styles from "./Card.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useSubjectContext } from "../../context/SubjectContext";
-
-type subject = {
-  id: number;
-  name: string;
-};
+import { SubjectType } from "../../lib/types";
 
 type CardType = {
-  subject: subject;
+  subject: SubjectType;
 };
 
 export const Card = ({ subject }: CardType) => {
   const navigate = useNavigate();
   const { handleClick } = useSubjectContext();
 
-  const goToModule = () => {
-    navigate(`/${subject.name}/`);
-  };
-
   return (
     <div
-      className={styles["card-container"]}
+      className={styles.cardContainer}
       onClick={() => {
         navigate(`/${subject.name}/`);
-        handleClick(subject.id);
+        handleClick(subject);
       }}
     >
-      <div className={styles["card-color"]}></div>
+      <div className={styles.cardColor}></div>
       <section>{subject.name}</section>
     </div>
   );

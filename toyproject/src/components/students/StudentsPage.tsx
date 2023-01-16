@@ -13,39 +13,49 @@ import { apiStudentsOfSubject } from "../../lib/api";
 export default function StudentsPage() {
   const { subjectname } = useParams();
   const { token } = useSessionContext();
-  const { subjects } = useSubjectContext();
+  const { curSubject } = useSubjectContext();
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchType, setSearchType] = useState<string>("");
 
-  const originStudents = [
-    { id: 0, name: "김가영", subject: subjectname, type: "student" },
-    { id: 1, name: "김나영", subject: subjectname, type: "student" },
-    { id: 2, name: "이가영", subject: subjectname, type: "professor" },
-    { id: 3, name: "김다영", subject: subjectname, type: "student" },
-    { id: 4, name: "김라영", subject: subjectname, type: "student" },
-  ];
+  // const originStudents = [
+  //   { id: 0, name: "김가영", subject: subjectname, type: "student" },
+  //   { id: 1, name: "김나영", subject: subjectname, type: "student" },
+  //   { id: 2, name: "이가영", subject: subjectname, type: "professor" },
+  //   { id: 3, name: "김다영", subject: subjectname, type: "student" },
+  //   { id: 4, name: "김라영", subject: subjectname, type: "student" },
+  // ];
 
   const [originalStudents, setOriginalStudents] = useState<
-    StudentsOfSubject | undefined
+    StudentsOfSubject[] | undefined
   >(undefined);
-  const [students, setStudents] = useState(originStudents);
+  const [students, setStudents] = useState<StudentsOfSubject[] | undefined>(
+    originalStudents
+  );
 
-  // const getStudentsOfSubject = (token: string | null, id: number) => {
-  //   apiStudentsOfSubject(token, id)
-  //     .then((res) => {
-  //       setOriginalStudents(res.data.results);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+  const getStudentsOfSubject = (token: string | null, id: number) => {
+    apiStudentsOfSubject(token, id)
+      .then((res) => {
+        setOriginalStudents(res.data.results);
+        // console.log(res.data.results);
+      })
+      .catch((err) => console.log(err));
+  };
 
-  // useEffect(() => {
-  //   if (token) getStudentsOfSubject(token);
-  // }, [token]);
+  useEffect(() => {
+    if (token) {
+      curSubject && getStudentsOfSubject(token, curSubject.id);
+    }
+  }, [token]);
 
   const filterStudents = () => {
-    const newStudents = originStudents.filter(
-      (student) =>
-        student.name.includes(searchValue) && student.type.includes(searchType)
+    let newStudents = originalStudents;
+    if (searchType === "student") {
+      newStudents = newStudents?.filter((student) => !student.is_professor);
+    } else if (searchType === "professor") {
+      newStudents = newStudents?.filter((student) => student.is_professor);
+    }
+    newStudents = newStudents?.filter((student) =>
+      student.username.includes(searchValue)
     );
     setStudents(newStudents);
   };
@@ -53,6 +63,14 @@ export default function StudentsPage() {
   useEffect(() => {
     filterStudents();
   }, [searchValue, searchType]);
+
+  const handleType = (type: boolean) => {
+    if (type === true) {
+      return "교수자";
+    } else if (type === false) {
+      return "학생";
+    }
+  };
 
   return (
     <SubjectTemplate subject={subjectname as string} page='수강생'>
@@ -66,37 +84,41 @@ export default function StudentsPage() {
             setSearchType(e.target.value);
           }}
         >
-          <option value=''>모든 역할</option>
+          <option value='every'>모든 역할</option>
           <option value='student'>학생</option>
           <option value='professor'>교수</option>
         </select>
       </section>
 
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th className={styles.pic}></th>
-            <th className={styles.name}>이름</th>
-            <th className={styles.subject}>과목</th>
-            <th className={styles.type}>역할</th>
-          </tr>
-        </thead>
-        <tbody>
-          {students.map((student) => (
-            <tr key={student.id}>
-              <td className={styles.pic}>
-                <FontAwesomeIcon
-                  icon={faCircleUser}
-                  className={styles.circleUser}
-                />
-              </td>
-              <td className={styles.name}>{student.name}</td>
-              <td className={styles.subject}>{student.subject}</td>
-              <td className={styles.type}>{student.type}</td>
+      {students && (
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th className={styles.pic}></th>
+              <th className={styles.name}>이름</th>
+              <th className={styles.subject}>과목</th>
+              <th className={styles.type}>역할</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {students?.map((student) => (
+              <tr key={student.id}>
+                <td className={styles.pic}>
+                  <FontAwesomeIcon
+                    icon={faCircleUser}
+                    className={styles.circleUser}
+                  />
+                </td>
+                <td className={styles.name}>{student.username}</td>
+                <td className={styles.subject}>{curSubject?.name}</td>
+                <td className={styles.type}>
+                  {handleType(student.is_professor)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </SubjectTemplate>
   );
 }
