@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 // import { useCallback, useEffect, useRef, useState } from "react";
-import { SignUpRequestBody, User } from "./types";
+import { SignUpRequestBody, User } from './types';
 
 const url = (path: string, param?: Record<string, string>) => {
   return `https://etl-dxnn.onrender.com${path}`;
@@ -16,7 +16,7 @@ export const apiSignUp = (
   is_professor: boolean
 ) => {
   return axios.post<SignUpRequestBody>(
-    url("/authentication/signup/"),
+    url('/authentication/signup/'),
     { email, password, username, student_id, is_professor },
     { withCredentials: true }
   );
@@ -24,21 +24,37 @@ export const apiSignUp = (
 
 export const apiLogin = (email: string, password: string) => {
   return axios.post<User>(
-    url("/authentication/login/"),
+    url('/authentication/login/'),
     { email, password },
     { withCredentials: true }
   );
 };
 
 export const apiLogout = (token: string) => {
-  return axios.get(url("/authentication/logout/"), {
+  return axios.get(url('/authentication/logout/'), {
     withCredentials: true,
     headers: auth(token),
   });
 };
 
+//전체 과목 목록을 가져오는 api, 수업 등록에 사용
 export const apiSubjects = async (token: string | null) => {
-  return await axios.get(url("/etl/class/list/"), {
+  return await axios.get(url('/etl/class/'), {
+    withCredentials: true,
+    headers: auth(token),
+  });
+};
+//과목 등록 api
+export const enrollSubjects = async (
+  token: string | null,
+  class_id: number
+) => {
+  return await axios({
+    method: 'post',
+    url: url('/etl/class/enroll'),
+    data: {
+      class_id,
+    },
     withCredentials: true,
     headers: auth(token),
   });

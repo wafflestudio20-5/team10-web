@@ -14,7 +14,8 @@ export default function Profile() {
         <div className={styles.hide}></div>
       </div>
       <div className={styles.user}>
-        {user?.username}(학번 이거도 userContext로)
+        {user?.username}
+        {` (${user?.student_id})`}
       </div>
     </div>
   );

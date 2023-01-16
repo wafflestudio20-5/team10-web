@@ -17,13 +17,11 @@ export default function UserPage() {
         <div className={styles.body}>
           <Profile></Profile>
           <div className={styles.title}>개인정보</div>
-          <Content
-            title={'전체이름:'}
-            content={`${user?.username}, 나중에 usercontext로 수정`}
-          />
-          <Content title={'이메일 주소'} content={'2019dahn@snu.ac.kr'} />
-          <Content title={'학번'} content={'2019dahn@snu.ac.kr'} />
-          <PasswordForm title={'비밀번호'} content={'qwer1234'} />
+          <Content title={'전체이름:'} content={`${user?.username}`} />
+          <Content title={'이메일 주소'} content={`${user?.email}`} />
+          <Content title={'학번'} content={`${user?.student_id}`} />
+          {/*return에 userpassword가 없어 다음과 같이 ui 로 보여지게 함*/}
+          <PasswordForm title={'비밀번호'} content={'********'} />{' '}
           <Content title={'언어'} content={'i18n-js라이브러리 추후 사용?'} />
           <Content title={'표준 시간대'} content={'회의로 결정'} />
         </div>
