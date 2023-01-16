@@ -29,3 +29,11 @@ export interface SignUpRequestBody {
   student_id: string;
   is_professor: boolean;
 }
+
+// 수강생 목록에서 user의 정보
+export interface StudentsOfSubject {
+  id: number;
+  username: string;
+  student_id: string;
+  is_professor: boolean;
+}

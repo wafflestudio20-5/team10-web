@@ -5,10 +5,15 @@ import styles from "./StudentsPage.module.scss";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Searchbar from "../Searchbar";
+import { useSessionContext } from "../../context/SessionContext";
+import { useSubjectContext } from "../../context/SubjectContext";
+import { StudentsOfSubject } from "../../lib/types";
+import { apiStudentsOfSubject } from "../../lib/api";
 
 export default function StudentsPage() {
   const { subjectname } = useParams();
-
+  const { token } = useSessionContext();
+  const { subjects } = useSubjectContext();
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchType, setSearchType] = useState<string>("");
 
@@ -19,7 +24,23 @@ export default function StudentsPage() {
     { id: 3, name: "김다영", subject: subjectname, type: "student" },
     { id: 4, name: "김라영", subject: subjectname, type: "student" },
   ];
+
+  const [originalStudents, setOriginalStudents] = useState<
+    StudentsOfSubject | undefined
+  >(undefined);
   const [students, setStudents] = useState(originStudents);
+
+  // const getStudentsOfSubject = (token: string | null, id: number) => {
+  //   apiStudentsOfSubject(token, id)
+  //     .then((res) => {
+  //       setOriginalStudents(res.data.results);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  // useEffect(() => {
+  //   if (token) getStudentsOfSubject(token);
+  // }, [token]);
 
   const filterStudents = () => {
     const newStudents = originStudents.filter(

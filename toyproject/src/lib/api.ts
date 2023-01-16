@@ -60,6 +60,16 @@ export const enrollSubjects = async (
   });
 };
 
+export const apiStudentsOfSubject = async (
+  token: string | null,
+  id: number
+) => {
+  return await axios.get(url(`/etl/class/${id}/user-list/`), {
+    withCredentials: true,
+    headers: auth(token),
+  });
+};
+
 //kakaotalk social login 관련 변수
 
 const CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
