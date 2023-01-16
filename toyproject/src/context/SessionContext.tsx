@@ -23,30 +23,30 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
 
   const navigate = useNavigate();
-  const login = (email: string, password: string): Promise<any> => {
-    return apiLogin(email, password)
-      .then((res) => {
-        setUser(res.data);
-        setToken(res.data.token);
-        navigate('/');
-      })
-      .catch((err) => {
-        console.log(err);
-        toast('이메일 또는 비밀번호가 틀렸습니다.', {
-          position: 'top-center',
-          theme: 'colored',
-        });
+  const login = async (email: string, password: string): Promise<any> => {
+    try {
+      const res = await apiLogin(email, password);
+      setUser(res.data);
+      setToken(res.data.token);
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+      toast('이메일 또는 비밀번호가 틀렸습니다.', {
+        position: 'top-center',
+        theme: 'colored',
       });
+    }
   };
 
-  const logout = (token: string) => {
-    return apiLogout(token)
-      .then((res) => {
-        setUser(null);
-        setToken(null);
-        navigate('/login/');
-      })
-      .catch((err) => console.log(err));
+  const logout = async (token: string) => {
+    try {
+      const res = await apiLogout(token);
+      setUser(null);
+      setToken(null);
+      navigate('/login/');
+    } catch (err) {
+      return console.log(err);
+    }
   };
 
   return (
