@@ -1,12 +1,17 @@
-import { Dispatch, SetStateAction } from "react";
-import styles from "./Searchbar.module.scss";
+import { Dispatch, SetStateAction } from 'react';
+import styles from './Searchbar.module.scss';
 
 interface SearchbarPropsType {
   searchValue: string;
   setSearchValue: Dispatch<SetStateAction<string>>;
+  inputPlaceHolder: string;
 }
 
-function Searchbar({ searchValue, setSearchValue }: SearchbarPropsType) {
+function Searchbar({
+  searchValue,
+  setSearchValue,
+  inputPlaceHolder,
+}: SearchbarPropsType) {
   let timer: any = null;
 
   function throttling(event: React.ChangeEvent<HTMLInputElement>) {
@@ -26,7 +31,7 @@ function Searchbar({ searchValue, setSearchValue }: SearchbarPropsType) {
   return (
     <input
       className={styles.searchbar}
-      placeholder='사용자 검색'
+      placeholder={inputPlaceHolder}
       onChange={handleInputChange}
     />
   );

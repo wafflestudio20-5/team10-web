@@ -1,7 +1,7 @@
-import React from "react";
-import styles from "./DashBoard.module.scss";
-import { Cards } from "../cards/Cards";
-import { UserBar } from "../UserBar/UserBar";
+import React from 'react';
+import styles from './DashBoard.module.scss';
+import { Cards } from '../cards/Cards';
+import { UserBar } from '../UserBar/UserBar';
 
 export const DashBoard = () => {
   return (
