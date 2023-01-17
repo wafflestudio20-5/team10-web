@@ -82,6 +82,18 @@ export const apiAssignments = async (
   });
 };
 
+export const apiAssignmentScore = async (
+  token: string | null,
+  assignment_id: number
+) => {
+  return await axios({
+    method: 'get',
+    url: url(`/etl/assignments/${assignment_id}`),
+    withCredentials: true,
+    headers: auth(token),
+  });
+};
+
 //kakaotalk social login 관련 변수
 
 const CLIENT_ID = '9abd4a226f299f3b2c393cc8dd0b9ed8';
