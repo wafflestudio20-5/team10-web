@@ -20,27 +20,31 @@
 
   section {
     border-bottom: solid black;
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+
+      li {
+        width: 316px;
+        height: 40px;
+        span {
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
   }
 
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
   svg {
     position: absolute;
     top: 8px;
     right: 10px;
     border: solid black;
     padding: 10px;
-  }
-
-  svg:hover {
-    cursor: pointer;
-  }
-
-  li {
-    width: 316px;
-    height: 80px;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   a {

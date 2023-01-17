@@ -1,7 +1,7 @@
-import styles from './SubjectModal.module.scss';
-import { ReactComponent as CloseButton } from '../../../svg/close.svg';
-import { useSubjectContext } from '../../../context/SubjectContext';
-import { Link } from 'react-router-dom';
+import styles from "./SubjectModal.module.scss";
+import { ReactComponent as CloseButton } from "../../../svg/close.svg";
+import { useSubjectContext } from "../../../context/SubjectContext";
+import { Link } from "react-router-dom";
 
 type SubjectModalType = {
   closeSubjectModal: () => void;
@@ -16,8 +16,8 @@ export const SubjectModal = ({
 
   return (
     <div
-      className={`${styles['modal']} ${
-        aniState ? styles['close'] : styles['modal']
+      className={`${styles["modal"]} ${
+        aniState ? styles["close"] : styles["modal"]
       }`}
     >
       <CloseButton
@@ -33,7 +33,7 @@ export const SubjectModal = ({
               return (
                 <li key={subject.id}>
                   <Link to={`/${subject.name}`} onClick={closeSubjectModal}>
-                    {subject.name}
+                    <span>{subject.name}</span>
                   </Link>
                 </li>
               );
