@@ -70,6 +70,16 @@ export const apiStudentsOfSubject = async (
   });
 };
 
+export const apiAssignments = async (
+    token: string | null,
+    class_id: number
+) => {
+  return await axios.get(url(`/etl/assignments/class/${class_id}`), {
+    withCredentials: true,
+    headers: auth(token),
+  })
+}
+
 //kakaotalk social login 관련 변수
 
 const CLIENT_ID = '9abd4a226f299f3b2c393cc8dd0b9ed8';
