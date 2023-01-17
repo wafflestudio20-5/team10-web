@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import styles from './PasswordForm.module.scss';
+import axios from 'axios';
+import { auth, url } from '../../../lib/api';
+import { useSessionContext } from '../../../context/SessionContext';
+import { toast } from 'react-toastify';
 export default function PasswordForm({
   title,
   content,
@@ -10,7 +14,7 @@ export default function PasswordForm({
   const [passwordBox, setPasswordBox] = useState<boolean>(false);
   const [previousPw, setPreviousPw] = useState('');
   const [newPw, setNewPw] = useState('');
-
+  const { token } = useSessionContext();
   const handlePreviousPw = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPreviousPw(event.target.value);
   };
@@ -18,7 +22,8 @@ export default function PasswordForm({
     setNewPw(event.target.value);
   };
 
-  const togglePasswordBox = () => {
+  const togglePasswordBox = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     setPasswordBox((prev) => !prev);
   };
 
@@ -26,6 +31,35 @@ export default function PasswordForm({
   for (let i = 0; i < content.length; i++) {
     hiddenPassword += '*';
   }
+
+  const changePassword = async (newPw: string) => {
+    const res = await axios({
+      method: 'post',
+      url: url('/authentication/change-password/'),
+      data: {
+        new_password: newPw,
+      },
+      withCredentials: true,
+      headers: auth(token),
+    });
+    return res;
+  };
+
+  // const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   try {
+  //     const res = await changePassword(newPw);
+  //     console.log(res);
+  //     setPreviousPw('');
+  //     setNewPw('');
+  //   } catch (err) {
+  //     console.log(err);
+  //     toast('error occured', {
+  //       position: 'top-center',
+  //       theme: 'colored',
+  //     });
+  //   }
+  // };
 
   const onSubmit = () => {};
 
@@ -52,10 +86,13 @@ export default function PasswordForm({
                 <button
                   className={styles['cancel-button']}
                   onClick={togglePasswordBox}
+                  type='button'
                 >
                   취소
                 </button>
-                <button className={styles['submit-button']}>저장</button>
+                <button className={styles['submit-button']} type='submit'>
+                  저장
+                </button>
               </div>
             </div>
           </div>
