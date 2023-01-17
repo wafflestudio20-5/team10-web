@@ -77,8 +77,18 @@ export const apiAssignments = async (
   return await axios.get(url(`/etl/assignments/class/${class_id}`), {
     withCredentials: true,
     headers: auth(token),
-  })
-}
+  });
+};
+
+export const apiAssignmentScore = async (
+    token: string | null,
+    assignment_id: number
+) => {
+  return await axios.get(url(`/etl/assignments/${assignment_id}/score/`), {
+    withCredentials: true,
+    headers: auth(token),
+  });
+};
 
 //kakaotalk social login 관련 변수
 
