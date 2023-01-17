@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="290c869b-db95-469b-b2ba-81a776cd72fe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentDetailsPage.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentDetailsPage.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentDetailsPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentDetailsPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +71,8 @@
       <workItem from="1672577784354" duration="6943000" />
       <workItem from="1672666480641" duration="7610000" />
       <workItem from="1673406203508" duration="1452000" />
-      <workItem from="1673850768047" duration="2694000" />
+      <workItem from="1673850768047" duration="3273000" />
+      <workItem from="1673934297969" duration="447000" />
     </task>
     <servers />
   </component>
