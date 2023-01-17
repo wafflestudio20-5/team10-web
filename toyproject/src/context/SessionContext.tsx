@@ -1,9 +1,9 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { User } from '../lib/types';
-import { apiLogin, apiLogout } from '../lib/api';
-import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { createContext, useContext, useState, useEffect } from "react";
+import { User } from "../lib/types";
+import { apiLogin, apiLogout } from "../lib/api";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type SessionContextType = {
   isLoggedIn: boolean;
@@ -36,8 +36,8 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         //   setIsLoggedIn(false);
         // }
         if (!res) {
-          toast('로그인 후 이용해주세요');
-          navigate('/login');
+          toast("로그인 후 이용해주세요");
+          navigate("/login");
         }
       } catch (e) {
         setIsLogggedIn(false);
@@ -55,12 +55,12 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       const res = await apiLogin(email, password);
       setUser(res.data);
       setToken(res.data.token);
-      navigate('/');
+      navigate("/");
     } catch (err) {
       console.log(err);
-      toast('이메일 또는 비밀번호가 틀렸습니다.', {
-        position: 'top-center',
-        theme: 'colored',
+      toast("이메일 또는 비밀번호가 틀렸습니다.", {
+        position: "top-center",
+        theme: "colored",
       });
     }
   };
@@ -70,7 +70,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       const res = await apiLogout(token);
       setUser(null);
       setToken(null);
-      navigate('/login/');
+      navigate("/login/");
     } catch (err) {
       return console.log(err);
     }

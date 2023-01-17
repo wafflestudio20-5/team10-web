@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styles from "./SignUp.module.scss";
 import headerStyles from "./LoginPage.module.scss";
 import { Term1, Term2, Term3 } from "../TermsOfService.js";
@@ -218,7 +219,116 @@ export default function SignUpPage() {
         setCurrentStage(currentStage + 1);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data);
+        if (Object.keys(err.response.data).includes("password")) {
+          if (
+            err.response.data.password?.includes(
+              "This password is too short. It must contain at least 8 characters."
+            )
+          ) {
+            toast("비밀번호는 최소 8글자 이상으로 입력해주세요.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+          if (
+            err.response.data.password?.includes("This password is too common.")
+          ) {
+            toast("비밀번호는 너무 흔하지 않은 조합으로 입력해주세요.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+          if (
+            err.response.data.password?.includes(
+              "This password is entirely numeric."
+            )
+          ) {
+            toast("숫자로만 구성된 비밀번호는 사용할 수 없습니다.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+          if (
+            err.response.data.password?.includes("This field may not be blank.")
+          ) {
+            toast("비밀번호는 반드시 입력해야 합니다.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+        }
+        if (Object.keys(err.response.data).includes("student_id")) {
+          if (
+            err.response.data.student_id?.includes(
+              "This field may not be blank."
+            )
+          ) {
+            toast("학번은 반드시 입력해야 합니다.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+          if (
+            err.response.data.student_id?.includes(
+              "student_id should be 10 length" ||
+                "student_id form should be XXXX-XXXXX"
+            )
+          ) {
+            toast("학번은 XXXX-XXXXX 형식의 숫자열로 입력해주세요.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+          if (
+            err.response.data.student_id?.includes(
+              "already existing student_id"
+            )
+          ) {
+            toast("이미 존재하는 학번입니다.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+        }
+        if (Object.keys(err.response.data).includes("email")) {
+          if (
+            err.response.data.email?.includes("This field may not be blank.")
+          ) {
+            toast("이메일은 반드시 입력해야 합니다.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+          if (
+            err.response.data.email?.includes("Enter a valid email address.")
+          ) {
+            toast("유효한 이메일 주소를 입력해주세요.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+          if (
+            err.response.data.email?.includes(
+              "user with this email already exists."
+            )
+          ) {
+            toast("이미 존재하는 이메일입니다.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+        }
+        if (Object.keys(err.response.data).includes("username")) {
+          if (
+            err.response.data.username?.includes("This field may not be blank.")
+          ) {
+            toast("이름은 반드시 입력해야 합니다.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+        }
       });
 
   return (
