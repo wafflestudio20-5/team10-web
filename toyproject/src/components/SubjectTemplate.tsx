@@ -1,29 +1,22 @@
-import React, { useState } from "react";
-import styles from "./SubjectTemplate.module.scss";
-import { SideNavBar } from "./sideNavbar/SideNavBar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { useLocation, useNavigate, Link } from "react-router-dom";
-import { UserBar } from "./UserBar/UserBar";
+import React, { useState } from 'react';
+import styles from './SubjectTemplate.module.scss';
+import { SideNavBar } from './sideNavbar/SideNavBar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { UserBar } from './UserBar/UserBar';
 
 const ListElement = ({ current, name }: { current: string; name: string }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const pages = ["모듈", "게시판", "강의계획서", "수강생", "과제", "성적"];
-  const address = [
-    "",
-    "/boardnav",
-    "/syllabus",
-    "/students",
-    "/assignments",
-    "/grades",
-  ];
-  const subject = location.pathname.split("/")[1];
+  const pages = ['모듈', '게시판', '수강생', '과제', '성적'];
+  const address = ['', '/boardnav', '/students', '/assignments', '/grades'];
+  const subject = location.pathname.split('/')[1];
 
   return (
     <li
       className={current === name ? styles.current : undefined}
-      onClick={() => navigate("../" + subject + address[pages.indexOf(name)])}
+      onClick={() => navigate('../' + subject + address[pages.indexOf(name)])}
     >
       {name}
       {current === name && (
@@ -76,7 +69,6 @@ export default function SubjectTemplate({
               <ul>
                 <ListElement current={page} name='모듈' />
                 <ListElement current={page} name='게시판' />
-                <ListElement current={page} name='강의계획서' />
                 <ListElement current={page} name='수강생' />
                 <ListElement current={page} name='과제' />
                 <ListElement current={page} name='성적' />
