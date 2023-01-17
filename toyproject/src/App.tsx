@@ -19,6 +19,7 @@ import { SessionProvider } from './context/SessionContext';
 import KakaoLoginPage from './components/auth/KakaoLoginPage';
 import UserPage from './components/user/page/UserPage';
 import { SubjectProvider } from './context/SubjectContext';
+import SelectSubjectPage from './components/selectSubject/page/SelectSubjectPage';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path='/login/new' element={<SignUpPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/:subjectname' element={<ModulePage />} />
+            <Route path='/selectsubject' element={<SelectSubjectPage />} />
             <Route path='/:subjectname/boardnav' element={<BoardNavPage />} />
             <Route path='/:subjectname/qnaboard' element={<QnABoardPage />} />
             <Route path='/user' element={<UserPage />} />

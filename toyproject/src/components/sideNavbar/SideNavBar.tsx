@@ -12,7 +12,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export const SideNavBar = () => {
   const [subjectModal, setSubjectModal] = useState<boolean>(false);
-  // const [authModal, setAuthModal] = useState<boolean>(false);
   const [isSelected, setIsSelected] = useState<number>(0);
   const [aniState, setAniState] = useState(false);
 
@@ -29,19 +28,6 @@ export const SideNavBar = () => {
     }, 500);
     setIsSelected(0);
   };
-
-  // const openAuthModal = () => {
-  //   setAuthModal(true);
-  // };
-
-  // const closeAuthModal = () => {
-  //   setAniState(true);
-  //   setTimeout(() => {
-  //     setAniState(false);
-  //     setAuthModal(false);
-  //   }, 500);
-  //   setIsSelected(0);
-  // };
 
   //modal을 띄우지 않는 button을 클릭시 다른 모달 state를 모두 false로 만듦
   const closeOtherModal = () => {
@@ -68,7 +54,6 @@ export const SideNavBar = () => {
           onClick={() => {
             setIsSelected(1);
             closeOtherModal();
-            // openAuthModal();
             navigate('/user');
           }}
         >
@@ -102,18 +87,20 @@ export const SideNavBar = () => {
           <Book></Book>
           과목
         </div>
-        <div
-          className={`${styles['button-container']} ${
-            isSelected === 4 ? styles['selected'] : ''
-          }`}
-          onClick={() => {
-            setIsSelected(4);
-            closeOtherModal();
-          }}
-        >
-          <Calender></Calender>
-          캘린더
-        </div>
+        <Link to='/selectsubject'>
+          <div
+            className={`${styles['button-container']} ${
+              isSelected === 4 ? styles['selected'] : ''
+            }`}
+            onClick={() => {
+              setIsSelected(4);
+              closeOtherModal();
+            }}
+          >
+            <Calender></Calender>
+            강좌 선택
+          </div>
+        </Link>
         <div
           className={`${styles['button-container']} ${
             isSelected === 5 ? styles['selected'] : ''
@@ -133,12 +120,6 @@ export const SideNavBar = () => {
           closeSubjectModal={closeSubjectModal}
         ></SubjectModal>
       )}
-      {/* {authModal && (
-        <AuthModal
-          aniState={aniState}
-          closeAuthModal={closeAuthModal}
-        ></AuthModal>
-      )} */}
     </div>
   );
 };

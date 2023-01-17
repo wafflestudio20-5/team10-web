@@ -22,8 +22,6 @@ export default function UserPage() {
           <Content title={'학번'} content={`${user?.student_id}`} />
           {/*return에 userpassword가 없어 다음과 같이 ui 로 보여지게 함*/}
           <PasswordForm title={'비밀번호'} content={'********'} />{' '}
-          <Content title={'언어'} content={'i18n-js라이브러리 추후 사용?'} />
-          <Content title={'표준 시간대'} content={'회의로 결정'} />
         </div>
       </div>
     </div>
