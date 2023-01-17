@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './UserPage.module.scss';
+import contentStyles from '../userComponents/Content.module.scss'
 import { SideNavBar } from '../../sideNavbar/SideNavBar';
 import Content from '../userComponents/Content';
 import Profile from '../userComponents/Profile';
@@ -22,6 +23,10 @@ export default function UserPage() {
           <Content title={'학번'} content={`${user?.student_id}`} />
           {/*return에 userpassword가 없어 다음과 같이 ui 로 보여지게 함*/}
           <PasswordForm title={'비밀번호'} content={'********'} />{' '}
+          <div className={contentStyles.wrapper}>
+            <div className={contentStyles.content}>자퇴 신청</div>
+            <button className={styles.button}>자퇴</button>
+          </div>
         </div>
       </div>
     </div>

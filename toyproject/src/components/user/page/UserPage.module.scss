@@ -33,3 +33,13 @@
   line-height: 41px;
   margin-bottom: 20px;
 }
+
+.button {
+  margin: auto auto auto 0;
+  width: 100px;
+  cursor: pointer;
+  &:hover {
+    background-color: red;
+    color: white;
+  }
+}

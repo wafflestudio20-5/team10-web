@@ -6,35 +6,35 @@
   .svg-container {
     position: relative;
     display: flex;
-    justify-content: center;
-    width: 80px;
-    height: 80px;
+    width: 156px;
+    height: 156px;
     border: solid #b9b9b9;
     border-radius: 50%;
-    overflow: hidden;
+    .userIcon {
+      margin: auto;
+    }
   }
 
   .svg-container:hover {
     background-color: #6363b680;
-    svg {
+    .userIcon {
       color: #6363b680;
     }
   }
 
+  .hide {
+    position: absolute;
+    top: 58px;
+    left: 58px;
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    color: white;
+    //background-image: url("../../../svg/pencil.svg");
+  }
   .svg-container:hover .hide {
     opacity: 1;
     cursor: pointer;
-  }
-
-  .hide {
-    position: absolute;
-    left: 25px;
-    top: 23px;
-    width: 32px;
-    height: 32px;
-    background-image: url(../../../svg/pencil.svg);
-    z-index: 2;
-    opacity: 0;
   }
 }
 

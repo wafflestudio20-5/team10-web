@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="290c869b-db95-469b-b2ba-81a776cd72fe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentBlock.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/lib/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/lib/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/user/page/UserPage.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/user/page/UserPage.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/user/page/UserPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/user/page/UserPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/user/userComponents/Profile.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/user/userComponents/Profile.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/user/userComponents/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/user/userComponents/Profile.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +77,7 @@
       <workItem from="1672666480641" duration="7610000" />
       <workItem from="1673406203508" duration="1452000" />
       <workItem from="1673850768047" duration="3273000" />
-      <workItem from="1673934297969" duration="6239000" />
+      <workItem from="1673934297969" duration="9219000" />
     </task>
     <servers />
   </component>
