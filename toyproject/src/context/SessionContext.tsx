@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { User } from '../lib/types';
 import { apiLogin, apiLogout } from '../lib/api';
 import { useNavigate } from 'react-router-dom';
@@ -23,6 +23,33 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await getRefreshToken(); //렌더링 시 refreshToken 요청, 우선 false return하게 임의로 구현해둠
+        // if (res !== undefined) {
+        //   const owner = await getLoggedInUser(res);
+        //   setAccount(owner);
+        //   setIsLoggedIn(true);
+        // } else {
+        //   setIsLoggedIn(false);
+        // }
+        if (!res) {
+          toast('로그인 후 이용해주세요');
+          navigate('/login');
+        }
+      } catch (e) {
+        setIsLogggedIn(false);
+        console.error(e);
+      }
+    })();
+  }, []);
+
+  const getRefreshToken = () => {
+    return false;
+  };
+
   const login = async (email: string, password: string): Promise<any> => {
     try {
       const res = await apiLogin(email, password);
