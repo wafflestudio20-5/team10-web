@@ -101,18 +101,20 @@ export const SideNavBar = () => {
             강좌 선택
           </div>
         </Link>
-        <div
-          className={`${styles['button-container']} ${
-            isSelected === 5 ? styles['selected'] : ''
-          }`}
-          onClick={() => {
-            setIsSelected(5);
-            closeOtherModal();
-          }}
-        >
-          <Question></Question>
-          이용안내
-        </div>
+        <Link to='/description'>
+          <div
+            className={`${styles['button-container']} ${
+              isSelected === 5 ? styles['selected'] : ''
+            }`}
+            onClick={() => {
+              setIsSelected(5);
+              closeOtherModal();
+            }}
+          >
+            <Question></Question>
+            이용안내
+          </div>
+        </Link>
       </div>
       {subjectModal && (
         <SubjectModal

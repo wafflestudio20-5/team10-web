@@ -20,6 +20,7 @@ import KakaoLoginPage from './components/auth/KakaoLoginPage';
 import UserPage from './components/user/page/UserPage';
 import { SubjectProvider } from './context/SubjectContext';
 import SelectSubjectPage from './components/selectSubject/page/SelectSubjectPage';
+import DescriptionPage from './components/description/DescriptionPage';
 
 function App() {
   return (
@@ -67,6 +68,7 @@ function App() {
             />
             <Route path='/:subjectname/grades' element={<GradesPage />} />{' '}
             <Route path='/kakaoLogin' element={<KakaoLoginPage />} />
+            <Route path='/description' element={<DescriptionPage />} />
           </Routes>{' '}
         </SubjectProvider>
       </SessionProvider>
