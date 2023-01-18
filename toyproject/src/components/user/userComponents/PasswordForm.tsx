@@ -12,12 +12,9 @@ export default function PasswordForm({
   content: string;
 }) {
   const [passwordBox, setPasswordBox] = useState<boolean>(false);
-  const [previousPw, setPreviousPw] = useState('');
   const [newPw, setNewPw] = useState('');
   const { token } = useSessionContext();
-  const handlePreviousPw = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPreviousPw(event.target.value);
-  };
+
   const handleNewPw = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewPw(event.target.value);
   };
@@ -45,23 +42,22 @@ export default function PasswordForm({
     return res;
   };
 
-  // const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   try {
-  //     const res = await changePassword(newPw);
-  //     console.log(res);
-  //     setPreviousPw('');
-  //     setNewPw('');
-  //   } catch (err) {
-  //     console.log(err);
-  //     toast('error occured', {
-  //       position: 'top-center',
-  //       theme: 'colored',
-  //     });
-  //   }
-  // };
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const res = await changePassword(newPw);
+      console.log(res);
+      setNewPw('');
+    } catch (err) {
+      console.log(err);
+      toast('error occured', {
+        position: 'top-center',
+        theme: 'colored',
+      });
+    }
+  };
 
-  const onSubmit = () => {};
+  // const onSubmit = () => {};
 
   return (
     <form onSubmit={onSubmit}>
@@ -78,9 +74,9 @@ export default function PasswordForm({
         {passwordBox && (
           <div className={styles.content}>
             <div className={styles.container}>
-              이전 비밀번호:
-              <input type={'password'} onChange={handlePreviousPw}></input>새
-              비밀번호:
+              {/* 이전 비밀번호:
+              <input type={'password'} onChange={handlePreviousPw}></input> */}
+              새 비밀번호:
               <input type={'password'} onChange={handleNewPw}></input>
               <div className={styles['button-container']}>
                 <button
