@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import styles from './SubjectTemplate.module.scss';
-import { SideNavBar } from './sideNavbar/SideNavBar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { UserBar } from './UserBar/UserBar';
+import React, { useState } from "react";
+import styles from "./SubjectTemplate.module.scss";
+import { SideNavBar } from "./sideNavbar/SideNavBar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import { UserBar } from "./UserBar/UserBar";
 
 const ListElement = ({ current, name }: { current: string; name: string }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const pages = ['모듈', '게시판', '수강생', '과제', '성적'];
-  const address = ['', '/boardnav', '/students', '/assignments', '/grades'];
-  const subject = location.pathname.split('/')[1];
+  const pages = ["모듈", "게시판", "수강생", "과제", "성적"];
+  const address = ["", "/boardnav", "/students", "/assignments", "/grades"];
+  const subject = location.pathname.split("/")[1];
 
   return (
     <li
       className={current === name ? styles.current : undefined}
-      onClick={() => navigate('../' + subject + address[pages.indexOf(name)])}
+      onClick={() => navigate("../" + subject + address[pages.indexOf(name)])}
     >
       {name}
       {current === name && (
@@ -38,6 +38,8 @@ export default function SubjectTemplate({
   children?: React.ReactNode;
 }) {
   const [toggleNav, setToggleNav] = useState<boolean>(true);
+  const pages = ["모듈", "게시판", "수강생", "과제", "성적"];
+  const address = ["", "/boardnav", "/students", "/assignments", "/grades"];
 
   return (
     <div className={styles.wrapper}>
@@ -53,7 +55,9 @@ export default function SubjectTemplate({
             <p className={styles.title}>{subject}</p>
           </Link>
           <FontAwesomeIcon icon={faChevronRight} className={styles.arrow} />
-          <p className={styles.title}>{page}</p>
+          <Link to={"../" + subject + address[pages.indexOf(page)]}>
+            <p className={styles.title}>{page}</p>
+          </Link>
           {content && (
             <div className={`${styles.header} ${styles.content}`}>
               <FontAwesomeIcon icon={faChevronRight} className={styles.arrow} />
