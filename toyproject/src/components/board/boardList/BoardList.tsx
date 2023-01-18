@@ -1,45 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./BoardList.module.scss";
 import { Link, useParams } from "react-router-dom";
-
-type Writing = {
-  id: number;
-  title: string;
-  username: string;
-  created_at: string; //임시
-  viewed: number; //구현할 건지 백엔드와 의논
-};
+import { Post } from "../../../lib/types";
+import { apiPostList } from "../../../lib/api";
+import { useSessionContext } from "../../../context/SessionContext";
+import { useSubjectContext } from "../../../context/SubjectContext";
 
 type BoardListType = {
   category: string;
 };
 
-const InitialWritings: Writing[] = [
-  {
-    id: 1,
-    title: "첫번째",
-    username: "광휘",
-    created_at: "2023-01-01",
-    viewed: 1,
-  },
-  {
-    id: 2,
-    title: "새해복",
-    username: "광휘",
-    created_at: "2023-01-01",
-    viewed: 1,
-  },
-  {
-    id: 3,
-    title: "많이받으세요",
-    username: "광휘",
-    created_at: "2023-01-01",
-    viewed: 1,
-  },
-];
-
 export default function BoardList({ category }: BoardListType) {
   const { subjectname } = useParams();
+  const { token } = useSessionContext();
+  const { curSubject } = useSubjectContext();
+  const [postList, setPostList] = useState<Post[]>([]);
+
+  const getPostList = (
+    token: string | null,
+    class_id: number,
+    category: string
+  ) => {
+    apiPostList(token, class_id, category)
+      .then((res) => {
+        setPostList(res.data.results);
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    curSubject && getPostList(token, curSubject.id, category);
+  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -64,23 +54,24 @@ export default function BoardList({ category }: BoardListType) {
           <span className={styles.viewed}>조회수</span>
         </div>
         <ul>
-          {InitialWritings.map((item) => {
+          {postList.map((post) => {
             return (
-              <li key={item.id}>
-                <span className={styles.no}>{item.id}</span>
-                <span className={styles.title} key={item.id}>
-                  <Link to={`/${subjectname}/${category}/${item.id}`}>
-                    {item.title}
+              <li key={post.id}>
+                <span className={styles.no}>{post.id}</span>
+                <span className={styles.title} key={post.id}>
+                  <Link to={`/${subjectname}/${category}/${post.id}`}>
+                    {post.title}
                   </Link>
                 </span>
-                <span className={styles.username} key={item.id}>
-                  {item.username}
+                <span className={styles.username} key={post.id}>
+                  {post.created_by.username}
                 </span>
-                <span className={styles.created_at} key={item.id}>
-                  {item.created_at}
+                <span className={styles.created_at} key={post.id}>
+                  {post.created_at}
                 </span>
-                <span className={styles.viewed} key={item.id}>
-                  {item.viewed}
+                <span className={styles.viewed} key={post.id}>
+                  {/* {post.viewed} */}
+                  조회수
                 </span>
               </li>
             );

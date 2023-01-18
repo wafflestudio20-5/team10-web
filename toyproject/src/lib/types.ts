@@ -40,3 +40,11 @@ export type SubjectType = {
     username: string;
   };
 };
+
+export type Post = {
+  id: number;
+  title: string;
+  content: string;
+  created_by: StudentsOfSubject;
+  created_at: string;
+};

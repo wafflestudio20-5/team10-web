@@ -15,7 +15,7 @@ export default function BoardNav() {
       <nav>
         <ul>
           <li>
-            <Link to={`/${subjectname}/noticeboard`}>
+            <Link to={`/${subjectname}/announcements`}>
               <FontAwesomeIcon
                 icon={faClipboardList}
                 size='lg'
@@ -24,7 +24,7 @@ export default function BoardNav() {
             </Link>
           </li>
           <li>
-            <Link to={`/${subjectname}/qnaboard`}>
+            <Link to={`/${subjectname}/questions`}>
               <FontAwesomeIcon icon={faClipboardQuestion} size='lg' />
               &nbsp; qna 게시판
             </Link>

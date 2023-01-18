@@ -1,29 +1,21 @@
-import SubjectTemplate from '../SubjectTemplate';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
-import styles from './StudentsPage.module.scss';
-import { useParams } from 'react-router-dom';
-import { useEffect, useState, useMemo } from 'react';
-import Searchbar from '../Searchbar';
-import { useSessionContext } from '../../context/SessionContext';
-import { useSubjectContext } from '../../context/SubjectContext';
-import { StudentsOfSubject } from '../../lib/types';
-import { apiStudentsOfSubject } from '../../lib/api';
+import SubjectTemplate from "../SubjectTemplate";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import styles from "./StudentsPage.module.scss";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Searchbar from "../Searchbar";
+import { useSessionContext } from "../../context/SessionContext";
+import { useSubjectContext } from "../../context/SubjectContext";
+import { StudentsOfSubject } from "../../lib/types";
+import { apiStudentsOfSubject } from "../../lib/api";
 
 export default function StudentsPage() {
   const { subjectname } = useParams();
   const { token } = useSessionContext();
   const { curSubject } = useSubjectContext();
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [searchType, setSearchType] = useState<string>('');
-
-  // const originStudents = [
-  //   { id: 0, name: "김가영", subject: subjectname, type: "student" },
-  //   { id: 1, name: "김나영", subject: subjectname, type: "student" },
-  //   { id: 2, name: "이가영", subject: subjectname, type: "professor" },
-  //   { id: 3, name: "김다영", subject: subjectname, type: "student" },
-  //   { id: 4, name: "김라영", subject: subjectname, type: "student" },
-  // ];
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [searchType, setSearchType] = useState<string>("");
 
   const [students, setStudents] = useState<StudentsOfSubject[] | undefined>([]);
   const [studentsToShow, setStudentsToShow] = useState<
@@ -45,11 +37,11 @@ export default function StudentsPage() {
 
   const filterStudents = () => {
     let filteredStudents = students;
-    if (searchType === 'student') {
+    if (searchType === "student") {
       filteredStudents = filteredStudents?.filter(
         (student) => !student.is_professor
       );
-    } else if (searchType === 'professor') {
+    } else if (searchType === "professor") {
       filteredStudents = filteredStudents?.filter(
         (student) => student.is_professor
       );
@@ -66,9 +58,9 @@ export default function StudentsPage() {
 
   const handleType = (type: boolean) => {
     if (type === true) {
-      return '교수자';
+      return "교수자";
     } else if (type === false) {
-      return '학생';
+      return "학생";
     }
   };
   return (
