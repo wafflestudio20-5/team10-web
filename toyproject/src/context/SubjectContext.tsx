@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { apiSubjects } from "../lib/api";
-import { useSessionContext } from "../context/SessionContext";
-import { SubjectType } from "../lib/types";
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { apiSubjects } from '../lib/api';
+import { useSessionContext } from '../context/SessionContext';
+import { SubjectType } from '../lib/types';
 
 type SubjectContextType = {
   subjects: SubjectType[] | undefined;
@@ -41,6 +41,10 @@ export function SubjectProvider({ children }: { children: React.ReactNode }) {
   const handleClick = (subject: SubjectType) => {
     setCurSubject(subject);
   };
+
+  const enrollClass = () => {};
+
+  const dropClass = () => {};
 
   return (
     <SubjectContext.Provider
