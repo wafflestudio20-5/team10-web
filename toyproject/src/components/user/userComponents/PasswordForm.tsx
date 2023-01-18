@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import styles from './PasswordForm.module.scss';
+import axios from 'axios';
+import { auth, url } from '../../../lib/api';
+import { useSessionContext } from '../../../context/SessionContext';
+import { toast } from 'react-toastify';
 export default function PasswordForm({
   title,
   content,
@@ -8,17 +12,15 @@ export default function PasswordForm({
   content: string;
 }) {
   const [passwordBox, setPasswordBox] = useState<boolean>(false);
-  const [previousPw, setPreviousPw] = useState('');
   const [newPw, setNewPw] = useState('');
+  const { token } = useSessionContext();
 
-  const handlePreviousPw = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPreviousPw(event.target.value);
-  };
   const handleNewPw = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewPw(event.target.value);
   };
 
-  const togglePasswordBox = () => {
+  const togglePasswordBox = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     setPasswordBox((prev) => !prev);
   };
 
@@ -27,7 +29,43 @@ export default function PasswordForm({
     hiddenPassword += '*';
   }
 
-  const onSubmit = () => {};
+  const changePassword = async (newPw: string) => {
+    const res = await axios({
+      method: 'post',
+      url: url('/authentication/change-password/'),
+      data: {
+        new_password: newPw,
+      },
+      withCredentials: true,
+      headers: auth(token),
+    });
+    return res;
+  };
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const res = await changePassword(newPw);
+      setNewPw('');
+      setPasswordBox((prev) => !prev);
+      toast('비밀번호 변경 완료', {
+        position: 'top-center',
+        theme: 'colored',
+      });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast(error.response?.data.error, {
+          position: 'top-center',
+          theme: 'colored',
+        });
+      } else {
+        toast('unknown error', {
+          position: 'top-center',
+          theme: 'colored',
+        });
+      }
+    }
+  };
 
   return (
     <form onSubmit={onSubmit}>
@@ -44,18 +82,21 @@ export default function PasswordForm({
         {passwordBox && (
           <div className={styles.content}>
             <div className={styles.container}>
-              이전 비밀번호:
-              <input type={'password'} onChange={handlePreviousPw}></input>새
-              비밀번호:
+              {/* 이전 비밀번호:
+              <input type={'password'} onChange={handlePreviousPw}></input> */}
+              새 비밀번호:
               <input type={'password'} onChange={handleNewPw}></input>
               <div className={styles['button-container']}>
                 <button
                   className={styles['cancel-button']}
                   onClick={togglePasswordBox}
+                  type='button'
                 >
                   취소
                 </button>
-                <button className={styles['submit-button']}>저장</button>
+                <button className={styles['submit-button']} type='submit'>
+                  저장
+                </button>
               </div>
             </div>
           </div>
