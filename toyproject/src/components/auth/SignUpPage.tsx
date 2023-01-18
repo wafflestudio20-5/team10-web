@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styles from "./SignUp.module.scss";
 import headerStyles from "./LoginPage.module.scss";
 import { Term1, Term2, Term3 } from "../TermsOfService.js";
@@ -8,25 +9,12 @@ import loginHeader from "../../resources/loginHeader.png";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAt, faMinus } from "@fortawesome/free-solid-svg-icons";
-
-/** 이용 약관 */
-interface Term {
-  title: string;
-  content: JSX.Element;
-}
+import { Term } from "../../lib/types";
+import { SignUpRequestBody } from "../../lib/types";
+import { apiSignUp } from "../../lib/api";
 
 // 학번 양식 (정규표현식)
 const studentIdRegex: RegExp = /\d{4}-\d{5}/;
-
-/** 회원 가입하는 유저 정보 양식 */
-interface UserInfo {
-  email: string;
-  password: string;
-  student_id: string;
-  username: string;
-  is_professor: boolean;
-  is_staff: boolean;
-}
 
 const TermsElement = ({
   currentStage,
@@ -204,18 +192,144 @@ const ProgressElement = ({ currentStage }: { currentStage: number }) => {
 export default function SignUpPage() {
   /** 현재 회원가입 진행 상황 */
   const [currentStage, setCurrentStage] = useState<number>(0);
-  const [userInfo, setUserInfo] = useState<UserInfo>({
+  const [userInfo, setUserInfo] = useState<SignUpRequestBody>({
     email: "",
     password: "",
-    student_id: "",
     username: "",
+    student_id: "",
     is_professor: false,
-    is_staff: false,
   });
   const [pwChecking, setPwChecking] = useState<boolean>(false);
   const [pwRepeat, setPwRepeat] = useState<string>("");
-  const [customEmail, setCustomEmail] = useState<boolean>(false);
+  const [firstStudent_id, setFirstStudent_id] = useState<string>("");
+  const [lastStudent_id, setLastStudent_id] = useState<string>("");
+  const [idOfEmail, setIdOfEmail] = useState<string>("");
+  const [domainOfEmail, setDomainOfEmail] = useState<string>("");
   const nav = useNavigate();
+
+  const signUp = (userinfo: SignUpRequestBody) =>
+    apiSignUp(
+      userinfo.email,
+      userinfo.password,
+      userinfo.username,
+      userinfo.student_id,
+      userinfo.is_professor
+    )
+      .then((res) => {
+        setCurrentStage(currentStage + 1);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        if (Object.keys(err.response.data).includes("password")) {
+          if (
+            err.response.data.password?.includes(
+              "This password is too short. It must contain at least 8 characters."
+            )
+          ) {
+            toast("비밀번호는 최소 8글자 이상으로 입력해주세요.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+          if (
+            err.response.data.password?.includes("This password is too common.")
+          ) {
+            toast("비밀번호는 너무 흔하지 않은 조합으로 입력해주세요.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+          if (
+            err.response.data.password?.includes(
+              "This password is entirely numeric."
+            )
+          ) {
+            toast("숫자로만 구성된 비밀번호는 사용할 수 없습니다.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+          if (
+            err.response.data.password?.includes("This field may not be blank.")
+          ) {
+            toast("비밀번호는 반드시 입력해야 합니다.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+        }
+        if (Object.keys(err.response.data).includes("student_id")) {
+          if (
+            err.response.data.student_id?.includes(
+              "This field may not be blank."
+            )
+          ) {
+            toast("학번은 반드시 입력해야 합니다.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+          if (
+            err.response.data.student_id?.includes(
+              "student_id should be 10 length" ||
+                "student_id form should be XXXX-XXXXX"
+            )
+          ) {
+            toast("학번은 XXXX-XXXXX 형식의 숫자열로 입력해주세요.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+          if (
+            err.response.data.student_id?.includes(
+              "already existing student_id"
+            )
+          ) {
+            toast("이미 존재하는 학번입니다.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+        }
+        if (Object.keys(err.response.data).includes("email")) {
+          if (
+            err.response.data.email?.includes("This field may not be blank.")
+          ) {
+            toast("이메일은 반드시 입력해야 합니다.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+          if (
+            err.response.data.email?.includes("Enter a valid email address.")
+          ) {
+            toast("유효한 이메일 주소를 입력해주세요.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+          if (
+            err.response.data.email?.includes(
+              "user with this email already exists."
+            )
+          ) {
+            toast("이미 존재하는 이메일입니다.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+        }
+        if (Object.keys(err.response.data).includes("username")) {
+          if (
+            err.response.data.username?.includes("This field may not be blank.")
+          ) {
+            toast("이름은 반드시 입력해야 합니다.", {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+        }
+      });
 
   return (
     <div className={styles.signup}>
@@ -307,14 +421,26 @@ export default function SignUpPage() {
                   type='text'
                   placeholder='2022'
                   className={`${styles.input} ${styles.short}`}
-                  // onChange setUserInfo expected
+                  onChange={(event) => {
+                    setFirstStudent_id(event.target.value);
+                    setUserInfo({
+                      ...userInfo,
+                      student_id: `${event.target.value}-${lastStudent_id}`,
+                    });
+                  }}
                 />
-                <FontAwesomeIcon icon={faMinus} className={styles.at} />
+                <FontAwesomeIcon icon={faMinus} className={styles.minus} />
                 <input
                   type='text'
                   placeholder='12345'
                   className={`${styles.input} ${styles.short}`}
-                  // onChange setUserInfo expected
+                  onChange={(event) => {
+                    setLastStudent_id(event.target.value);
+                    setUserInfo({
+                      ...userInfo,
+                      student_id: `${firstStudent_id}-${event.target.value}`,
+                    });
+                  }}
                 />
               </div>
             </div>
@@ -324,23 +450,46 @@ export default function SignUpPage() {
                 <input
                   type='text'
                   placeholder='wafflestudio'
-                  className={`${styles.input} ${styles.short}`}
-                  onChange={(event) =>
-                    setUserInfo({ ...userInfo, email: event.target.value })
-                  }
+                  className={styles.idOfEmail}
+                  onChange={(event) => {
+                    setIdOfEmail(event.target.value);
+                    setUserInfo({
+                      ...userInfo,
+                      email: `${event.target.value}@${domainOfEmail}`,
+                    });
+                  }}
                 />
                 <FontAwesomeIcon icon={faAt} className={styles.at} />
-                {!customEmail && (
-                  <select className={`${styles.input} ${styles.short}`}>
-                    <option value='snu.ac.kr'>snu.ac.kr</option>
-                    <option value='gmail.com'>gmail.com</option>
-                    <option value='naver.com'>naver.com</option>
-                    <option value='yahoo.com'>yahoo.com</option>
-                    <option value='daum.net'>daum.net</option>
-                    <option value='narasarang.or.kr'>narasarang.or.kr</option>
-                    <option>직접 입력</option>
-                  </select>
-                )}
+                <input
+                  defaultValue={domainOfEmail}
+                  className={styles.domainInput}
+                  onChange={(event) => {
+                    setDomainOfEmail(event.target.value);
+                    setUserInfo({
+                      ...userInfo,
+                      email: `${idOfEmail}@${event.target.value}`,
+                    });
+                  }}
+                ></input>
+                <select
+                  className={styles.domainOption}
+                  value={domainOfEmail}
+                  onChange={(event) => {
+                    setDomainOfEmail(event.target.value);
+                    setUserInfo({
+                      ...userInfo,
+                      email: `${idOfEmail}@${event.target.value}`,
+                    });
+                  }}
+                >
+                  <option>직접 입력</option>
+                  <option value='snu.ac.kr'>snu.ac.kr</option>
+                  <option value='gmail.com'>gmail.com</option>
+                  <option value='naver.com'>naver.com</option>
+                  <option value='yahoo.com'>yahoo.com</option>
+                  <option value='daum.net'>daum.net</option>
+                  <option value='narasarang.or.kr'>narasarang.or.kr</option>
+                </select>
               </div>
             </div>
             <div className={styles.wrapper}>
@@ -348,9 +497,9 @@ export default function SignUpPage() {
               <input
                 type='password'
                 className={styles.input}
-                onChange={(event) =>
-                  setUserInfo({ ...userInfo, password: event.target.value })
-                }
+                onChange={(event) => {
+                  setUserInfo({ ...userInfo, password: event.target.value });
+                }}
               />
             </div>
             <div className={styles.wrapper}>
@@ -380,7 +529,9 @@ export default function SignUpPage() {
           </div>
           <button
             className={styles.next}
-            onClick={() => setCurrentStage(currentStage + 1)}
+            onClick={() => {
+              signUp(userInfo);
+            }}
           >
             다음
           </button>

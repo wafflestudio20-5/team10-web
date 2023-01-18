@@ -5,21 +5,25 @@ import {faCaretDown, faCaretRight, faPenToSquare, faFileExport} from "@fortaweso
 import {useNavigate} from "react-router-dom";
 
 export interface AssignmentInterface {      // Assignment-Unique
+    id: number,
+    lecture: number,
     name: string,
-    dueDate: string,
-    maxGrade: number,
+    due_date: string,
+    max_grade: number,
     weight: number
+    file: string | null,
 }
 
 export interface UserAssignmentInterface {
     assignment: AssignmentInterface,
-    isGraded: boolean,
-    grade: number,
+    is_submitted: boolean,
+    is_graded: boolean,
+    score: number,
 }
 
-export interface AssigmentBlockInterface {
+export interface AssignmentBlockInterface {
     category: string,
-    assignments: UserAssignmentInterface[]
+    assignments: UserAssignmentInterface[],
 }
 
 const Assignment = ({assignment}: { assignment: UserAssignmentInterface }) => {
@@ -31,10 +35,10 @@ const Assignment = ({assignment}: { assignment: UserAssignmentInterface }) => {
                 <p className={styles.top}>{assignment.assignment.name}</p>
                 <p className={styles.bottom}>
                     <b>마감  </b>
-                    {assignment.assignment.dueDate + "  |  "}
+                    {assignment.assignment.due_date + "  |  "}
                     {
-                        assignment.isGraded
-                            ? "" + assignment.grade + "/" + assignment.assignment.maxGrade
+                        assignment.is_graded
+                            ? "" + assignment.score + "/" + assignment.assignment.max_grade
                             : "채점되지 않음"
                     }
                 </p>
@@ -43,7 +47,7 @@ const Assignment = ({assignment}: { assignment: UserAssignmentInterface }) => {
     )
 }
 
-export default function AssignmentBlock({assignmentBlock}: { assignmentBlock: AssigmentBlockInterface }) {
+export default function AssignmentBlock({assignmentBlock}: { assignmentBlock: AssignmentBlockInterface }) {
     const [toggleOpen, setToggleOpen] = useState<boolean>(true);
     return (
         <div className={styles.block}>

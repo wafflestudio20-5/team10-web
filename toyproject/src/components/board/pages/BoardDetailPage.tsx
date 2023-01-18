@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import BoardDetail from '../BoardDetail/BoardDetail';
+import BoardDetail from '../boardDetail/BoardDetail';
 import SubjectTemplate from '../../SubjectTemplate';
 
 export default function BoardDetailPage() {

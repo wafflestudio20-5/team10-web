@@ -159,7 +159,13 @@
     background-color: #fcfcfc;
   }
 }
-
+@mixin inputField {
+  height: 41px;
+  box-sizing: border-box;
+  padding: 0 10px;
+  border: 1px solid #c7c7c7;
+  border-radius: 5px;
+}
 .userinfo {
   width: 746px;
   margin: 20px auto;
@@ -178,21 +184,39 @@
     }
     .input {
       width: 550px;
-      height: 41px;
-      box-sizing: border-box;
-      padding: 0 10px;
-      border: 1px solid #c7c7c7;
-      border-radius: 5px;
+      @include inputField();
     }
     .input.short {
       width: 240px;
+      flex-grow: 1;
     }
     .email {
       display: flex;
       width: 550px;
       height: 41px;
+      text-align: justify;
+      .idOfEmail {
+        width: 200px;
+        @include inputField();
+      }
+      .domainInput {
+        width: 150px;
+        flex-grow: 1;
+        @include inputField();
+      }
+      .domainOption {
+        width: 150px;
+        margin-left: 10px;
+        flex-grow: 1;
+        @include inputField();
+      }
       .at {
-        margin: auto auto auto 20px;
+        margin: 10px;
+        width: 20px;
+        height: 20px;
+      }
+      .minus {
+        margin: 10px;
         width: 20px;
         height: 20px;
       }

@@ -20,22 +20,36 @@
 
   section {
     border-bottom: solid black;
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+
+      li {
+        width: 316px;
+        height: 40px;
+        span {
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
   }
 
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
   svg {
     position: absolute;
     top: 8px;
     right: 10px;
     border: solid black;
     padding: 10px;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
-  svg:hover {
-    cursor: pointer;
+  a {
+    text-decoration: none;
+    color: #2282f9;
   }
 }
 

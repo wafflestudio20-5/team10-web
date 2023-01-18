@@ -1,22 +1,23 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styles from './SubjectTemplate.module.scss';
-import {SideNavBar} from "./sideNavbar/SideNavBar";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBars, faChevronRight} from "@fortawesome/free-solid-svg-icons";
-import {useLocation, useNavigate} from "react-router-dom";
+import { SideNavBar } from './sideNavbar/SideNavBar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { UserBar } from './UserBar/UserBar';
 
 const ListElement = ({ current, name }: { current: string; name: string }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const pages = ["모듈", "게시판", "강의계획서", "수강생", "과제", "성적"];
-  const address = ["", "/boardnav", "/syllabus", "/students", "/assignments", "/grades"];
-  const subject = location.pathname.split("/")[1];
+  const pages = ['모듈', '게시판', '수강생', '과제', '성적'];
+  const address = ['', '/boardnav', '/students', '/assignments', '/grades'];
+  const subject = location.pathname.split('/')[1];
 
   return (
-    <li className={current === name ? styles.current : undefined}
-        onClick={() => navigate(
-            "../" + subject + address[pages.indexOf(name)]
-        )}>
+    <li
+      className={current === name ? styles.current : undefined}
+      onClick={() => navigate('../' + subject + address[pages.indexOf(name)])}
+    >
       {name}
       {current === name && (
         <FontAwesomeIcon icon={faChevronRight} className={styles.arrow} />
@@ -48,15 +49,18 @@ export default function SubjectTemplate({
             className={styles.nav_icon}
             onClick={() => setToggleNav(!toggleNav)}
           />
-          <p className={styles.title}>{subject}</p>
+          <Link to={`/${subject}`}>
+            <p className={styles.title}>{subject}</p>
+          </Link>
           <FontAwesomeIcon icon={faChevronRight} className={styles.arrow} />
           <p className={styles.title}>{page}</p>
           {content && (
             <div className={`${styles.header} ${styles.content}`}>
               <FontAwesomeIcon icon={faChevronRight} className={styles.arrow} />
-              <p className={styles.title}>{content}</p>
+              <p className={styles.contentTitle}>{content}</p>
             </div>
           )}
+          <UserBar />
         </header>
         <div className={styles.body}>
           {toggleNav && (
@@ -65,7 +69,6 @@ export default function SubjectTemplate({
               <ul>
                 <ListElement current={page} name='모듈' />
                 <ListElement current={page} name='게시판' />
-                <ListElement current={page} name='강의계획서' />
                 <ListElement current={page} name='수강생' />
                 <ListElement current={page} name='과제' />
                 <ListElement current={page} name='성적' />
