@@ -11,6 +11,7 @@ export interface AssignmentInterface {      // Assignment-Unique
     due_date: string,
     max_grade: number,
     weight: number
+    file: string | null,
 }
 
 export interface UserAssignmentInterface {

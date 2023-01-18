@@ -88,7 +88,7 @@ export const apiAssignmentScore = async (
 ) => {
   return await axios({
     method: 'get',
-    url: url(`/etl/assignments/${assignment_id}`),
+    url: url(`/etl/assignments/${assignment_id}/score/`),
     withCredentials: true,
     headers: auth(token),
   });
