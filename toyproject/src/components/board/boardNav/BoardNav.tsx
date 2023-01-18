@@ -6,6 +6,12 @@ import {
   faClipboardQuestion,
 } from '@fortawesome/free-solid-svg-icons';
 export default function BoardNav() {
+<<<<<<< Updated upstream
+=======
+  const { subjectname } = useParams();
+  console.log(subjectname);
+
+>>>>>>> Stashed changes
   return (
     <div className={styles.wrapper}>
       <h2>전체 게시판</h2>
