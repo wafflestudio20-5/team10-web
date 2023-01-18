@@ -46,18 +46,26 @@ export default function PasswordForm({
     event.preventDefault();
     try {
       const res = await changePassword(newPw);
-      console.log(res);
       setNewPw('');
-    } catch (err) {
-      console.log(err);
-      toast('error occured', {
+      setPasswordBox((prev) => !prev);
+      toast('비밀번호 변경 완료', {
         position: 'top-center',
         theme: 'colored',
       });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast(error.response?.data.error, {
+          position: 'top-center',
+          theme: 'colored',
+        });
+      } else {
+        toast('unknown error', {
+          position: 'top-center',
+          theme: 'colored',
+        });
+      }
     }
   };
-
-  // const onSubmit = () => {};
 
   return (
     <form onSubmit={onSubmit}>
