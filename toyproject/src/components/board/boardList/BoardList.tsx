@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from './BoardList.module.scss';
-import { Link, useParams } from 'react-router-dom';
+import React from "react";
+import styles from "./BoardList.module.scss";
+import { Link, useParams } from "react-router-dom";
 
 type Writing = {
   id: number;
@@ -17,23 +17,23 @@ type BoardListType = {
 const InitialWritings: Writing[] = [
   {
     id: 1,
-    title: '첫번째',
-    username: '광휘',
-    created_at: '2023-01-01',
+    title: "첫번째",
+    username: "광휘",
+    created_at: "2023-01-01",
     viewed: 1,
   },
   {
     id: 2,
-    title: '새해복',
-    username: '광휘',
-    created_at: '2023-01-01',
+    title: "새해복",
+    username: "광휘",
+    created_at: "2023-01-01",
     viewed: 1,
   },
   {
     id: 3,
-    title: '많이받으세요',
-    username: '광휘',
-    created_at: '2023-01-01',
+    title: "많이받으세요",
+    username: "광휘",
+    created_at: "2023-01-01",
     viewed: 1,
   },
 ];
@@ -45,14 +45,14 @@ export default function BoardList({ category }: BoardListType) {
     <div className={styles.wrapper}>
       <header>
         <h2>{subjectname} - 과목 게시판</h2>
-        <button className={styles['create-button']}>
-          <Link to={`/${subjectname}/board/new`}>글쓰기</Link>
-        </button>
+        <Link to={`/${subjectname}/board/new`}>
+          <button className={styles.createButton}>글쓰기</button>
+        </Link>
       </header>
       <div className={styles.explain}>
         {subjectname}의 게시판입니다. 공지 및 각종 질문을 올리는 곳입니다.
       </div>
-      <div className={styles['search-container']}>
+      <div className={styles.searchContainer}>
         검색결과 - number 개<input placeholder='검색어입력'></input>
       </div>
       <section>
@@ -87,7 +87,7 @@ export default function BoardList({ category }: BoardListType) {
           })}
         </ul>
       </section>
-      <footer>여기에 bottom nav button 이부분 회의</footer>
+      <footer></footer>
     </div>
   );
 }
