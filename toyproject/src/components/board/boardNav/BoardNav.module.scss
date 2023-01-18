@@ -1,6 +1,4 @@
 .wrapper {
-  // background-color: aqua;
-  // width: 100%;
   flex-grow: 1;
 
   h2 {
@@ -23,6 +21,11 @@
     padding-left: 30px;
     border-right: solid RGB(199, 205, 209);
     border-bottom: solid RGB(199, 205, 209);
+    span {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   nav {

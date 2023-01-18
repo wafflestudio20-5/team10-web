@@ -3,6 +3,7 @@ import styles from "./GradesPage.module.scss";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useSessionContext } from "../../context/SessionContext";
+import { apiAssignments, apiAssignmentScore } from "../../lib/api";
 
 export default function GradesPage() {
   const { subjectname } = useParams();

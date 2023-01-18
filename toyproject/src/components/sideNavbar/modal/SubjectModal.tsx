@@ -12,7 +12,7 @@ export const SubjectModal = ({
   aniState,
   closeSubjectModal,
 }: SubjectModalType) => {
-  const { subjects } = useSubjectContext();
+  const { mySubjects } = useSubjectContext();
 
   return (
     <div
@@ -28,8 +28,8 @@ export const SubjectModal = ({
       <header>과목</header>
       <section>
         <ul>
-          {subjects &&
-            subjects.map((subject) => {
+          {mySubjects &&
+            mySubjects.map((subject) => {
               return (
                 <li key={subject.id}>
                   <Link to={`/${subject.name}`} onClick={closeSubjectModal}>
@@ -40,7 +40,7 @@ export const SubjectModal = ({
             })}
         </ul>
       </section>
-      <footer>여기가 바닥</footer>
+      <footer></footer>
     </div>
   );
 };
