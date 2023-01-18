@@ -1,17 +1,20 @@
 .wrapper {
-  // background-color: azure;
-  flex-grow: 1;
-  margin: 20px;
-  overflow: scroll;
-
   header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
   }
 
-  .create-button {
-    background-color: #167ef4;
+  h1 {
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 31px;
+  }
+
+  .list-button {
+    background-color: #6a6d80;
     color: white;
     padding: 9px 15px;
     width: 80px;
@@ -19,102 +22,127 @@
     border-radius: 5px;
     border: solid;
   }
-
-  .create-button:hover {
+  .list-button:hover {
+    background-color: #3f424edb;
     cursor: pointer;
-    background-color: #0c417e;
   }
 
-  .explain {
-    background-color: #e8eef2;
-    height: 55px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
+  section {
+    border-top: solid #6a6d80;
+    border-bottom: solid #808080;
   }
-  .search-container {
-    margin-top: 20px;
+
+  h2 {
+    font-size: 20px;
+    line-height: 24px;
+    background-color: #edf1f7;
+    display: block;
+    border-bottom: 1px solid rgb(190, 190, 190);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 15px 20px;
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .explain-container {
     display: flex;
     justify-content: space-between;
-    padding: 0px 12px;
-    align-items: center;
+    padding: 10px 20px;
+    padding-left: 0;
   }
 
-  input {
-    padding: 10px 12px;
-    border-radius: 5px;
-    width: 190px;
-    border-color: #ced4d9;
-    border-style: solid;
+  .content-name {
+    font-family: Pretendard;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 17px;
+    white-space: break-spaces;
+    color: rgb(51, 51, 51);
+    font-weight: 700;
+    margin-left: 20px;
+  }
+  .content {
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    white-space: break-spaces;
+    color: rgb(51, 51, 51);
+    margin-left: 5px;
+  }
+  article {
+    padding: 20px;
+    border-top: solid #cccccc;
   }
 
-  body {
+  textarea {
+    resize: none;
     margin-top: 20px;
+    height: 90px;
+  }
 
-    .category {
-      display: flex;
-      border-top: solid #e6e9ec;
-      border-bottom: solid #808080;
-    }
+  .comment-button {
+    background-color: #6a6d80;
+    color: white;
+    padding: 9px 15px;
+    width: 80px;
+    height: 38px;
+    border-radius: 5px;
+    border: solid;
+    margin-top: 20px;
+    align-self: flex-end;
+  }
+  .comment-button:hover {
+    background-color: #3f424edb;
+    cursor: pointer;
+  }
 
-    ul {
-      padding: 0;
-      margin-top: 0;
-    }
+  footer {
+    display: flex;
+    flex-direction: column;
+  }
 
-    li {
-      display: flex;
-      border-bottom: solid #e6e9ec;
-    }
+  textarea {
+    border-radius: 10px;
   }
 }
 
-.no {
-  box-sizing: border-box;
-  // width: 70px;
-  height: 40px;
+.previous-container {
+  border: solid #cccccc;
+  border-radius: 10px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1 1 70px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  height: 50px;
 }
 
-.title {
-  box-sizing: border-box;
-  // width: 425px;
-  height: 40px;
+.previous-title {
   display: flex;
+  background-color: #f9f9f9;
+  padding: 0 20px;
+  width: 90px;
+  border-right: solid #cccccc;
   align-items: center;
-  flex: 1 1 425px;
+  font-family: Pretendard;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 17px;
+  white-space: break-spaces;
+  color: rgb(51, 51, 51);
+  font-weight: 700;
 }
 
-.title:hover {
-  cursor: pointer;
-}
-
-.username {
-  box-sizing: border-box;
-  // width: 150px;
-  height: 40px;
+.previous {
   display: flex;
   align-items: center;
-  flex: 1 1 150px;
-}
-.created_at {
-  box-sizing: border-box;
-  // width: 150px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  flex: 1 1 150px;
-}
-
-.viewed {
-  box-sizing: border-box;
-  // width: 100px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  flex: 1 1 100px;
+  font-family: Pretendard;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  padding: 17px 20px;
 }

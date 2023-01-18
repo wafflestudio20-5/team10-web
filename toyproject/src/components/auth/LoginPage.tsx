@@ -1,20 +1,23 @@
-// import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
-
 import loginHeader from '../../resources/loginHeader.png';
-import kakao from '../../resources/kakao.png';
-import styles from './LoginHeader.module.scss';
+import google from '../../resources/google.png';
+import styles from './LoginPage.module.scss';
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { useSessionContext } from '../../context/SessionContext';
+import kakaoLogin from '../../resources/kakaologin.png';
+import { KAKAO_AUTH_URL } from '../../lib/api';
 
 function LoginPage() {
-  const [ID, setID] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const { login } = useSessionContext();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // 로그인 api 호출
-    // 메인 화면으로 전환
-    console.log(ID, password);
-    setID('');
+    await login(email, password);
+    setEmail('');
     setPassword('');
   };
 
@@ -33,8 +36,8 @@ function LoginPage() {
                 type='text'
                 className={styles.idAndPwInput}
                 placeholder='아이디'
-                value={ID}
-                onChange={(e) => setID(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 type='password'
@@ -50,6 +53,9 @@ function LoginPage() {
                 onClick={handleSubmit}
               />
             </form>
+            <Link to='/login/new'>
+              <button className={styles.signUpButton}>회원가입</button>
+            </Link>
           </section>
           <section className={styles.socialLogin}>
             <h3>
@@ -59,9 +65,12 @@ function LoginPage() {
                 이용하실 수 있습니다.
               </p>
             </h3>
-            <a>
-              <img src={kakao} alt='kakao' title='kakao' />
-              <span>카카오</span>
+            <a href={KAKAO_AUTH_URL}>
+              <img
+                className={styles['kakao-login']}
+                src={kakaoLogin}
+                alt='kakaoLogin'
+              ></img>
             </a>
           </section>
         </article>

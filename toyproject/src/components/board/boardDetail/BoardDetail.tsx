@@ -1,74 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './BoardDetail.module.scss';
 
-type Writing = {
-  id: number;
-  title: string;
-  username: string;
-  created_at: string; //임시
-  viewed: number; //구현할 건지 백엔드와 의논
-};
-
-const InitialWritings: Writing[] = [
-  {
-    id: 1,
-    title: '첫번째',
-    username: '광휘',
-    created_at: '2023-01-01',
-    viewed: 1,
-  },
-  {
-    id: 2,
-    title: '새해복',
-    username: '광휘',
-    created_at: '2023-01-01',
-    viewed: 1,
-  },
-  {
-    id: 3,
-    title: '많이받으세요',
-    username: '광휘',
-    created_at: '2023-01-01',
-    viewed: 1,
-  },
-];
-
 export default function BoardDetail() {
+  const [reply, setReply] = useState('');
+
+  const handleInputReply = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setReply(e.target.value);
+  };
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    //fetch 함수부분
+    setReply('');
+  };
+
+  //useEffect로 호출하기?
+
   return (
     <div className={styles.wrapper}>
-      <header>
-        <h2>과목명-과목 게시판</h2>
-        <button className={styles['create-button']}>글쓰기</button>
-      </header>
-      <div className={styles.explain}>
-        과목명의 게시판입니다. 공지 및 각종 질문을 올리는 곳입니다.
-      </div>
-      <div className={styles['search-container']}>
-        검색결과 - number 개<input placeholder='검색어입력'></input>
-      </div>
-      <body>
-        <div className={styles.category}>
-          <span className={styles.no}>no</span>
-          <span className={styles.title}>제목</span>
-          <span className={styles.username}>작성자</span>
-          <span className={styles.created_at}>등록일시</span>
-          <span className={styles.viewed}>1</span>
-        </div>
-        <ul>
-          {InitialWritings.map((item) => {
-            return (
-              <li>
-                <span className={styles.no}>{item.id}</span>
-                <span className={styles.title}>{item.title}</span>
-                <span className={styles.username}>{item.username}</span>
-                <span className={styles.created_at}>{item.created_at}</span>
-                <span className={styles.viewed}>{item.viewed}</span>
-              </li>
-            );
-          })}
-        </ul>
-      </body>
-      <footer>여기에 bottom nav button 이부분 회의</footer>
+      <form onSubmit={onSubmit}>
+        <header>
+          <h1>제목</h1>
+          <button className={styles['list-button']}>목록</button>
+        </header>
+        <section>
+          <h2>강의자료 어쩌구 저쩌구</h2>
+          <div className={styles['explain-container']}>
+            <div className={styles.flex}>
+              <div className={styles['content-name']}>작성자:</div>
+              <div className={styles['content']}> 안광휘</div>
+              <div className={styles['content-name']}>등록일시:</div>
+              <div className={styles['content']}>2022-12-12</div>
+            </div>
+            <div className={styles.flex}>
+              <div className={styles['content-name']}>조회수:</div>
+              <div className={styles['content']}>10</div>
+            </div>
+          </div>
+          <article>본문</article>
+          {/* 여기 previous id 혹은 본문 받아서 연결해야 함*/}
+          <div className={styles['previous-container']}>
+            <div className={styles['previous-title']}>이전글</div>
+            <div className={styles.previous}>어쩌구 저쩌구</div>
+          </div>
+        </section>
+        <footer>
+          <h3>댓글</h3>
+          <textarea
+            placeholder={'댓글입력'}
+            onChange={handleInputReply}
+          ></textarea>
+          <button className={styles['comment-button']}>댓글등록</button>
+        </footer>
+      </form>
     </div>
   );
 }

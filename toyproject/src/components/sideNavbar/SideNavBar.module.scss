@@ -1,8 +1,13 @@
 .container {
   display: flex;
+
+  a {
+    text-decoration: none;
+  }
 }
 
 .wrapper {
+  min-height: 100vh;
   box-sizing: border-box;
   width: 84px;
   background-color: #0f0f6f;
@@ -19,9 +24,9 @@
 }
 
 @media screen and (min-width: 1200px) {
-  .wrapper {
-    height: 100vh;
-  }
+  // .wrapper {
+  //   height: 100vh;
+  // }
 }
 
 .button-container {
@@ -37,6 +42,11 @@
   svg {
     fill: white;
   }
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
 }
 
 .button-container:hover,
@@ -46,6 +56,10 @@
   cursor: pointer;
   svg {
     fill: black;
+  }
+
+  a {
+    color: black;
   }
 }
 
