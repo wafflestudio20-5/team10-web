@@ -10,7 +10,7 @@
     align-items: center;
   }
 
-  .create-button {
+  .createButton {
     background-color: #167ef4;
     color: white;
     padding: 9px 15px;
@@ -18,16 +18,15 @@
     height: 38px;
     border-radius: 5px;
     border: solid;
+    &:hover {
+      cursor: pointer;
+      background-color: #0c417e;
+    }
 
     a {
       text-decoration: none;
       color: white;
     }
-  }
-
-  .create-button:hover {
-    cursor: pointer;
-    background-color: #0c417e;
   }
 
   .explain {
@@ -38,7 +37,7 @@
     align-items: center;
     padding-left: 20px;
   }
-  .search-container {
+  .searchContainer {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
