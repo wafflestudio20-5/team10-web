@@ -9,6 +9,8 @@ import { ReactComponent as UserIcon } from '../../svg/userIcon.svg';
 import { SubjectModal } from './modal/SubjectModal';
 import { AuthModal } from './modal/AuthModal';
 import { Link, useNavigate } from 'react-router-dom';
+import {faCircleUser, faRectangleList, faBookOpen, faMagnifyingGlass, faCircleQuestion} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export const SideNavBar = () => {
   const [subjectModal, setSubjectModal] = useState<boolean>(false);
@@ -57,7 +59,8 @@ export const SideNavBar = () => {
             navigate('/user');
           }}
         >
-          <UserIcon></UserIcon>
+          {/*<UserIcon></UserIcon>*/}
+          <FontAwesomeIcon icon={faCircleUser} className={styles.faIcon}/>
           계정
         </div>
         <Link to='/'>
@@ -70,7 +73,8 @@ export const SideNavBar = () => {
               closeOtherModal();
             }}
           >
-            <DashBoard></DashBoard>
+            {/*<DashBoard></DashBoard>*/}
+            <FontAwesomeIcon icon={faRectangleList} className={styles.faIcon}/>
             대시보드
           </div>
         </Link>
@@ -84,7 +88,8 @@ export const SideNavBar = () => {
             openSubjectModal();
           }}
         >
-          <Book></Book>
+          {/*<Book></Book>*/}
+          <FontAwesomeIcon icon={faBookOpen} className={styles.faIcon}/>
           과목
         </div>
         <Link to='/selectsubject'>
@@ -97,8 +102,9 @@ export const SideNavBar = () => {
               closeOtherModal();
             }}
           >
-            <Calender></Calender>
-            강좌 선택
+            {/*<Calender></Calender>*/}
+            <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.faIcon}/>
+            강좌검색
           </div>
         </Link>
         <Link to='/description'>
@@ -111,7 +117,8 @@ export const SideNavBar = () => {
               closeOtherModal();
             }}
           >
-            <Question></Question>
+            {/*<Question></Question>*/}
+            <FontAwesomeIcon icon={faCircleQuestion} className={styles.faIcon}/>
             이용안내
           </div>
         </Link>
