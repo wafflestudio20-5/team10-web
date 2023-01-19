@@ -24,9 +24,7 @@ export default function EvaluationPage() {
                 return (
                   <EvaluateList
                     key={subject.id}
-                    id={subject.id}
-                    name={subject.name}
-                    professor={subject.created_by.username}
+                    subject={subject}
                   ></EvaluateList>
                 );
               })}
