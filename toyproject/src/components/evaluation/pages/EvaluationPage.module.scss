@@ -10,22 +10,36 @@
   align-items: center;
 }
 
+.header {
+  height: 72px;
+  width: 95%;
+  margin: 0px 24px;
+  border-bottom: 1px solid #c7cdd1;
+  display: flex;
+  vertical-align: middle;
+  box-sizing: border-box;
+  align-items: center;
+  font-size: x-large;
+}
+
 .sub-title {
   margin-top: 40px;
   align-self: flex-start;
   margin-left: 5%;
+  font-weight: bold;
+  font-size: larger;
 }
 
 .list {
   margin-top: 30px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 80%;
+  width: 89%;
 
   ul {
     width: 100%;
     padding-left: 0px;
+    margin: 0;
   }
 }
 
@@ -34,11 +48,12 @@
   width: 100%;
   font-family: 'Helvetica Neue';
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 20px;
   line-height: 32px;
 
   border-bottom: 1px solid #aeadad;
+  padding: 10px 20px;
 
   .subject {
     width: 60%;
@@ -51,16 +66,4 @@
   .evaluation {
     width: 10%;
   }
-}
-
-.header {
-  height: 72px;
-  width: 90%;
-  margin: 0px 24px;
-  border-bottom: 1px solid #c7cdd1;
-  display: flex;
-  vertical-align: middle;
-  box-sizing: border-box;
-  align-items: center;
-  font-size: x-large;
 }
