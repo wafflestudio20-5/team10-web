@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  overflow: auto;
 
   header {
     width: 95%;
@@ -14,7 +15,16 @@
     border-bottom: 1px solid #c7cdd1;
     display: flex;
 
+    .bars {
+      width: 25px;
+      height: 25px;
+      margin: auto 20px auto 0;
+      color: #3679F1;
+    }
+
     h1 {
+      margin: auto 0;
+      font-size: 25px;
       font-weight: 400;
     }
   }
@@ -23,9 +33,62 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    input {
-      margin-top: 20px;
-      width: 300px;
+
+    .search {
+      display: flex;
+      width: 100%;
+      margin-top: 80px;
+
+      input {
+        width: 50%;
+        height: 45px;
+        padding: 10px 14px;
+        margin: auto 10px auto auto;
+        box-sizing: border-box;
+        border: 2px solid #D9D9D9;
+        border-radius: 5px;
+        font-size: medium;
+      }
+
+      button {
+        width: 60px;
+        height: 45px;
+        box-sizing: border-box;
+        margin: auto auto auto 10px;
+        background-color: #0F0F6B;
+        border: 0;
+        border-radius: 5px;
+        cursor: pointer;
+
+        .icon {
+          margin: auto;
+          width: 20px;
+          height: 20px;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+article {
+  margin: 50px auto;
+  width: 80%;
+  .index {
+    padding-bottom: 30px;
+    border-bottom: 2px solid #AEADAD;
+    display: flex;
+    text-align: center;
+    .name {
+      padding-left: 5%;
+      flex-grow: 1;
+      text-align: left;
+    }
+    .professor {
+      width: 50%;
+    }
+    .enroll {
+      width: 15%;
     }
   }
 }
