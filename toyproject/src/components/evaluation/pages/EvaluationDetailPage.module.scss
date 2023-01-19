@@ -28,24 +28,3 @@
   font-weight: bold;
   font-size: larger;
 }
-
-.table {
-  display: grid;
-  border: solid black 1px;
-  border-collapse: collapse;
-  grid-template-columns: auto;
-}
-
-.table-row {
-  border: solid black 1px;
-}
-
-.table-cell {
-  border: solid black 1px;
-
-  .title-answer {
-  }
-
-  .title-answer-type {
-  }
-}
