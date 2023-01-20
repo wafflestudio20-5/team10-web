@@ -42,11 +42,11 @@ export default function CheckList() {
 const EvaluateList = () => {
   return (
     <>
-      <div className={styles.item}>매우그렇다</div>
-      <div className={styles.item}>그렇다</div>
-      <div className={styles.item}>보통이다</div>
-      <div className={styles.item}>그렇지않다</div>
-      <div className={styles.item}>매우그렇지않다</div>
+      <div className={styles.list}>매우그렇다</div>
+      <div className={styles.list}>그렇다</div>
+      <div className={styles.list}>보통이다</div>
+      <div className={styles.list}>그렇지않다</div>
+      <div className={styles.list}>매우그렇지않다</div>
     </>
   );
 };
@@ -61,7 +61,7 @@ const EvaluateArticleAndCheckList = ({
   return (
     <>
       <div className={styles.item}>{index}.</div>
-      <div className={styles.item}>{content}</div>
+      <div className={styles.question}>{content}</div>
       <div className={styles.item}>
         <input type='checkbox'></input>
       </div>

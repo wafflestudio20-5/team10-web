@@ -18,7 +18,7 @@ export default function EvaluationDetailPage() {
           {`${curSubject?.name}`} 강의평가
         </div>
         <div className={styles.body}>
-          <div>공통 및 선택 문항</div>
+          <div className={styles.title}>공통 및 선택 문항</div>
           <CheckList></CheckList>
           <FreeAnswer></FreeAnswer>
         </div>
