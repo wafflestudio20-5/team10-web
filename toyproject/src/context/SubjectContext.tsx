@@ -8,6 +8,7 @@ type SubjectContextType = {
   mySubjects: SubjectType[] | undefined;
   curSubject: SubjectType | undefined;
   handleClick: (subject: SubjectType) => void;
+  getSubjects: (token: string | null) => void;
 };
 
 const SubjectContext = createContext<SubjectContextType>(
@@ -48,7 +49,7 @@ export function SubjectProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <SubjectContext.Provider
-      value={{ subjects, mySubjects, curSubject, handleClick }}
+      value={{ subjects, mySubjects, curSubject, handleClick, getSubjects }}
     >
       {children}
     </SubjectContext.Provider>

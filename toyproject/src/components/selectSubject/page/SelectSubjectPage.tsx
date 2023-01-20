@@ -3,24 +3,29 @@ import styles from './SelectSubjectPage.module.scss';
 import {SideNavBar} from '../../sideNavbar/SideNavBar';
 import SubjectList from '../SubjectList';
 import {UserBar} from '../../UserBar/UserBar';
-import Searchbar from '../../Searchbar';
 import axios from 'axios';
 import {url} from 'inspector';
 import {apiSubjects} from '../../../lib/api';
 import {useSessionContext} from '../../../context/SessionContext';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars, faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import {useSubjectContext} from "../../../context/SubjectContext";
+import {SubjectType} from "../../../lib/types";
+import {ToastContainer} from "react-toastify";
 
-type subject = {
-    id: number;
-    name: string;
-    created_by: string | { username: string };
-};
+const isEnrolled = (mySubjects: SubjectType[] | undefined, subject: SubjectType) => {
+    if (!mySubjects) return false;
+    for (const elem of mySubjects) {
+        if (elem.id === subject.id) return true;
+    }
+    return false;
+}
 
 export default function SelectSubjectPage() {
     const [searchValue, setSearchValue] = useState('');
-    const [subjects, setSubjects] = useState<subject[]>();
+    const [subjects, setSubjects] = useState<SubjectType[]>();
     const {token} = useSessionContext();
+    const {mySubjects} = useSubjectContext();
     //전체 과목 받아오기 useEffect
     // enroll, drop은 여기서만 사용하니 굳이 api.ts에 정의해둘 필요 없을 것 같음
 
@@ -42,7 +47,7 @@ export default function SelectSubjectPage() {
                 </header>
                 <section>
                     <div className={styles.search}>
-                        <input className={styles.searchbar} placeholder="전체 강좌 검색은 돋보기 버튼을 클릭하세요"/>
+                        <input className={styles.searchbar} placeholder="전체 강좌 검색은 돋보기 버튼을 클릭하세요 (아직 검색 안돼요)" onChange={(e) => setSearchValue(e.target.value)}/>
                         <button><FontAwesomeIcon icon={faMagnifyingGlass} className={styles.icon}/></button>
                     </div>
                     <article>
@@ -56,14 +61,17 @@ export default function SelectSubjectPage() {
                                 return (
                                     <SubjectList
                                         key={subject.id}
+                                        classId={subject.id}
                                         name={subject.name}
                                         professor="안동하" // temporary
+                                        isEnrolled={isEnrolled(mySubjects, subject)}
                                     ></SubjectList>
                                 );
                             })}
                     </article>
                 </section>
             </div>
+            <ToastContainer/>
         </div>
     );
 }

@@ -92,7 +92,7 @@ export const apiAssignments = async (
   token: string | null,
   class_id: number
 ) => {
-  return await axios.get(url(`/etl/assignments/class/${class_id}`), {
+  return await axios.get(url(`/etl/assignments/class/${class_id}/`), {
     withCredentials: true,
     headers: auth(token),
   });
@@ -116,7 +116,7 @@ export const apiEnrollClass = async (
 ) => {
   return await axios({
     method: "post",
-    url: url(`/etl/class/enroll`),
+    url: url(`/etl/class/enroll/`),
     data: {
       class_id,
     },
@@ -128,7 +128,7 @@ export const apiEnrollClass = async (
 export const apiDropClass = async (token: string | null, class_id: number) => {
   return await axios({
     method: "post",
-    url: url(`/etl/class/drop`),
+    url: url(`/etl/class/drop/`),
     data: {
       class_id,
     },
