@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './EvaluationDetailPage.module.scss';
 import { SideNavBar } from '../../sideNavbar/SideNavBar';
 import { useSubjectContext } from '../../../context/SubjectContext';
+import CheckList from '../evalComponents/CheckList';
+import FreeAnswer from '../evalComponents/FreeAnswer';
 export default function EvaluationDetailPage() {
   const { curSubject } = useSubjectContext();
 
@@ -15,45 +17,12 @@ export default function EvaluationDetailPage() {
         <div className={styles['sub-title']}>
           {`${curSubject?.name}`} 강의평가
         </div>
-        <div>공통 및 선택 문항</div>
+        <div className={styles.body}>
+          <div>공통 및 선택 문항</div>
+          <CheckList></CheckList>
+          <FreeAnswer></FreeAnswer>
+        </div>
       </div>
     </div>
   );
 }
-
-const EvaluateList = () => {
-  return (
-    <>
-      <div className={styles['table-cell']}></div>
-      <div className={styles['table-cell']}></div>
-
-      <div className={styles['table-cell']}>매우그렇다</div>
-      <div className={styles['table-cell']}>그렇다</div>
-      <div className={styles['table-cell']}>보통이다</div>
-      <div className={styles['table-cell']}>그렇지않다</div>
-      <div className={styles['table-cell']}>매우그렇지않다</div>
-    </>
-  );
-};
-
-const EvaluateCheckList = () => {
-  return (
-    <>
-      <div className={styles['table-cell']}>
-        <input type='checkbox'></input>{' '}
-      </div>
-      <div className={styles['table-cell']}>
-        <input type='checkbox'></input>{' '}
-      </div>
-      <div className={styles['table-cell']}>
-        <input type='checkbox'></input>{' '}
-      </div>
-      <div className={styles['table-cell']}>
-        <input type='checkbox'></input>{' '}
-      </div>
-      <div className={styles['table-cell']}>
-        <input type='checkbox'></input>{' '}
-      </div>
-    </>
-  );
-};
