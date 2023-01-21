@@ -26,6 +26,12 @@ export interface AssignmentBlockInterface {
     assignments: UserAssignmentInterface[],
 }
 
+const dateTimeFormat = (timestamp: string): string => {
+    const date = new Date(parseInt(timestamp));
+    console.log(date.toDateString());
+    return "" + date.getFullYear() + "년 " + (date.getMonth() + 1) + "월 " + date.getDate() + "일"
+}
+
 const Assignment = ({assignment}: { assignment: UserAssignmentInterface }) => {
     const navigate = useNavigate();
     return (
@@ -35,7 +41,7 @@ const Assignment = ({assignment}: { assignment: UserAssignmentInterface }) => {
                 <p className={styles.top}>{assignment.assignment.name}</p>
                 <p className={styles.bottom}>
                     <b>마감  </b>
-                    {assignment.assignment.due_date + "  |  "}
+                    {dateTimeFormat(assignment.assignment.due_date) + "  |  "}
                     {
                         assignment.is_graded
                             ? "" + assignment.score + "/" + assignment.assignment.max_grade
@@ -63,7 +69,7 @@ export default function AssignmentBlock({assignmentBlock}: { assignmentBlock: As
             </header>
             {
                 toggleOpen &&
-                assignmentBlock.assignments.map((elem) => <Assignment assignment={elem}/>)
+                assignmentBlock.assignments.map((elem) => <Assignment key={elem.assignment.id} assignment={elem}/>)
             }
         </div>
     )
