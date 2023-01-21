@@ -26,22 +26,26 @@ export interface AssignmentBlockInterface {
     assignments: UserAssignmentInterface[],
 }
 
-const dateTimeFormat = (timestamp: string): string => {
+export const dateTimeFormat = (timestamp: string): string => {
     const date = new Date(parseInt(timestamp));
-    console.log(date.toDateString());
-    return "" + date.getFullYear() + "년 " + (date.getMonth() + 1) + "월 " + date.getDate() + "일"
+    return "" + date.getFullYear() + "년 " + (date.getMonth() + 1) + "월 " + date.getDate() + "일 " + date.getHours() + "시 " + date.getMinutes() + "분"
 }
 
 const Assignment = ({assignment}: { assignment: UserAssignmentInterface }) => {
     const navigate = useNavigate();
     return (
-        <div className={styles.assignment} onClick={() => navigate(assignment.assignment.name)}>
+        <div className={styles.assignment} onClick={() => navigate(assignment.assignment.id.toString())}>
             <FontAwesomeIcon icon={faPenToSquare} className={styles.pen_icon}/>
             <div className={styles.right}>
                 <p className={styles.top}>{assignment.assignment.name}</p>
                 <p className={styles.bottom}>
                     <b>마감  </b>
                     {dateTimeFormat(assignment.assignment.due_date) + "  |  "}
+                    {
+                        assignment.is_submitted
+                            ? "제출됨  |  "
+                            : "제출하지 않음  |  "
+                    }
                     {
                         assignment.is_graded
                             ? "" + assignment.score + "/" + assignment.assignment.max_grade
