@@ -26,7 +26,7 @@ export default function BoardNav() {
           <li>
             <Link to={`/${subjectname}/questions`}>
               <FontAwesomeIcon icon={faClipboardQuestion} size='lg' />
-              &nbsp; qna 게시판
+              &nbsp; Q&A 게시판
             </Link>
           </li>
         </ul>
