@@ -21,6 +21,9 @@ export default function EvaluationDetailPage() {
           <div className={styles.title}>공통 및 선택 문항</div>
           <CheckList></CheckList>
           <FreeAnswer></FreeAnswer>
+          <div className={styles['button-container']}>
+            <button className={styles.submit}>확정</button>
+          </div>
         </div>
       </div>
     </div>

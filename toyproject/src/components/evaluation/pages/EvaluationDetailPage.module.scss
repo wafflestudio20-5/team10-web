@@ -36,3 +36,16 @@
     margin: 10px 0px;
   }
 }
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  .submit {
+    width: 60px;
+    height: 30px;
+    background: #0f0f6b;
+    border-radius: 5px;
+    color: white;
+  }
+}
