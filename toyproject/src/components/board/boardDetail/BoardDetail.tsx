@@ -1,18 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./BoardDetail.module.scss";
-import { Link, useLocation, useParams } from "react-router-dom";
-import { Post } from "../../../lib/types";
-import { apiPostList } from "../../../lib/api";
+import { Link, useLocation } from "react-router-dom";
+import { PostDetail } from "../../../lib/types";
+import { apiPost } from "../../../lib/api";
+import { timestampToDateWithDash } from "../../../lib/formatting";
 import { useSessionContext } from "../../../context/SessionContext";
 import { useSubjectContext } from "../../../context/SubjectContext";
-import { boardIdentifier } from "../boardList/BoardList";
+import { boardIdentifier } from "../../../lib/formatting";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 export default function BoardDetail() {
   const location = useLocation();
   const category = location.pathname.split("/")[2];
+  const postId = Number(location.pathname.split("/")[3]);
   const { token } = useSessionContext();
   const { curSubject } = useSubjectContext();
   const [reply, setReply] = useState("");
+  const [post, setPost] = useState<PostDetail>();
+
+  const getPost = (token: string | null, post_id: number, category: string) => {
+    apiPost(token, post_id, category)
+      .then((res) => {
+        setPost(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    curSubject && getPost(token, postId, category);
+  }, []);
 
   const handleInputReply = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setReply(e.target.value);
@@ -36,21 +52,27 @@ export default function BoardDetail() {
           </Link>
         </header>
         <section>
-          <h2>강의자료 어쩌구 저쩌구</h2>
+          <h2>{post?.title}</h2>
           <div className={styles.explainContainer}>
             <div className={styles.flex}>
               <div className={styles.contentName}>작성자:</div>
-              <div className={styles.content}> 안광휘</div>
+              <div className={styles.content}>{post?.created_by.username}</div>
               <div className={styles.contentName}>등록일시:</div>
-              <div className={styles.content}>2022-12-12</div>
+              <div className={styles.content}>
+                {timestampToDateWithDash(Number(post?.created_at), "date")}
+                {` `}
+                <FontAwesomeIcon icon={faClock} className={styles.clockIcon} />
+                {` `}
+
+                {timestampToDateWithDash(Number(post?.created_at), "time")}
+              </div>
             </div>
             <div className={styles.flex}>
               <div className={styles.contentName}>조회수:</div>
-              <div className={styles.content}>10</div>
+              <div className={styles.content}>조회수</div>
             </div>
           </div>
-          <article>본문</article>
-          {/* 여기 previous id 혹은 본문 받아서 연결해야 함*/}
+          <article>{post?.content}</article>
           <div className={styles.previousContainer}>
             <div className={styles.previousTitle}>이전글</div>
             <div className={styles.previous}>어쩌구 저쩌구</div>

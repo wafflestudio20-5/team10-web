@@ -32,107 +32,103 @@
       margin: 0;
       padding: 15px 20px;
     }
-  }
+    .explainContainer {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 20px;
+      padding-left: 0;
 
-  .flex {
-    display: flex;
-  }
+      .flex {
+        display: flex;
+        .contentName {
+          font-style: normal;
+          font-size: 14px;
+          line-height: 17px;
+          white-space: break-spaces;
+          color: rgb(51, 51, 51);
+          font-weight: 700;
+          margin-left: 20px;
+        }
+        .content {
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 17px;
+          white-space: break-spaces;
+          color: rgb(51, 51, 51);
+          margin-left: 5px;
+          .clockIcon {
+            vertical-align: middle;
+            margin: 0px 2px;
+            width: 13px;
+          }
+        }
+      }
+    }
+    article {
+      padding: 20px;
+      border-top: solid #cccccc;
+      font-size: 15px;
+    }
 
-  .explainContainer {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
-    padding-left: 0;
-  }
-
-  .contentName {
-    font-family: Pretendard;
-    font-style: normal;
-    font-size: 14px;
-    line-height: 17px;
-    white-space: break-spaces;
-    color: rgb(51, 51, 51);
-    font-weight: 700;
-    margin-left: 20px;
-  }
-  .content {
-    font-family: Pretendard;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    white-space: break-spaces;
-    color: rgb(51, 51, 51);
-    margin-left: 5px;
-  }
-  article {
-    padding: 20px;
-    border-top: solid #cccccc;
-  }
-
-  textarea {
-    resize: none;
-    margin-top: 20px;
-    height: 90px;
-  }
-
-  .commentButton {
-    background-color: #6a6d80;
-    color: white;
-    padding: 9px 15px;
-    width: 80px;
-    height: 38px;
-    border-radius: 5px;
-    border: solid;
-    margin-top: 20px;
-    align-self: flex-end;
-    &:hover {
-      background-color: #3f424edb;
-      cursor: pointer;
+    .previousContainer {
+      border: solid #cccccc;
+      border-radius: 10px;
+      display: flex;
+      overflow: hidden;
+      margin-bottom: 20px;
+      height: 50px;
+      border: 1px solid rgb(204, 204, 204);
+      .previousTitle {
+        display: flex;
+        padding: 0 20px;
+        width: 90px;
+        align-items: center;
+        font-family: Pretendard;
+        font-style: normal;
+        font-size: 14px;
+        line-height: 17px;
+        font-weight: 700;
+        background-color: rgb(249, 249, 249);
+        border-radius: 5px 0px 0px 5px;
+        border-right: 1px solid rgb(204, 204, 204);
+      }
+      .previous {
+        display: flex;
+        align-items: center;
+        font-family: Pretendard;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        padding: 17px 20px;
+      }
     }
   }
+
   footer {
     display: flex;
     flex-direction: column;
+    textarea {
+      resize: none;
+      margin-top: 20px;
+      height: 90px;
+      border-radius: 10px;
+    }
+    .commentButton {
+      background-color: #6a6d80;
+      color: white;
+      padding: 9px 15px;
+      width: 80px;
+      height: 38px;
+      border-radius: 5px;
+      border: solid;
+      margin-top: 20px;
+      align-self: flex-end;
+      &:hover {
+        background-color: #3f424edb;
+        cursor: pointer;
+      }
+    }
   }
-
-  textarea {
-    border-radius: 10px;
-  }
-}
-
-.previousContainer {
-  border: solid #cccccc;
-  border-radius: 10px;
-  display: flex;
-  overflow: hidden;
-  margin-bottom: 20px;
-  height: 50px;
-  border: 1px solid rgb(204, 204, 204);
-}
-
-.previousTitle {
-  display: flex;
-  padding: 0 20px;
-  width: 90px;
-  align-items: center;
-  font-family: Pretendard;
-  font-style: normal;
-  font-size: 14px;
-  line-height: 17px;
-  font-weight: 700;
-  background-color: rgb(249, 249, 249);
-  border-radius: 5px 0px 0px 5px;
-  border-right: 1px solid rgb(204, 204, 204);
-}
-
-.previous {
-  display: flex;
-  align-items: center;
-  font-family: Pretendard;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-  padding: 17px 20px;
 }

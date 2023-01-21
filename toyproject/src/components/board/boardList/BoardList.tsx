@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from "react";
 import styles from "./BoardList.module.scss";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Post } from "../../../lib/types";
+import { boardIdentifier } from "../../../lib/formatting";
 import { apiPostList } from "../../../lib/api";
 import { useSessionContext } from "../../../context/SessionContext";
 import { useSubjectContext } from "../../../context/SubjectContext";
+import { timestampToDateWithDash } from "../../../lib/formatting";
 
 type BoardListType = {
   category: string;
 };
-
-export function boardIdentifier(category: string) {
-  if (category === "announcements") {
-    return "공지";
-  } else {
-    return "Q&A";
-  }
-}
 
 export default function BoardList({ category }: BoardListType) {
   const { token } = useSessionContext();
@@ -79,7 +73,7 @@ export default function BoardList({ category }: BoardListType) {
                   {post.created_by.username}
                 </span>
                 <span key={`${post.title}${post.created_at}`}>
-                  {post.created_at}
+                  {timestampToDateWithDash(Number(post?.created_at), "date")}
                 </span>
                 {/* <span key={post.viewed}>
                   {post.viewed}

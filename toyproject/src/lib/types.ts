@@ -48,3 +48,37 @@ export type Post = {
   created_by: StudentsOfSubject;
   created_at: string;
 };
+
+export type Comment = {
+  id: number;
+  content: string;
+  created_by: StudentsOfSubject;
+  created_at: string;
+};
+
+export type PostDetail = Post & {
+  comments: Comment[];
+};
+
+export interface AssignmentInterface {
+  // Assignment-Unique
+  id: number;
+  lecture: number;
+  name: string;
+  due_date: string;
+  max_grade: number;
+  weight: number;
+  file: string | null;
+}
+
+export interface UserAssignmentInterface {
+  assignment: AssignmentInterface;
+  is_submitted: boolean;
+  is_graded: boolean;
+  score: number;
+}
+
+export interface AssignmentBlockInterface {
+  category: string;
+  assignments: UserAssignmentInterface[];
+}
