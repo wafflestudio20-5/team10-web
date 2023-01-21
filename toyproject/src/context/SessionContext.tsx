@@ -1,14 +1,14 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { User } from "../lib/types";
-import { apiLogin, apiLogout } from "../lib/api";
-import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { User } from '../lib/types';
+import { apiLogin, apiLogout } from '../lib/api';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type SessionContextType = {
   isLoggedIn: boolean;
   user: User | null;
-  setUser: React.Dispatch<User | null>
+  setUser: React.Dispatch<User | null>;
   token: string | null;
   login: (username: string, password: string) => Promise<any>;
   logout: (token: string) => Promise<any>;

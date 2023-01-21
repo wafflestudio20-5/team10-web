@@ -16,6 +16,7 @@ export default function EvaluationPage() {
           <div className={styles['title-container']}>
             <div className={styles.subject}>교과목명</div>
             <div className={styles.professor}>담당교수</div>
+            <div className={styles.evaluated}>평가여부</div>
             <div className={styles.evaluation}>강의평가</div>
           </div>
           <ul>

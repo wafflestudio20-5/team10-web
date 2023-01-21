@@ -74,7 +74,10 @@ function App() {
               path='/evaluation/:subjectname'
               element={<EvaluationDetailPage />}
             />
-            <Route path='/kakaoLogin' element={<KakaoLoginPage />} />
+            <Route
+              path='/authentication/kakao/callback'
+              element={<KakaoLoginPage />}
+            />
             <Route path='/description' element={<DescriptionPage />} />
           </Routes>{' '}
         </SubjectProvider>
