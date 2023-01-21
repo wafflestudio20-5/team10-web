@@ -1,32 +1,41 @@
-import SubjectTemplate from "../SubjectTemplate";
-import styles from "./GradesPage.module.scss";
-import { useParams } from "react-router-dom";
-import { useState } from "react";
-import { useSessionContext } from "../../context/SessionContext";
-import { apiAssignments, apiAssignmentScore } from "../../lib/api";
+import SubjectTemplate from '../SubjectTemplate';
+import styles from './GradesPage.module.scss';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSessionContext } from '../../context/SessionContext';
+import { apiAssignments, apiAssignmentScore } from '../../lib/api';
+import { useSubjectContext } from '../../context/SubjectContext';
+
+type assignment = {
+  id: number;
+  lecture: number;
+  name: string;
+  due_date: number;
+  max_grade: number;
+  weight: number;
+  file: string;
+};
 
 export default function GradesPage() {
   const { subjectname } = useParams();
   const { user } = useSessionContext();
+  const { curSubject } = useSubjectContext();
+  const { token } = useSessionContext();
 
-  const [assignments, setAssignments] = useState([
-    {
-      id: 0,
-      name: "과제1",
-      dueDate: "2023.01.01.",
-      status: "done",
-      grade: 50,
-      maxGrade: 100,
-    },
-    {
-      id: 1,
-      name: "과제2",
-      dueDate: "2023.01.01.",
-      status: "done",
-      grade: 100,
-      maxGrade: 100,
-    },
-  ]);
+  const [assignments, setAssignments] = useState<assignment[]>([]);
+
+  const id = curSubject?.id ?? 0;
+
+  useEffect(() => {
+    (async () => {
+      const res = await apiAssignments(token, id);
+      console.log(res.data);
+      setAssignments(res.data);
+    })();
+  }, []);
+
+  //useEffect로 과제별 성적 받아오기
+  //api.ts에 정의해두기
 
   return (
     <SubjectTemplate
@@ -49,19 +58,20 @@ export default function GradesPage() {
           </tr>
         </thead>
         <tbody>
-          {assignments.map((assignment) => (
-            <tr key={assignment.id}>
-              <td className={styles.name}>
-                {assignment.name}
-                <br />
-                <span>과제</span>
-              </td>
-              <td className={styles.dueDate}>{assignment.dueDate}</td>
-              <td className={styles.status}>{assignment.status}</td>
-              <td className={styles.grade}>{assignment.grade}</td>
-              <td className={styles.maxGrade}>{assignment.maxGrade}</td>
-            </tr>
-          ))}
+          {assignments &&
+            assignments.map((assignment) => (
+              <tr key={assignment.id}>
+                <td className={styles.name}>
+                  {assignment.name}
+                  <br />
+                  <span>과제</span>
+                </td>
+                <td className={styles.dueDate}>{assignment.due_date}</td>
+                <td className={styles.status}>과제 상태 아직 연결 안함</td>
+                <td className={styles.grade}>과제 점수 아직 연결 안함</td>
+                <td className={styles.maxGrade}>{assignment.max_grade}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </SubjectTemplate>
