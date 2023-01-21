@@ -7,6 +7,7 @@ import { apiPostList } from "../../../lib/api";
 import { useSessionContext } from "../../../context/SessionContext";
 import { useSubjectContext } from "../../../context/SubjectContext";
 import { timestampToDateWithDash } from "../../../lib/formatting";
+import Searchbar from "../../Searchbar";
 
 type BoardListType = {
   category: string;
@@ -17,6 +18,7 @@ export default function BoardList({ category }: BoardListType) {
   const { curSubject } = useSubjectContext();
   const [postList, setPostList] = useState<Post[]>([]);
   const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState<string>("");
 
   const getPostList = (
     token: string | null,
@@ -45,7 +47,13 @@ export default function BoardList({ category }: BoardListType) {
         {curSubject?.name}의 {boardIdentifier(category)}게시판입니다.
       </div>
       <div className={styles.searchContainer}>
-        검색결과 - {postList.length}개<input placeholder='검색어입력'></input>
+        검색결과 - {postList.length}개
+        {/* <input placeholder='검색어입력'></input> */}
+        <Searchbar
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          inputPlaceHolder='검색어 입력'
+        />
       </div>
       <section>
         <div className={styles.category}>
@@ -58,27 +66,24 @@ export default function BoardList({ category }: BoardListType) {
         <ul>
           {postList.map((post) => {
             return (
-              <li>
-                <span key={post.id}>{post.id}</span>
+              <li key={post.id}>
+                <span>{post.id}</span>
                 <span
                   className={styles.title}
-                  key={`${post.title}${post.title}`}
                   onClick={() =>
                     navigate(`/${curSubject?.name}/${category}/${post.id}`)
                   }
                 >
                   {post.title}
                 </span>
-                <span key={`${post.title}${post.created_by.username}`}>
-                  {post.created_by.username}
-                </span>
-                <span key={`${post.title}${post.created_at}`}>
+                <span>{post.created_by.username}</span>
+                <span>
                   {timestampToDateWithDash(Number(post?.created_at), "date")}
                 </span>
-                {/* <span key={post.viewed}>
-                  {post.viewed}
+                <span>
+                  {/* {post.viewed} */}
                   조회수
-                </span> */}
+                </span>
               </li>
             );
           })}

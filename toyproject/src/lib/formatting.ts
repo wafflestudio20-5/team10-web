@@ -8,7 +8,6 @@ export function boardIdentifier(category: string) {
 
 export function timestampToDateWithDash(timestamp: number, dateOrTime: string) {
   const date = new Date(timestamp);
-  console.log(date);
   if (dateOrTime === "date") {
     return (
       date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
