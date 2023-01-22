@@ -12,7 +12,7 @@ export const SubjectModal = ({
   aniState,
   closeSubjectModal,
 }: SubjectModalType) => {
-  const { mySubjects } = useSubjectContext();
+  const { mySubjects, handleClick } = useSubjectContext();
 
   return (
     <div
@@ -32,7 +32,13 @@ export const SubjectModal = ({
             mySubjects.map((subject) => {
               return (
                 <li key={subject.id}>
-                  <Link to={`/${subject.name}`} onClick={closeSubjectModal}>
+                  <Link
+                    to={`/${subject.name}`}
+                    onClick={() => {
+                      handleClick(subject);
+                      closeSubjectModal();
+                    }}
+                  >
                     <span>{subject.name}</span>
                   </Link>
                 </li>

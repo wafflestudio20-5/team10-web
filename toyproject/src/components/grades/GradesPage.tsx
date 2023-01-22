@@ -12,6 +12,7 @@ export default function GradesPage() {
   const { user } = useSessionContext();
   const { curSubject } = useSubjectContext();
   const { token } = useSessionContext();
+  console.log(curSubject);
 
   const [assignments, setAssignments] = useState<AssignmentInterface[]>([]);
 
