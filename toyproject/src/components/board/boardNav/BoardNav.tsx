@@ -8,6 +8,7 @@ import {
 import { Link, useParams } from "react-router-dom";
 export default function BoardNav() {
   const { subjectname } = useParams();
+  console.log(subjectname);
 
   return (
     <div className={styles.wrapper}>

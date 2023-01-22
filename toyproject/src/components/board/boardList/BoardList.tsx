@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { useState, useEffect } from "react";
 import styles from "./BoardList.module.scss";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,11 +9,51 @@ import { useSessionContext } from "../../../context/SessionContext";
 import { useSubjectContext } from "../../../context/SubjectContext";
 import { timestampToDateWithDash } from "../../../lib/formatting";
 import Searchbar from "../../Searchbar";
+=======
+import React from "react";
+import styles from "./BoardList.module.scss";
+import { Link, useParams } from "react-router-dom";
+
+type Writing = {
+  id: number;
+  title: string;
+  username: string;
+  created_at: string; //임시
+  viewed: number; //구현할 건지 백엔드와 의논
+};
+>>>>>>> Stashed changes
 
 type BoardListType = {
   category: string;
 };
 
+<<<<<<< Updated upstream
+=======
+const InitialWritings: Writing[] = [
+  {
+    id: 1,
+    title: "첫번째",
+    username: "광휘",
+    created_at: "2023-01-01",
+    viewed: 1,
+  },
+  {
+    id: 2,
+    title: "새해복",
+    username: "광휘",
+    created_at: "2023-01-01",
+    viewed: 1,
+  },
+  {
+    id: 3,
+    title: "많이받으세요",
+    username: "광휘",
+    created_at: "2023-01-01",
+    viewed: 1,
+  },
+];
+
+>>>>>>> Stashed changes
 export default function BoardList({ category }: BoardListType) {
   const { token } = useSessionContext();
   const { curSubject } = useSubjectContext();

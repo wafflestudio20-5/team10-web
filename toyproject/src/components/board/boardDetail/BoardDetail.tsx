@@ -31,7 +31,9 @@ export default function BoardDetail() {
   }, []);
 
   const handleInputReply = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    e.preventDefault();
     setReply(e.target.value);
+    setReply("");
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,49 +46,55 @@ export default function BoardDetail() {
 
   return (
     <div className={styles.wrapper}>
-      <form onSubmit={onSubmit}>
-        <header>
-          <h2>{boardIdentifier(category)} 게시판</h2>
-          <Link to={`/${curSubject?.name}/${category}`}>
-            <button className={styles.listButton}>목록</button>
-          </Link>
-        </header>
-        <section>
-          <h2>{post?.title}</h2>
-          <div className={styles.explainContainer}>
-            <div className={styles.flex}>
-              <div className={styles.contentName}>작성자:</div>
-              <div className={styles.content}>{post?.created_by.username}</div>
-              <div className={styles.contentName}>등록일시:</div>
-              <div className={styles.content}>
-                {timestampToDateWithDash(Number(post?.created_at), "date")}
-                {` `}
-                <FontAwesomeIcon icon={faClock} className={styles.clockIcon} />
-                {` `}
+      {/* <form onSubmit={onSubmit}> */}
+      <header>
+        <h2>{boardIdentifier(category)} 게시판</h2>
+        <Link to={`/${curSubject?.name}/${category}`}>
+          <button className={styles.listButton}>목록</button>
+        </Link>
+      </header>
+      <section>
+        <h2>{post?.title}</h2>
+        <div className={styles.explainContainer}>
+          <div className={styles.flex}>
+            <div className={styles.contentName}>작성자:</div>
+            <div className={styles.content}>{post?.created_by.username}</div>
+            <div className={styles.contentName}>등록일시:</div>
+            <div className={styles.content}>
+              {timestampToDateWithDash(Number(post?.created_at), "date")}
+              {` `}
+              <FontAwesomeIcon icon={faClock} className={styles.clockIcon} />
+              {` `}
 
-                {timestampToDateWithDash(Number(post?.created_at), "time")}
-              </div>
-            </div>
-            <div className={styles.flex}>
-              <div className={styles.contentName}>조회수:</div>
-              <div className={styles.content}>조회수</div>
+              {timestampToDateWithDash(Number(post?.created_at), "time")}
             </div>
           </div>
-          <article>{post?.content}</article>
-          <div className={styles.previousContainer}>
-            <div className={styles.previousTitle}>이전글</div>
-            <div className={styles.previous}>어쩌구 저쩌구</div>
+          <div className={styles.flex}>
+            <div className={styles.contentName}>조회수:</div>
+            <div className={styles.content}>조회수</div>
           </div>
-        </section>
-        <footer>
-          <h3>댓글</h3>
-          <textarea
-            placeholder={"댓글입력"}
-            onChange={handleInputReply}
-          ></textarea>
-          <button className={styles.commentButton}>댓글등록</button>
-        </footer>
-      </form>
+        </div>
+        <article>{post?.content}</article>
+        <div className={styles.previousContainer}>
+          <div className={styles.previousTitle}>이전글</div>
+          <div className={styles.previous}>어쩌구 저쩌구</div>
+        </div>
+      </section>
+      <footer>
+        <h3>
+          <span>댓글</span>
+          <button className={styles.numberOfComment}>
+            {post?.comments.length}
+          </button>
+        </h3>
+
+        <textarea
+          placeholder={"댓글입력"}
+          onChange={handleInputReply}
+        ></textarea>
+        <button className={styles.commentButton}>댓글등록</button>
+      </footer>
+      {/* </form> */}
     </div>
   );
 }

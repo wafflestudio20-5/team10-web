@@ -61,7 +61,6 @@ export type PostDetail = Post & {
 };
 
 export interface AssignmentInterface {
-  // Assignment-Unique
   id: number;
   lecture: number;
   name: string;

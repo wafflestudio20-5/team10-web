@@ -102,6 +102,20 @@ export const apiPost = async (
   });
 };
 
+// export const apiPost = async (
+//   token: string | null,
+//   post_id: number,
+//   category: string
+// ) => {
+//   const modifiedCategory = category.slice(0, -1);
+//   return await axios({
+//     method: "get",
+//     url: url(`/etl/${modifiedCategory}/${post_id}`),
+//     withCredentials: true,
+//     headers: auth(token),
+//   });
+// };
+
 export const apiAssignments = async (
   token: string | null,
   class_id: number
