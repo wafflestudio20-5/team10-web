@@ -7,10 +7,15 @@ import { ReactComponent as Question } from '../../svg/question.svg';
 import snulogo from '../../svg/snulogo.svg';
 import { ReactComponent as UserIcon } from '../../svg/userIcon.svg';
 import { SubjectModal } from './modal/SubjectModal';
-import { AuthModal } from './modal/AuthModal';
 import { Link, useNavigate } from 'react-router-dom';
-import {faCircleUser, faRectangleList, faBookOpen, faMagnifyingGlass, faCircleQuestion} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {
+  faCircleUser,
+  faRectangleList,
+  faBookOpen,
+  faMagnifyingGlass,
+  faCircleQuestion,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const SideNavBar = () => {
   const [subjectModal, setSubjectModal] = useState<boolean>(false);
@@ -60,7 +65,7 @@ export const SideNavBar = () => {
           }}
         >
           {/*<UserIcon></UserIcon>*/}
-          <FontAwesomeIcon icon={faCircleUser} className={styles.faIcon}/>
+          <FontAwesomeIcon icon={faCircleUser} className={styles.faIcon} />
           계정
         </div>
         <Link to='/'>
@@ -74,7 +79,7 @@ export const SideNavBar = () => {
             }}
           >
             {/*<DashBoard></DashBoard>*/}
-            <FontAwesomeIcon icon={faRectangleList} className={styles.faIcon}/>
+            <FontAwesomeIcon icon={faRectangleList} className={styles.faIcon} />
             대시보드
           </div>
         </Link>
@@ -89,7 +94,7 @@ export const SideNavBar = () => {
           }}
         >
           {/*<Book></Book>*/}
-          <FontAwesomeIcon icon={faBookOpen} className={styles.faIcon}/>
+          <FontAwesomeIcon icon={faBookOpen} className={styles.faIcon} />
           과목
         </div>
         <Link to='/selectsubject'>
@@ -103,7 +108,10 @@ export const SideNavBar = () => {
             }}
           >
             {/*<Calender></Calender>*/}
-            <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.faIcon}/>
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              className={styles.faIcon}
+            />
             강좌검색
           </div>
         </Link>
@@ -118,7 +126,10 @@ export const SideNavBar = () => {
             }}
           >
             {/*<Question></Question>*/}
-            <FontAwesomeIcon icon={faCircleQuestion} className={styles.faIcon}/>
+            <FontAwesomeIcon
+              icon={faCircleQuestion}
+              className={styles.faIcon}
+            />
             이용안내
           </div>
         </Link>
