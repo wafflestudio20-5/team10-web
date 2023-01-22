@@ -82,13 +82,3 @@ export interface AssignmentBlockInterface {
   category: string;
   assignments: UserAssignmentInterface[];
 }
-
-export type AssignmentType = {
-  id: number;
-  lecture: number;
-  name: string;
-  due_date: number;
-  max_grade: number;
-  weight: number;
-  file: string;
-};
