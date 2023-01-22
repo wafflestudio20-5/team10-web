@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './EvaluationDetailPage.module.scss';
 import { SideNavBar } from '../../sideNavbar/SideNavBar';
 import { useSubjectContext } from '../../../context/SubjectContext';
@@ -7,7 +7,16 @@ import FreeAnswer from '../evalComponents/FreeAnswer';
 export default function EvaluationDetailPage() {
   const { curSubject } = useSubjectContext();
 
-  //매우그렇다 부분은 component로 관리
+  const [goodPoint, setGoodPoint] = useState('');
+  const [badPoint, setBadPoint] = useState('');
+
+  const handleGoodPoint = (input: string) => {
+    setGoodPoint(input);
+  };
+
+  const handleBadPoint = (input: string) => {
+    setBadPoint(input);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -20,7 +29,10 @@ export default function EvaluationDetailPage() {
         <div className={styles.body}>
           <div className={styles.title}>공통 및 선택 문항</div>
           <CheckList></CheckList>
-          <FreeAnswer></FreeAnswer>
+          <FreeAnswer
+            handleGoodPoint={handleGoodPoint}
+            handleBadPoint={handleBadPoint}
+          ></FreeAnswer>
           <div className={styles['button-container']}>
             <button className={styles.submit}>확정</button>
           </div>
