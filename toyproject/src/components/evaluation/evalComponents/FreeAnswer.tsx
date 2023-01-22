@@ -34,7 +34,7 @@ export default function FreeAnswer({
         이 강의에서 개선할 점이 있다면 적어 주십시오.
       </div>
       <div className={styles.textarea}>
-        <textarea></textarea>
+        <textarea onChange={onChangeBadPoint}></textarea>
       </div>
     </div>
   );
