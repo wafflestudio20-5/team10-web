@@ -5,16 +5,7 @@ import { useEffect, useState } from 'react';
 import { useSessionContext } from '../../context/SessionContext';
 import { apiAssignments, apiAssignmentScore } from '../../lib/api';
 import { useSubjectContext } from '../../context/SubjectContext';
-
-type assignment = {
-  id: number;
-  lecture: number;
-  name: string;
-  due_date: number;
-  max_grade: number;
-  weight: number;
-  file: string;
-};
+import { AssignmentType } from '../../lib/types';
 
 export default function GradesPage() {
   const { subjectname } = useParams();
@@ -22,7 +13,7 @@ export default function GradesPage() {
   const { curSubject } = useSubjectContext();
   const { token } = useSessionContext();
 
-  const [assignments, setAssignments] = useState<assignment[]>([]);
+  const [assignments, setAssignments] = useState<AssignmentType[]>([]);
 
   const id = curSubject?.id ?? 0;
 
