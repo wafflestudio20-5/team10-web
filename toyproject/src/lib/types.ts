@@ -57,7 +57,7 @@ export type Comment = {
 };
 
 export type PostDetail = Post & {
-  comments: Comment[];
+  comment: Comment[];
 };
 
 export interface AssignmentInterface {

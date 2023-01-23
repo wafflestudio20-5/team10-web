@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./BoardDetail.module.scss";
 import { Link, useLocation } from "react-router-dom";
-import { PostDetail } from "../../../lib/types";
+import { PostDetail, Comment } from "../../../lib/types";
 import { apiPost } from "../../../lib/api";
 import { timestampToDateWithDash } from "../../../lib/formatting";
 import { useSessionContext } from "../../../context/SessionContext";
@@ -84,7 +84,7 @@ export default function BoardDetail() {
         <h3>
           <span>댓글</span>
           <button className={styles.numberOfComment}>
-            {post?.comments.length}
+            {post?.comment?.length}
           </button>
         </h3>
 
