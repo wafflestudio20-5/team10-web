@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./BoardDetail.module.scss";
 import { Link, useLocation } from "react-router-dom";
-import { PostDetail, Comment } from "../../../lib/types";
-import { apiPost } from "../../../lib/api";
+import { PostDetail } from "../../../lib/types";
+import { apiGetPost, apiPostReply } from "../../../lib/api";
 import { timestampToDateWithDash } from "../../../lib/formatting";
 import { useSessionContext } from "../../../context/SessionContext";
 import { useSubjectContext } from "../../../context/SubjectContext";
@@ -20,7 +20,7 @@ export default function BoardDetail() {
   const [post, setPost] = useState<PostDetail>();
 
   const getPost = (token: string | null, post_id: number, category: string) => {
-    apiPost(token, post_id, category)
+    apiGetPost(token, post_id, category)
       .then((res) => {
         setPost(res.data);
       })
@@ -30,23 +30,19 @@ export default function BoardDetail() {
     curSubject && getPost(token, postId, category);
   }, []);
 
-  const handleInputReply = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleInputReply = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setReply(e.target.value);
-    setReply("");
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const replySubmit = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     e.preventDefault();
     //fetch 함수부분
     setReply("");
   };
 
-  //useEffect로 호출하기?
-
   return (
     <div className={styles.wrapper}>
-      {/* <form onSubmit={onSubmit}> */}
       <header>
         <h2>{boardIdentifier(category)} 게시판</h2>
         <Link to={`/${curSubject?.name}/${category}`}>
@@ -87,14 +83,20 @@ export default function BoardDetail() {
             {post?.comment?.length}
           </button>
         </h3>
-
-        <textarea
-          placeholder={"댓글입력"}
-          onChange={handleInputReply}
-        ></textarea>
-        <button className={styles.commentButton}>댓글등록</button>
+        <form>
+          <input
+            placeholder={"댓글입력"}
+            onChange={handleInputReply}
+            className={styles.replyInput}
+          />
+          <input
+            type='submit'
+            className={styles.commentButton}
+            value='댓글등록'
+            onClick={replySubmit}
+          />
+        </form>
       </footer>
-      {/* </form> */}
     </div>
   );
 }

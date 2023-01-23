@@ -3,7 +3,7 @@ import styles from "./BoardList.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { Post } from "../../../lib/types";
 import { boardIdentifier } from "../../../lib/formatting";
-import { apiPostList } from "../../../lib/api";
+import { apiGetPostList } from "../../../lib/api";
 import { useSessionContext } from "../../../context/SessionContext";
 import { useSubjectContext } from "../../../context/SubjectContext";
 import { timestampToDateWithDash } from "../../../lib/formatting";
@@ -25,7 +25,7 @@ export default function BoardList({ category }: BoardListType) {
     class_id: number,
     category: string
   ) => {
-    apiPostList(token, class_id, category)
+    apiGetPostList(token, class_id, category)
       .then((res) => {
         setPostList(res.data.results);
       })

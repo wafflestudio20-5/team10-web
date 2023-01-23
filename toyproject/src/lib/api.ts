@@ -57,7 +57,7 @@ export const apiGetUserInfo = (user_id: number, token: string) => {
 };
 
 //전체 과목 목록을 가져오는 api, 수업 등록에 사용
-export const apiSubjects = async (token: string | null) => {
+export const apiGetSubjects = async (token: string | null) => {
   return await axios.get(url("/etl/classes/"), {
     withCredentials: true,
     headers: auth(token),
@@ -81,7 +81,7 @@ export const enrollSubjects = async (
 };
 
 // 수강생 목록 api
-export const apiStudentsOfSubject = async (
+export const apiGetStudentsOfSubject = async (
   token: string | null,
   id: number
 ) => {
@@ -92,7 +92,7 @@ export const apiStudentsOfSubject = async (
 };
 
 // 게시글 목록 (category = 'announcements' or 'questions')
-export const apiPostList = async (
+export const apiGetPostList = async (
   token: string | null,
   class_id: number,
   category: string
@@ -105,7 +105,7 @@ export const apiPostList = async (
   });
 };
 
-export const apiPost = async (
+export const apiGetPost = async (
   token: string | null,
   post_id: number,
   category: string
@@ -119,19 +119,19 @@ export const apiPost = async (
   });
 };
 
-// export const apiPost = async (
-//   token: string | null,
-//   post_id: number,
-//   category: string
-// ) => {
-//   const modifiedCategory = category.slice(0, -1);
-//   return await axios({
-//     method: "get",
-//     url: url(`/etl/${modifiedCategory}/${post_id}`),
-//     withCredentials: true,
-//     headers: auth(token),
-//   });
-// };
+export const apiPostReply = async (
+  token: string | null,
+  post_id: number,
+  category: string
+) => {
+  const modifiedCategory = category.slice(0, -1);
+  return await axios({
+    method: "get",
+    url: url(`/etl/${modifiedCategory}/${post_id}`),
+    withCredentials: true,
+    headers: auth(token),
+  });
+};
 
 export const apiAssignments = async (
   token: string | null,

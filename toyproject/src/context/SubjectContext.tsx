@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { apiSubjects } from '../lib/api';
-import { useSessionContext } from '../context/SessionContext';
-import { SubjectType } from '../lib/types';
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { apiGetSubjects } from "../lib/api";
+import { useSessionContext } from "../context/SessionContext";
+import { SubjectType } from "../lib/types";
 
 type SubjectContextType = {
   subjects: SubjectType[] | undefined;
@@ -27,7 +27,7 @@ export function SubjectProvider({ children }: { children: React.ReactNode }) {
 
   const getSubjects = async (token: string | null) => {
     try {
-      const res = await apiSubjects(token);
+      const res = await apiGetSubjects(token);
       setSubjects(res.data);
     } catch (err) {
       console.log(err);

@@ -8,7 +8,7 @@ import Searchbar from "../Searchbar";
 import { useSessionContext } from "../../context/SessionContext";
 import { useSubjectContext } from "../../context/SubjectContext";
 import { StudentsOfSubject } from "../../lib/types";
-import { apiStudentsOfSubject } from "../../lib/api";
+import { apiGetStudentsOfSubject } from "../../lib/api";
 
 export default function StudentsPage() {
   const { subjectname } = useParams();
@@ -23,7 +23,7 @@ export default function StudentsPage() {
   >(students);
 
   const getStudentsOfSubject = (token: string | null, id: number) => {
-    apiStudentsOfSubject(token, id)
+    apiGetStudentsOfSubject(token, id)
       .then((res) => {
         setStudents(res.data.results);
       })
