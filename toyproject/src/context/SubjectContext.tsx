@@ -25,12 +25,13 @@ export function SubjectProvider({ children }: { children: React.ReactNode }) {
     undefined
   );
 
-  const getSubjects = (token: string | null) => {
-    apiSubjects(token)
-      .then((res) => {
-        setSubjects(res.data);
-      })
-      .catch((err) => console.log(err));
+  const getSubjects = async (token: string | null) => {
+    try {
+      const res = await apiSubjects(token);
+      setSubjects(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {

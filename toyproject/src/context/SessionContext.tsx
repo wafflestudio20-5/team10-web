@@ -55,9 +55,9 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const login = async (email: string, password: string): Promise<any> => {
     try {
       const loginRes = await apiLogin(email, password);
-      console.log(loginRes.data.token);
-      setToken(loginRes.data.token.acccess_token);
+      setToken(loginRes.data.token.access_token);
       setRefreshToken(loginRes.data.token.refresh_token);
+      localStorage.setItem('refresh', loginRes.data.token.refresh_token); //우선 로컬storage에 refresh 저장해둠
       const userInfoRes = await apiGetUserInfo(
         loginRes.data.token.user_id,
         loginRes.data.token.access_token

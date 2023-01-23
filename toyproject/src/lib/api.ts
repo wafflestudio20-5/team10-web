@@ -58,7 +58,7 @@ export const apiGetUserInfo = (user_id: number, token: string) => {
 
 //전체 과목 목록을 가져오는 api, 수업 등록에 사용
 export const apiSubjects = async (token: string | null) => {
-  return await axios.get(url('/etl/class/'), {
+  return await axios.get(url('/etl/classes/'), {
     withCredentials: true,
     headers: auth(token),
   });
