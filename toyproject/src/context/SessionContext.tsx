@@ -1,9 +1,9 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { User } from "../lib/types";
-import { apiLogin, apiLogout } from "../lib/api";
-import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { User } from '../lib/types';
+import { apiGetUserInfo, apiLogin, apiLogout } from '../lib/api';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type SessionContextType = {
   isLoggedIn: boolean;
@@ -22,6 +22,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [isLoggedIn, setIsLogggedIn] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [refreshToken, setRefreshToken] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
@@ -53,15 +54,21 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (email: string, password: string): Promise<any> => {
     try {
-      const res = await apiLogin(email, password);
-      setUser(res.data);
-      setToken(res.data.token);
-      navigate("/");
+      const loginRes = await apiLogin(email, password);
+      console.log(loginRes.data.token);
+      setToken(loginRes.data.token.acccess_token);
+      setRefreshToken(loginRes.data.token.refresh_token);
+      const userInfoRes = await apiGetUserInfo(
+        loginRes.data.token.user_id,
+        loginRes.data.token.access_token
+      );
+      setUser(userInfoRes.data);
+      navigate('/');
     } catch (err) {
       console.log(err);
-      toast("이메일 또는 비밀번호가 틀렸습니다.", {
-        position: "top-center",
-        theme: "colored",
+      toast('이메일 또는 비밀번호가 틀렸습니다.', {
+        position: 'top-center',
+        theme: 'colored',
       });
     }
   };
@@ -71,7 +78,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       const res = await apiLogout(token);
       setUser(null);
       setToken(null);
-      navigate("/login/");
+      navigate('/login/');
     } catch (err) {
       return console.log(err);
     }

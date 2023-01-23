@@ -25,7 +25,7 @@ export const apiSignUp = (
 };
 
 export const apiLogin = (email: string, password: string) => {
-  return axios.post<User>(
+  return axios.post(
     url('/authentication/login/'),
     { email, password },
     { withCredentials: true }
@@ -36,6 +36,23 @@ export const apiLogout = (token: string) => {
   return axios.get(url('/authentication/logout/'), {
     withCredentials: true,
     headers: auth(token),
+  });
+};
+
+export const apiRefreshToken = (token: string) => {
+  return axios({
+    method: 'get',
+    url: url('/authentication/token/refresh'),
+    withCredentials: true,
+  });
+};
+
+export const apiGetUserInfo = (user_id: number, token: string) => {
+  return axios({
+    method: 'get',
+    url: url(`/authentication/user/${user_id}`),
+    headers: auth(token),
+    withCredentials: true,
   });
 };
 
