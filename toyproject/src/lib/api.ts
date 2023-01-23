@@ -3,11 +3,11 @@ import axios from 'axios';
 import { SignUpRequestBody, User } from './types';
 
 export const url = (path: string, param?: Record<string, string>) => {
-  return `http://etlclonetoyproject-env.eba-a6rqj2ev.ap-northeast-2.elasticbeanstalk.com ${path}`;
+  return `http://etlclonetoyproject-env.eba-a6rqj2ev.ap-northeast-2.elasticbeanstalk.com${path}`;
 };
 
 export const auth = (token: string | null) => ({
-  Authorization: `Token ${token}`,
+  Authorization: `Bearer ${token}`,
 });
 
 export const apiSignUp = (
