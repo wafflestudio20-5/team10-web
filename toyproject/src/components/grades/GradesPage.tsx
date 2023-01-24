@@ -34,9 +34,6 @@ export default function GradesPage() {
     })();
   }, []);
 
-  //useEffect로 과제별 성적 받아오기
-  //api.ts에 정의해두기
-
   return (
     <SubjectTemplate
       subject={subjectname as string}
@@ -61,15 +58,21 @@ export default function GradesPage() {
           {assignments &&
             assignments.map((assignment) => (
               <tr key={assignment.id}>
-                <td className={styles.name}>
-                  {assignment.name}
-                  <br />
-                  <span>과제</span>
-                </td>
+                <td className={styles.name}>{assignment.name}</td>
                 <td className={styles.dueDate}>{assignment.due_date}</td>
-                <td className={styles.status}>과제 상태 아직 연결 안함</td>
+                <td className={styles.status}>
+                  {scores.map((score) => {
+                    if (score.id === assignment.id) {
+                      return score.is_submitted ? '제출됨' : '제출되지 않음';
+                    }
+                  })}
+                </td>
                 <td className={styles.grade}>
-                  점수인데 이게 map 안에 있네 시벌...
+                  {scores.map((score) => {
+                    if (score.id === assignment.id) {
+                      return score.score;
+                    }
+                  })}
                 </td>
                 <td className={styles.maxGrade}>{assignment.max_grade}</td>
               </tr>
