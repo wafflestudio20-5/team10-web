@@ -13,28 +13,28 @@ import { AssignmentInterface, UserScoreInterface } from '../../lib/types';
 import dayjs from 'dayjs';
 
 export default function GradesPage() {
-  const { subjectname } = useParams();
+  const { subjectid } = useParams();
+
   const { user } = useSessionContext();
-  const { curSubject } = useSubjectContext();
   const { token } = useSessionContext();
 
   const [assignments, setAssignments] = useState<AssignmentInterface[]>([]);
   const [scores, setScores] = useState<UserScoreInterface[]>([]);
 
-  const id = curSubject?.id ?? 0;
+  const id = Number(subjectid);
 
   useEffect(() => {
     (async () => {
-      const assignRes = await apiAssignments(token, id);
+      const assignRes = await apiAssignments(token, id); //token을 이전거를 사용하게 된다.
       setAssignments(assignRes.data);
       const scoreRes = await apiAssignmentTotalScore(token, id);
       setScores(scoreRes.data);
     })();
-  }, []);
+  }, [subjectid, token]);
 
   return (
     <SubjectTemplate
-      subject={subjectname as string}
+      subject={subjectid as string}
       page='성적'
       content={`${user?.username} (${user?.student_id})`}
     >
@@ -57,7 +57,6 @@ export default function GradesPage() {
             assignments.map((assignment, assignmentIdx) => {
               const timestamp = Number(assignment.due_date);
               const date = dayjs(timestamp).format('YYYY-MM-DD');
-              console.log(date);
               return (
                 <tr key={assignment.id}>
                   <td className={styles.name}>{assignment.name}</td>
