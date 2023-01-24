@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import styles from './BoardList.module.scss';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Post } from '../../../lib/types';
-import { boardIdentifier } from '../../../lib/formatting';
-import { apiGetPostList } from '../../../lib/api';
-import { useSessionContext } from '../../../context/SessionContext';
-import { useSubjectContext } from '../../../context/SubjectContext';
-import { timestampToDateWithDash } from '../../../lib/formatting';
-import Searchbar from '../../Searchbar';
+import React, { useState, useEffect } from "react";
+import styles from "./BoardList.module.scss";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Post } from "../../../lib/types";
+import { boardIdentifier } from "../../../lib/formatting";
+import { apiGetPostList } from "../../../lib/api";
+import { useSessionContext } from "../../../context/SessionContext";
+import { useSubjectContext } from "../../../context/SubjectContext";
+import { timestampToDateWithDash } from "../../../lib/formatting";
+import Searchbar from "../../Searchbar";
 
 type BoardListType = {
   category: string;
@@ -18,7 +18,7 @@ export default function BoardList({ category }: BoardListType) {
   const { subjectid } = useParams();
   const [postList, setPostList] = useState<Post[]>([]);
   const navigate = useNavigate();
-  const [searchValue, setSearchValue] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string>("");
 
   const getPostList = (
     token: string | null,
@@ -65,10 +65,10 @@ export default function BoardList({ category }: BoardListType) {
           <span>조회수</span>
         </div>
         <ul>
-          {postList.map((post) => {
+          {postList.map((post, idx) => {
             return (
               <li key={post.id}>
-                <span>{post.id}</span>
+                <span>{postList.length - idx}</span>
                 <span
                   className={styles.title}
                   onClick={() =>
@@ -79,7 +79,7 @@ export default function BoardList({ category }: BoardListType) {
                 </span>
                 <span>{post.created_by.username}</span>
                 <span>
-                  {timestampToDateWithDash(Number(post?.created_at), 'date')}
+                  {timestampToDateWithDash(Number(post?.created_at), "date")}
                 </span>
                 <span>
                   {/* {post.viewed} */}
