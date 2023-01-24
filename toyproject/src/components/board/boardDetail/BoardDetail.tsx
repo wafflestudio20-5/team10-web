@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import styles from './BoardDetail.module.scss';
-import { Link, useLocation, useParams } from 'react-router-dom';
-import { PostDetail } from '../../../lib/types';
-import { apiGetPost, apiPostReply } from '../../../lib/api';
-import { timestampToDateWithDash } from '../../../lib/formatting';
-import { useSessionContext } from '../../../context/SessionContext';
-import { useSubjectContext } from '../../../context/SubjectContext';
-import { boardIdentifier } from '../../../lib/formatting';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock } from '@fortawesome/free-regular-svg-icons';
+import React, { useState, useEffect } from "react";
+import styles from "./BoardDetail.module.scss";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { PostDetail } from "../../../lib/types";
+import { apiGetPost, apiPostReply } from "../../../lib/api";
+import { timestampToDateWithDash } from "../../../lib/formatting";
+import { useSessionContext } from "../../../context/SessionContext";
+import { useSubjectContext } from "../../../context/SubjectContext";
+import { boardIdentifier } from "../../../lib/formatting";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 export default function BoardDetail() {
   const location = useLocation();
-  const category = location.pathname.split('/')[2];
-  const postId = Number(location.pathname.split('/')[3]);
+  const category = location.pathname.split("/")[2];
+  const postId = Number(location.pathname.split("/")[3]);
   const { token } = useSessionContext();
   const { subjectid } = useParams();
-  const [reply, setReply] = useState('');
+  const [reply, setReply] = useState("");
   const [post, setPost] = useState<PostDetail>();
 
   const getPost = (token: string | null, post_id: number, category: string) => {
@@ -38,7 +38,7 @@ export default function BoardDetail() {
   const replySubmit = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     e.preventDefault();
     //fetch 함수부분
-    setReply('');
+    setReply("");
   };
 
   return (
@@ -57,12 +57,12 @@ export default function BoardDetail() {
             <div className={styles.content}>{post?.created_by.username}</div>
             <div className={styles.contentName}>등록일시:</div>
             <div className={styles.content}>
-              {timestampToDateWithDash(Number(post?.created_at), 'date')}
+              {timestampToDateWithDash(Number(post?.created_at), "date")}
               {` `}
               <FontAwesomeIcon icon={faClock} className={styles.clockIcon} />
               {` `}
 
-              {timestampToDateWithDash(Number(post?.created_at), 'time')}
+              {timestampToDateWithDash(Number(post?.created_at), "time")}
             </div>
           </div>
           <div className={styles.flex}>
@@ -83,9 +83,31 @@ export default function BoardDetail() {
             {post?.comment?.length}
           </button>
         </h3>
+        {post?.comment?.map((comment) => {
+          return (
+            <section>
+              <div className={styles.commentCreaterInfo}>
+                <span>
+                  {`${comment.created_by.username}(${comment.created_by.student_id})`}
+                </span>
+                <div className={styles.content}>
+                  {timestampToDateWithDash(Number(post?.created_at), "date")}
+                  {` `}
+                  <FontAwesomeIcon
+                    icon={faClock}
+                    className={styles.clockIcon}
+                  />
+                  {` `}
+                  {timestampToDateWithDash(Number(post?.created_at), "time")}
+                </div>
+              </div>
+              <p>{comment.content}</p>
+            </section>
+          );
+        })}
         <form>
           <input
-            placeholder={'댓글입력'}
+            placeholder={"댓글입력"}
             onChange={handleInputReply}
             className={styles.replyInput}
           />

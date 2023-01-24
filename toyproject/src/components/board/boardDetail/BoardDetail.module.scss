@@ -111,9 +111,8 @@
     flex-direction: column;
 
     h3 {
-      padding: 15px 20px;
+      padding: 15px 0px;
       margin: 0;
-      // width: fit-content;
       display: flex;
       align-items: center;
       border-bottom: 1px solid rgb(221, 221, 221);
@@ -131,6 +130,44 @@
         font-size: 15px;
       }
     }
+
+    section {
+      display: flex;
+      flex-direction: column;
+      border-top: none;
+      width: 100%;
+      border-bottom: 1px solid rgb(221, 221, 221);
+      padding: 15px 0px;
+      box-sizing: border-box;
+
+      .commentCreaterInfo {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+
+        span {
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 19px;
+        }
+        .content {
+          margin-left: 10px;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 17px;
+          color: rgb(128, 128, 128);
+        }
+      }
+      p {
+        width: 100%;
+        padding: 0px 0px 10px;
+        margin: 0;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+      }
+    }
+
     form {
       display: flex;
       flex-direction: column;
