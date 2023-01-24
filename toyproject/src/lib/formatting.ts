@@ -13,7 +13,11 @@ export function timestampToDateWithDash(timestamp: number, dateOrTime: string) {
       date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
     );
   } else {
-    return date.getHours() + ":" + date.getMinutes();
+    return (
+      String(date.getHours()).padStart(2, "0") +
+      ":" +
+      String(date.getMinutes()).padStart(2, "0")
+    );
   }
 }
 
