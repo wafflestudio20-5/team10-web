@@ -1,14 +1,13 @@
-import React from "react";
-import styles from "./BoardNav.module.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
+import styles from './BoardNav.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faClipboardList,
   faClipboardQuestion,
-} from "@fortawesome/free-solid-svg-icons";
-import { Link, useParams } from "react-router-dom";
+} from '@fortawesome/free-solid-svg-icons';
+import { Link, useParams } from 'react-router-dom';
 export default function BoardNav() {
   const { subjectname } = useParams();
-  console.log(subjectname);
 
   return (
     <div className={styles.wrapper}>

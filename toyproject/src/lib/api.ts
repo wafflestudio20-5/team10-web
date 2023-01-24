@@ -67,6 +67,16 @@ export const apiGetSubjects = async (token: string | null) => {
   });
 };
 
+export const apiGetSubjectName = async (token: string | null) => {
+  return await axios({
+    method: 'get',
+    url: url(''),
+    data: {},
+    withCredentials: true,
+    headers: auth(token),
+  });
+};
+
 //과목 등록 api
 export const enrollSubjects = async (
   token: string | null,
