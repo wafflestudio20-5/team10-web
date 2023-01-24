@@ -4,11 +4,11 @@ import SubjectTemplate from '../../SubjectTemplate';
 import { useParams } from 'react-router-dom';
 
 export default function NewBoardPage() {
-  const { subjectname } = useParams();
+  const { subjectid } = useParams();
 
   return (
     <SubjectTemplate
-      subject={`${subjectname as string}`}
+      subject={`${subjectid as string}`}
       page='게시판'
       content={undefined}
     >

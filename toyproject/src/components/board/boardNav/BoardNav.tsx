@@ -7,7 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Link, useParams } from 'react-router-dom';
 export default function BoardNav() {
-  const { subjectname } = useParams();
+  const { subjectid } = useParams();
 
   return (
     <div className={styles.wrapper}>
@@ -15,7 +15,7 @@ export default function BoardNav() {
       <nav>
         <ul>
           <li>
-            <Link to={`/${subjectname}/announcements`}>
+            <Link to={`/${subjectid}/announcements`}>
               <FontAwesomeIcon
                 icon={faClipboardList}
                 size='lg'
@@ -24,7 +24,7 @@ export default function BoardNav() {
             </Link>
           </li>
           <li>
-            <Link to={`/${subjectname}/questions`}>
+            <Link to={`/${subjectid}/questions`}>
               <FontAwesomeIcon icon={faClipboardQuestion} size='lg' />
               &nbsp; Q&A 게시판
             </Link>

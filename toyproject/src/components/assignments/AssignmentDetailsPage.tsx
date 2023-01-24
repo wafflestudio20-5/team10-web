@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react";
-import SubjectTemplate from "../SubjectTemplate";
-import styles from "./AssignmentDetailsPage.module.scss";
-import { useParams } from "react-router-dom";
-import { apiAssignmentScore, auth, url } from "../../lib/api";
-import { useSessionContext } from "../../context/SessionContext";
-import { UserAssignmentInterface } from "../../lib/types";
-import { timestampToDateWithLetters } from "../../lib/formatting";
+import React, { useEffect, useState } from 'react';
+import SubjectTemplate from '../SubjectTemplate';
+import styles from './AssignmentDetailsPage.module.scss';
+import { useParams } from 'react-router-dom';
+import { apiAssignmentScore, auth, url } from '../../lib/api';
+import { useSessionContext } from '../../context/SessionContext';
+import { UserAssignmentInterface } from '../../lib/types';
+import { timestampToDateWithLetters } from '../../lib/formatting';
 
-import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircleCheck,
   faCircleXmark,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 
 export const apiAssignment = async (
   token: string | null,
   assignment_id: number
 ) => {
   return await axios({
-    method: "get",
+    method: 'get',
     url: url(`/etl/assignments/${assignment_id}/`),
     withCredentials: true,
     headers: auth(token),
@@ -33,7 +33,7 @@ const isOpen = (due_date: string): boolean => {
 
 export default function AssignmentDetailsPage() {
   const { token } = useSessionContext();
-  const { subjectname, assignmentID } = useParams();
+  const { subjectid, assignmentID } = useParams();
   const [userAssignment, setUserAssignment] =
     useState<UserAssignmentInterface>();
 
@@ -56,7 +56,7 @@ export default function AssignmentDetailsPage() {
 
   return (
     <SubjectTemplate
-      subject={subjectname as string}
+      subject={subjectid as string}
       page='과제'
       content={userAssignment?.assignment.name}
     >
@@ -79,7 +79,7 @@ export default function AssignmentDetailsPage() {
             <li>
               {userAssignment?.assignment.file
                 ? userAssignment?.assignment.file
-                : "파일 없음"}
+                : '파일 없음'}
             </li>
           </ul>
           <article className={styles.content}>내용 없음</article>
@@ -104,7 +104,7 @@ export default function AssignmentDetailsPage() {
               제출됨
               {userAssignment?.assignment.file
                 ? userAssignment?.assignment.file
-                : "파일 없음"}
+                : '파일 없음'}
             </b>
           ) : (
             <b className={styles.closed}>
@@ -114,7 +114,7 @@ export default function AssignmentDetailsPage() {
           )}
           <header>성적</header>
           {userAssignment?.is_graded ? (
-            <b className={styles.score}>{"" + userAssignment?.score + "점"}</b>
+            <b className={styles.score}>{'' + userAssignment?.score + '점'}</b>
           ) : (
             <b className={styles.score}>채점되지 않음</b>
           )}

@@ -33,7 +33,7 @@ export const SubjectModal = ({
               return (
                 <li key={subject.id}>
                   <Link
-                    to={`/${subject.name}`}
+                    to={`/${subject.id}`}
                     onClick={() => {
                       handleClick(subject);
                       closeSubjectModal();

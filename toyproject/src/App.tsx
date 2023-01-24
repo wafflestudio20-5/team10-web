@@ -33,7 +33,7 @@ function App() {
             <Route path='/' element={<DashBoardPage />} />
             <Route path='/login/new' element={<SignUpPage />} />
             <Route path='/login' element={<LoginPage />} />
-            <Route path='/:subjectname' element={<ModulePage />} />
+            <Route path='/:subjectid' element={<ModulePage />} />
             <Route path='/selectsubject' element={<SelectSubjectPage />} />
             <Route path='/:subjectid/boardnav' element={<BoardNavPage />} />
             <Route path='/:subjectid/questions' element={<QnABoardPage />} />
@@ -67,7 +67,8 @@ function App() {
               path='/:subjectid/assignments/:assignmentID'
               element={<AssignmentDetailsPage />}
             />
-            <Route path='/:subjectid/grades' element={<GradesPage />} />
+            <Route path='/:subjectid/grades' element={<GradesPage />} />{' '}
+            {/*새로고침 완성*/}
             <Route path='/evaluation' element={<EvaluationPage />} />
             <Route
               path='/evaluation/:subjectid'

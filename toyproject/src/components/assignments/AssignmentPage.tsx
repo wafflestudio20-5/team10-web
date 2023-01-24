@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from "react";
-import AssignmentBlock from "./AssignmentBlock";
-import styles from "./AssignmentPage.module.scss";
-import SubjectTemplate from "../SubjectTemplate";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import AssignmentBlock from './AssignmentBlock';
+import styles from './AssignmentPage.module.scss';
+import SubjectTemplate from '../SubjectTemplate';
+import { useParams } from 'react-router-dom';
 import {
   AssignmentInterface,
   UserAssignmentInterface,
   AssignmentBlockInterface,
-} from "../../lib/types";
-import { apiAssignments, apiAssignmentScore } from "../../lib/api";
-import { useSessionContext } from "../../context/SessionContext";
-import { useSubjectContext } from "../../context/SubjectContext";
+} from '../../lib/types';
+import { apiAssignments, apiAssignmentScore } from '../../lib/api';
+import { useSessionContext } from '../../context/SessionContext';
+import { useSubjectContext } from '../../context/SubjectContext';
 
 export default function AssignmentPage() {
   const { token } = useSessionContext();
-  const { curSubject } = useSubjectContext();
-  const { subjectname } = useParams();
+  const { subjectid } = useParams();
   const [isCategorized, setIsCategorized] = useState(true);
   // const [assignmentsByTime, setAssignmentsByTime] = useState<AssignmentInterface>({
   //     assignments: []
@@ -48,7 +47,7 @@ export default function AssignmentPage() {
           };
           setAssignmentBlocks([
             {
-              category: "과제", // category 생기면 바꿀 예정
+              category: '과제', // category 생기면 바꿀 예정
               assignments: temp,
             },
           ]);
@@ -58,14 +57,15 @@ export default function AssignmentPage() {
   };
 
   useEffect(() => {
+    const id = Number(subjectid);
     if (token) {
-      curSubject && getAllAssignments(token, curSubject.id);
+      getAllAssignments(token, id);
     }
   }, [token, setAssignmentBlocks]);
 
   return (
     <SubjectTemplate
-      subject={subjectname as string}
+      subject={subjectid as string}
       page='과제'
       content={undefined}
     >
