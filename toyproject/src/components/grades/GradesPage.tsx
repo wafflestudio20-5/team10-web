@@ -3,9 +3,13 @@ import styles from './GradesPage.module.scss';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSessionContext } from '../../context/SessionContext';
-import { apiAssignments, apiAssignmentScore } from '../../lib/api';
+import {
+  apiAssignments,
+  apiAssignmentScore,
+  apiAssignmentTotalScore,
+} from '../../lib/api';
 import { useSubjectContext } from '../../context/SubjectContext';
-import { AssignmentInterface } from '../../lib/types';
+import { AssignmentInterface, UserScoreInterface } from '../../lib/types';
 
 export default function GradesPage() {
   const { subjectname } = useParams();
@@ -15,14 +19,18 @@ export default function GradesPage() {
   console.log(curSubject);
 
   const [assignments, setAssignments] = useState<AssignmentInterface[]>([]);
+  const [scores, setScores] = useState<UserScoreInterface[]>([]);
 
   const id = curSubject?.id ?? 0;
 
   useEffect(() => {
     (async () => {
-      const res = await apiAssignments(token, id);
-      console.log(res.data);
-      setAssignments(res.data);
+      const assignRes = await apiAssignments(token, id);
+      console.log(assignRes.data);
+      setAssignments(assignRes.data);
+      const scoreRes = await apiAssignmentTotalScore(token, id);
+      console.log(scoreRes.data);
+      setScores(scoreRes.data);
     })();
   }, []);
 
@@ -60,7 +68,9 @@ export default function GradesPage() {
                 </td>
                 <td className={styles.dueDate}>{assignment.due_date}</td>
                 <td className={styles.status}>과제 상태 아직 연결 안함</td>
-                <td className={styles.grade}>과제 점수 아직 연결 안함</td>
+                <td className={styles.grade}>
+                  점수인데 이게 map 안에 있네 시벌...
+                </td>
                 <td className={styles.maxGrade}>{assignment.max_grade}</td>
               </tr>
             ))}

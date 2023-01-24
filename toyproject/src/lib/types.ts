@@ -81,3 +81,10 @@ export interface AssignmentBlockInterface {
   category: string;
   assignments: UserAssignmentInterface[];
 }
+
+export interface UserScoreInterface {
+  id: number;
+  is_submitted: boolean;
+  is_graded: boolean;
+  score: number;
+}
