@@ -10,6 +10,7 @@ import {
 } from '../../lib/api';
 import { useSubjectContext } from '../../context/SubjectContext';
 import { AssignmentInterface, UserScoreInterface } from '../../lib/types';
+import dayjs from 'dayjs';
 
 export default function GradesPage() {
   const { subjectname } = useParams();
@@ -53,27 +54,32 @@ export default function GradesPage() {
         </thead>
         <tbody>
           {assignments &&
-            assignments.map((assignment, assignmentIdx) => (
-              <tr key={assignment.id}>
-                <td className={styles.name}>{assignment.name}</td>
-                <td className={styles.dueDate}>{assignment.due_date}</td>
-                <td className={styles.status}>
-                  {scores.map((score, scoreIdx) => {
-                    if (scoreIdx === assignmentIdx) {
-                      return score.is_submitted ? '제출됨' : '제출되지 않음';
-                    }
-                  })}
-                </td>
-                <td className={styles.grade}>
-                  {scores.map((score, scoreIdx) => {
-                    if (scoreIdx === assignmentIdx) {
-                      return score.score;
-                    }
-                  })}
-                </td>
-                <td className={styles.maxGrade}>{assignment.max_grade}</td>
-              </tr>
-            ))}
+            assignments.map((assignment, assignmentIdx) => {
+              const timestamp = Number(assignment.due_date);
+              const date = dayjs(timestamp).format('YYYY-MM-DD');
+              console.log(date);
+              return (
+                <tr key={assignment.id}>
+                  <td className={styles.name}>{assignment.name}</td>
+                  <td className={styles.dueDate}>{date}</td>
+                  <td className={styles.status}>
+                    {scores.map((score, scoreIdx) => {
+                      if (scoreIdx === assignmentIdx) {
+                        return score.is_submitted ? '제출됨' : '제출되지 않음';
+                      }
+                    })}
+                  </td>
+                  <td className={styles.grade}>
+                    {scores.map((score, scoreIdx) => {
+                      if (scoreIdx === assignmentIdx) {
+                        return score.score;
+                      }
+                    })}
+                  </td>
+                  <td className={styles.maxGrade}>{assignment.max_grade}</td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </SubjectTemplate>
