@@ -184,8 +184,14 @@ export const apiDropClass = async (token: string | null, class_id: number) => {
 
 //kakaotalk social login 관련 변수
 
+<<<<<<< HEAD
 const CLIENT_ID = "9abd4a226f299f3b2c393cc8dd0b9ed8";
 const REDIRECT_URI = "http://localhost:3000/authentication/kakao/callback/";
+=======
+const CLIENT_ID = '9abd4a226f299f3b2c393cc8dd0b9ed8';
+const REDIRECT_URI = 'http://localhost:3000/authentication/kakao/callback/';
+// const REDIRECT_URI = url('/authentication/kakao/login');
+>>>>>>> 433c607 (kakao login 바로 백엔드 url 로 이동하게 수정 될지 안될지는 모름)
 
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 

@@ -1,24 +1,24 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import loginHeader from "../../resources/loginHeader.png";
-import google from "../../resources/google.png";
-import styles from "./LoginPage.module.scss";
-import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
-import { useSessionContext } from "../../context/SessionContext";
-import kakaoLogin from "../../resources/kakaologin.png";
-import { KAKAO_AUTH_URL } from "../../lib/api";
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import loginHeader from '../../resources/loginHeader.png';
+import google from '../../resources/google.png';
+import styles from './LoginPage.module.scss';
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { useSessionContext } from '../../context/SessionContext';
+import kakaoLogin from '../../resources/kakaologin.png';
+import { KAKAO_AUTH_URL, url } from '../../lib/api';
 
 function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const { login } = useSessionContext();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await login(email, password);
-    setEmail("");
-    setPassword("");
+    setEmail('');
+    setPassword('');
   };
 
   return (
@@ -65,9 +65,9 @@ function LoginPage() {
                 이용하실 수 있습니다.
               </p>
             </h3>
-            <a href={KAKAO_AUTH_URL}>
+            <a href={url('/authentication/kakao/login/')}>
               <img
-                className={styles["kakao-login"]}
+                className={styles['kakao-login']}
                 src={kakaoLogin}
                 alt='kakaoLogin'
               ></img>
