@@ -26,10 +26,8 @@ export default function GradesPage() {
   useEffect(() => {
     (async () => {
       const assignRes = await apiAssignments(token, id);
-      console.log(assignRes.data);
       setAssignments(assignRes.data);
       const scoreRes = await apiAssignmentTotalScore(token, id);
-      console.log(scoreRes.data);
       setScores(scoreRes.data);
     })();
   }, []);
@@ -56,20 +54,20 @@ export default function GradesPage() {
         </thead>
         <tbody>
           {assignments &&
-            assignments.map((assignment) => (
+            assignments.map((assignment, assignmentIdx) => (
               <tr key={assignment.id}>
                 <td className={styles.name}>{assignment.name}</td>
                 <td className={styles.dueDate}>{assignment.due_date}</td>
                 <td className={styles.status}>
-                  {scores.map((score) => {
-                    if (score.id === assignment.id) {
+                  {scores.map((score, scoreIdx) => {
+                    if (scoreIdx === assignmentIdx) {
                       return score.is_submitted ? '제출됨' : '제출되지 않음';
                     }
                   })}
                 </td>
                 <td className={styles.grade}>
-                  {scores.map((score) => {
-                    if (score.id === assignment.id) {
+                  {scores.map((score, scoreIdx) => {
+                    if (scoreIdx === assignmentIdx) {
                       return score.score;
                     }
                   })}
