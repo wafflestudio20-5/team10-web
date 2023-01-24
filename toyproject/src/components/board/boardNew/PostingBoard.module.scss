@@ -1,5 +1,4 @@
 .container {
-  //   width: 100%;
   flex-grow: 1;
   padding: 20px;
   padding-top: 0;
@@ -7,7 +6,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .button-container {
+    .buttonContainer {
       .cancel {
         padding: 9px 15px;
         height: 35px;
@@ -15,12 +14,11 @@
         background-color: white;
         border: solid 0.9px #777777;
         border-radius: 5px;
-      }
-
-      .cancel:hover {
-        cursor: pointer;
-        background-color: #0b4b95;
-        color: white;
+        &:hover {
+          cursor: pointer;
+          background-color: #0b4b95;
+          color: white;
+        }
       }
 
       .submit {
@@ -32,58 +30,58 @@
         color: white;
         border: solid;
         border-radius: 5px;
-      }
-      .submit:hover {
-        cursor: pointer;
-        background-color: #0b4b95;
+        &:hover {
+          cursor: pointer;
+          background-color: #0b4b95;
+        }
       }
     }
   }
 
-  body {
+  section {
     display: flex;
     border-top: solid #808080;
     padding-top: 20px;
-  }
-}
 
-.title-container {
-  display: flex;
-  flex-direction: column;
-  .title {
-    width: 160px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .content {
-    width: 160px;
-    height: 425px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
+    .titleContainer {
+      display: flex;
+      flex-direction: column;
+      .title {
+        width: 160px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .content {
+        width: 160px;
+        height: 425px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
 
-.input-container {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+    .inputContainer {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
 
-  input {
-    padding: 10px 12px;
-    height: 16px;
-    border: #ced4d9 solid;
-    border-radius: 5px;
-  }
+      .titleInput {
+        padding: 10px 12px;
+        height: 16px;
+        border: #ced4d9 solid;
+        border-radius: 5px;
+      }
 
-  textarea {
-    resize: none;
-    height: 425px;
-    margin-top: 20px;
-    padding: 8px;
-    border: #ced4d9 solid;
-    border-radius: 5px;
+      .contentInput {
+        resize: none;
+        height: 425px;
+        margin-top: 20px;
+        padding: 8px;
+        border: #ced4d9 solid;
+        border-radius: 5px;
+      }
+    }
   }
 }

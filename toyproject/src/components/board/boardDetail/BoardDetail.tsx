@@ -124,7 +124,7 @@ export default function BoardDetail() {
         </h3>
         {post?.comment?.map((comment) => {
           return (
-            <section>
+            <section key={comment.id}>
               <div className={styles.commentCreaterInfo}>
                 <span>
                   {`${comment.created_by.username}(${comment.created_by.student_id})`}

@@ -40,7 +40,7 @@ export default function BoardList({ category }: BoardListType) {
     <div className={styles.wrapper}>
       <header>
         <h2>{boardIdentifier(category)} 게시판</h2>
-        <Link to={`/${subjectid}/board/new`}>
+        <Link to={`/${subjectid}/${category}/new`}>
           <button className={styles.createButton}>글쓰기</button>
         </Link>
       </header>
@@ -49,7 +49,6 @@ export default function BoardList({ category }: BoardListType) {
       </div>
       <div className={styles.searchContainer}>
         검색결과 - {postList.length}개
-        {/* <input placeholder='검색어입력'></input> */}
         <Searchbar
           searchValue={searchValue}
           setSearchValue={setSearchValue}
@@ -76,6 +75,8 @@ export default function BoardList({ category }: BoardListType) {
                   }
                 >
                   {post.title}
+                  {` `}
+                  {/* {post.댓글개수} */}
                 </span>
                 <span>{post.created_by.username}</span>
                 <span>

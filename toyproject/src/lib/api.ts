@@ -1,6 +1,6 @@
 import axios from "axios";
 // import { useCallback, useEffect, useRef, useState } from "react";
-import { PostDetail, SignUpRequestBody, User } from "./types";
+import { Post, PostDetail, SignUpRequestBody, User } from "./types";
 
 export const url = (path: string, param?: Record<string, string>) => {
   return `http://etlclonetoyproject-env.eba-a6rqj2ev.ap-northeast-2.elasticbeanstalk.com${path}`;
@@ -127,6 +127,24 @@ export const apiGetPost = async (
   const modifiedCategory = category.slice(0, -1);
   return await axios.get<PostDetail>(
     url(`/etl/${modifiedCategory}/${post_id}/`),
+    {
+      withCredentials: true,
+      headers: auth(token),
+    }
+  );
+};
+
+// 새 게시글 올리기
+export const apiPostNewPost = async (
+  token: string | null,
+  class_id: number,
+  title: string,
+  content: string,
+  category: string
+) => {
+  return await axios.post<Post>(
+    url(`/etl/class/${class_id}/${category}/`),
+    { title, content },
     {
       withCredentials: true,
       headers: auth(token),
