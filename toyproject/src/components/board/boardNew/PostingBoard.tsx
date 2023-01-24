@@ -9,7 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 export default function PostingBoard() {
   const { subjectid } = useParams();
   const { token } = useSessionContext();
-
   const location = useLocation();
   const category = location.pathname.split("/")[2];
   const [titleInput, setTitleInput] = useState("");
@@ -45,7 +44,6 @@ export default function PostingBoard() {
         });
         setTitleInput("");
         setContentInput("");
-
         navigate(-1);
       })
       .catch((err) => console.log(err));

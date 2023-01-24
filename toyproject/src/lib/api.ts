@@ -152,6 +152,19 @@ export const apiPostNewPost = async (
   );
 };
 
+// 게시글 삭제
+export const apiDeletePost = async (
+  token: string | null,
+  post_id: number | undefined,
+  category: string
+) => {
+  const modifiedCategory = category.slice(0, -1);
+  return await axios.delete(url(`/etl/${modifiedCategory}/${post_id}/`), {
+    withCredentials: true,
+    headers: auth(token),
+  });
+};
+
 // 게시글에 댓글 달기
 export const apiPostReply = async (
   token: string | null,

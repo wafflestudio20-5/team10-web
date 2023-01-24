@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styles from "./BoardDetail.module.scss";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { PostDetail } from "../../../lib/types";
 import {
   apiGetPost,
   apiPostReply,
   apiPatchReply,
   apiDeleteReply,
+  apiDeletePost,
 } from "../../../lib/api";
 import { timestampToDateWithDash } from "../../../lib/formatting";
 import { useSessionContext } from "../../../context/SessionContext";
@@ -14,6 +15,8 @@ import { useSubjectContext } from "../../../context/SubjectContext";
 import { boardIdentifier } from "../../../lib/formatting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function BoardDetail() {
   const location = useLocation();
@@ -21,6 +24,7 @@ export default function BoardDetail() {
   const postId = Number(location.pathname.split("/")[3]);
   const { token } = useSessionContext();
   const { subjectid } = useParams();
+  const navigate = useNavigate();
   const [reply, setReply] = useState("");
   const [post, setPost] = useState<PostDetail>();
 
@@ -35,6 +39,24 @@ export default function BoardDetail() {
   useEffect(() => {
     getPost(token, postId, category);
   }, []);
+
+  // 게시글 삭제하기
+  const deletePost = (
+    token: string | null,
+    post_id: number | undefined,
+    category: string
+  ) => {
+    apiDeletePost(token, post_id, category)
+      .then((res) => {
+        toast("게시글을 성공적으로 삭제했습니다.", {
+          position: "top-center",
+          theme: "colored",
+          autoClose: 1000,
+        });
+        navigate(-1);
+      })
+      .catch((err) => console.log(err));
+  };
 
   // 댓글 인풋 상자 관리
   const handleInputReply = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +92,7 @@ export default function BoardDetail() {
       .catch((err) => console.log(err));
   };
 
-  // 댓글 수정
+  // 댓글 삭제
   const deleteReply = (token: string | null, comment_id: number) => {
     apiDeleteReply(token, comment_id)
       .then((res) => {
@@ -110,6 +132,24 @@ export default function BoardDetail() {
           </div>
         </div>
         <article>{post?.content}</article>
+        <div className={styles.buttons}>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              // editReply(token, comment.id, reply);
+            }}
+          >
+            수정
+          </button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              deletePost(token, post?.id, category);
+            }}
+          >
+            삭제
+          </button>
+        </div>
         <div className={styles.previousContainer}>
           <div className={styles.previousTitle}>이전글</div>
           <div className={styles.previous}>어쩌구 저쩌구</div>
@@ -139,7 +179,7 @@ export default function BoardDetail() {
                   {` `}
                   {timestampToDateWithDash(Number(comment?.created_at), "time")}
                 </div>
-                <div className={styles.buttons}>
+                <div className={styles.commentButtons}>
                   <button
                     onClick={(e) => {
                       e.preventDefault();
@@ -180,6 +220,7 @@ export default function BoardDetail() {
           />
         </form>
       </footer>
+      <ToastContainer />
     </div>
   );
 }

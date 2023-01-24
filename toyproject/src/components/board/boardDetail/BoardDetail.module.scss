@@ -22,6 +22,8 @@
   section {
     border-top: solid #6a6d80;
     border-bottom: 1px solid rgb(128, 128, 128);
+    display: flex;
+    flex-direction: column;
     h2 {
       font-size: 20px;
       line-height: 24px;
@@ -69,6 +71,34 @@
       padding: 20px;
       border-top: solid #cccccc;
       font-size: 15px;
+    }
+    .buttons {
+      margin-left: auto;
+      display: flex;
+      margin-bottom: 20px;
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 30px;
+        border-radius: 5px;
+        padding: 5px 10px;
+        box-sizing: border-box;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14px;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgb(119, 119, 119);
+        color: rgb(0, 0, 0);
+        margin-left: 5px;
+        &:hover {
+          cursor: pointer;
+          background-color: rgb(0, 93, 198);
+          border: 1px solid rgb(0, 93, 198);
+          color: rgb(255, 255, 255);
+        }
+      }
     }
 
     .previousContainer {
@@ -156,7 +186,7 @@
           line-height: 17px;
           color: rgb(128, 128, 128);
         }
-        .buttons {
+        .commentButtons {
           margin-left: auto;
           display: flex;
           button {
