@@ -6,7 +6,7 @@ import styles from './LoginPage.module.scss';
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 import { useSessionContext } from '../../context/SessionContext';
 import kakaoLogin from '../../resources/kakaologin.png';
-import { KAKAO_AUTH_URL } from '../../lib/api';
+import { KAKAO_AUTH_URL, url } from '../../lib/api';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -65,7 +65,7 @@ function LoginPage() {
                 이용하실 수 있습니다.
               </p>
             </h3>
-            <a href={KAKAO_AUTH_URL}>
+            <a href={url('/authentication/kakao/login/')}>
               <img
                 className={styles['kakao-login']}
                 src={kakaoLogin}
@@ -81,7 +81,7 @@ function LoginPage() {
             COPYRIGHT (C)2022 SEOUL NATIONAL UNIVERSITY. ALL RIGHTS RESERVED
           </p>
           08826 서울특별시 관악구 관악로 1 서울대학교 TEL 02-880-5114 FAX
-          02-885-5272
+          02-885-5272 WAFFLE TOYPROJECT 2023.01.25
         </address>
       </footer>
     </div>

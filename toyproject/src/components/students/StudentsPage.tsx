@@ -3,45 +3,42 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import styles from './StudentsPage.module.scss';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import Searchbar from '../Searchbar';
 import { useSessionContext } from '../../context/SessionContext';
-import { useSubjectContext } from '../../context/SubjectContext';
 import { StudentsOfSubject } from '../../lib/types';
-import { apiStudentsOfSubject } from '../../lib/api';
+import { apiGetStudentsOfSubject, apiGetSubjectInfo } from '../../lib/api';
 
 export default function StudentsPage() {
-  const { subjectname } = useParams();
   const { token } = useSessionContext();
-  const { curSubject } = useSubjectContext();
   const [searchValue, setSearchValue] = useState<string>('');
   const [searchType, setSearchType] = useState<string>('');
-
-  // const originStudents = [
-  //   { id: 0, name: "김가영", subject: subjectname, type: "student" },
-  //   { id: 1, name: "김나영", subject: subjectname, type: "student" },
-  //   { id: 2, name: "이가영", subject: subjectname, type: "professor" },
-  //   { id: 3, name: "김다영", subject: subjectname, type: "student" },
-  //   { id: 4, name: "김라영", subject: subjectname, type: "student" },
-  // ];
+  const { subjectid } = useParams();
 
   const [students, setStudents] = useState<StudentsOfSubject[] | undefined>([]);
   const [studentsToShow, setStudentsToShow] = useState<
     StudentsOfSubject[] | undefined
   >(students);
+  const [subTitle, setSubTitle] = useState('');
 
   const getStudentsOfSubject = (token: string | null, id: number) => {
-    apiStudentsOfSubject(token, id)
+    apiGetStudentsOfSubject(token, id)
       .then((res) => {
         setStudents(res.data.results);
       })
       .catch((err) => console.log(err));
   };
+
   useEffect(() => {
-    if (token) {
-      curSubject && getStudentsOfSubject(token, curSubject.id);
-    }
-  }, [token]);
+    (async () => {
+      const id = Number(subjectid);
+      const res = await apiGetSubjectInfo(token, id);
+      setSubTitle(res.data.name);
+      if (token) {
+        getStudentsOfSubject(token, id);
+      }
+    })();
+  }, [token, subjectid]);
 
   const filterStudents = () => {
     let filteredStudents = students;
@@ -72,7 +69,7 @@ export default function StudentsPage() {
     }
   };
   return (
-    <SubjectTemplate subject={subjectname as string} page='수강생'>
+    <SubjectTemplate subject={subjectid as string} page='수강생'>
       <section>
         <Searchbar
           searchValue={searchValue}
@@ -113,7 +110,7 @@ export default function StudentsPage() {
                   />
                 </td>
                 <td className={styles.name}>{student.username}</td>
-                <td className={styles.subject}>{curSubject?.name}</td>
+                <td className={styles.subject}>{subTitle}</td>
                 <td className={styles.type}>
                   {handleType(student.is_professor)}
                 </td>

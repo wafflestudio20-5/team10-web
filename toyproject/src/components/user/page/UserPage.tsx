@@ -6,9 +6,18 @@ import Content from '../userComponents/Content';
 import Profile from '../userComponents/Profile';
 import PasswordForm from '../userComponents/PasswordForm';
 import { useSessionContext } from '../../../context/SessionContext';
+import {apiBye} from "../../../lib/api";
+import {useNavigate} from "react-router-dom";
 
 export default function UserPage() {
-  const { user } = useSessionContext();
+  const { user, token } = useSessionContext();
+  const nav = useNavigate();
+
+  const bye = (token: string | null, id: Number) => {
+    apiBye(token, id)
+        .then(() => nav('/login'))
+        .catch((r) => console.log(r))
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -25,7 +34,9 @@ export default function UserPage() {
           <PasswordForm title={'비밀번호'} content={'********'} />{' '}
           <div className={contentStyles.wrapper}>
             <div className={contentStyles.content}>자퇴 신청</div>
-            <button className={styles.button}>자퇴</button>
+            <button className={styles.button} onClick={() => {
+              user && bye(token, user.id)
+            }}>자퇴</button>
           </div>
         </div>
       </div>
