@@ -53,7 +53,7 @@ function LoginPage() {
                 onClick={handleSubmit}
               />
             </form>
-            <Link to='/login/new'>
+            <Link to={KAKAO_AUTH_URL}>
               <button className={styles.signUpButton}>회원가입</button>
             </Link>
           </section>
@@ -65,13 +65,15 @@ function LoginPage() {
                 이용하실 수 있습니다.
               </p>
             </h3>
-            <a href={url('/authentication/kakao/login/')}>
+            {/* <a href={url('/authentication/kakao/login/')}> */}
+            <a href={KAKAO_AUTH_URL}>
               <img
                 className={styles['kakao-login']}
                 src={kakaoLogin}
                 alt='kakaoLogin'
               ></img>
             </a>
+            {/* </a> */}
           </section>
         </article>
       </div>
