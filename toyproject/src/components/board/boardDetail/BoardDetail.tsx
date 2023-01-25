@@ -37,7 +37,7 @@ export default function BoardDetail() {
   };
   useEffect(() => {
     getPost(token, postId, category);
-  }, []);
+  }, [token]);
 
   // 게시글 삭제하기
   const deletePost = (

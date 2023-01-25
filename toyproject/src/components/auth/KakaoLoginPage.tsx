@@ -6,7 +6,6 @@ import { url } from '../../lib/api';
 
 export default function KakaoLoginPage() {
   let code = new URL(window.location.href).searchParams.get('code');
-  console.log(code);
 
   useEffect(() => {
     (async () => {
@@ -24,7 +23,6 @@ export default function KakaoLoginPage() {
           withCredentials: true,
         });
         console.log(res);
-        console.log('hi');
       } catch {}
     })();
   }, []);

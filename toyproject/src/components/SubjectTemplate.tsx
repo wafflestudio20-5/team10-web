@@ -52,7 +52,7 @@ export default function SubjectTemplate({
       const res = await apiGetSubjectInfo(token, id);
       setTitle(res.data.name);
     })();
-  });
+  }, [token]);
 
   return (
     <div className={styles.wrapper}>

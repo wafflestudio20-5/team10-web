@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './SubjectList.module.scss';
 import { useSessionContext } from '../../context/SessionContext';
 import { apiEnrollClass } from '../../lib/api';

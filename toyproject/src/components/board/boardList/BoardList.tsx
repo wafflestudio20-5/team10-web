@@ -37,7 +37,7 @@ export default function BoardList({ category }: BoardListType) {
       const res = await apiGetSubjectInfo(token, id);
       setSubTitle(res.data.name);
     })();
-  }, [subjectid]);
+  }, [subjectid, token]);
 
   return (
     <div className={styles.wrapper}>
