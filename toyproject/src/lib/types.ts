@@ -47,6 +47,11 @@ export type Post = {
   content: string;
   created_by: StudentsOfSubject;
   created_at: string;
+  hits: number;
+};
+
+export type PostinPostList = Post & {
+  comment_count: number;
 };
 
 export type Comment = {

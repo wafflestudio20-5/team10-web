@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import styles from './BoardList.module.scss';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Post } from '../../../lib/types';
-import { boardIdentifier } from '../../../lib/formatting';
-import { apiGetPostList, apiGetSubjectInfo } from '../../../lib/api';
-import { useSessionContext } from '../../../context/SessionContext';
-import { timestampToDateWithDash } from '../../../lib/formatting';
-import Searchbar from '../../Searchbar';
+import React, { useState, useEffect } from "react";
+import styles from "./BoardList.module.scss";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { PostinPostList } from "../../../lib/types";
+import { boardIdentifier } from "../../../lib/formatting";
+import { apiGetPostList, apiGetSubjectInfo } from "../../../lib/api";
+import { useSessionContext } from "../../../context/SessionContext";
+import { timestampToDateWithDash } from "../../../lib/formatting";
+import Searchbar from "../../Searchbar";
 
 type BoardListType = {
   category: string;
@@ -15,10 +15,10 @@ type BoardListType = {
 export default function BoardList({ category }: BoardListType) {
   const { token } = useSessionContext();
   const { subjectid } = useParams();
-  const [postList, setPostList] = useState<Post[]>([]);
+  const [postList, setPostList] = useState<PostinPostList[]>([]);
   const navigate = useNavigate();
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [subTitle, setSubTitle] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [subTitle, setSubTitle] = useState<string>("");
   const getPostList = (
     token: string | null,
     class_id: number,
@@ -77,18 +77,16 @@ export default function BoardList({ category }: BoardListType) {
                     navigate(`/${subjectid}/${category}/${post.id}`)
                   }
                 >
-                  {post.title}
-                  {` `}
-                  {/* {post.댓글개수} */}
+                  <span className={styles.literalTitle}>{post.title}</span>
+                  <span
+                    className={styles.commentCount}
+                  >{` (${post.comment_count})`}</span>
                 </span>
                 <span>{post.created_by.username}</span>
                 <span>
-                  {timestampToDateWithDash(Number(post?.created_at), 'date')}
+                  {timestampToDateWithDash(Number(post?.created_at), "date")}
                 </span>
-                <span>
-                  {/* {post.viewed} */}
-                  조회수
-                </span>
+                <span>{post.hits}</span>
               </li>
             );
           })}
