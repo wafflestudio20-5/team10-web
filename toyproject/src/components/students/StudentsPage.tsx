@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Searchbar from '../Searchbar';
 import { useSessionContext } from '../../context/SessionContext';
-import { useSubjectContext } from '../../context/SubjectContext';
 import { StudentsOfSubject } from '../../lib/types';
 import { apiGetStudentsOfSubject, apiGetSubjectInfo } from '../../lib/api';
 

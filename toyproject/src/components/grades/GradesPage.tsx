@@ -8,7 +8,6 @@ import {
   apiAssignmentScore,
   apiAssignmentTotalScore,
 } from '../../lib/api';
-import { useSubjectContext } from '../../context/SubjectContext';
 import { AssignmentInterface, UserScoreInterface } from '../../lib/types';
 import dayjs from 'dayjs';
 

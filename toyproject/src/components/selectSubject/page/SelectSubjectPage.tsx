@@ -27,18 +27,45 @@ const isEnrolled = (
 export default function SelectSubjectPage() {
   const [searchValue, setSearchValue] = useState('');
   const [subjects, setSubjects] = useState<SubjectType[]>();
-  const [nextApi, setNextApi] = useState('');
+
   const { token } = useSessionContext();
-  const { mySubjects } = useSubjectContext();
-  //전체 과목 받아오기 useEffect
+  const { mySubjects, previousApi, nextApi } = useSubjectContext();
 
   useEffect(() => {
     (async () => {
-      const subjects = await apiGetSubjects(token);
-      setNextApi(subjects.data.next);
-      setSubjects(subjects.data.results);
+      const res = await apiGetSubjects(token, '');
+      // console.log(res);
+      setSubjects(res.data.results);
     })();
   }, [token]);
+
+  useEffect(() => {
+    (async () => {
+      const res = await apiGetSubjects(token, nextApi);
+      setSubjects(res.data.results);
+    })();
+  }, [token, nextApi]);
+
+  // useEffect(()=>{
+  //   (async()=>{
+  //     const res = await apiGetSubjects(token, previousApi);
+  //     setSubjects(res.data.results);
+  //   })()
+  // },[token, previousApi])
+
+  const goToNextPage = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const res = await apiGetSubjects(token, nextApi);
+    setSubjects(res.data.results);
+  };
+
+  const goToPreviousPage = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    const res = await apiGetSubjects(token, previousApi);
+    setSubjects(res.data.results);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -82,6 +109,10 @@ export default function SelectSubjectPage() {
                 );
               })}
           </article>
+          <div className={styles['button-container']}>
+            <button onClick={goToPreviousPage}>이전</button>
+            <button onClick={goToNextPage}>다음</button>
+          </div>
         </section>
       </div>
       <ToastContainer />

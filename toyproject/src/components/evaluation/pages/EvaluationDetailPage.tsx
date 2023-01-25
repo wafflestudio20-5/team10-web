@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styles from './EvaluationDetailPage.module.scss';
 import { SideNavBar } from '../../sideNavbar/SideNavBar';
-import { useSubjectContext } from '../../../context/SubjectContext';
 import CheckList from '../evalComponents/CheckList';
 import FreeAnswer from '../evalComponents/FreeAnswer';
 import { useParams } from 'react-router-dom';

@@ -5,7 +5,6 @@ import { Post } from '../../../lib/types';
 import { boardIdentifier } from '../../../lib/formatting';
 import { apiGetPostList, apiGetSubjectInfo } from '../../../lib/api';
 import { useSessionContext } from '../../../context/SessionContext';
-import { useSubjectContext } from '../../../context/SubjectContext';
 import { timestampToDateWithDash } from '../../../lib/formatting';
 import Searchbar from '../../Searchbar';
 

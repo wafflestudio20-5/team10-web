@@ -10,7 +10,6 @@ import {
 } from '../../lib/types';
 import { apiAssignments, apiAssignmentScore } from '../../lib/api';
 import { useSessionContext } from '../../context/SessionContext';
-import { useSubjectContext } from '../../context/SubjectContext';
 
 export default function AssignmentPage() {
   const { token } = useSessionContext();
