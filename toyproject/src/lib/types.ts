@@ -68,6 +68,7 @@ export interface AssignmentInterface {
   max_grade: number;
   weight: number;
   file: string | null;
+  category: string;
 }
 
 export interface UserAssignmentInterface {
@@ -75,11 +76,6 @@ export interface UserAssignmentInterface {
   is_submitted: boolean;
   is_graded: boolean;
   score: number;
-}
-
-export interface AssignmentBlockInterface {
-  category: string;
-  assignments: UserAssignmentInterface[];
 }
 
 export interface UserScoreInterface {
