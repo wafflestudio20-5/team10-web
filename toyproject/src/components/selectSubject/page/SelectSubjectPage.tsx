@@ -27,6 +27,7 @@ const isEnrolled = (
 export default function SelectSubjectPage() {
   const [searchValue, setSearchValue] = useState('');
   const [subjects, setSubjects] = useState<SubjectType[]>();
+  const [nextApi, setNextApi] = useState('');
   const { token } = useSessionContext();
   const { mySubjects } = useSubjectContext();
   //전체 과목 받아오기 useEffect
@@ -34,7 +35,8 @@ export default function SelectSubjectPage() {
   useEffect(() => {
     (async () => {
       const subjects = await apiGetSubjects(token);
-      setSubjects(subjects.data);
+      setNextApi(subjects.data.next);
+      setSubjects(subjects.data.results);
     })();
   }, [token]);
 
