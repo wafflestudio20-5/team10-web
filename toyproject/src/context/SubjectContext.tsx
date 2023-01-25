@@ -20,9 +20,12 @@ const SubjectContext = createContext<SubjectContextType>(
 //default 붙이면 prettier 이상하게 적용됨
 export function SubjectProvider({ children }: { children: React.ReactNode }) {
   const { token, user } = useSessionContext();
+
+  //페이지네이션에 사용해야겠다.
   const [subjects, setSubjects] = useState<SubjectType[] | undefined>(
     undefined
   );
+
   const [curSubject, setCurSubject] = useState<SubjectType | undefined>(
     undefined
   );

@@ -27,9 +27,11 @@ const isEnrolled = (
 export default function SelectSubjectPage() {
   const [searchValue, setSearchValue] = useState('');
   const [subjects, setSubjects] = useState<SubjectType[]>();
-
   const { token } = useSessionContext();
   const { mySubjects, previousApi, nextApi } = useSubjectContext();
+  //ToDO
+  //sever 연결되면
+  //subjects useSubjectContext에서 가져와보기
 
   useEffect(() => {
     (async () => {
