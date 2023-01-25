@@ -81,7 +81,7 @@ function LoginPage() {
             COPYRIGHT (C)2022 SEOUL NATIONAL UNIVERSITY. ALL RIGHTS RESERVED
           </p>
           08826 서울특별시 관악구 관악로 1 서울대학교 TEL 02-880-5114 FAX
-          02-885-5272
+          02-885-5272 WAFFLE TOYPROJECT 2023.01.25
         </address>
       </footer>
     </div>

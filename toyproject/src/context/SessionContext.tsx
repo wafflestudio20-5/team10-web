@@ -90,6 +90,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       setUser(null);
       setToken(null);
       navigate('/login/');
+      localStorage.removeItem('refresh');
     } catch (err) {
       return console.log(err);
     }
