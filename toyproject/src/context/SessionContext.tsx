@@ -38,9 +38,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         const localUserId = Number(localStorage.getItem('userId'));
         const res = await getRefreshToken(localRefresh); //렌더링 시 refreshToken 요청
         console.log(res);
-        console.log('hi');
         console.log(token);
-        console.log(res.data.access);
         if (res.status === 200) {
           const resUser = await apiGetUserInfo(localUserId, res.data.access); //이 작업을 위해선 userId가 필요한데 우선 local Storage에 저장..?
           setUser(resUser.data);
@@ -62,6 +60,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const getRefreshToken = async (token: string | null) => {
     const res = await apiRefreshToken(token);
     setToken(res.data.access); //setToken 밖으로 뺐더니 lifecycle 로 인한 오류 발생(다른 api 요청 이후 set하게 됨)
+    localStorage.setItem('refresh', res.data.refresh);
     return res;
   };
 

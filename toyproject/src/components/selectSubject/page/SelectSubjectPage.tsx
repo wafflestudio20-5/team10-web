@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import styles from "./SelectSubjectPage.module.scss";
-import { SideNavBar } from "../../sideNavbar/SideNavBar";
-import SubjectList from "../SubjectList";
-import { UserBar } from "../../UserBar/UserBar";
-import axios from "axios";
-import { url } from "inspector";
-import { apiGetSubjects } from "../../../lib/api";
-import { useSessionContext } from "../../../context/SessionContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { useSubjectContext } from "../../../context/SubjectContext";
-import { SubjectType } from "../../../lib/types";
-import { ToastContainer } from "react-toastify";
+import React, { useEffect, useState } from 'react';
+import styles from './SelectSubjectPage.module.scss';
+import { SideNavBar } from '../../sideNavbar/SideNavBar';
+import SubjectList from '../SubjectList';
+import { UserBar } from '../../UserBar/UserBar';
+import axios from 'axios';
+import { url } from 'inspector';
+import { apiGetSubjects } from '../../../lib/api';
+import { useSessionContext } from '../../../context/SessionContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { useSubjectContext } from '../../../context/SubjectContext';
+import { SubjectType } from '../../../lib/types';
+import { ToastContainer } from 'react-toastify';
 
 const isEnrolled = (
   mySubjects: SubjectType[] | undefined,
@@ -25,19 +25,18 @@ const isEnrolled = (
 };
 
 export default function SelectSubjectPage() {
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
   const [subjects, setSubjects] = useState<SubjectType[]>();
   const { token } = useSessionContext();
   const { mySubjects } = useSubjectContext();
   //전체 과목 받아오기 useEffect
-  // enroll, drop은 여기서만 사용하니 굳이 api.ts에 정의해둘 필요 없을 것 같음
 
   useEffect(() => {
     (async () => {
       const subjects = await apiGetSubjects(token);
       setSubjects(subjects.data);
     })();
-  }, []);
+  }, [token]);
 
   return (
     <div className={styles.wrapper}>
