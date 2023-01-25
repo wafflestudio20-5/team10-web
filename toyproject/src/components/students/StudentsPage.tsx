@@ -8,7 +8,7 @@ import Searchbar from '../Searchbar';
 import { useSessionContext } from '../../context/SessionContext';
 import { useSubjectContext } from '../../context/SubjectContext';
 import { StudentsOfSubject } from '../../lib/types';
-import { apiGetStudentsOfSubject } from '../../lib/api';
+import { apiGetStudentsOfSubject, apiGetSubjectInfo } from '../../lib/api';
 
 export default function StudentsPage() {
   const { token } = useSessionContext();
@@ -20,6 +20,7 @@ export default function StudentsPage() {
   const [studentsToShow, setStudentsToShow] = useState<
     StudentsOfSubject[] | undefined
   >(students);
+  const [subTitle, setSubTitle] = useState('');
 
   const getStudentsOfSubject = (token: string | null, id: number) => {
     apiGetStudentsOfSubject(token, id)
@@ -28,12 +29,17 @@ export default function StudentsPage() {
       })
       .catch((err) => console.log(err));
   };
+
   useEffect(() => {
-    const id = Number(subjectid);
-    if (token) {
-      getStudentsOfSubject(token, id);
-    }
-  }, [token]);
+    (async () => {
+      const id = Number(subjectid);
+      const res = await apiGetSubjectInfo(token, id);
+      setSubTitle(res.data.name);
+      if (token) {
+        getStudentsOfSubject(token, id);
+      }
+    })();
+  }, [token, subjectid]);
 
   const filterStudents = () => {
     let filteredStudents = students;
@@ -105,7 +111,7 @@ export default function StudentsPage() {
                   />
                 </td>
                 <td className={styles.name}>{student.username}</td>
-                <td className={styles.subject}>{subjectid}</td>
+                <td className={styles.subject}>{subTitle}</td>
                 <td className={styles.type}>
                   {handleType(student.is_professor)}
                 </td>

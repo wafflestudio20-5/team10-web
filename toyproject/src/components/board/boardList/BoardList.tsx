@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import styles from "./BoardList.module.scss";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { Post } from "../../../lib/types";
-import { boardIdentifier } from "../../../lib/formatting";
-import { apiGetPostList } from "../../../lib/api";
-import { useSessionContext } from "../../../context/SessionContext";
-import { useSubjectContext } from "../../../context/SubjectContext";
-import { timestampToDateWithDash } from "../../../lib/formatting";
-import Searchbar from "../../Searchbar";
+import React, { useState, useEffect } from 'react';
+import styles from './BoardList.module.scss';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Post } from '../../../lib/types';
+import { boardIdentifier } from '../../../lib/formatting';
+import { apiGetPostList, apiGetSubjectInfo } from '../../../lib/api';
+import { useSessionContext } from '../../../context/SessionContext';
+import { useSubjectContext } from '../../../context/SubjectContext';
+import { timestampToDateWithDash } from '../../../lib/formatting';
+import Searchbar from '../../Searchbar';
 
 type BoardListType = {
   category: string;
@@ -18,8 +18,8 @@ export default function BoardList({ category }: BoardListType) {
   const { subjectid } = useParams();
   const [postList, setPostList] = useState<Post[]>([]);
   const navigate = useNavigate();
-  const [searchValue, setSearchValue] = useState<string>("");
-
+  const [searchValue, setSearchValue] = useState<string>('');
+  const [subTitle, setSubTitle] = useState<string>('');
   const getPostList = (
     token: string | null,
     class_id: number,
@@ -32,9 +32,13 @@ export default function BoardList({ category }: BoardListType) {
       .catch((err) => console.log(err));
   };
   useEffect(() => {
-    const id = Number(subjectid);
-    getPostList(token, id, category);
-  }, []);
+    (async () => {
+      const id = Number(subjectid);
+      getPostList(token, id, category);
+      const res = await apiGetSubjectInfo(token, id);
+      setSubTitle(res.data.name);
+    })();
+  }, [subjectid]);
 
   return (
     <div className={styles.wrapper}>
@@ -45,7 +49,7 @@ export default function BoardList({ category }: BoardListType) {
         </Link>
       </header>
       <div className={styles.explain}>
-        {subjectid}의 {boardIdentifier(category)}게시판입니다.
+        {subTitle}의 {boardIdentifier(category)}게시판입니다.
       </div>
       <div className={styles.searchContainer}>
         검색결과 - {postList.length}개
@@ -80,7 +84,7 @@ export default function BoardList({ category }: BoardListType) {
                 </span>
                 <span>{post.created_by.username}</span>
                 <span>
-                  {timestampToDateWithDash(Number(post?.created_at), "date")}
+                  {timestampToDateWithDash(Number(post?.created_at), 'date')}
                 </span>
                 <span>
                   {/* {post.viewed} */}
