@@ -45,12 +45,10 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         } else {
           setIsLoggedIn(false);
         }
-        if (!res) {
-          toast('로그인 후 이용해주세요');
-          navigate('/login');
-        }
       } catch (e) {
         setIsLoggedIn(false);
+        toast('로그인 후 이용해주세요');
+        navigate('/login');
         console.error(e);
       }
     })();
@@ -76,9 +74,10 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       );
       setUser(userInfoRes.data);
       navigate('/');
-    } catch (err) {
-      console.log(err);
-      toast('이메일 또는 비밀번호가 틀렸습니다.', {
+    } catch (err: any) {
+      console.log(err.response.data.non_field_errors);
+      const errorMessage = err.response.data.non_field_errors;
+      toast(errorMessage[0], {
         position: 'top-center',
         theme: 'colored',
       });
