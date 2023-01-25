@@ -17,7 +17,7 @@ export default function SubjectList({
   professor,
   isEnrolled,
 }: SubjectListType) {
-  const { token, user, setUser } = useSessionContext();
+  const { token, user, setUser, refreshUserInfo } = useSessionContext();
   const [subjectEnrolled, setSubjectEnrolled] = useState(isEnrolled);
   const enroll = (token: string | null, classId: number) => {
     apiEnrollClass(token, classId)
@@ -25,7 +25,10 @@ export default function SubjectList({
         toast('신청되었습니다!');
         // setUser({...user, classes: r.data.classes})
       })
-      .then((r) => setSubjectEnrolled((prev) => !prev))
+      .then((r) => {
+        setSubjectEnrolled((prev) => !prev);
+        refreshUserInfo(token!); //!를 삽입함으로서 token이 항상 존재한다는 걸 알릴 수 있다.
+      })
       .catch((r) => console.log(r));
   };
 

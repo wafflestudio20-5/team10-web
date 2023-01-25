@@ -17,6 +17,7 @@ type SessionContextType = {
   token: string | null;
   login: (username: string, password: string) => Promise<any>;
   logout: (token: string) => Promise<any>;
+  refreshUserInfo: (token: string) => void;
 };
 
 const SessionContext = createContext<SessionContextType>(
@@ -37,8 +38,6 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         const localRefresh = localStorage.getItem('refresh');
         const localUserId = Number(localStorage.getItem('userId'));
         const res = await getRefreshToken(localRefresh); //렌더링 시 refreshToken 요청
-        console.log(res);
-        console.log(token);
         if (res.status === 200) {
           const resUser = await apiGetUserInfo(localUserId, res.data.access); //이 작업을 위해선 userId가 필요한데 우선 local Storage에 저장..?
           setUser(resUser.data);
@@ -97,6 +96,12 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const refreshUserInfo = async (token: string) => {
+    const localUserId = Number(localStorage.getItem('userId'));
+    const userInfoRes = await apiGetUserInfo(localUserId, token);
+    setUser(userInfoRes.data);
+  };
+
   return (
     <SessionContext.Provider
       value={{
@@ -106,6 +111,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         token,
         login,
         logout,
+        refreshUserInfo,
       }}
     >
       {children}
