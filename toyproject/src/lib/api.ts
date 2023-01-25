@@ -279,8 +279,8 @@ export const apiBye = async (token: string | null, id: Number) => {
     url: url(`/authentication/user/${id}/`),
     withCredentials: true,
     headers: auth(token),
-  })
-}
+  });
+};
 
 //kakaotalk social login 관련 변수
 
