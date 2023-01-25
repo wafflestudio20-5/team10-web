@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  text-align: center;
+  vertical-align: middle;
+  margin-left: auto;
+  box-sizing: border-box;
+  justify-content: right;
+  align-items: center;
+}
+
+.welcome {
+  margin: 16px;
+  font-size: 17px;
+}
+
+.logoutButton {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  padding: 10px;
+  width: 75px;
+  height: 40px;
+  background: #ffffff;
+  border: 1px solid #aeadad;
+  border-radius: 5px;
+  margin: 16px;
+  font-size: 15px;
+  cursor: pointer;
+}

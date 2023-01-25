@@ -1,0 +1,62 @@
+.profileContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+
+  .svg-container {
+    position: relative;
+    display: flex;
+    width: 156px;
+    height: 156px;
+    border: solid #b9b9b9;
+    border-radius: 50%;
+    .userIcon {
+      margin: auto;
+    }
+  }
+
+  .svg-container:hover {
+    background-color: #6363b680;
+    .userIcon {
+      color: #6363b680;
+    }
+  }
+
+  .hide {
+    position: absolute;
+    top: 58px;
+    left: 58px;
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    color: white;
+    //background-image: url("../../../svg/pencil.svg");
+  }
+  .svg-container:hover .hide {
+    opacity: 1;
+    cursor: pointer;
+  }
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  font-family: 'Helvetica Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 48px;
+  margin-left: 30px;
+}
+
+@media screen and (max-width: 800px) {
+  .user {
+    font-size: 20px;
+  }
+
+  @media screen and (max-width: 500px) {
+    .user {
+      font-size: 15px;
+    }
+  }
+}

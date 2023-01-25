@@ -1,0 +1,89 @@
+.modal {
+  position: absolute;
+  height: 100vh;
+  z-index: 1;
+  background-color: white;
+  width: 320px;
+  left: 84px;
+  padding: 20px;
+  box-shadow: 6px 11px 15px -4px rgba(0, 0, 0, 0.56);
+  -webkit-box-shadow: 6px 11px 15px -4px rgba(0, 0, 0, 0.56);
+  -moz-box-shadow: 6px 11px 15px -4px rgba(0, 0, 0, 0.56);
+  animation: scaleLeft 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+
+  header {
+    align-items: center;
+    border-bottom: solid black;
+    width: 100%;
+    font-size: 30px;
+  }
+
+  section {
+    border-bottom: solid black;
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+
+      li {
+        width: 316px;
+        height: 40px;
+        span {
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  svg {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    border: solid black;
+    padding: 10px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: #2282f9;
+  }
+
+  footer {
+    margin-top: 10px;
+    font-size: large;
+    a {
+      color: black;
+    }
+  }
+}
+
+.modal.close {
+  animation: scaleBack 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+/* Show modal content from bottom to top */
+@keyframes scaleLeft {
+  0% {
+    /* 모달 콘텐츠를 하단에 위치시킴 */
+    transform: scale(1) translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    /* 모달 콘텐츠를 본래 위치로 돌려놓음 */
+    transform: scale(1) translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleBack {
+  0% {
+    transform: scale(1) translateX(0);
+  }
+  100% {
+    transform: scale(1) translateX(-500px);
+  }
+}

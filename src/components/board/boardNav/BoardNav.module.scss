@@ -1,0 +1,43 @@
+.wrapper {
+  flex-grow: 1;
+
+  h2 {
+    padding-left: 20px;
+  }
+
+  ul {
+    padding-left: 0;
+    box-sizing: border-box;
+    border-top: solid RGB(199, 205, 209);
+    border-left: solid RGB(199, 205, 209);
+  }
+
+  li {
+    width: auto;
+    height: 75px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    border-right: solid RGB(199, 205, 209);
+    border-bottom: solid RGB(199, 205, 209);
+    span {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  nav {
+    margin: 20px;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  a:hover {
+    cursor: pointer;
+  }
+}

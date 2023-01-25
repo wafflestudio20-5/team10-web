@@ -1,0 +1,30 @@
+.cardContainer {
+  width: 265px;
+  height: 260px;
+  border-radius: 5px;
+  // border: solid black 0.5px;
+  box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.34);
+  -webkit-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.34);
+  overflow: hidden;
+  &:hover {
+    box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.56);
+    -webkit-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.56);
+    -moz-box-shadow: 10px 11px 12px -4px rgba(0, 0, 0, 0.56);
+    cursor: pointer;
+  }
+  .cardColor {
+    background-color: #97bdf5;
+    height: 50%;
+  }
+
+  section {
+    display: flex;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    &:hover {
+      text-decoration-line: underline;
+    }
+  }
+}

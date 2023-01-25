@@ -1,0 +1,102 @@
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.body {
+  display: flex;
+  flex-grow: 1;
+}
+
+.nav {
+  width: 192px;
+  box-sizing: border-box;
+  padding: 24px 12px 12px 24px;
+  .semester {
+    font-size: smaller;
+    width: 144px;
+    height: 17px;
+    margin: 0;
+    padding: 0 0 12px 12px;
+    font-style: italic;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      height: 37px;
+      box-sizing: border-box;
+      padding-top: 10px;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+      .arrow {
+        margin: auto auto 3px 5px;
+        width: 10px;
+        height: 10px;
+      }
+    }
+    .current {
+      font-weight: bolder;
+    }
+  }
+}
+
+.header {
+  height: 72px;
+  margin: 0 24px;
+  border-bottom: 1px solid #c7cdd1;
+  display: flex;
+  vertical-align: middle;
+  box-sizing: border-box;
+  align-items: center;
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .nav_icon {
+    width: 25px;
+    height: 25px;
+    margin: auto 0;
+    cursor: pointer;
+  }
+  .title {
+    margin: auto 15px;
+    font-size: larger;
+    cursor: pointer;
+    text-decoration: none !important;
+    color: #066fe1;
+  }
+  .contentTitle {
+    margin: auto 15px;
+    font-size: larger;
+    text-decoration: none;
+    color: black;
+  }
+
+  .arrow {
+    width: 10px;
+    height: 10px;
+    margin: auto 0;
+  }
+}
+
+.header.content {
+  margin: 0;
+}
+
+article {
+  flex-grow: 1;
+  padding: 24px;
+}
