@@ -39,12 +39,12 @@ export default function SelectSubjectPage() {
     })();
   }, [token]);
 
-  useEffect(() => {
-    (async () => {
-      const res = await apiGetSubjects(token, nextApi);
-      setSubjects(res.data.results);
-    })();
-  }, [token, nextApi]);
+  // useEffect(() => {
+  //   (async () => {
+  //     const res = await apiGetSubjects(token, nextApi);
+  //     setSubjects(res.data.results);
+  //   })();
+  // }, [token, nextApi]);
 
   // useEffect(()=>{
   //   (async()=>{
