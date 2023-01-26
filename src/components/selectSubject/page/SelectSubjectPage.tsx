@@ -52,7 +52,6 @@ export default function SelectSubjectPage() {
   };
 
   const buttonCount = Math.ceil(totalNum / 10);
-  const tespadd = 1;
 
   return (
     <div className={styles.wrapper}>
@@ -97,7 +96,15 @@ export default function SelectSubjectPage() {
               })}
           </article>
           <div className={styles['button-container']}>
-            {/*buttom map 함수로 구현 */}
+            {Array.from({ length: buttonCount }).map((_, idx) => (
+              <button
+                className={styles['nav-button']}
+                key={idx}
+                onClick={(event) => goToPage(event, idx + 1)}
+              >
+                {idx + 1}
+              </button>
+            ))}
           </div>
         </section>
       </div>
