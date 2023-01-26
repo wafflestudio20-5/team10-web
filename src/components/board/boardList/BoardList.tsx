@@ -15,29 +15,46 @@ type BoardListType = {
 export default function BoardList({ category }: BoardListType) {
   const { token } = useSessionContext();
   const { subjectid } = useParams();
+
   const [postList, setPostList] = useState<Post[]>([]);
-  const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState<string>('');
   const [subTitle, setSubTitle] = useState<string>('');
+  const [totalNum, setTotalNum] = useState<number>(0);
+
+  const navigate = useNavigate();
+
   const getPostList = (
     token: string | null,
     class_id: number,
-    category: string
+    category: string,
+    page: number
   ) => {
-    apiGetPostList(token, class_id, category)
+    apiGetPostList(token, class_id, category, page)
       .then((res) => {
         setPostList(res.data.results);
+        setTotalNum(res.data.count);
       })
       .catch((err) => console.log(err));
   };
   useEffect(() => {
     (async () => {
       const id = Number(subjectid);
-      getPostList(token, id, category);
+      getPostList(token, id, category, 1);
       const res = await apiGetSubjectInfo(token, id);
       setSubTitle(res.data.name);
     })();
   }, [subjectid, token]);
+
+  const goToPage = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+    page: number
+  ) => {
+    const id = Number(subjectid);
+    event.preventDefault();
+    const res = await getPostList(token, id, category, page);
+  };
+
+  const buttonCount = Math.ceil(totalNum / 10);
 
   return (
     <div className={styles.wrapper}>
@@ -94,7 +111,19 @@ export default function BoardList({ category }: BoardListType) {
           })}
         </ul>
       </section>
-      <footer></footer>
+      <footer>
+        <div className={styles['button-container']}>
+          {Array.from({ length: buttonCount }).map((_, idx) => (
+            <button
+              className={styles['nav-button']}
+              key={idx}
+              onClick={(event) => goToPage(event, idx + 1)}
+            >
+              {idx + 1}
+            </button>
+          ))}
+        </div>
+      </footer>
     </div>
   );
 }

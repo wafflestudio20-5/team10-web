@@ -94,3 +94,21 @@
     }
   }
 }
+
+.button-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.nav-button {
+  width: 45px;
+  height: 30px;
+  background-color: white;
+  border: solid #aeadad 1px;
+  border-radius: 5px;
+  &:hover {
+    background-color: #0f0f6b;
+    color: white;
+  }
+}

@@ -112,11 +112,12 @@ export const apiGetStudentsOfSubject = async (
 export const apiGetPostList = async (
   token: string | null,
   class_id: number,
-  category: string
+  category: string,
+  page: number
 ) => {
   return await axios({
     method: 'get',
-    url: url(`/etl/class/${class_id}/${category}/`),
+    url: url(`/etl/class/${class_id}/${category}/?page=${page}`),
     withCredentials: true,
     headers: auth(token),
   });
@@ -212,40 +213,7 @@ export const apiDeleteReply = async (
   });
 };
 
-//게시글 불러오기
-export const apiGetAnnouncements = async (
-  token: string | null,
-  page: number | null,
-  class_id: number
-) => {
-  return await axios({
-    method: 'get',
-    url: url(
-      page
-        ? `/etl/class/${class_id}/announcements/?page=${page}`
-        : `/etl/class/${class_id}/announcements/`
-    ),
-    withCredentials: true,
-    headers: auth(token),
-  });
-};
-
-export const apiGetQuestions = async (
-  token: string | null,
-  page: number | null,
-  class_id: number
-) => {
-  return await axios({
-    method: 'get',
-    url: url(
-      page
-        ? `/etl/class/${class_id}/questions/?page=${page}`
-        : `/etl/class/${class_id}/questions/`
-    ),
-    withCredentials: true,
-    headers: auth(token),
-  });
-};
+//
 
 export const apiAssignments = async (
   token: string | null,
