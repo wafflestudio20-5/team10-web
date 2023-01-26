@@ -100,9 +100,10 @@ export const enrollSubjects = async (
 // 수강생 목록 api
 export const apiGetStudentsOfSubject = async (
   token: string | null,
-  id: number
+  id: number,
+  page: number
 ) => {
-  return await axios.get(url(`/etl/class/${id}/user-list/`), {
+  return await axios.get(url(`/etl/class/${id}/user-list/?page=${page}`), {
     withCredentials: true,
     headers: auth(token),
   });

@@ -12,20 +12,26 @@ import { apiGetStudentsOfSubject, apiGetSubjectInfo } from '../../lib/api';
 
 export default function StudentsPage() {
   const { token } = useSessionContext();
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [searchType, setSearchType] = useState<string>('');
   const { subjectid } = useParams();
 
+  const [searchValue, setSearchValue] = useState<string>('');
+  const [searchType, setSearchType] = useState<string>('');
   const [students, setStudents] = useState<StudentsOfSubject[] | undefined>([]);
   const [studentsToShow, setStudentsToShow] = useState<
     StudentsOfSubject[] | undefined
   >(students);
   const [subTitle, setSubTitle] = useState('');
+  const [totalNum, setTotalNum] = useState<number>(0);
 
-  const getStudentsOfSubject = (token: string | null, id: number) => {
-    apiGetStudentsOfSubject(token, id)
+  const getStudentsOfSubject = (
+    token: string | null,
+    id: number,
+    page: number
+  ) => {
+    apiGetStudentsOfSubject(token, id, page)
       .then((res) => {
         setStudents(res.data.results);
+        setTotalNum(res.data.count);
       })
       .catch((err) => console.log(err));
   };
@@ -36,7 +42,7 @@ export default function StudentsPage() {
       if (token) {
         const res = await apiGetSubjectInfo(token, id);
         setSubTitle(res.data.name);
-        getStudentsOfSubject(token, id);
+        getStudentsOfSubject(token, id, 1);
       }
     })();
   }, [token, subjectid]);
@@ -69,6 +75,19 @@ export default function StudentsPage() {
       return '학생';
     }
   };
+
+  const buttonCount = Math.ceil(totalNum / 10);
+  console.log(buttonCount);
+
+  const goToPage = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+    page: number
+  ) => {
+    const id = Number(subjectid);
+    event.preventDefault();
+    getStudentsOfSubject(token, id, page);
+  };
+
   return (
     <SubjectTemplate subject={subjectid as string} page='수강생'>
       <section>
@@ -120,6 +139,17 @@ export default function StudentsPage() {
           </tbody>
         </table>
       )}
+      <div className={styles['button-container']}>
+        {Array.from({ length: buttonCount }).map((_, idx) => (
+          <button
+            className={styles['nav-button']}
+            key={idx}
+            onClick={(event) => goToPage(event, idx + 1)}
+          >
+            {idx + 1}
+          </button>
+        ))}
+      </div>
     </SubjectTemplate>
   );
 }
