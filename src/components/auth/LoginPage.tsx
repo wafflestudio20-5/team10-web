@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import loginHeader from '../../resources/loginHeader.png';
@@ -53,7 +54,7 @@ function LoginPage() {
                 onClick={handleSubmit}
               />
             </form>
-            <Link to={KAKAO_AUTH_URL}>
+            <Link to={'/login/new'}>
               <button className={styles.signUpButton}>회원가입</button>
             </Link>
           </section>
