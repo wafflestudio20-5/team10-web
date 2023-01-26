@@ -38,20 +38,22 @@ export default function AssignmentDetailsPage() {
     useState<UserAssignmentInterface>();
 
   useEffect(() => {
-    apiAssignment(token, parseInt(assignmentID as string))
-      .then((a) => {
-        apiAssignmentScore(token, a.data.id)
-          .then((b) => {
-            setUserAssignment({
-              assignment: a.data,
-              is_submitted: b.data.is_submitted,
-              is_graded: b.data.is_graded,
-              score: b.data.score,
-            });
-          })
-          .catch((e) => console.log(e));
-      })
-      .catch((e) => console.log(e));
+    if (token) {
+      apiAssignment(token, parseInt(assignmentID as string))
+        .then((a) => {
+          apiAssignmentScore(token, a.data.id)
+            .then((b) => {
+              setUserAssignment({
+                assignment: a.data,
+                is_submitted: b.data.is_submitted,
+                is_graded: b.data.is_graded,
+                score: b.data.score,
+              });
+            })
+            .catch((e) => console.log(e));
+        })
+        .catch((e) => console.log(e));
+    }
   }, [token]);
 
   return (

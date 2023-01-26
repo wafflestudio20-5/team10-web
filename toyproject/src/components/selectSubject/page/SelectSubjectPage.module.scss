@@ -79,6 +79,7 @@
   article {
     margin: 50px auto;
     width: 80%;
+    margin-bottom: 0px;
     .index {
       padding-bottom: 30px;
       border-bottom: 2px solid #aeadad;
@@ -97,4 +98,27 @@
       }
     }
   }
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.nav-button {
+  width: 45px;
+  height: 30px;
+  background-color: white;
+  border: solid #aeadad 1px;
+  border-radius: 5px;
+  &:hover {
+    background-color: #0f0f6b;
+    color: white;
+  }
+}
+
+.active {
+  background-color: #0f0f6b;
+  color: white;
 }

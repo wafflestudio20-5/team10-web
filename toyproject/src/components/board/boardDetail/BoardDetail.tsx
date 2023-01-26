@@ -1,30 +1,30 @@
-import React, { useState, useEffect } from "react";
-import styles from "./BoardDetail.module.scss";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { PostDetail } from "../../../lib/types";
+import React, { useState, useEffect } from 'react';
+import styles from './BoardDetail.module.scss';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { PostDetail } from '../../../lib/types';
 import {
   apiGetPost,
   apiPostReply,
   apiPatchReply,
   apiDeleteReply,
   apiDeletePost,
-} from "../../../lib/api";
-import { timestampToDateWithDash } from "../../../lib/formatting";
-import { useSessionContext } from "../../../context/SessionContext";
-import { boardIdentifier } from "../../../lib/formatting";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+} from '../../../lib/api';
+import { timestampToDateWithDash } from '../../../lib/formatting';
+import { useSessionContext } from '../../../context/SessionContext';
+import { boardIdentifier } from '../../../lib/formatting';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock } from '@fortawesome/free-regular-svg-icons';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function BoardDetail() {
   const location = useLocation();
-  const category = location.pathname.split("/")[2];
-  const postId = Number(location.pathname.split("/")[3]);
+  const category = location.pathname.split('/')[2];
+  const postId = Number(location.pathname.split('/')[3]);
   const { token } = useSessionContext();
   const { subjectid } = useParams();
   const navigate = useNavigate();
-  const [reply, setReply] = useState("");
+  const [reply, setReply] = useState('');
   const [post, setPost] = useState<PostDetail>();
 
   // 게시글 세부사항 불러오기
@@ -36,7 +36,9 @@ export default function BoardDetail() {
       .catch((err) => console.log(err));
   };
   useEffect(() => {
-    getPost(token, postId, category);
+    if (token) {
+      getPost(token, postId, category);
+    }
   }, [token]);
 
   // 게시글 삭제하기
@@ -47,9 +49,9 @@ export default function BoardDetail() {
   ) => {
     apiDeletePost(token, post_id, category)
       .then((res) => {
-        toast("게시글을 성공적으로 삭제했습니다.", {
-          position: "top-center",
-          theme: "colored",
+        toast('게시글을 성공적으로 삭제했습니다.', {
+          position: 'top-center',
+          theme: 'colored',
           autoClose: 1000,
         });
         navigate(-1);
@@ -72,7 +74,7 @@ export default function BoardDetail() {
     apiPostReply(token, post_id, content)
       .then((res) => {
         getPost(token, postId, category);
-        setReply("");
+        setReply('');
       })
       .catch((err) => console.log(err));
   };
@@ -86,7 +88,7 @@ export default function BoardDetail() {
     apiPatchReply(token, comment_id, content)
       .then((res) => {
         getPost(token, postId, category);
-        setReply("");
+        setReply('');
       })
       .catch((err) => console.log(err));
   };
@@ -96,7 +98,7 @@ export default function BoardDetail() {
     apiDeleteReply(token, comment_id)
       .then((res) => {
         getPost(token, postId, category);
-        setReply("");
+        setReply('');
       })
       .catch((err) => console.log(err));
   };
@@ -117,17 +119,17 @@ export default function BoardDetail() {
             <div className={styles.content}>{post?.created_by.username}</div>
             <div className={styles.contentName}>등록일시:</div>
             <div className={styles.content}>
-              {timestampToDateWithDash(Number(post?.created_at), "date")}
+              {timestampToDateWithDash(Number(post?.created_at), 'date')}
               {` `}
               <FontAwesomeIcon icon={faClock} className={styles.clockIcon} />
               {` `}
 
-              {timestampToDateWithDash(Number(post?.created_at), "time")}
+              {timestampToDateWithDash(Number(post?.created_at), 'time')}
             </div>
           </div>
           <div className={styles.flex}>
             <div className={styles.contentName}>조회수:</div>
-            <div className={styles.content}>{post?.hits}</div>
+            <div className={styles.content}>조회수</div>
           </div>
         </div>
         <article>{post?.content}</article>
@@ -169,14 +171,14 @@ export default function BoardDetail() {
                   {`${comment.created_by.username}(${comment.created_by.student_id})`}
                 </span>
                 <div className={styles.content}>
-                  {timestampToDateWithDash(Number(comment?.created_at), "date")}
+                  {timestampToDateWithDash(Number(comment?.created_at), 'date')}
                   {` `}
                   <FontAwesomeIcon
                     icon={faClock}
                     className={styles.clockIcon}
                   />
                   {` `}
-                  {timestampToDateWithDash(Number(comment?.created_at), "time")}
+                  {timestampToDateWithDash(Number(comment?.created_at), 'time')}
                 </div>
                 <div className={styles.commentButtons}>
                   <button
@@ -203,7 +205,7 @@ export default function BoardDetail() {
         })}
         <form>
           <input
-            placeholder={"댓글 입력"}
+            placeholder={'댓글 입력'}
             value={reply}
             onChange={handleInputReply}
             className={styles.replyInput}

@@ -1,3 +1,4 @@
+import React from 'react';
 import SubjectTemplate from '../SubjectTemplate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
@@ -11,20 +12,28 @@ import { apiGetStudentsOfSubject, apiGetSubjectInfo } from '../../lib/api';
 
 export default function StudentsPage() {
   const { token } = useSessionContext();
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [searchType, setSearchType] = useState<string>('');
   const { subjectid } = useParams();
 
+  const [searchValue, setSearchValue] = useState<string>('');
+  const [searchType, setSearchType] = useState<string>('');
   const [students, setStudents] = useState<StudentsOfSubject[] | undefined>([]);
   const [studentsToShow, setStudentsToShow] = useState<
     StudentsOfSubject[] | undefined
   >(students);
   const [subTitle, setSubTitle] = useState('');
+  const [totalNum, setTotalNum] = useState<number>(0);
+  const [activeButton, setActiveButton] = useState({ activate: 0 });
 
-  const getStudentsOfSubject = (token: string | null, id: number) => {
-    apiGetStudentsOfSubject(token, id)
+  const getStudentsOfSubject = (
+    token: string | null,
+    id: number,
+    page: number
+  ) => {
+    apiGetStudentsOfSubject(token, id, page)
       .then((res) => {
         setStudents(res.data.results);
+        console.log(res.data);
+        setTotalNum(res.data.count);
       })
       .catch((err) => console.log(err));
   };
@@ -32,10 +41,10 @@ export default function StudentsPage() {
   useEffect(() => {
     (async () => {
       const id = Number(subjectid);
-      const res = await apiGetSubjectInfo(token, id);
-      setSubTitle(res.data.name);
       if (token) {
-        getStudentsOfSubject(token, id);
+        const res = await apiGetSubjectInfo(token, id);
+        setSubTitle(res.data.name);
+        getStudentsOfSubject(token, id, 1);
       }
     })();
   }, [token, subjectid]);
@@ -56,7 +65,6 @@ export default function StudentsPage() {
     );
     setStudentsToShow(filteredStudents);
   };
-
   useEffect(() => {
     filterStudents();
   }, [students, searchValue, searchType]);
@@ -68,6 +76,20 @@ export default function StudentsPage() {
       return '학생';
     }
   };
+
+  const buttonCount = Math.ceil(totalNum / 10);
+
+  const goToPage = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+    page: number,
+    idx: number
+  ) => {
+    const id = Number(subjectid);
+    event.preventDefault();
+    getStudentsOfSubject(token, id, page);
+    setActiveButton({ ...activeButton, activate: idx });
+  };
+
   return (
     <SubjectTemplate subject={subjectid as string} page='수강생'>
       <section>
@@ -119,6 +141,19 @@ export default function StudentsPage() {
           </tbody>
         </table>
       )}
+      <div className={styles['button-container']}>
+        {Array.from({ length: buttonCount }).map((_, idx) => (
+          <button
+            className={`${styles['nav-button']} ${
+              activeButton.activate === idx ? styles['active'] : ''
+            }`}
+            key={idx}
+            onClick={(event) => goToPage(event, idx + 1, idx)}
+          >
+            {idx + 1}
+          </button>
+        ))}
+      </div>
     </SubjectTemplate>
   );
 }

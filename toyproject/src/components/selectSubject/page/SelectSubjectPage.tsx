@@ -27,6 +27,9 @@ const isEnrolled = (
 export default function SelectSubjectPage() {
   const [searchValue, setSearchValue] = useState('');
   const [subjects, setSubjects] = useState<SubjectType[]>();
+  const [totalNum, setTotalNum] = useState<number>(0);
+  const [activeButton, setActiveButton] = useState({ activate: 0 });
+
   const { token } = useSessionContext();
   const { mySubjects, previousApi, nextApi } = useSubjectContext();
   //ToDO
@@ -35,39 +38,26 @@ export default function SelectSubjectPage() {
 
   useEffect(() => {
     (async () => {
-      const res = await apiGetSubjects(token, '');
-      // console.log(res);
-      setSubjects(res.data.results);
+      if (token) {
+        const res = await apiGetSubjects(token, 1);
+        setSubjects(res.data.results);
+        setTotalNum(res.data.count);
+      }
     })();
   }, [token]);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const res = await apiGetSubjects(token, nextApi);
-  //     setSubjects(res.data.results);
-  //   })();
-  // }, [token, nextApi]);
-
-  // useEffect(()=>{
-  //   (async()=>{
-  //     const res = await apiGetSubjects(token, previousApi);
-  //     setSubjects(res.data.results);
-  //   })()
-  // },[token, previousApi])
-
-  const goToNextPage = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    const res = await apiGetSubjects(token, nextApi);
-    setSubjects(res.data.results);
-  };
-
-  const goToPreviousPage = async (
-    event: React.MouseEvent<HTMLButtonElement>
+  const goToPage = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+    page: number,
+    idx: number
   ) => {
     event.preventDefault();
-    const res = await apiGetSubjects(token, previousApi);
+    const res = await apiGetSubjects(token, page);
     setSubjects(res.data.results);
+    setActiveButton({ ...activeButton, activate: idx });
   };
+
+  const buttonCount = Math.ceil(totalNum / 10);
 
   return (
     <div className={styles.wrapper}>
@@ -112,8 +102,17 @@ export default function SelectSubjectPage() {
               })}
           </article>
           <div className={styles['button-container']}>
-            <button onClick={goToPreviousPage}>이전</button>
-            <button onClick={goToNextPage}>다음</button>
+            {Array.from({ length: buttonCount }).map((_, idx) => (
+              <button
+                className={`${styles['nav-button']} ${
+                  activeButton.activate === idx ? styles['active'] : ''
+                }`}
+                key={idx}
+                onClick={(event) => goToPage(event, idx + 1, idx)}
+              >
+                {idx + 1}
+              </button>
+            ))}
           </div>
         </section>
       </div>

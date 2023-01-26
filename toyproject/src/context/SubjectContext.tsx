@@ -8,7 +8,7 @@ type SubjectContextType = {
   mySubjects: SubjectType[] | undefined;
   curSubject: SubjectType | undefined;
   handleClick: (subject: SubjectType) => void;
-  getSubjects: (token: string | null, cursor: string | null) => void;
+  getSubjects: (token: string | null, page: number | null) => void;
   nextApi: string | null;
   previousApi: string | null;
 };
@@ -32,12 +32,12 @@ export function SubjectProvider({ children }: { children: React.ReactNode }) {
   const [nextApi, setNextApi] = useState('');
   const [previousApi, setPreviousApi] = useState('');
 
-  const getSubjects = async (token: string | null, cursor: string | null) => {
+  const getSubjects = async (token: string | null, page: number | null) => {
     try {
-      const res = await apiGetSubjects(token, cursor);
-      setNextApi(res.data.next && res.data.next.match(/cursor=([^&]+)/)[1]);
+      const res = await apiGetSubjects(token, page);
+      setNextApi(res.data.next && res.data.next.match(/page=([^&]+)/)[1]);
       setPreviousApi(
-        res.data.previous && res.data.previous.match(/cursor=([^&]+)/)[1]
+        res.data.previous && res.data.previous.match(/page=([^&]+)/)[1]
       );
       setSubjects(res.data.results);
     } catch (err) {
