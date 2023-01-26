@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './SubjectTemplate.module.scss';
 import { SideNavBar } from './sideNavbar/SideNavBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { UserBar } from './UserBar/UserBar';
+import { apiGetSubjectInfo } from '../lib/api';
+import { useSessionContext } from '../context/SessionContext';
 
 const ListElement = ({ current, name }: { current: string; name: string }) => {
   const navigate = useNavigate();
@@ -32,12 +34,27 @@ export default function SubjectTemplate({
   content,
   children,
 }: {
-  subject: string; // 과목명
+  subject: string; // id로 수정됨
   page: string; // 세부 페이지 종류 (ex. 모듈, 게시판, 과제 등등)
   content?: string | undefined; // 세부 항목의 제목 (ex. 게시글 제목. 페이지의 메인 화면이면 undefined)
   children?: React.ReactNode;
 }) {
+  const { token } = useSessionContext();
   const [toggleNav, setToggleNav] = useState<boolean>(true);
+  const [title, setTitle] = useState('');
+
+  const pages = ['모듈', '게시판', '수강생', '과제', '성적'];
+  const address = ['', '/boardnav', '/students', '/assignments', '/grades'];
+
+  useEffect(() => {
+    (async () => {
+      if (token) {
+        const id = Number(subject);
+        const res = await apiGetSubjectInfo(token, id);
+        setTitle(res.data.name);
+      }
+    })();
+  }, [token]);
 
   return (
     <div className={styles.wrapper}>
@@ -50,10 +67,12 @@ export default function SubjectTemplate({
             onClick={() => setToggleNav(!toggleNav)}
           />
           <Link to={`/${subject}`}>
-            <p className={styles.title}>{subject}</p>
+            <p className={styles.title}>{title}</p>
           </Link>
           <FontAwesomeIcon icon={faChevronRight} className={styles.arrow} />
-          <p className={styles.title}>{page}</p>
+          <Link to={'../' + subject + address[pages.indexOf(page)]}>
+            <p className={styles.title}>{page}</p>
+          </Link>
           {content && (
             <div className={`${styles.header} ${styles.content}`}>
               <FontAwesomeIcon icon={faChevronRight} className={styles.arrow} />

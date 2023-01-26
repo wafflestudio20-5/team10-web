@@ -86,3 +86,28 @@
     }
   }
 }
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.nav-button {
+  width: 45px;
+  height: 30px;
+  background-color: white;
+  border: solid #aeadad 1px;
+  border-radius: 5px;
+  &:hover {
+    background-color: #0f0f6b;
+    color: white;
+  }
+}
+
+.active {
+  background-color: #0f0f6b;
+  color: white;
+}

@@ -1,26 +1,52 @@
-import React from 'react';
-import styles from './PostingBoard.module.scss';
-import { useBoardContext } from '../../../context/BoardContext';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import styles from "./PostingBoard.module.scss";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useSessionContext } from "../../../context/SessionContext";
+import { apiPostNewPost } from "../../../lib/api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function PostingBoard() {
-  const { handleInputContent, handleInputTitle, inputContent, inputTitle } =
-    useBoardContext();
+  const { subjectid } = useParams();
+  const { token } = useSessionContext();
+  const location = useLocation();
+  const category = location.pathname.split("/")[2];
+  const [titleInput, setTitleInput] = useState("");
+  const [contentInput, setContentInput] = useState("");
   const navigate = useNavigate();
 
-  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleInputTitle(e.target.value);
-  };
-
-  const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    handleInputContent(e.target.value);
-  };
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  // titleInput 상자 관리
+  const handleTitleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    //fetch 함수부분
-    handleInputContent('');
-    handleInputTitle('');
+    setTitleInput(e.target.value);
+  };
+
+  // contentInput 상자 관리
+  const handleContentInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setContentInput(e.target.value);
+  };
+
+  // 게시글 올리기
+  const postNewPost = (
+    token: string | null,
+    class_id: number,
+    title: string,
+    content: string,
+    category: string
+  ) => {
+    apiPostNewPost(token, class_id, title, content, category)
+      .then((res) => {
+        toast("게시글을 성공적으로 등록했습니다.", {
+          position: "top-center",
+          theme: "colored",
+          autoClose: 1000,
+        });
+        setTitleInput("");
+        setContentInput("");
+        navigate(-1);
+      })
+      .catch((err) => console.log(err));
   };
 
   const goBack = () => {
@@ -29,30 +55,52 @@ export default function PostingBoard() {
 
   return (
     <div className={styles.container}>
-      <form onSubmit={onSubmit}>
+      <form>
         <header>
           <h2>게시글 작성</h2>
-          <div className={styles['button-container']}>
+          <div className={styles.buttonContainer}>
             <button className={styles.cancel} onClick={goBack}>
               취소
             </button>
-            <button className={styles.submit}>등록</button>
+            <input
+              type='submit'
+              className={styles.submit}
+              value='등록'
+              onClick={(e) => {
+                e.preventDefault();
+                postNewPost(
+                  token,
+                  Number(subjectid),
+                  titleInput,
+                  contentInput,
+                  category
+                );
+              }}
+            />
           </div>
         </header>
-        <body>
-          <div className={styles['title-container']}>
-            <div className={styles.title}>제목</div>
-            <div className={styles.content}>내용</div>
+        <section>
+          <div className={styles.titleContainer}>
+            <span className={styles.title}>제목</span>
+            <span className={styles.content}>내용</span>
           </div>
-          <div className={styles['input-container']}>
-            <input placeholder='제목 입력' onChange={onChangeTitle}></input>
-            <textarea
+          <div className={styles.inputContainer}>
+            <input
+              placeholder='제목 입력'
+              value={titleInput}
+              onChange={handleTitleInput}
+              className={styles.titleInput}
+            ></input>
+            <input
               placeholder='내용 입력'
-              onChange={onChangeContent}
-            ></textarea>
+              value={contentInput}
+              onChange={handleContentInput}
+              className={styles.contentInput}
+            ></input>
           </div>
-        </body>
+        </section>
       </form>
+      <ToastContainer />
     </div>
   );
 }

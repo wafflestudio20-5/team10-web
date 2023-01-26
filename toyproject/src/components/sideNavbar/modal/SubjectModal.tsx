@@ -1,7 +1,7 @@
-import styles from "./SubjectModal.module.scss";
-import { ReactComponent as CloseButton } from "../../../svg/close.svg";
-import { useSubjectContext } from "../../../context/SubjectContext";
-import { Link } from "react-router-dom";
+import styles from './SubjectModal.module.scss';
+import { ReactComponent as CloseButton } from '../../../svg/close.svg';
+import { useSubjectContext } from '../../../context/SubjectContext';
+import { Link } from 'react-router-dom';
 
 type SubjectModalType = {
   closeSubjectModal: () => void;
@@ -12,12 +12,12 @@ export const SubjectModal = ({
   aniState,
   closeSubjectModal,
 }: SubjectModalType) => {
-  const { mySubjects } = useSubjectContext();
+  const { mySubjects, handleClick } = useSubjectContext();
 
   return (
     <div
-      className={`${styles["modal"]} ${
-        aniState ? styles["close"] : styles["modal"]
+      className={`${styles['modal']} ${
+        aniState ? styles['close'] : styles['modal']
       }`}
     >
       <CloseButton
@@ -32,7 +32,13 @@ export const SubjectModal = ({
             mySubjects.map((subject) => {
               return (
                 <li key={subject.id}>
-                  <Link to={`/${subject.name}`} onClick={closeSubjectModal}>
+                  <Link
+                    to={`/${subject.id}`}
+                    onClick={() => {
+                      handleClick(subject);
+                      closeSubjectModal();
+                    }}
+                  >
                     <span>{subject.name}</span>
                   </Link>
                 </li>
@@ -40,7 +46,10 @@ export const SubjectModal = ({
             })}
         </ul>
       </section>
-      <footer></footer>
+
+      <footer>
+        <Link to='/evaluation'>강의평가</Link>
+      </footer>
     </div>
   );
 };

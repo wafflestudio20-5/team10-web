@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import loginHeader from '../../resources/loginHeader.png';
@@ -6,7 +7,7 @@ import styles from './LoginPage.module.scss';
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 import { useSessionContext } from '../../context/SessionContext';
 import kakaoLogin from '../../resources/kakaologin.png';
-import { KAKAO_AUTH_URL } from '../../lib/api';
+import { KAKAO_AUTH_URL, url } from '../../lib/api';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -53,7 +54,7 @@ function LoginPage() {
                 onClick={handleSubmit}
               />
             </form>
-            <Link to='/login/new'>
+            <Link to={'/login/new'}>
               <button className={styles.signUpButton}>회원가입</button>
             </Link>
           </section>
@@ -65,6 +66,7 @@ function LoginPage() {
                 이용하실 수 있습니다.
               </p>
             </h3>
+            {/* <a href={url('/authentication/kakao/login/')}> */}
             <a href={KAKAO_AUTH_URL}>
               <img
                 className={styles['kakao-login']}
@@ -72,6 +74,7 @@ function LoginPage() {
                 alt='kakaoLogin'
               ></img>
             </a>
+            {/* </a> */}
           </section>
         </article>
       </div>

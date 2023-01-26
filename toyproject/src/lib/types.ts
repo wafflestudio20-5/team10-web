@@ -40,3 +40,47 @@ export type SubjectType = {
     username: string;
   };
 };
+
+export type Post = {
+  id: number;
+  title: string;
+  content: string;
+  created_by: StudentsOfSubject;
+  created_at: string;
+};
+
+export type Comment = {
+  id: number;
+  content: string;
+  created_by: StudentsOfSubject;
+  created_at: string;
+};
+
+export type PostDetail = Post & {
+  comment: Comment[];
+};
+
+export interface AssignmentInterface {
+  id: number;
+  lecture: number;
+  name: string;
+  due_date: string;
+  max_grade: number;
+  weight: number;
+  file: string | null;
+  category: string;
+}
+
+export interface UserAssignmentInterface {
+  assignment: AssignmentInterface;
+  is_submitted: boolean;
+  is_graded: boolean;
+  score: number;
+}
+
+export interface UserScoreInterface {
+  id: number;
+  is_submitted: boolean;
+  is_graded: boolean;
+  score: number;
+}

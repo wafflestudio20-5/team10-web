@@ -1,93 +1,142 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './BoardList.module.scss';
-import { Link, useParams } from 'react-router-dom';
-
-type Writing = {
-  id: number;
-  title: string;
-  username: string;
-  created_at: string; //임시
-  viewed: number; //구현할 건지 백엔드와 의논
-};
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Post } from '../../../lib/types';
+import { boardIdentifier } from '../../../lib/formatting';
+import {
+  apiGetPostList,
+  apiGetSubjectInfo,
+  apiRefreshToken,
+} from '../../../lib/api';
+import { useSessionContext } from '../../../context/SessionContext';
+import { timestampToDateWithDash } from '../../../lib/formatting';
+import Searchbar from '../../Searchbar';
 
 type BoardListType = {
   category: string;
 };
 
-const InitialWritings: Writing[] = [
-  {
-    id: 1,
-    title: '첫번째',
-    username: '광휘',
-    created_at: '2023-01-01',
-    viewed: 1,
-  },
-  {
-    id: 2,
-    title: '새해복',
-    username: '광휘',
-    created_at: '2023-01-01',
-    viewed: 1,
-  },
-  {
-    id: 3,
-    title: '많이받으세요',
-    username: '광휘',
-    created_at: '2023-01-01',
-    viewed: 1,
-  },
-];
-
 export default function BoardList({ category }: BoardListType) {
-  const { subjectname } = useParams();
+  const { token, setToken } = useSessionContext();
+  const { subjectid } = useParams();
+
+  const [postList, setPostList] = useState<Post[]>([]);
+  const [searchValue, setSearchValue] = useState<string>('');
+  const [subTitle, setSubTitle] = useState<string>('');
+  const [totalNum, setTotalNum] = useState<number>(0);
+  const [activeButton, setActiveButton] = useState({ activate: 0 });
+
+  const navigate = useNavigate();
+
+  const getPostList = (
+    token: string | null,
+    class_id: number,
+    category: string,
+    page: number
+  ) => {
+    apiGetPostList(token, class_id, category, page)
+      .then((res) => {
+        setPostList(res.data.results);
+        setTotalNum(res.data.count);
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    (async () => {
+      if (token) {
+        const id = Number(subjectid);
+        if (token) {
+          getPostList(token, id, category, 1);
+          const res = await apiGetSubjectInfo(token, id);
+          setSubTitle(res.data.name);
+        }
+      }
+    })();
+  }, [subjectid, token]);
+
+  const goToPage = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+    page: number,
+    idx: number
+  ) => {
+    const id = Number(subjectid);
+    event.preventDefault();
+    getPostList(token, id, category, page);
+    setActiveButton({ ...activeButton, activate: idx });
+  };
+
+  const buttonCount = Math.ceil(totalNum / 10);
 
   return (
     <div className={styles.wrapper}>
       <header>
-        <h2>{subjectname} - 과목 게시판</h2>
-        <button className={styles['create-button']}>
-          <Link to={`/${subjectname}/board/new`}>글쓰기</Link>
-        </button>
+        <h2>{boardIdentifier(category)} 게시판</h2>
+        <Link to={`/${subjectid}/${category}/new`}>
+          <button className={styles.createButton}>글쓰기</button>
+        </Link>
       </header>
       <div className={styles.explain}>
-        {subjectname}의 게시판입니다. 공지 및 각종 질문을 올리는 곳입니다.
+        {subTitle}의 {boardIdentifier(category)}게시판입니다.
       </div>
-      <div className={styles['search-container']}>
-        검색결과 - number 개<input placeholder='검색어입력'></input>
+      <div className={styles.searchContainer}>
+        검색결과 - {postList.length}개
+        <Searchbar
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          inputPlaceHolder='검색어 입력'
+        />
       </div>
       <section>
         <div className={styles.category}>
-          <span className={styles.no}>no</span>
-          <span className={styles.title}>제목</span>
-          <span className={styles.username}>작성자</span>
-          <span className={styles.created_at}>등록일시</span>
-          <span className={styles.viewed}>조회수</span>
+          <span>No</span>
+          <span>제목</span>
+          <span>작성자</span>
+          <span>등록일시</span>
+          <span>조회수</span>
         </div>
         <ul>
-          {InitialWritings.map((item) => {
+          {postList.map((post, idx) => {
             return (
-              <li key={item.id}>
-                <span className={styles.no}>{item.id}</span>
-                <span className={styles.title} key={item.id}>
-                  <Link to={`/${subjectname}/${category}/${item.id}`}>
-                    {item.title}
-                  </Link>
+              <li key={post.id}>
+                <span>{postList.length - idx}</span>
+                <span
+                  className={styles.title}
+                  onClick={() =>
+                    navigate(`/${subjectid}/${category}/${post.id}`)
+                  }
+                >
+                  {post.title}
+                  {` `}
+                  {/* {post.댓글개수} */}
                 </span>
-                <span className={styles.username} key={item.id}>
-                  {item.username}
+                <span>{post.created_by.username}</span>
+                <span>
+                  {timestampToDateWithDash(Number(post?.created_at), 'date')}
                 </span>
-                <span className={styles.created_at} key={item.id}>
-                  {item.created_at}
-                </span>
-                <span className={styles.viewed} key={item.id}>
-                  {item.viewed}
+                <span>
+                  {/* {post.viewed} */}
+                  조회수
                 </span>
               </li>
             );
           })}
         </ul>
       </section>
-      <footer>여기에 bottom nav button 이부분 회의</footer>
+      <footer>
+        <div className={styles['button-container']}>
+          {Array.from({ length: buttonCount }).map((_, idx) => (
+            <button
+              className={`${styles['nav-button']} ${
+                activeButton.activate === idx ? styles['active'] : ''
+              }`}
+              key={idx}
+              onClick={(event) => goToPage(event, idx + 1, idx)}
+            >
+              {idx + 1}
+            </button>
+          ))}
+        </div>
+      </footer>
     </div>
   );
 }
