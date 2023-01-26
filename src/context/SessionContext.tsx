@@ -9,6 +9,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Axios, AxiosResponse } from 'axios';
 
 type SessionContextType = {
   isLoggedIn: boolean;
@@ -18,6 +19,7 @@ type SessionContextType = {
   login: (username: string, password: string) => Promise<any>;
   logout: (token: string) => Promise<any>;
   refreshUserInfo: (token: string) => void;
+  setToken: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
 const SessionContext = createContext<SessionContextType>(
@@ -37,13 +39,14 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       try {
         const localRefresh = localStorage.getItem('refresh');
         const localUserId = Number(localStorage.getItem('userId'));
-        const res = await getRefreshToken(localRefresh); //렌더링 시 refreshToken 요청
+        const res = await getRefreshToken(localRefresh ? localRefresh : 'temp'); //렌더링 시 refreshToken 요청
         if (res.status === 200) {
           const resUser = await apiGetUserInfo(localUserId, res.data.access); //이 작업을 위해선 userId가 필요한데 우선 local Storage에 저장..?
           setUser(resUser.data);
           setIsLoggedIn(true);
         } else {
           setIsLoggedIn(false);
+          // navigate('/login');
         }
       } catch (e) {
         setIsLoggedIn(false);
@@ -54,9 +57,9 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     })();
   }, []);
 
-  const getRefreshToken = async (token: string | null) => {
+  const getRefreshToken = async (token: string) => {
     const res = await apiRefreshToken(token);
-    setToken(res.data.access); //setToken 밖으로 뺐더니 lifecycle 로 인한 오류 발생(다른 api 요청 이후 set하게 됨)
+    setToken(res.data.access); //setToken 여기서 하나 밖에서 해주나 별 차이가 없음
     localStorage.setItem('refresh', res.data.refresh);
     return res;
   };
@@ -112,6 +115,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         login,
         logout,
         refreshUserInfo,
+        setToken,
       }}
     >
       {children}

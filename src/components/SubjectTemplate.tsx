@@ -48,9 +48,11 @@ export default function SubjectTemplate({
 
   useEffect(() => {
     (async () => {
-      const id = Number(subject);
-      const res = await apiGetSubjectInfo(token, id);
-      setTitle(res.data.name);
+      if (token) {
+        const id = Number(subject);
+        const res = await apiGetSubjectInfo(token, id);
+        setTitle(res.data.name);
+      }
     })();
   }, [token]);
 

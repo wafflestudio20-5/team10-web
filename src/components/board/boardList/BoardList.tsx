@@ -3,7 +3,11 @@ import styles from './BoardList.module.scss';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Post } from '../../../lib/types';
 import { boardIdentifier } from '../../../lib/formatting';
-import { apiGetPostList, apiGetSubjectInfo } from '../../../lib/api';
+import {
+  apiGetPostList,
+  apiGetSubjectInfo,
+  apiRefreshToken,
+} from '../../../lib/api';
 import { useSessionContext } from '../../../context/SessionContext';
 import { timestampToDateWithDash } from '../../../lib/formatting';
 import Searchbar from '../../Searchbar';
@@ -13,7 +17,7 @@ type BoardListType = {
 };
 
 export default function BoardList({ category }: BoardListType) {
-  const { token } = useSessionContext();
+  const { token, setToken } = useSessionContext();
   const { subjectid } = useParams();
 
   const [postList, setPostList] = useState<Post[]>([]);
@@ -39,9 +43,11 @@ export default function BoardList({ category }: BoardListType) {
   useEffect(() => {
     (async () => {
       const id = Number(subjectid);
-      getPostList(token, id, category, 1);
-      const res = await apiGetSubjectInfo(token, id);
-      setSubTitle(res.data.name);
+      if (token) {
+        getPostList(token, id, category, 1);
+        const res = await apiGetSubjectInfo(token, id);
+        setSubTitle(res.data.name);
+      }
     })();
   }, [subjectid, token]);
 
@@ -51,7 +57,7 @@ export default function BoardList({ category }: BoardListType) {
   ) => {
     const id = Number(subjectid);
     event.preventDefault();
-    const res = await getPostList(token, id, category, page);
+    getPostList(token, id, category, page);
   };
 
   const buttonCount = Math.ceil(totalNum / 10);
