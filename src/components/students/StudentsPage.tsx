@@ -31,6 +31,7 @@ export default function StudentsPage() {
     apiGetStudentsOfSubject(token, id, page)
       .then((res) => {
         setStudents(res.data.results);
+        console.log(res.data);
         setTotalNum(res.data.count);
       })
       .catch((err) => console.log(err));
@@ -63,7 +64,6 @@ export default function StudentsPage() {
     );
     setStudentsToShow(filteredStudents);
   };
-
   useEffect(() => {
     filterStudents();
   }, [students, searchValue, searchType]);
@@ -77,7 +77,6 @@ export default function StudentsPage() {
   };
 
   const buttonCount = Math.ceil(totalNum / 10);
-  console.log(buttonCount);
 
   const goToPage = async (
     event: React.MouseEvent<HTMLButtonElement>,

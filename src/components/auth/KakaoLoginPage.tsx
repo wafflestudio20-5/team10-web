@@ -27,6 +27,7 @@ export default function KakaoLoginPage() {
   //     } catch {}
   //   })();
   // }, []);
+
   console.log(code);
 
   return (
