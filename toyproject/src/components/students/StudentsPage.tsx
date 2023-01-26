@@ -1,47 +1,53 @@
+import React from 'react';
 import SubjectTemplate from '../SubjectTemplate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import styles from './StudentsPage.module.scss';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import Searchbar from '../Searchbar';
 import { useSessionContext } from '../../context/SessionContext';
-import { useSubjectContext } from '../../context/SubjectContext';
 import { StudentsOfSubject } from '../../lib/types';
-import { apiStudentsOfSubject } from '../../lib/api';
+import { apiGetStudentsOfSubject, apiGetSubjectInfo } from '../../lib/api';
 
 export default function StudentsPage() {
-  const { subjectname } = useParams();
   const { token } = useSessionContext();
-  const { curSubject } = useSubjectContext();
+  const { subjectid } = useParams();
+
   const [searchValue, setSearchValue] = useState<string>('');
   const [searchType, setSearchType] = useState<string>('');
-
-  // const originStudents = [
-  //   { id: 0, name: "김가영", subject: subjectname, type: "student" },
-  //   { id: 1, name: "김나영", subject: subjectname, type: "student" },
-  //   { id: 2, name: "이가영", subject: subjectname, type: "professor" },
-  //   { id: 3, name: "김다영", subject: subjectname, type: "student" },
-  //   { id: 4, name: "김라영", subject: subjectname, type: "student" },
-  // ];
-
   const [students, setStudents] = useState<StudentsOfSubject[] | undefined>([]);
   const [studentsToShow, setStudentsToShow] = useState<
     StudentsOfSubject[] | undefined
   >(students);
+  const [subTitle, setSubTitle] = useState('');
+  const [totalNum, setTotalNum] = useState<number>(0);
+  const [activeButton, setActiveButton] = useState({ activate: 0 });
 
-  const getStudentsOfSubject = (token: string | null, id: number) => {
-    apiStudentsOfSubject(token, id)
+  const getStudentsOfSubject = (
+    token: string | null,
+    id: number,
+    page: number
+  ) => {
+    apiGetStudentsOfSubject(token, id, page)
       .then((res) => {
         setStudents(res.data.results);
+        console.log(res.data);
+        setTotalNum(res.data.count);
       })
       .catch((err) => console.log(err));
   };
+
   useEffect(() => {
-    if (token) {
-      curSubject && getStudentsOfSubject(token, curSubject.id);
-    }
-  }, [token]);
+    (async () => {
+      const id = Number(subjectid);
+      if (token) {
+        const res = await apiGetSubjectInfo(token, id);
+        setSubTitle(res.data.name);
+        getStudentsOfSubject(token, id, 1);
+      }
+    })();
+  }, [token, subjectid]);
 
   const filterStudents = () => {
     let filteredStudents = students;
@@ -59,7 +65,6 @@ export default function StudentsPage() {
     );
     setStudentsToShow(filteredStudents);
   };
-
   useEffect(() => {
     filterStudents();
   }, [students, searchValue, searchType]);
@@ -71,8 +76,22 @@ export default function StudentsPage() {
       return '학생';
     }
   };
+
+  const buttonCount = Math.ceil(totalNum / 10);
+
+  const goToPage = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+    page: number,
+    idx: number
+  ) => {
+    const id = Number(subjectid);
+    event.preventDefault();
+    getStudentsOfSubject(token, id, page);
+    setActiveButton({ ...activeButton, activate: idx });
+  };
+
   return (
-    <SubjectTemplate subject={subjectname as string} page='수강생'>
+    <SubjectTemplate subject={subjectid as string} page='수강생'>
       <section>
         <Searchbar
           searchValue={searchValue}
@@ -113,7 +132,7 @@ export default function StudentsPage() {
                   />
                 </td>
                 <td className={styles.name}>{student.username}</td>
-                <td className={styles.subject}>{curSubject?.name}</td>
+                <td className={styles.subject}>{subTitle}</td>
                 <td className={styles.type}>
                   {handleType(student.is_professor)}
                 </td>
@@ -122,6 +141,19 @@ export default function StudentsPage() {
           </tbody>
         </table>
       )}
+      <div className={styles['button-container']}>
+        {Array.from({ length: buttonCount }).map((_, idx) => (
+          <button
+            className={`${styles['nav-button']} ${
+              activeButton.activate === idx ? styles['active'] : ''
+            }`}
+            key={idx}
+            onClick={(event) => goToPage(event, idx + 1, idx)}
+          >
+            {idx + 1}
+          </button>
+        ))}
+      </div>
     </SubjectTemplate>
   );
 }

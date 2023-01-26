@@ -1,0 +1,51 @@
+.wrapper {
+  display: flex;
+}
+
+.right {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.header {
+  height: 72px;
+  width: 95%;
+  margin: 0px 24px;
+  border-bottom: 1px solid #c7cdd1;
+  display: flex;
+  vertical-align: middle;
+  box-sizing: border-box;
+  align-items: center;
+  font-size: x-large;
+}
+
+.sub-title {
+  margin-top: 40px;
+  align-self: flex-start;
+  margin-left: 5%;
+  font-weight: bold;
+  font-size: larger;
+}
+
+.body {
+  width: 90%;
+  align-self: center;
+  .title {
+    margin: 10px 0px;
+  }
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  .submit {
+    width: 60px;
+    height: 30px;
+    background: #0f0f6b;
+    border-radius: 5px;
+    color: white;
+  }
+}

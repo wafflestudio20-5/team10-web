@@ -1,13 +1,13 @@
-import React from "react";
-import styles from "./BoardNav.module.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
+import styles from './BoardNav.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faClipboardList,
   faClipboardQuestion,
-} from "@fortawesome/free-solid-svg-icons";
-import { Link, useParams } from "react-router-dom";
+} from '@fortawesome/free-solid-svg-icons';
+import { Link, useParams } from 'react-router-dom';
 export default function BoardNav() {
-  const { subjectname } = useParams();
+  const { subjectid } = useParams();
 
   return (
     <div className={styles.wrapper}>
@@ -15,7 +15,7 @@ export default function BoardNav() {
       <nav>
         <ul>
           <li>
-            <Link to={`/${subjectname}/noticeboard`}>
+            <Link to={`/${subjectid}/announcements`}>
               <FontAwesomeIcon
                 icon={faClipboardList}
                 size='lg'
@@ -24,9 +24,9 @@ export default function BoardNav() {
             </Link>
           </li>
           <li>
-            <Link to={`/${subjectname}/qnaboard`}>
+            <Link to={`/${subjectid}/questions`}>
               <FontAwesomeIcon icon={faClipboardQuestion} size='lg' />
-              &nbsp; qna 게시판
+              &nbsp; Q&A 게시판
             </Link>
           </li>
         </ul>
