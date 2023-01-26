@@ -42,11 +42,13 @@ export default function BoardList({ category }: BoardListType) {
   };
   useEffect(() => {
     (async () => {
-      const id = Number(subjectid);
       if (token) {
-        getPostList(token, id, category, 1);
-        const res = await apiGetSubjectInfo(token, id);
-        setSubTitle(res.data.name);
+        const id = Number(subjectid);
+        if (token) {
+          getPostList(token, id, category, 1);
+          const res = await apiGetSubjectInfo(token, id);
+          setSubTitle(res.data.name);
+        }
       }
     })();
   }, [subjectid, token]);

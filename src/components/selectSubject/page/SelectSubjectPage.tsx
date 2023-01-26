@@ -36,9 +36,11 @@ export default function SelectSubjectPage() {
 
   useEffect(() => {
     (async () => {
-      const res = await apiGetSubjects(token, 1);
-      setSubjects(res.data.results);
-      setTotalNum(res.data.count);
+      if (token) {
+        const res = await apiGetSubjects(token, 1);
+        setSubjects(res.data.results);
+        setTotalNum(res.data.count);
+      }
     })();
   }, [token]);
 

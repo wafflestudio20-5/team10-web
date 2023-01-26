@@ -45,14 +45,15 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
           setUser(resUser.data);
           setIsLoggedIn(true);
         } else {
+          console.log(res);
           setIsLoggedIn(false);
-          // navigate('/login');
+          navigate('/login');
         }
-      } catch (e) {
+      } catch (err: any) {
         setIsLoggedIn(false);
-        toast('로그인 후 이용해주세요');
+        const errorMessage = err.response.data.non_field_errors;
+        toast(errorMessage[0]);
         navigate('/login');
-        console.error(e);
       }
     })();
   }, []);
@@ -78,7 +79,6 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       setUser(userInfoRes.data);
       navigate('/');
     } catch (err: any) {
-      console.log(err.response.data.non_field_errors);
       const errorMessage = err.response.data.non_field_errors;
       toast(errorMessage[0], {
         position: 'top-center',

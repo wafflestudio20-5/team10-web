@@ -1,3 +1,4 @@
+import React from 'react';
 import SubjectTemplate from '../SubjectTemplate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
@@ -32,9 +33,9 @@ export default function StudentsPage() {
   useEffect(() => {
     (async () => {
       const id = Number(subjectid);
-      const res = await apiGetSubjectInfo(token, id);
-      setSubTitle(res.data.name);
       if (token) {
+        const res = await apiGetSubjectInfo(token, id);
+        setSubTitle(res.data.name);
         getStudentsOfSubject(token, id);
       }
     })();

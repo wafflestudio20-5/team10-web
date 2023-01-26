@@ -36,7 +36,9 @@ export default function BoardDetail() {
       .catch((err) => console.log(err));
   };
   useEffect(() => {
-    getPost(token, postId, category);
+    if (token) {
+      getPost(token, postId, category);
+    }
   }, [token]);
 
   // 게시글 삭제하기

@@ -1,3 +1,4 @@
+import React from 'react';
 import SubjectTemplate from '../SubjectTemplate';
 import styles from './GradesPage.module.scss';
 import { useParams } from 'react-router-dom';
@@ -24,10 +25,12 @@ export default function GradesPage() {
 
   useEffect(() => {
     (async () => {
-      const assignRes = await apiAssignments(token, id); //token을 이전거를 사용하게 된다.
-      setAssignments(assignRes.data);
-      const scoreRes = await apiAssignmentTotalScore(token, id);
-      setScores(scoreRes.data);
+      if (token) {
+        const assignRes = await apiAssignments(token, id); //token을 이전거를 사용하게 된다.
+        setAssignments(assignRes.data);
+        const scoreRes = await apiAssignmentTotalScore(token, id);
+        setScores(scoreRes.data);
+      }
     })();
   }, [subjectid, token]);
 
