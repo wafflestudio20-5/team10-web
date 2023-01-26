@@ -22,6 +22,7 @@ export default function StudentsPage() {
   >(students);
   const [subTitle, setSubTitle] = useState('');
   const [totalNum, setTotalNum] = useState<number>(0);
+  const [activeButton, setActiveButton] = useState({ activate: 0 });
 
   const getStudentsOfSubject = (
     token: string | null,
@@ -80,11 +81,13 @@ export default function StudentsPage() {
 
   const goToPage = async (
     event: React.MouseEvent<HTMLButtonElement>,
-    page: number
+    page: number,
+    idx: number
   ) => {
     const id = Number(subjectid);
     event.preventDefault();
     getStudentsOfSubject(token, id, page);
+    setActiveButton({ ...activeButton, activate: idx });
   };
 
   return (
@@ -141,9 +144,11 @@ export default function StudentsPage() {
       <div className={styles['button-container']}>
         {Array.from({ length: buttonCount }).map((_, idx) => (
           <button
-            className={styles['nav-button']}
+            className={`${styles['nav-button']} ${
+              activeButton.activate === idx ? styles['active'] : ''
+            }`}
             key={idx}
-            onClick={(event) => goToPage(event, idx + 1)}
+            onClick={(event) => goToPage(event, idx + 1, idx)}
           >
             {idx + 1}
           </button>
