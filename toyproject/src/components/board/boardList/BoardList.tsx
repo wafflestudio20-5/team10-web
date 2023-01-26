@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./BoardList.module.scss";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Post } from "../../../lib/types";
+import { PostinPostList } from "../../../lib/types";
 import { boardIdentifier } from "../../../lib/formatting";
 import {
   apiGetPostList,
@@ -20,7 +20,7 @@ export default function BoardList({ category }: BoardListType) {
   const { token, setToken } = useSessionContext();
   const { subjectid } = useParams();
 
-  const [postList, setPostList] = useState<Post[]>([]);
+  const [postList, setPostList] = useState<PostinPostList[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
   const [subTitle, setSubTitle] = useState<string>("");
   const [totalNum, setTotalNum] = useState<number>(0);
@@ -105,18 +105,16 @@ export default function BoardList({ category }: BoardListType) {
                     navigate(`/${subjectid}/${category}/${post.id}`)
                   }
                 >
-                  {post.title}
-                  {` `}
-                  {/* {post.댓글개수} */}
+                  <span className={styles.literalTitle}>{post.title}</span>
+                  <span
+                    className={styles.commentCount}
+                  >{` (${post.comment_count})`}</span>
                 </span>
                 <span>{post.created_by.username}</span>
                 <span>
                   {timestampToDateWithDash(Number(post?.created_at), "date")}
                 </span>
-                <span>
-                  {/* {post.viewed} */}
-                  조회수
-                </span>
+                <span>{post.hits}</span>
               </li>
             );
           })}
