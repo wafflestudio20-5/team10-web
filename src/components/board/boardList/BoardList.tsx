@@ -24,6 +24,7 @@ export default function BoardList({ category }: BoardListType) {
   const [searchValue, setSearchValue] = useState<string>('');
   const [subTitle, setSubTitle] = useState<string>('');
   const [totalNum, setTotalNum] = useState<number>(0);
+  const [activeButton, setActiveButton] = useState({ activate: 0 });
 
   const navigate = useNavigate();
 
@@ -55,11 +56,13 @@ export default function BoardList({ category }: BoardListType) {
 
   const goToPage = async (
     event: React.MouseEvent<HTMLButtonElement>,
-    page: number
+    page: number,
+    idx: number
   ) => {
     const id = Number(subjectid);
     event.preventDefault();
     getPostList(token, id, category, page);
+    setActiveButton({ ...activeButton, activate: idx });
   };
 
   const buttonCount = Math.ceil(totalNum / 10);
@@ -123,9 +126,11 @@ export default function BoardList({ category }: BoardListType) {
         <div className={styles['button-container']}>
           {Array.from({ length: buttonCount }).map((_, idx) => (
             <button
-              className={styles['nav-button']}
+              className={`${styles['nav-button']} ${
+                activeButton.activate === idx ? styles['active'] : ''
+              }`}
               key={idx}
-              onClick={(event) => goToPage(event, idx + 1)}
+              onClick={(event) => goToPage(event, idx + 1, idx)}
             >
               {idx + 1}
             </button>

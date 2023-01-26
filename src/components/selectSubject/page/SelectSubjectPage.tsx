@@ -28,6 +28,8 @@ export default function SelectSubjectPage() {
   const [searchValue, setSearchValue] = useState('');
   const [subjects, setSubjects] = useState<SubjectType[]>();
   const [totalNum, setTotalNum] = useState<number>(0);
+  const [activeButton, setActiveButton] = useState({ activate: 0 });
+
   const { token } = useSessionContext();
   const { mySubjects, previousApi, nextApi } = useSubjectContext();
   //ToDO
@@ -46,11 +48,13 @@ export default function SelectSubjectPage() {
 
   const goToPage = async (
     event: React.MouseEvent<HTMLButtonElement>,
-    page: number
+    page: number,
+    idx: number
   ) => {
     event.preventDefault();
     const res = await apiGetSubjects(token, page);
     setSubjects(res.data.results);
+    setActiveButton({ ...activeButton, activate: idx });
   };
 
   const buttonCount = Math.ceil(totalNum / 10);
@@ -100,9 +104,11 @@ export default function SelectSubjectPage() {
           <div className={styles['button-container']}>
             {Array.from({ length: buttonCount }).map((_, idx) => (
               <button
-                className={styles['nav-button']}
+                className={`${styles['nav-button']} ${
+                  activeButton.activate === idx ? styles['active'] : ''
+                }`}
                 key={idx}
-                onClick={(event) => goToPage(event, idx + 1)}
+                onClick={(event) => goToPage(event, idx + 1, idx)}
               >
                 {idx + 1}
               </button>
