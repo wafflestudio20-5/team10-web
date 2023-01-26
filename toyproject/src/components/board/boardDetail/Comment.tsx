@@ -23,6 +23,7 @@ export default function Comment({
 }: CommentPropsType) {
   const [reply, setReply] = useState("");
   const { token } = useSessionContext();
+  const [commentUpdating, setCommentUpdating] = useState(false);
 
   // 댓글 인풋 상자 관리
   const handleInputReply = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +78,7 @@ export default function Comment({
         </button>
       </h3>
       {post?.comment?.map((comment) => {
-        return (
+        return commentUpdating ? (
           <section key={comment.id}>
             <div className={styles.commentCreaterInfo}>
               <span>
@@ -94,7 +95,32 @@ export default function Comment({
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    editReply(token, comment.id, reply);
+                    setCommentUpdating(false);
+                  }}
+                >
+                  수정 취소
+                </button>
+              </div>
+            </div>
+          </section>
+        ) : (
+          <section key={comment.id}>
+            <div className={styles.commentCreaterInfo}>
+              <span>
+                {`${comment.created_by.username}(${comment.created_by.student_id})`}
+              </span>
+              <div className={styles.content}>
+                {timestampToDateWithDash(Number(comment?.created_at), "date")}
+                {` `}
+                <FontAwesomeIcon icon={faClock} className={styles.clockIcon} />
+                {` `}
+                {timestampToDateWithDash(Number(comment?.created_at), "time")}
+              </div>
+              <div className={styles.commentButtons}>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setCommentUpdating(true);
                   }}
                 >
                   수정
