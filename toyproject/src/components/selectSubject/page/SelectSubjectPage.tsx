@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import styles from './SelectSubjectPage.module.scss';
-import { SideNavBar } from '../../sideNavbar/SideNavBar';
-import SubjectList from '../SubjectList';
-import { UserBar } from '../../UserBar/UserBar';
-import axios from 'axios';
-import { url } from 'inspector';
-import { apiGetSubjects } from '../../../lib/api';
-import { useSessionContext } from '../../../context/SessionContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { useSubjectContext } from '../../../context/SubjectContext';
-import { SubjectType } from '../../../lib/types';
-import { ToastContainer } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import styles from "./SelectSubjectPage.module.scss";
+import { SideNavBar } from "../../sideNavbar/SideNavBar";
+import SubjectList from "../SubjectList";
+import { UserBar } from "../../UserBar/UserBar";
+import axios from "axios";
+import { url } from "inspector";
+import { apiGetSubjects } from "../../../lib/api";
+import { useSessionContext } from "../../../context/SessionContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { useSubjectContext } from "../../../context/SubjectContext";
+import { SubjectType } from "../../../lib/types";
+import { ToastContainer } from "react-toastify";
 
 const isEnrolled = (
   mySubjects: SubjectType[] | undefined,
@@ -25,7 +25,7 @@ const isEnrolled = (
 };
 
 export default function SelectSubjectPage() {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [subjects, setSubjects] = useState<SubjectType[]>();
   const [totalNum, setTotalNum] = useState<number>(0);
   const [activeButton, setActiveButton] = useState({ activate: 0 });
@@ -60,7 +60,7 @@ export default function SelectSubjectPage() {
   const buttonCount = Math.ceil(totalNum / 10);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.selectSubjectPagewrapper}>
       <SideNavBar />
       <div className={styles.body}>
         <header>
@@ -100,20 +100,20 @@ export default function SelectSubjectPage() {
                   ></SubjectList>
                 );
               })}
+            <div className={styles["button-container"]}>
+              {Array.from({ length: buttonCount }).map((_, idx) => (
+                <button
+                  className={`${styles["nav-button"]} ${
+                    activeButton.activate === idx ? styles["active"] : ""
+                  }`}
+                  key={idx}
+                  onClick={(event) => goToPage(event, idx + 1, idx)}
+                >
+                  {idx + 1}
+                </button>
+              ))}
+            </div>
           </article>
-          <div className={styles['button-container']}>
-            {Array.from({ length: buttonCount }).map((_, idx) => (
-              <button
-                className={`${styles['nav-button']} ${
-                  activeButton.activate === idx ? styles['active'] : ''
-                }`}
-                key={idx}
-                onClick={(event) => goToPage(event, idx + 1, idx)}
-              >
-                {idx + 1}
-              </button>
-            ))}
-          </div>
         </section>
       </div>
       <ToastContainer />

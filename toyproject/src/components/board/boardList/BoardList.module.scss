@@ -98,26 +98,39 @@
   }
 }
 
-.button-container {
+@mixin button-container {
   display: flex;
   justify-content: center;
   gap: 10px;
+  margin-top: 30px;
   margin-bottom: 20px;
 }
 
-.nav-button {
-  width: 45px;
-  height: 30px;
+@mixin nav-button {
   background-color: white;
-  border: solid #aeadad 1px;
-  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+  padding: 2px;
+  color: #9d9fa7;
   &:hover {
-    background-color: #0f0f6b;
-    color: white;
+    cursor: pointer;
+    color: #0f0f6b;
+    text-decoration: underline;
   }
+}
+@mixin active {
+  color: #0f0f6b;
+  text-decoration: underline;
+}
+
+.button-container {
+  @include button-container();
+}
+
+.nav-button {
+  @include nav-button();
 }
 
 .active {
-  background-color: #0f0f6b;
-  color: white;
+  @include active();
 }
