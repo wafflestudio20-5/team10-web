@@ -22,6 +22,7 @@ import SelectSubjectPage from './components/selectSubject/page/SelectSubjectPage
 import DescriptionPage from './components/description/DescriptionPage';
 import EvaluationPage from './components/evaluation/pages/EvaluationPage';
 import EvaluationDetailPage from './components/evaluation/pages/EvaluationDetailPage';
+import SocialSignUpPage from './components/auth/SocialSignUpPage';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Routes>
             <Route path='/' element={<DashBoardPage />} />
             <Route path='/login/new' element={<SignUpPage />} />
+            <Route path='/login/new/social' element={<SocialSignUpPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/:subjectid' element={<ModulePage />} />
             <Route path='/selectsubject' element={<SelectSubjectPage />} />
