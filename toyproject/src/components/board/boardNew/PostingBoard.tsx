@@ -59,7 +59,7 @@ export default function PostingBoard() {
         <header>
           <h2>게시글 작성</h2>
           <div className={styles.buttonContainer}>
-            <button className={styles.cancel} onClick={goBack}>
+            <button className={styles.cancel} onClick={() => navigate(-1)}>
               취소
             </button>
             <input

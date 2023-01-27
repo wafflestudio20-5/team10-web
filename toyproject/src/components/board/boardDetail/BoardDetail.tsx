@@ -87,7 +87,9 @@ export default function BoardDetail() {
           <button
             onClick={(e) => {
               e.preventDefault();
-              // editPost(token, comment.id, reply);
+              navigate(`/${subjectid}/${category}/${postId}/edit`, {
+                state: { getPost: getPost },
+              });
             }}
           >
             수정

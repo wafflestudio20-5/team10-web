@@ -11,6 +11,7 @@ import DashBoardPage from "./components/dashboard/DashBoardPage";
 import QnABoardPage from "./components/board/pages/QnABoardPage";
 import NoticeBoardPage from "./components/board/pages/NoticeBoardPage";
 import NewBoardPage from "./components/board/pages/NewBoardPage";
+import PostEdittingPage from "./components/board/postEdit/PostEdittingPage";
 import StudentsPage from "./components/students/StudentsPage";
 import GradesPage from "./components/grades/GradesPage";
 import BoardDetailPage from "./components/board/pages/BoardDetailPage";
@@ -56,6 +57,14 @@ function App() {
             <Route
               path='/:subjectid/announcements/new'
               element={<NewBoardPage />}
+            />
+            <Route
+              path='/:subjectid/announcements/:noticeBoardId/edit'
+              element={<PostEdittingPage />}
+            />
+            <Route
+              path='/:subjectid/questions/:qnaBoardId/edit'
+              element={<PostEdittingPage />}
             />
             <Route path='/:subjectid/students' element={<StudentsPage />} />
             <Route
