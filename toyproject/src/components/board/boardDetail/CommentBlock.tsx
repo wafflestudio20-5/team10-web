@@ -22,7 +22,7 @@ export default function CommentBlock({
 }: CommentPropsType) {
   const [commentUpdating, setCommentUpdating] = useState(false);
   const [commentEditInput, setCommentEditInput] = useState(comment.content);
-  const { token } = useSessionContext();
+  const { token, user } = useSessionContext();
 
   // 댓글 수정 인풋 상자 관리
   const handleCommentEditInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,24 +120,26 @@ export default function CommentBlock({
           {` `}
           {timestampToDateWithDash(Number(comment?.created_at), "time")}
         </div>
-        <div className={styles.commentButtons}>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              setCommentUpdating(true);
-            }}
-          >
-            수정
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              deleteComment(token, comment.id);
-            }}
-          >
-            삭제
-          </button>
-        </div>
+        {comment.created_by.id === user?.id && (
+          <div className={styles.commentButtons}>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setCommentUpdating(true);
+              }}
+            >
+              수정
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                deleteComment(token, comment.id);
+              }}
+            >
+              삭제
+            </button>
+          </div>
+        )}
       </div>
       <p>{comment.content}</p>
       <ToastContainer />
