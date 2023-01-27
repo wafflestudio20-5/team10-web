@@ -71,11 +71,22 @@ export default function BoardList({ category }: BoardListType) {
     <div className={styles.wrapper}>
       <header>
         <h2>{boardIdentifier(category)} 게시판</h2>
-        {user?.is_professor === true && (
+        {category === "announcements" ? (
+          user?.is_professor === true && (
+            <Link to={`/${subjectid}/${category}/new`}>
+              <button className={styles.createButton}>글쓰기</button>
+            </Link>
+          )
+        ) : (
           <Link to={`/${subjectid}/${category}/new`}>
             <button className={styles.createButton}>글쓰기</button>
           </Link>
         )}
+        {/* {category === "questions" && user?.is_professor === false && (
+          <Link to={`/${subjectid}/${category}/new`}>
+            <button className={styles.createButton}>글쓰기</button>
+          </Link>
+        )} */}
       </header>
       <div className={styles.explain}>
         {subTitle}의 {boardIdentifier(category)}게시판입니다.
