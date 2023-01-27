@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styles from "./CommentBlock.module.scss";
-import { Comment } from "../../../lib/types";
+import { Comment } from "../../../../lib/types";
 import { CommentAreaPropsType } from "./CommentArea";
-import { apiPatchReply, apiDeleteReply } from "../../../lib/api";
-import { timestampToDateWithDash } from "../../../lib/formatting";
-import { useSessionContext } from "../../../context/SessionContext";
+import { apiPatchReply, apiDeleteReply } from "../../../../lib/api";
+import { timestampToDateWithDash } from "../../../../lib/formatting";
+import { useSessionContext } from "../../../../context/SessionContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { ToastContainer, toast } from "react-toastify";

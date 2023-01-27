@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./BoardDetail.module.scss";
-import CommentArea from "./CommentArea";
+import CommentArea from "./Comment/CommentArea";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { PostDetail } from "../../../lib/types";
 import { apiGetPost, apiDeletePost } from "../../../lib/api";

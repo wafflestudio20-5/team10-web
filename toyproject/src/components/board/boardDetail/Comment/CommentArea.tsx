@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styles from "./CommentArea.module.scss";
 import CommentBlock from "./CommentBlock";
-import { PostDetail } from "../../../lib/types";
-import { apiPostReply } from "../../../lib/api";
-import { useSessionContext } from "../../../context/SessionContext";
+import { PostDetail } from "../../../../lib/types";
+import { apiPostReply } from "../../../../lib/api";
+import { useSessionContext } from "../../../../context/SessionContext";
 
 export type CommentAreaPropsType = {
   getPost: (token: string | null, post_id: number, category: string) => void;
