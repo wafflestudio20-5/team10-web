@@ -7,6 +7,8 @@ import { timestampToDateWithDash } from "../../../lib/formatting";
 import { useSessionContext } from "../../../context/SessionContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type CommentPropsType = CommentAreaPropsType & {
   comment: Comment;
@@ -22,7 +24,7 @@ export default function CommentBlock({
   const [commentEditInput, setCommentEditInput] = useState(comment.content);
   const { token } = useSessionContext();
 
-  // 댓글 인풋 상자 관리
+  // 댓글 수정 인풋 상자 관리
   const handleCommentEditInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setCommentEditInput(e.target.value);
@@ -38,8 +40,16 @@ export default function CommentBlock({
       .then((res) => {
         getPost(token, postId, category);
         setCommentEditInput(content);
+        setCommentUpdating(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if (err.response.status === 400) {
+          toast("수정할 댓글 내용을 입력하세요.", {
+            position: "top-center",
+            theme: "colored",
+          });
+        }
+      });
   };
 
   // 댓글 삭제
@@ -78,6 +88,7 @@ export default function CommentBlock({
               className={styles.editButton}
               onClick={(e) => {
                 e.preventDefault();
+                setCommentEditInput(comment.content);
                 setCommentUpdating(false);
               }}
             >
@@ -90,7 +101,6 @@ export default function CommentBlock({
               onClick={(e) => {
                 e.preventDefault();
                 editComment(token, comment.id, commentEditInput);
-                setCommentUpdating(false);
               }}
             />
           </div>
@@ -130,6 +140,7 @@ export default function CommentBlock({
         </div>
       </div>
       <p>{comment.content}</p>
+      <ToastContainer />
     </div>
   );
 }
