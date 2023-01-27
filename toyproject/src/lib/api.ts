@@ -297,6 +297,21 @@ export const apiGetModules = async (token: string | null, class_id: number) => {
   });
 };
 
+export const apiGetFile = async (file: string) => {
+  const response = await axios({
+    url: file,
+    method: 'GET',
+    responseType: 'blob', // important
+  });
+  const url_1 = window.URL.createObjectURL(new Blob([response.data]));
+  const link = document.createElement('a');
+  link.href = url_1;
+  link.setAttribute('download', 'your-file-name.xlsx');
+  document.body.appendChild(link);
+  link.click();
+  return response;
+};
+
 //kakaotalk social login 관련 변수
 
 const CLIENT_ID = '9abd4a226f299f3b2c393cc8dd0b9ed8';

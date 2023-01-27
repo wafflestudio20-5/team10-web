@@ -6,10 +6,22 @@ import {
   faPaperclip,
 } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
-import { apiGetModules } from '../../lib/api';
+import { apiGetFile, apiGetModules } from '../../lib/api';
 import { useSessionContext } from '../../context/SessionContext';
 import { useParams } from 'react-router-dom';
 import { ModuleInterface } from '../../lib/types';
+
+const DownloadFile = ({ file }: { file: string }) => {
+  const handleDownload = async () => {
+    await apiGetFile(file);
+  };
+
+  return (
+    <span className={styles.download} onClick={handleDownload}>
+      {'Download File'}
+    </span>
+  );
+};
 
 const Module = ({
   module,
@@ -39,16 +51,16 @@ const Module = ({
             : styles.contentContainer
         }
       >
-        {module.module_content.map((content) => (
+        {module.module_content.map((content, contentIdx) => (
           <section
-            key={idx}
+            key={contentIdx}
             className={openedToggles[idx] ? styles.contentShow : styles.content}
           >
             <FontAwesomeIcon icon={faPaperclip} className={styles.paperClip} />
-            <span>
-              {/* {content.file} */}
-              {'hi'}
-            </span>
+            <DownloadFile file={content.file} />
+            {/* <a href={content.file} download>
+              download
+            </a> */}
           </section>
         ))}
       </article>
@@ -97,7 +109,6 @@ export default function ModuleBlock() {
       const id = Number(subjectid);
       if (token) {
         const res = await getModules(token, id);
-        console.log(res.data[0].weekly);
         setModules(res.data[0].weekly);
         setOpenedToggles(Array(res.data[0].weekly.length).fill(true));
       }
