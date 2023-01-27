@@ -66,8 +66,7 @@ export default function PostEdittingPage() {
         });
         setTitleEditInput("");
         setContentEditInput("");
-        // navigate(-1);
-        goBack();
+        navigate(-1);
       })
       .catch((err) => {
         if (err.response.status === 400) {
@@ -78,7 +77,9 @@ export default function PostEdittingPage() {
         }
       });
   };
-  const goBack = () => {
+
+  const goBack = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     navigate(-1);
   };
 

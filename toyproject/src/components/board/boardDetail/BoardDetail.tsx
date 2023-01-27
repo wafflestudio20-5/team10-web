@@ -16,7 +16,7 @@ export default function BoardDetail() {
   const location = useLocation();
   const category = location.pathname.split("/")[2];
   const postId = Number(location.pathname.split("/")[3]);
-  const { token } = useSessionContext();
+  const { token, user } = useSessionContext();
   const { subjectid } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState<PostDetail>();
@@ -83,26 +83,28 @@ export default function BoardDetail() {
           </div>
         </div>
         <article>{post?.content}</article>
-        <div className={styles.buttons}>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              navigate(`/${subjectid}/${category}/${postId}/edit`, {
-                state: { getPost: getPost },
-              });
-            }}
-          >
-            수정
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              deletePost(token, post?.id, category);
-            }}
-          >
-            삭제
-          </button>
-        </div>
+        {user?.id === post?.created_by.id && (
+          <div className={styles.buttons}>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(`/${subjectid}/${category}/${postId}/edit`, {
+                  state: { getPost: getPost },
+                });
+              }}
+            >
+              수정
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                deletePost(token, post?.id, category);
+              }}
+            >
+              삭제
+            </button>
+          </div>
+        )}
         <div className={styles.previousContainer}>
           <div className={styles.previousTitle}>이전글</div>
           <div className={styles.previous}>어쩌구 저쩌구</div>
