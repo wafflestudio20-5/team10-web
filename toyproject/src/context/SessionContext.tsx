@@ -51,6 +51,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         }
       } catch (err: any) {
         setIsLoggedIn(false);
+        console.log(err);
         const errorMessage = err.response.data.non_field_errors;
         toast(errorMessage[0]);
         navigate('/login');

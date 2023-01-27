@@ -32,7 +32,6 @@ export default function StudentsPage() {
     apiGetStudentsOfSubject(token, id, page)
       .then((res) => {
         setStudents(res.data.results);
-        console.log(res.data);
         setTotalNum(res.data.count);
       })
       .catch((err) => console.log(err));

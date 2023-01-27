@@ -1,32 +1,32 @@
-import styles from "./ModuleBlock.module.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styles from './ModuleBlock.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCaretDown,
   faCaretRight,
   faPaperclip,
-} from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-
-export interface ModuleInterface {
-  id: number;
-  name: string;
-  contents: string[];
-}
+} from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState } from 'react';
+import { apiGetModules } from '../../lib/api';
+import { useSessionContext } from '../../context/SessionContext';
+import { useParams } from 'react-router-dom';
+import { ModuleInterface } from '../../lib/types';
 
 const Module = ({
   module,
   openedToggles,
   handleSingleToggle,
+  idx,
 }: {
   module: ModuleInterface;
   openedToggles: boolean[];
   handleSingleToggle: (id: number) => void;
+  idx: number;
 }) => {
   return (
     <div className={styles.moduleContainer}>
-      <header onClick={() => handleSingleToggle(module.id)}>
+      <header onClick={() => handleSingleToggle(idx)}>
         <FontAwesomeIcon
-          icon={openedToggles[module.id] ? faCaretDown : faCaretRight}
+          icon={openedToggles[idx] ? faCaretDown : faCaretRight}
           className={styles.caret}
         />
         {module.name}
@@ -34,20 +34,21 @@ const Module = ({
 
       <article
         className={
-          openedToggles[module.id]
+          openedToggles[idx]
             ? styles.contentContainerShow
             : styles.contentContainer
         }
       >
-        {module.contents.map((content) => (
+        {module.module_content.map((content) => (
           <section
-            key={content}
-            className={
-              openedToggles[module.id] ? styles.contentShow : styles.content
-            }
+            key={idx}
+            className={openedToggles[idx] ? styles.contentShow : styles.content}
           >
             <FontAwesomeIcon icon={faPaperclip} className={styles.paperClip} />
-            <span>{content}</span>
+            <span>
+              {/* {content.file} */}
+              {'hi'}
+            </span>
           </section>
         ))}
       </article>
@@ -57,18 +58,13 @@ const Module = ({
 };
 
 export default function ModuleBlock() {
-  const modules = [
-    // 예시 모듈 데이터
-    { id: 0, name: "1주차", contents: ["Lecture note 1", "Lecture note 2"] },
-    { id: 1, name: "2주차", contents: ["Lecture note 3", "Lecture note 4"] },
-    { id: 2, name: "3주차", contents: ["Lecture note 5", "Lecture note 6"] },
-  ];
-
+  const { token } = useSessionContext();
+  const { subjectid } = useParams();
+  const [modules, setModules] = useState<ModuleInterface[]>([]);
   // module의 개수와 같은 개수의 1로 이루어진 배열 생성 (처음에는 모든 모듈이 열려 있는 상태)
   // 모듈(토글)이 열려 있으면 1, 아니면 0
-  const [openedToggles, setOpenedToggles] = useState<boolean[]>(
-    Array(modules.length).fill(true)
-  );
+  const [openedToggles, setOpenedToggles] = useState<boolean[]>([]);
+  // Array(modules.length).fill(true)
 
   // 각 모듈 헤더 클릭 시 접고 펼치기
   const handleSingleToggle = (id: number) => {
@@ -91,22 +87,41 @@ export default function ModuleBlock() {
     }
   };
 
+  const getModules = async (token: string | null, class_id: number) => {
+    const res = await apiGetModules(token, class_id);
+    return res;
+  };
+
+  useEffect(() => {
+    (async () => {
+      const id = Number(subjectid);
+      if (token) {
+        const res = await getModules(token, id);
+        console.log(res.data[0].weekly);
+        setModules(res.data[0].weekly);
+        setOpenedToggles(Array(res.data[0].weekly.length).fill(true));
+      }
+    })();
+  }, [token, subjectid]);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.headerbar}>
         <button onClick={handleAllToggle}>
-          {openedToggles.includes(true) ? "모든 모듈 접기" : "모든 모듈 펼치기"}
+          {openedToggles.includes(true) ? '모든 모듈 접기' : '모든 모듈 펼치기'}
         </button>
       </div>
       <article>
-        {modules.map((module) => (
-          <Module
-            key={module.id}
-            module={module}
-            openedToggles={openedToggles}
-            handleSingleToggle={handleSingleToggle}
-          />
-        ))}
+        {modules &&
+          modules.map((module, idx) => (
+            <Module
+              key={module.id}
+              module={module}
+              idx={idx}
+              openedToggles={openedToggles}
+              handleSingleToggle={handleSingleToggle}
+            />
+          ))}
       </article>
     </div>
   );

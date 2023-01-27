@@ -89,3 +89,13 @@ export interface UserScoreInterface {
   is_graded: boolean;
   score: number;
 }
+
+export interface ModuleContent {
+  file: string;
+}
+
+export interface ModuleInterface {
+  id: number;
+  name: string;
+  module_content: ModuleContent[];
+}
