@@ -12,13 +12,16 @@ import { useParams } from 'react-router-dom';
 import { ModuleInterface } from '../../lib/types';
 
 const DownloadFile = ({ file }: { file: string }) => {
-  const handleDownload = async () => {
+  const originalFileURL = decodeURI(file);
+  const urlParams = originalFileURL.split('/media/modules/')[1];
+  const handleDownload = async (event: React.MouseEvent<HTMLSpanElement>) => {
+    event.preventDefault();
     await apiGetFile(file);
   };
 
   return (
     <span className={styles.download} onClick={handleDownload}>
-      {'Download File'}
+      {urlParams}
     </span>
   );
 };
