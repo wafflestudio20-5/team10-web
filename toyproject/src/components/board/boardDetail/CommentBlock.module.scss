@@ -1,0 +1,103 @@
+.commentBlockWrapper {
+  display: flex;
+  flex-direction: column;
+  border-top: none;
+  width: 100%;
+  border-bottom: 1px solid rgb(221, 221, 221);
+  padding: 15px 0px;
+  box-sizing: border-box;
+
+  .commentCreaterInfo {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    span {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+    }
+    .content {
+      margin-left: 10px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+      color: rgb(128, 128, 128);
+    }
+    .commentButtons {
+      margin-left: auto;
+      display: flex;
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        padding: 5px 10px;
+        box-sizing: border-box;
+        margin: 0px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14px;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgb(119, 119, 119);
+        color: rgb(0, 0, 0);
+        margin-left: 5px;
+        &:hover {
+          cursor: pointer;
+          background-color: rgb(0, 93, 198);
+          border: 1px solid rgb(0, 93, 198);
+          color: rgb(255, 255, 255);
+        }
+      }
+    }
+  }
+  .commentInputContainer {
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      .commentEditInput {
+        resize: none;
+        height: 60px;
+        width: 90%;
+        border-radius: 10px;
+        border: 1px solid rgb(204, 204, 204);
+      }
+      .editButtons {
+        display: flex;
+        flex-direction: column;
+        width: 10%;
+        .editButton {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 5px;
+          padding: 5px 10px;
+          box-sizing: border-box;
+          margin: 3px 5px;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 14px;
+          background-color: rgb(255, 255, 255);
+          border: 1px solid rgb(119, 119, 119);
+          color: rgb(0, 0, 0);
+          &:hover {
+            cursor: pointer;
+            background-color: rgb(0, 93, 198);
+            border: 1px solid rgb(0, 93, 198);
+            color: rgb(255, 255, 255);
+          }
+        }
+      }
+    }
+  }
+  p {
+    width: 100%;
+    padding: 0px 0px 10px;
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

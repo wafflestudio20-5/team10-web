@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./BoardDetail.module.scss";
-import Comment from "./Comment";
+import CommentArea from "./CommentArea";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { PostDetail } from "../../../lib/types";
 import { apiGetPost, apiDeletePost } from "../../../lib/api";
@@ -106,7 +106,7 @@ export default function BoardDetail() {
           <div className={styles.previous}>어쩌구 저쩌구</div>
         </div>
       </section>
-      <Comment
+      <CommentArea
         getPost={getPost}
         postId={postId}
         category={category}
