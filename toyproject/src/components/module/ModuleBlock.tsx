@@ -73,7 +73,7 @@ const Module = ({
 };
 
 export default function ModuleBlock() {
-  const { token } = useSessionContext();
+  const { token, getRefreshToken } = useSessionContext();
   const { subjectid } = useParams();
   const [modules, setModules] = useState<ModuleInterface[]>([]);
   // module의 개수와 같은 개수의 1로 이루어진 배열 생성 (처음에는 모든 모듈이 열려 있는 상태)
@@ -109,14 +109,16 @@ export default function ModuleBlock() {
 
   useEffect(() => {
     (async () => {
+      const localRefreshToken = localStorage.getItem('refresh');
+      const resToken = await getRefreshToken(
+        localRefreshToken ? localRefreshToken : 'temp'
+      );
       const id = Number(subjectid);
-      if (token) {
-        const res = await getModules(token, id);
-        setModules(res.data[0].weekly);
-        setOpenedToggles(Array(res.data[0].weekly.length).fill(true));
-      }
+      const res = await getModules(resToken.data.access, id);
+      setModules(res.data[0].weekly);
+      setOpenedToggles(Array(res.data[0].weekly.length).fill(true));
     })();
-  }, [token, subjectid]);
+  }, [subjectid]);
 
   return (
     <div className={styles.wrapper}>

@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import styles from "./SelectSubjectPage.module.scss";
-import { SideNavBar } from "../../sideNavbar/SideNavBar";
-import SubjectList from "../SubjectList";
-import { UserBar } from "../../UserBar/UserBar";
-import axios from "axios";
-import { url } from "inspector";
-import { apiGetSubjects } from "../../../lib/api";
-import { useSessionContext } from "../../../context/SessionContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { useSubjectContext } from "../../../context/SubjectContext";
-import { SubjectType } from "../../../lib/types";
-import { ToastContainer } from "react-toastify";
+import React, { useEffect, useState } from 'react';
+import styles from './SelectSubjectPage.module.scss';
+import { SideNavBar } from '../../sideNavbar/SideNavBar';
+import SubjectList from '../SubjectList';
+import { UserBar } from '../../UserBar/UserBar';
+import axios from 'axios';
+import { url } from 'inspector';
+import { apiGetSubjects } from '../../../lib/api';
+import { useSessionContext } from '../../../context/SessionContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { useSubjectContext } from '../../../context/SubjectContext';
+import { SubjectType } from '../../../lib/types';
+import { ToastContainer } from 'react-toastify';
 
 const isEnrolled = (
   mySubjects: SubjectType[] | undefined,
@@ -25,12 +25,12 @@ const isEnrolled = (
 };
 
 export default function SelectSubjectPage() {
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
   const [subjects, setSubjects] = useState<SubjectType[]>();
   const [totalNum, setTotalNum] = useState<number>(0);
   const [activeButton, setActiveButton] = useState({ activate: 0 });
 
-  const { token } = useSessionContext();
+  const { token, getRefreshToken } = useSessionContext();
   const { mySubjects, previousApi, nextApi } = useSubjectContext();
   //ToDO
   //sever 연결되면
@@ -38,13 +38,16 @@ export default function SelectSubjectPage() {
 
   useEffect(() => {
     (async () => {
-      if (token) {
-        const res = await apiGetSubjects(token, 1);
-        setSubjects(res.data.results);
-        setTotalNum(res.data.count);
-      }
+      const localRefreshToken = localStorage.getItem('refresh');
+      const resToken = await getRefreshToken(
+        localRefreshToken ? localRefreshToken : 'temp'
+      );
+
+      const res = await apiGetSubjects(resToken.data.access, 1);
+      setSubjects(res.data.results);
+      setTotalNum(res.data.count);
     })();
-  }, [token]);
+  }, []);
 
   const goToPage = async (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -100,11 +103,11 @@ export default function SelectSubjectPage() {
                   ></SubjectList>
                 );
               })}
-            <div className={styles["button-container"]}>
+            <div className={styles['button-container']}>
               {Array.from({ length: buttonCount }).map((_, idx) => (
                 <button
-                  className={`${styles["nav-button"]} ${
-                    activeButton.activate === idx ? styles["active"] : ""
+                  className={`${styles['nav-button']} ${
+                    activeButton.activate === idx ? styles['active'] : ''
                   }`}
                   key={idx}
                   onClick={(event) => goToPage(event, idx + 1, idx)}

@@ -11,7 +11,7 @@ import { StudentsOfSubject } from '../../lib/types';
 import { apiGetStudentsOfSubject, apiGetSubjectInfo } from '../../lib/api';
 
 export default function StudentsPage() {
-  const { token } = useSessionContext();
+  const { token, getRefreshToken } = useSessionContext();
   const { subjectid } = useParams();
 
   const [searchValue, setSearchValue] = useState<string>('');
@@ -40,13 +40,16 @@ export default function StudentsPage() {
   useEffect(() => {
     (async () => {
       const id = Number(subjectid);
-      if (token) {
-        const res = await apiGetSubjectInfo(token, id);
-        setSubTitle(res.data.name);
-        getStudentsOfSubject(token, id, 1);
-      }
+      const localRefreshToken = localStorage.getItem('refresh');
+      const resToken = await getRefreshToken(
+        localRefreshToken ? localRefreshToken : 'temp'
+      );
+
+      const res = await apiGetSubjectInfo(resToken.data.access, id);
+      setSubTitle(res.data.name);
+      getStudentsOfSubject(resToken.data.access, id, 1);
     })();
-  }, [token, subjectid]);
+  }, [subjectid]);
 
   const filterStudents = () => {
     let filteredStudents = students;

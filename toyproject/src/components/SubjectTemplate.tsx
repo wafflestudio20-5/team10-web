@@ -55,11 +55,6 @@ export default function SubjectTemplate({
       );
       const res = await apiGetSubjectInfo(resToken.data.access, id);
       setTitle(res.data.name);
-      //refresh 후 그 토큰을 사용하게 하고 token set 해줘야 함, 이렇게 하면 dependency에 token 설정 해주지 말아야 할듯
-      // if (token) {
-      //   const res = await apiGetSubjectInfo(token, id);
-      //   setTitle(res.data.name);
-      // }
     })();
   }, []);
 

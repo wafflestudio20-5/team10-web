@@ -13,7 +13,7 @@ function sortByCategory(assignments: UserAssignmentInterface[]) {
 }
 
 export default function AssignmentPage() {
-  const { token } = useSessionContext();
+  const { token, getRefreshToken } = useSessionContext();
   const { subjectid } = useParams();
   const [isCategorized, setIsCategorized] = useState(true);
   // const [assignmentsByTime, setAssignmentsByTime] = useState<AssignmentInterface>({
@@ -58,11 +58,15 @@ export default function AssignmentPage() {
   };
 
   useEffect(() => {
-    const id = Number(subjectid);
-    if (token) {
-      getAllAssignments(token, id);
-    }
-  }, [token, setAssignmentBlocks]);
+    (async () => {
+      const id = Number(subjectid);
+      const localRefreshToken = localStorage.getItem('refresh');
+      const resToken = await getRefreshToken(
+        localRefreshToken ? localRefreshToken : 'temp'
+      );
+      getAllAssignments(resToken.data.access, id);
+    })();
+  }, [setAssignmentBlocks]);
 
   return (
     <SubjectTemplate

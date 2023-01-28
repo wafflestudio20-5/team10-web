@@ -15,7 +15,7 @@ export default function GradesPage() {
   const { subjectid } = useParams();
 
   const { user } = useSessionContext();
-  const { token } = useSessionContext();
+  const { token, getRefreshToken } = useSessionContext();
 
   const [assignments, setAssignments] = useState<AssignmentInterface[]>([]);
   const [scores, setScores] = useState<UserScoreInterface[]>([]);
@@ -24,12 +24,16 @@ export default function GradesPage() {
 
   useEffect(() => {
     (async () => {
-      const assignRes = await apiAssignments(token, id); //token을 이전거를 사용하게 된다.
+      const localRefreshToken = localStorage.getItem('refresh');
+      const resToken = await getRefreshToken(
+        localRefreshToken ? localRefreshToken : 'temp'
+      );
+      const assignRes = await apiAssignments(resToken.data.access, id); //token을 이전거를 사용하게 된다.
       setAssignments(assignRes.data);
-      const scoreRes = await apiAssignmentTotalScore(token, id);
+      const scoreRes = await apiAssignmentTotalScore(resToken.data.access, id);
       setScores(scoreRes.data);
     })();
-  }, [subjectid, token]);
+  }, [subjectid]);
 
   return (
     <SubjectTemplate
