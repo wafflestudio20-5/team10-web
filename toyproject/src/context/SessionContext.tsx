@@ -20,6 +20,7 @@ type SessionContextType = {
   logout: (token: string) => Promise<any>;
   refreshUserInfo: (token: string) => void;
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
+  getRefreshToken: (refreshToken: string) => Promise<AxiosResponse<any, any>>;
 };
 
 const SessionContext = createContext<SessionContextType>(
@@ -51,16 +52,15 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         }
       } catch (err: any) {
         setIsLoggedIn(false);
-        console.log(err);
-        const errorMessage = err.response.data.non_field_errors;
-        toast(errorMessage[0]);
+        const errorMessage = err.response.data.code;
+        toast(errorMessage);
         navigate('/login');
       }
     })();
   }, []);
 
-  const getRefreshToken = async (token: string) => {
-    const res = await apiRefreshToken(token);
+  const getRefreshToken = async (refreshToken: string) => {
+    const res = await apiRefreshToken(refreshToken);
     setToken(res.data.access); //setToken 여기서 하나 밖에서 해주나 별 차이가 없음
     localStorage.setItem('refresh', res.data.refresh);
     return res;
@@ -117,6 +117,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         logout,
         refreshUserInfo,
         setToken,
+        getRefreshToken,
       }}
     >
       {children}

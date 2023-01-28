@@ -39,7 +39,7 @@ export default function SubjectTemplate({
   content?: string | undefined; // 세부 항목의 제목 (ex. 게시글 제목. 페이지의 메인 화면이면 undefined)
   children?: React.ReactNode;
 }) {
-  const { token } = useSessionContext();
+  const { token, getRefreshToken } = useSessionContext();
   const [toggleNav, setToggleNav] = useState<boolean>(true);
   const [title, setTitle] = useState('');
 
@@ -49,12 +49,19 @@ export default function SubjectTemplate({
   useEffect(() => {
     (async () => {
       const id = Number(subject);
-      if (token) {
-        const res = await apiGetSubjectInfo(token, id);
-        setTitle(res.data.name);
-      }
+      const localRefreshToken = localStorage.getItem('refresh');
+      const resToken = await getRefreshToken(
+        localRefreshToken ? localRefreshToken : 'temp'
+      );
+      const res = await apiGetSubjectInfo(resToken.data.access, id);
+      setTitle(res.data.name);
+      //refresh 후 그 토큰을 사용하게 하고 token set 해줘야 함, 이렇게 하면 dependency에 token 설정 해주지 말아야 할듯
+      // if (token) {
+      //   const res = await apiGetSubjectInfo(token, id);
+      //   setTitle(res.data.name);
+      // }
     })();
-  }, [token]);
+  }, []);
 
   return (
     <div className={styles.wrapper}>

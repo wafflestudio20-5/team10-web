@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
-import styles from "./BoardDetail.module.scss";
-import CommentArea from "./Comment/CommentArea";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { PostDetail } from "../../../lib/types";
-import { apiGetPost, apiDeletePost } from "../../../lib/api";
-import { timestampToDateWithDash } from "../../../lib/formatting";
-import { useSessionContext } from "../../../context/SessionContext";
-import { boardIdentifier } from "../../../lib/formatting";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState, useEffect } from 'react';
+import styles from './BoardDetail.module.scss';
+import CommentArea from './Comment/CommentArea';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { PostDetail } from '../../../lib/types';
+import { apiGetPost, apiDeletePost } from '../../../lib/api';
+import { timestampToDateWithDash } from '../../../lib/formatting';
+import { useSessionContext } from '../../../context/SessionContext';
+import { boardIdentifier } from '../../../lib/formatting';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock } from '@fortawesome/free-regular-svg-icons';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function BoardDetail() {
   const location = useLocation();
-  const category = location.pathname.split("/")[2];
-  const postId = Number(location.pathname.split("/")[3]);
-  const { token, user } = useSessionContext();
+  const category = location.pathname.split('/')[2];
+  const postId = Number(location.pathname.split('/')[3]);
+  const { token, user, getRefreshToken } = useSessionContext();
   const { subjectid } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState<PostDetail>();
@@ -30,10 +30,14 @@ export default function BoardDetail() {
       .catch((err) => console.log(err));
   };
   useEffect(() => {
-    if (token) {
-      getPost(token, postId, category);
-    }
-  }, [token]);
+    (async () => {
+      const localRefreshToken = localStorage.getItem('refresh');
+      const resToken = await getRefreshToken(
+        localRefreshToken ? localRefreshToken : 'temp'
+      );
+      getPost(resToken.data.access, postId, category);
+    })();
+  }, []);
 
   // 게시글 삭제하기
   const deletePost = (
@@ -43,9 +47,9 @@ export default function BoardDetail() {
   ) => {
     apiDeletePost(token, post_id, category)
       .then((res) => {
-        toast("게시글을 성공적으로 삭제했습니다.", {
-          position: "top-center",
-          theme: "colored",
+        toast('게시글을 성공적으로 삭제했습니다.', {
+          position: 'top-center',
+          theme: 'colored',
           autoClose: 1000,
         });
         navigate(-1);
@@ -69,12 +73,12 @@ export default function BoardDetail() {
             <div className={styles.content}>{post?.created_by.username}</div>
             <div className={styles.contentName}>등록일시:</div>
             <div className={styles.content}>
-              {timestampToDateWithDash(Number(post?.created_at), "date")}
+              {timestampToDateWithDash(Number(post?.created_at), 'date')}
               {` `}
               <FontAwesomeIcon icon={faClock} className={styles.clockIcon} />
               {` `}
 
-              {timestampToDateWithDash(Number(post?.created_at), "time")}
+              {timestampToDateWithDash(Number(post?.created_at), 'time')}
             </div>
           </div>
           <div className={styles.flex}>

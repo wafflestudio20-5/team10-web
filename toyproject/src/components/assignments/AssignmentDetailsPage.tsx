@@ -32,29 +32,30 @@ const isOpen = (due_date: string): boolean => {
 };
 
 export default function AssignmentDetailsPage() {
-  const { token } = useSessionContext();
+  const { token, getRefreshToken } = useSessionContext();
   const { subjectid, assignmentID } = useParams();
   const [userAssignment, setUserAssignment] =
     useState<UserAssignmentInterface>();
 
   useEffect(() => {
-    if (token) {
-      apiAssignment(token, parseInt(assignmentID as string))
-        .then((a) => {
-          apiAssignmentScore(token, a.data.id)
-            .then((b) => {
-              setUserAssignment({
-                assignment: a.data,
-                is_submitted: b.data.is_submitted,
-                is_graded: b.data.is_graded,
-                score: b.data.score,
-              });
-            })
-            .catch((e) => console.log(e));
-        })
-        .catch((e) => console.log(e));
-    }
-  }, [token]);
+    (async () => {
+      const localRefreshToken = localStorage.getItem('refresh');
+      const resToken = await getRefreshToken(
+        localRefreshToken ? localRefreshToken : 'temp'
+      );
+      const res = await apiAssignment(
+        resToken.data.access,
+        parseInt(assignmentID as string)
+      );
+      const a = await apiAssignmentScore(resToken.data.access, res.data.id);
+      setUserAssignment({
+        assignment: res.data,
+        is_submitted: a.data.is_submitted,
+        is_graded: a.data.is_graded,
+        score: a.data.score,
+      });
+    })();
+  }, []);
 
   return (
     <SubjectTemplate
