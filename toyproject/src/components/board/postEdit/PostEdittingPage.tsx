@@ -7,6 +7,7 @@ import { useSessionContext } from '../../../context/SessionContext';
 import { apiPatchPost, apiGetPost } from '../../../lib/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 export default function PostEdittingPage() {
   const { subjectid } = useParams();
@@ -33,12 +34,20 @@ export default function PostEdittingPage() {
   };
   useEffect(() => {
     (async () => {
-      const localRefreshToken = localStorage.getItem('refresh');
-      const resToken = await getRefreshToken(
-        localRefreshToken ? localRefreshToken : 'temp'
-      );
-
-      getPostContent(resToken.data.access, postId, category);
+      try {
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        getPostContent(resToken.data.access, postId, category);
+      } catch (e) {
+        if (axios.isAxiosError(e)) {
+          toast(e.response?.data.message);
+          navigate('/login');
+        } else {
+          console.log(e);
+        }
+      }
     })();
   }, []);
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SubjectTemplate from '../SubjectTemplate';
 import styles from './AssignmentDetailsPage.module.scss';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { apiAssignmentScore, auth, url } from '../../lib/api';
 import { useSessionContext } from '../../context/SessionContext';
 import { UserAssignmentInterface } from '../../lib/types';
@@ -13,6 +13,7 @@ import {
   faCircleCheck,
   faCircleXmark,
 } from '@fortawesome/free-solid-svg-icons';
+import { toast } from 'react-toastify';
 
 export const apiAssignment = async (
   token: string | null,
@@ -36,24 +37,34 @@ export default function AssignmentDetailsPage() {
   const { subjectid, assignmentID } = useParams();
   const [userAssignment, setUserAssignment] =
     useState<UserAssignmentInterface>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
-      const localRefreshToken = localStorage.getItem('refresh');
-      const resToken = await getRefreshToken(
-        localRefreshToken ? localRefreshToken : 'temp'
-      );
-      const res = await apiAssignment(
-        resToken.data.access,
-        parseInt(assignmentID as string)
-      );
-      const a = await apiAssignmentScore(resToken.data.access, res.data.id);
-      setUserAssignment({
-        assignment: res.data,
-        is_submitted: a.data.is_submitted,
-        is_graded: a.data.is_graded,
-        score: a.data.score,
-      });
+      try {
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        const res = await apiAssignment(
+          resToken.data.access,
+          parseInt(assignmentID as string)
+        );
+        const a = await apiAssignmentScore(resToken.data.access, res.data.id);
+        setUserAssignment({
+          assignment: res.data,
+          is_submitted: a.data.is_submitted,
+          is_graded: a.data.is_graded,
+          score: a.data.score,
+        });
+      } catch (e) {
+        if (axios.isAxiosError(e)) {
+          toast(e.response?.data.message);
+          navigate('/login');
+        } else {
+          console.log(e);
+        }
+      }
     })();
   }, []);
 

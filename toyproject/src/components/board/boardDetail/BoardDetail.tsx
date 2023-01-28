@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 export default function BoardDetail() {
   const location = useLocation();
@@ -31,11 +32,20 @@ export default function BoardDetail() {
   };
   useEffect(() => {
     (async () => {
-      const localRefreshToken = localStorage.getItem('refresh');
-      const resToken = await getRefreshToken(
-        localRefreshToken ? localRefreshToken : 'temp'
-      );
-      getPost(resToken.data.access, postId, category);
+      try {
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        getPost(resToken.data.access, postId, category);
+      } catch (e) {
+        if (axios.isAxiosError(e)) {
+          toast(e.response?.data.message);
+          navigate('/login');
+        } else {
+          console.log(e);
+        }
+      }
     })();
   }, []);
 

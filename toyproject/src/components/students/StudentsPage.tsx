@@ -3,12 +3,14 @@ import SubjectTemplate from '../SubjectTemplate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import styles from './StudentsPage.module.scss';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Searchbar from '../Searchbar';
 import { useSessionContext } from '../../context/SessionContext';
 import { StudentsOfSubject } from '../../lib/types';
 import { apiGetStudentsOfSubject, apiGetSubjectInfo } from '../../lib/api';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export default function StudentsPage() {
   const { token, getRefreshToken } = useSessionContext();
@@ -23,6 +25,8 @@ export default function StudentsPage() {
   const [subTitle, setSubTitle] = useState('');
   const [totalNum, setTotalNum] = useState<number>(0);
   const [activeButton, setActiveButton] = useState({ activate: 0 });
+
+  const navigate = useNavigate();
 
   const getStudentsOfSubject = (
     token: string | null,
@@ -39,15 +43,24 @@ export default function StudentsPage() {
 
   useEffect(() => {
     (async () => {
-      const id = Number(subjectid);
-      const localRefreshToken = localStorage.getItem('refresh');
-      const resToken = await getRefreshToken(
-        localRefreshToken ? localRefreshToken : 'temp'
-      );
+      try {
+        const id = Number(subjectid);
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
 
-      const res = await apiGetSubjectInfo(resToken.data.access, id);
-      setSubTitle(res.data.name);
-      getStudentsOfSubject(resToken.data.access, id, 1);
+        const res = await apiGetSubjectInfo(resToken.data.access, id);
+        setSubTitle(res.data.name);
+        getStudentsOfSubject(resToken.data.access, id, 1);
+      } catch (e) {
+        if (axios.isAxiosError(e)) {
+          toast(e.response?.data.message);
+          navigate('/login');
+        } else {
+          console.log(e);
+        }
+      }
     })();
   }, [subjectid]);
 

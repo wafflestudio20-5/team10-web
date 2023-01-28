@@ -11,7 +11,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useSubjectContext } from '../../../context/SubjectContext';
 import { SubjectType } from '../../../lib/types';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const isEnrolled = (
   mySubjects: SubjectType[] | undefined,
@@ -35,16 +36,26 @@ export default function SelectSubjectPage() {
   //ToDO
   //sever 연결되면
   //subjects useSubjectContext에서 가져와보기
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
-      const localRefreshToken = localStorage.getItem('refresh');
-      const resToken = await getRefreshToken(
-        localRefreshToken ? localRefreshToken : 'temp'
-      );
-      const res = await apiGetSubjects(resToken.data.access, 1);
-      setSubjects(res.data.results);
-      setTotalNum(res.data.count);
+      try {
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        const res = await apiGetSubjects(resToken.data.access, 1);
+        setSubjects(res.data.results);
+        setTotalNum(res.data.count);
+      } catch (e) {
+        if (axios.isAxiosError(e)) {
+          toast(e.response?.data.message);
+          navigate('/login');
+        } else {
+          console.log(e);
+        }
+      }
     })();
   }, []);
 

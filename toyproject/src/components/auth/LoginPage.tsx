@@ -65,7 +65,7 @@ function LoginPage() {
                 이용하실 수 있습니다.
               </p>
             </h3>
-            <a href={url('/authentication/kakao/login/')}>
+            <a href={KAKAO_AUTH_URL}>
               <img
                 className={styles['kakao-login']}
                 src={kakaoLogin}

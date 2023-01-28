@@ -11,6 +11,8 @@ import {
 import { useSessionContext } from '../../../context/SessionContext';
 import { timestampToDateWithDash } from '../../../lib/formatting';
 import Searchbar from '../../Searchbar';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 type BoardListType = {
   category: string;
@@ -43,14 +45,23 @@ export default function BoardList({ category }: BoardListType) {
   };
   useEffect(() => {
     (async () => {
-      const id = Number(subjectid);
-      const localRefreshToken = localStorage.getItem('refresh');
-      const resToken = await getRefreshToken(
-        localRefreshToken ? localRefreshToken : 'temp'
-      );
-      getPostList(resToken.data.access, id, category, 1);
-      const res = await apiGetSubjectInfo(resToken.data.access, id);
-      setSubTitle(res.data.name);
+      try {
+        const id = Number(subjectid);
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        getPostList(resToken.data.access, id, category, 1);
+        const res = await apiGetSubjectInfo(resToken.data.access, id);
+        setSubTitle(res.data.name);
+      } catch (e) {
+        if (axios.isAxiosError(e)) {
+          toast(e.response?.data.message);
+          navigate('/login');
+        } else {
+          console.log(e);
+        }
+      }
     })();
   }, [subjectid]);
 

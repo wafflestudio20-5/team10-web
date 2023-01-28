@@ -1,6 +1,6 @@
 import SubjectTemplate from '../SubjectTemplate';
 import styles from './GradesPage.module.scss';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSessionContext } from '../../context/SessionContext';
 import {
@@ -10,6 +10,8 @@ import {
 } from '../../lib/api';
 import { AssignmentInterface, UserScoreInterface } from '../../lib/types';
 import dayjs from 'dayjs';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export default function GradesPage() {
   const { subjectid } = useParams();
@@ -21,17 +23,30 @@ export default function GradesPage() {
   const [scores, setScores] = useState<UserScoreInterface[]>([]);
 
   const id = Number(subjectid);
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
-      const localRefreshToken = localStorage.getItem('refresh');
-      const resToken = await getRefreshToken(
-        localRefreshToken ? localRefreshToken : 'temp'
-      );
-      const assignRes = await apiAssignments(resToken.data.access, id); //token을 이전거를 사용하게 된다.
-      setAssignments(assignRes.data);
-      const scoreRes = await apiAssignmentTotalScore(resToken.data.access, id);
-      setScores(scoreRes.data);
+      try {
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        const assignRes = await apiAssignments(resToken.data.access, id); //token을 이전거를 사용하게 된다.
+        setAssignments(assignRes.data);
+        const scoreRes = await apiAssignmentTotalScore(
+          resToken.data.access,
+          id
+        );
+        setScores(scoreRes.data);
+      } catch (e) {
+        if (axios.isAxiosError(e)) {
+          toast(e.response?.data.message);
+          navigate('/login');
+        } else {
+          console.log(e);
+        }
+      }
     })();
   }, [subjectid]);
 

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import AssignmentBlock from './AssignmentBlock';
 import styles from './AssignmentPage.module.scss';
 import SubjectTemplate from '../SubjectTemplate';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AssignmentInterface, UserAssignmentInterface } from '../../lib/types';
 import { apiAssignments, apiAssignmentScore } from '../../lib/api';
 import { useSessionContext } from '../../context/SessionContext';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function sortByCategory(assignments: UserAssignmentInterface[]) {
   for (const assignment of assignments) {
@@ -26,7 +28,7 @@ export default function AssignmentPage() {
       assignments: UserAssignmentInterface[];
     }[]
   >([]);
-
+  const navigate = useNavigate();
   const getAllAssignments = (token: string | null, class_id: number) => {
     apiAssignments(token, class_id)
       .then((r) => {
@@ -59,12 +61,21 @@ export default function AssignmentPage() {
 
   useEffect(() => {
     (async () => {
-      const id = Number(subjectid);
-      const localRefreshToken = localStorage.getItem('refresh');
-      const resToken = await getRefreshToken(
-        localRefreshToken ? localRefreshToken : 'temp'
-      );
-      getAllAssignments(resToken.data.access, id);
+      try {
+        const id = Number(subjectid);
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        getAllAssignments(resToken.data.access, id);
+      } catch (e) {
+        if (axios.isAxiosError(e)) {
+          toast(e.response?.data.message);
+          navigate('/login');
+        } else {
+          console.log(e);
+        }
+      }
     })();
   }, [setAssignmentBlocks]);
 

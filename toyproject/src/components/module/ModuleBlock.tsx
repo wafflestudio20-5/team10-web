@@ -8,8 +8,10 @@ import {
 import { useEffect, useState } from 'react';
 import { apiGetFile, apiGetModules } from '../../lib/api';
 import { useSessionContext } from '../../context/SessionContext';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ModuleInterface } from '../../lib/types';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const DownloadFile = ({ file }: { file: string }) => {
   const originalFileURL = decodeURI(file);
@@ -81,6 +83,7 @@ export default function ModuleBlock() {
   const [openedToggles, setOpenedToggles] = useState<boolean[]>([]);
   // Array(modules.length).fill(true)
 
+  const navigate = useNavigate();
   // 각 모듈 헤더 클릭 시 접고 펼치기
   const handleSingleToggle = (id: number) => {
     const newOpenedToggles = [
@@ -109,14 +112,23 @@ export default function ModuleBlock() {
 
   useEffect(() => {
     (async () => {
-      const localRefreshToken = localStorage.getItem('refresh');
-      const resToken = await getRefreshToken(
-        localRefreshToken ? localRefreshToken : 'temp'
-      );
-      const id = Number(subjectid);
-      const res = await getModules(resToken.data.access, id);
-      setModules(res.data[0].weekly);
-      setOpenedToggles(Array(res.data[0].weekly.length).fill(true));
+      try {
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        const id = Number(subjectid);
+        const res = await getModules(resToken.data.access, id);
+        setModules(res.data[0].weekly);
+        setOpenedToggles(Array(res.data[0].weekly.length).fill(true));
+      } catch (e) {
+        if (axios.isAxiosError(e)) {
+          toast(e.response?.data.message);
+          navigate('/login');
+        } else {
+          console.log(e);
+        }
+      }
     })();
   }, [subjectid]);
 
