@@ -42,7 +42,6 @@ export default function SelectSubjectPage() {
       const resToken = await getRefreshToken(
         localRefreshToken ? localRefreshToken : 'temp'
       );
-
       const res = await apiGetSubjects(resToken.data.access, 1);
       setSubjects(res.data.results);
       setTotalNum(res.data.count);

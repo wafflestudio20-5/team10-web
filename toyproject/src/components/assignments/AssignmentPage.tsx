@@ -90,13 +90,12 @@ export default function AssignmentPage() {
             유형별로 보기
           </button>
         </header>
-        {assignmentBlocks &&
-          assignmentBlocks.map((elem) => (
-            <AssignmentBlock
-              key={elem.category}
-              assignmentBlock={elem.assignments}
-            />
-          ))}
+        {assignmentBlocks.map((elem) => (
+          <AssignmentBlock
+            key={elem.category}
+            assignmentBlock={elem.assignments}
+          />
+        ))}
       </div>
     </SubjectTemplate>
   );

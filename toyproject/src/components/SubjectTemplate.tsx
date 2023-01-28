@@ -3,10 +3,12 @@ import styles from './SubjectTemplate.module.scss';
 import { SideNavBar } from './sideNavbar/SideNavBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useLocation, useNavigate, Link, Navigate } from 'react-router-dom';
 import { UserBar } from './UserBar/UserBar';
 import { apiGetSubjectInfo } from '../lib/api';
 import { useSessionContext } from '../context/SessionContext';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const ListElement = ({ current, name }: { current: string; name: string }) => {
   const navigate = useNavigate();
@@ -45,16 +47,25 @@ export default function SubjectTemplate({
 
   const pages = ['모듈', '게시판', '수강생', '과제', '성적'];
   const address = ['', '/boardnav', '/students', '/assignments', '/grades'];
-
+  const navigate = useNavigate();
   useEffect(() => {
     (async () => {
-      const id = Number(subject);
-      const localRefreshToken = localStorage.getItem('refresh');
-      const resToken = await getRefreshToken(
-        localRefreshToken ? localRefreshToken : 'temp'
-      );
-      const res = await apiGetSubjectInfo(resToken.data.access, id);
-      setTitle(res.data.name);
+      try {
+        const id = Number(subject);
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        const res = await apiGetSubjectInfo(resToken.data.access, id);
+        setTitle(res.data.name);
+      } catch (e) {
+        if (axios.isAxiosError(e)) {
+          toast(e.response?.data.message);
+          navigate('/login');
+        } else {
+          console.log(e);
+        }
+      }
     })();
   }, []);
 
