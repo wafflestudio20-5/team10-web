@@ -93,11 +93,6 @@ export default function BoardList({ category }: BoardListType) {
             <button className={styles.createButton}>글쓰기</button>
           </Link>
         )}
-        {/* {category === "questions" && user?.is_professor === false && (
-          <Link to={`/${subjectid}/${category}/new`}>
-            <button className={styles.createButton}>글쓰기</button>
-          </Link>
-        )} */}
       </header>
       <div className={styles.explain}>
         {subTitle}의 {boardIdentifier(category)}게시판입니다.
