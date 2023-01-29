@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import styles from './SelectSubjectPage.module.scss';
-import { SideNavBar } from '../../sideNavbar/SideNavBar';
-import SubjectList from '../SubjectList';
-import { UserBar } from '../../UserBar/UserBar';
-import axios from 'axios';
-import { url } from 'inspector';
-import { apiGetSubjects } from '../../../lib/api';
-import { useSessionContext } from '../../../context/SessionContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { useSubjectContext } from '../../../context/SubjectContext';
-import { SubjectType } from '../../../lib/types';
-import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import styles from "./SelectSubjectPage.module.scss";
+import { SideNavBar } from "../../sideNavbar/SideNavBar";
+import SubjectList from "../SubjectList";
+import { UserBar } from "../../UserBar/UserBar";
+import axios from "axios";
+import { url } from "inspector";
+import { apiGetSubjects } from "../../../lib/api";
+import { useSessionContext } from "../../../context/SessionContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { useSubjectContext } from "../../../context/SubjectContext";
+import { SubjectType } from "../../../lib/types";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const isEnrolled = (
   mySubjects: SubjectType[] | undefined,
@@ -26,7 +26,7 @@ const isEnrolled = (
 };
 
 export default function SelectSubjectPage() {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [subjects, setSubjects] = useState<SubjectType[]>();
   const [totalNum, setTotalNum] = useState<number>(0);
   const [activeButton, setActiveButton] = useState({ activate: 0 });
@@ -41,9 +41,9 @@ export default function SelectSubjectPage() {
   useEffect(() => {
     (async () => {
       try {
-        const localRefreshToken = localStorage.getItem('refresh');
+        const localRefreshToken = localStorage.getItem("refresh");
         const resToken = await getRefreshToken(
-          localRefreshToken ? localRefreshToken : 'temp'
+          localRefreshToken ? localRefreshToken : "temp"
         );
         const res = await apiGetSubjects(resToken.data.access, 1);
         setSubjects(res.data.results);
@@ -51,7 +51,7 @@ export default function SelectSubjectPage() {
       } catch (e) {
         if (axios.isAxiosError(e)) {
           toast(e.response?.data.message);
-          navigate('/login');
+          navigate("/login");
         } else {
           console.log(e);
         }
@@ -108,16 +108,16 @@ export default function SelectSubjectPage() {
                     key={subject.id}
                     classId={subject.id}
                     name={subject.name}
-                    professor='안동하' // temporary
+                    professor={subject.created_by.username} // temporary
                     isEnrolled={isEnrolled(mySubjects, subject)}
                   ></SubjectList>
                 );
               })}
-            <div className={styles['button-container']}>
+            <div className={styles["button-container"]}>
               {Array.from({ length: buttonCount }).map((_, idx) => (
                 <button
-                  className={`${styles['nav-button']} ${
-                    activeButton.activate === idx ? styles['active'] : ''
+                  className={`${styles["nav-button"]} ${
+                    activeButton.activate === idx ? styles["active"] : ""
                   }`}
                   key={idx}
                   onClick={(event) => goToPage(event, idx + 1, idx)}
