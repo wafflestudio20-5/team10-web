@@ -5,6 +5,7 @@ import {useSubjectContext} from '../../context/SubjectContext';
 import {SubjectType} from '../../lib/types';
 import {faPalette} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {useSessionContext} from "../../context/SessionContext";
 
 type CardType = {
     subject: SubjectType;
@@ -13,10 +14,20 @@ type CardType = {
 export const Card = ({subject}: CardType) => {
     const navigate = useNavigate();
     const {handleClick} = useSubjectContext();
+    const {colors, setColors} = useSessionContext();
     const [togglePalette, setTogglePalette] = useState<boolean>(false);
-    const [color, setColor] = useState<string>("#97bdf5");
+
+    // const [color, setColor] = useState<string>("#97bdf5");
+
+    const index = colors.findIndex((c) => c.id === subject.id)
+    const color = colors.at(index)?.color
     const handleColor = (color: string) => {
-        setColor(color);
+        let temp = [...colors];
+        temp[index] = {
+            id: subject.id,
+            color: color,
+        };
+        setColors(temp);
         setTogglePalette(false);
     }
 

@@ -99,3 +99,8 @@ export interface ModuleInterface {
   name: string;
   module_content: ModuleContent[];
 }
+
+export interface CardColor {
+  id: number;
+  color: string;
+}

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { User } from '../lib/types';
+import {CardColor, SubjectType, User} from '../lib/types';
 import {
   apiGetUserInfo,
   apiLogin,
@@ -21,6 +21,8 @@ type SessionContextType = {
   refreshUserInfo: (token: string) => void;
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
   getRefreshToken: (refreshToken: string) => Promise<AxiosResponse<any, any>>;
+  colors: CardColor[];
+  setColors: React.Dispatch<CardColor[]>;
 };
 
 const SessionContext = createContext<SessionContextType>(
@@ -32,6 +34,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
+  const [colors, setColors] = useState<CardColor[]>([]);
 
   const navigate = useNavigate();
 
@@ -78,6 +81,12 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         loginRes.data.token.access_token
       );
       setUser(userInfoRes.data);
+      setColors(userInfoRes.data.classes.map((c: SubjectType): CardColor => {
+        return {
+          id: c.id,
+          color: "#97bdf5",
+        };
+      }))
       navigate('/');
     } catch (err: any) {
       const errorMessage = err.response.data.non_field_errors;
@@ -118,6 +127,8 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         refreshUserInfo,
         setToken,
         getRefreshToken,
+        colors,
+        setColors
       }}
     >
       {children}
