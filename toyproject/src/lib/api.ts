@@ -266,6 +266,18 @@ export const apiAssignmentScore = async (
   });
 };
 
+export const apiAllAssignmentScore = async (
+    token: string | null,
+    class_id: number
+) => {
+  return await axios({
+    method: 'get',
+    url: url(`/etl/assignments/class/${class_id}/totalscore/`),
+    withCredentials: true,
+    headers: auth(token),
+  });
+};
+
 export const apiAssignmentTotalScore = async (
   token: string | null,
   class_id: number
