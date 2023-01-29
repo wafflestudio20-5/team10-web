@@ -91,7 +91,7 @@ export interface UserScoreInterface {
 }
 
 export interface ModuleContent {
-  file: string;
+  url: string;
 }
 
 export interface ModuleInterface {
