@@ -328,7 +328,11 @@ export const apiGetModules = async (token: string | null, class_id: number) => {
   });
 };
 
-export const apiGetFile = async (file: string, token: string | null) => {
+export const apiGetFile = async (
+  file: string,
+  token: string | null,
+  filename: string
+) => {
   const response = await axios({
     url: file,
     method: 'GET',
@@ -339,7 +343,7 @@ export const apiGetFile = async (file: string, token: string | null) => {
   const url_1 = window.URL.createObjectURL(new Blob([response.data]));
   const link = document.createElement('a');
   link.href = url_1;
-  link.setAttribute('download', 'your-file-name.xlsx');
+  link.setAttribute('download', `${filename}`);
   document.body.appendChild(link);
   link.click();
   return response;

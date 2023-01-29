@@ -24,7 +24,7 @@ const DownloadFile = ({
   const urlParams = originalFileURL.split('modules/')[1].split('?X-Amz')[0];
   const handleDownload = async (event: React.MouseEvent<HTMLSpanElement>) => {
     event.preventDefault();
-    await apiGetFile(file, token);
+    await apiGetFile(file, token, urlParams);
   };
 
   return (
