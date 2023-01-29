@@ -108,7 +108,7 @@ export default function SelectSubjectPage() {
                     key={subject.id}
                     classId={subject.id}
                     name={subject.name}
-                    professor={subject.created_by.username} // temporary
+                    professor={subject.created_by.username}
                     isEnrolled={isEnrolled(mySubjects, subject)}
                   ></SubjectList>
                 );
