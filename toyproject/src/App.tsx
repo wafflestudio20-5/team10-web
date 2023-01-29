@@ -34,9 +34,9 @@ function App() {
             <Route
               path='/'
               element={
-                <ProtectedRoute>
-                  <DashBoardPage />
-                </ProtectedRoute>
+                // <ProtectedRoute>
+                <DashBoardPage />
+                // </ProtectedRoute>
               }
             />
             <Route path='/login/new' element={<SignUpPage />} />
