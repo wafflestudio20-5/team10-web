@@ -40,11 +40,7 @@ const Assignment = ({
     );
 };
 
-export default function AssignmentBlock({
-                                            assignmentBlock,
-                                        }: {
-    assignmentBlock: UserAssignmentInterface[];
-}) {
+export default function AssignmentBlock({assignmentBlock}: { assignmentBlock: UserAssignmentInterface[] }) {
     const [toggleOpen, setToggleOpen] = useState<boolean>(true);
     return (
         <div className={styles.block}>
