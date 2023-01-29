@@ -48,13 +48,13 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         } else {
           console.log(res);
           setIsLoggedIn(false);
-          navigate('/login');
+          // navigate('/login');
         }
       } catch (err: any) {
         setIsLoggedIn(false);
         const errorMessage = err.response.data.code;
         toast(errorMessage);
-        navigate('/login');
+        // navigate('/login');
       }
     })();
   }, []);

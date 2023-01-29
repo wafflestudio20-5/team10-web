@@ -23,6 +23,7 @@ import SelectSubjectPage from './components/selectSubject/page/SelectSubjectPage
 import DescriptionPage from './components/description/DescriptionPage';
 import EvaluationPage from './components/evaluation/pages/EvaluationPage';
 import EvaluationDetailPage from './components/evaluation/pages/EvaluationDetailPage';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -30,7 +31,14 @@ function App() {
       <SessionProvider>
         <SubjectProvider>
           <Routes>
-            <Route path='/' element={<DashBoardPage />} />
+            <Route
+              path='/'
+              element={
+                <ProtectedRoute>
+                  <DashBoardPage />
+                </ProtectedRoute>
+              }
+            />
             <Route path='/login/new' element={<SignUpPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/:subjectid' element={<ModulePage />} />
@@ -82,12 +90,12 @@ function App() {
               path='/evaluation/:subjectid'
               element={<EvaluationDetailPage />}
             />
+            <Route path='/description' element={<DescriptionPage />} />
             <Route
               path='/authentication/kakao/callback'
               element={<KakaoLoginPage />}
             />
-            <Route path='/description' element={<DescriptionPage />} />
-          </Routes>{' '}
+          </Routes>
         </SubjectProvider>
       </SessionProvider>
     </BrowserRouter>
