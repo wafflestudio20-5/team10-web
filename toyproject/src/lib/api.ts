@@ -316,11 +316,13 @@ export const apiGetModules = async (token: string | null, class_id: number) => {
   });
 };
 
-export const apiGetFile = async (file: string) => {
+export const apiGetFile = async (file: string, token: string | null) => {
   const response = await axios({
     url: file,
     method: 'GET',
     responseType: 'blob', // important
+    withCredentials: true,
+    headers: auth(token),
   });
   const url_1 = window.URL.createObjectURL(new Blob([response.data]));
   const link = document.createElement('a');

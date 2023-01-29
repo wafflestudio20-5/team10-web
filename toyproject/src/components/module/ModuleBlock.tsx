@@ -13,12 +13,18 @@ import { ModuleInterface } from '../../lib/types';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const DownloadFile = ({ file }: { file: string }) => {
+const DownloadFile = ({
+  file,
+  token,
+}: {
+  file: string;
+  token: string | null;
+}) => {
   const originalFileURL = decodeURI(file);
-  const urlParams = originalFileURL.split('/media/modules/')[1];
+  const urlParams = originalFileURL.split('modules/')[1].split('?X-Amz')[0];
   const handleDownload = async (event: React.MouseEvent<HTMLSpanElement>) => {
     event.preventDefault();
-    await apiGetFile(file);
+    await apiGetFile(file, token);
   };
 
   return (
@@ -33,11 +39,13 @@ const Module = ({
   openedToggles,
   handleSingleToggle,
   idx,
+  token,
 }: {
   module: ModuleInterface;
   openedToggles: boolean[];
   handleSingleToggle: (id: number) => void;
   idx: number;
+  token: string | null;
 }) => {
   return (
     <div className={styles.moduleContainer}>
@@ -62,7 +70,7 @@ const Module = ({
             className={openedToggles[idx] ? styles.contentShow : styles.content}
           >
             <FontAwesomeIcon icon={faPaperclip} className={styles.paperClip} />
-            <DownloadFile file={content.file} />
+            <DownloadFile file={content.url} token={token} />
             {/* <a href={content.file} download>
               download
             </a> */}
@@ -148,6 +156,7 @@ export default function ModuleBlock() {
               idx={idx}
               openedToggles={openedToggles}
               handleSingleToggle={handleSingleToggle}
+              token={token}
             />
           ))}
       </article>
