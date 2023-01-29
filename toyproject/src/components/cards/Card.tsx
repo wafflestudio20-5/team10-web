@@ -1,27 +1,59 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './Card.module.scss';
-import { useNavigate } from 'react-router-dom';
-import { useSubjectContext } from '../../context/SubjectContext';
-import { SubjectType } from '../../lib/types';
+import {useNavigate} from 'react-router-dom';
+import {useSubjectContext} from '../../context/SubjectContext';
+import {SubjectType} from '../../lib/types';
+import {faPalette} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 type CardType = {
-  subject: SubjectType;
+    subject: SubjectType;
 };
 
-export const Card = ({ subject }: CardType) => {
-  const navigate = useNavigate();
-  const { handleClick } = useSubjectContext();
+export const Card = ({subject}: CardType) => {
+    const navigate = useNavigate();
+    const {handleClick} = useSubjectContext();
+    const [togglePalette, setTogglePalette] = useState<boolean>(false);
+    const [color, setColor] = useState<string>("#97bdf5");
+    const handleColor = (color: string) => {
+        setColor(color);
+        setTogglePalette(false);
+    }
 
-  return (
-    <div
-      className={styles.cardContainer}
-      onClick={() => {
-        navigate(`/${subject.id}/`);
-        handleClick(subject);
-      }}
-    >
-      <div className={styles.cardColor}></div>
-      <section>{subject.name}</section>
-    </div>
-  );
+    return (
+        <div className={styles.cardContainer}>
+            <div className={styles.cardColor} style={{backgroundColor: color}} onClick={() => {
+                navigate(`/${subject.id}/`);
+                handleClick(subject);
+            }}></div>
+            <section onClick={() => {
+                navigate(`/${subject.id}/`);
+                handleClick(subject);
+            }}>
+                <div className={styles.title}>{subject.name}</div>
+            </section>
+            <footer>
+                {
+                    togglePalette &&
+                    <div className={styles.palette}>
+                        <div className={styles.circle} style={{backgroundColor: "#fc777a"}}
+                             onClick={() => handleColor("#fc777a")}></div>
+                        <div className={styles.circle} style={{backgroundColor: "#e6d753"}}
+                             onClick={() => handleColor("#e6d753")}></div>
+                        <div className={styles.circle} style={{backgroundColor: "#5fea9e"}}
+                             onClick={() => handleColor("#5fea9e")}></div>
+                        <div className={styles.circle} style={{backgroundColor: "#97bdf5"}}
+                             onClick={() => handleColor("#97bdf5")}></div>
+                        <div className={styles.circle} style={{backgroundColor: "#5fcbed"}}
+                             onClick={() => handleColor("#5fcbed")}></div>
+                        <div className={styles.circle} style={{backgroundColor: "#decbed"}}
+                             onClick={() => handleColor("#decbed")}></div>
+                        <div className={styles.circle} style={{backgroundColor: "#8182ed"}}
+                             onClick={() => handleColor("#8182ed")}></div>
+                    </div>
+                }
+                <FontAwesomeIcon icon={faPalette} className={styles.fa} style={{color: color}} onClick={()=> setTogglePalette(!togglePalette)}/>
+            </footer>
+        </div>
+    );
 };
