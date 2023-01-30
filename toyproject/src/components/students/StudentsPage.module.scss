@@ -1,4 +1,8 @@
-@import "../board/boardList/BoardList.module.scss";
+@import '../board/boardList/BoardList.module.scss';
+
+.section {
+  display: flex;
+}
 
 .typeSearchbar {
   height: 2.375rem;

@@ -93,7 +93,7 @@ export default function StudentsPage() {
 
   return (
     <SubjectTemplate subject={subjectid as string} page='수강생'>
-      <section>
+      <section className={styles.section}>
         <Searchbar
           searchValue={searchValue}
           setSearchValue={setSearchValue}
