@@ -7,25 +7,11 @@ import { url } from '../../lib/api';
 export default function KakaoLoginPage() {
   let code = new URL(window.location.href).searchParams.get('code');
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const res = await axios({
-  //         method: 'get',
-  //         url: url(`/authentication/kakao/login/`),
-  //         data: {
-  //           grant_type: 'authorization_code',
-  //           client_id: '52dd93ef1080aec2f79528f6aa8a9d68',
-  //           redirection_uri:
-  //             'http://localhost:3000/authentication/kakao/callback/',
-  //           code: code,
-  //         },
-  //         withCredentials: true,
-  //       });
-  //       console.log(res);
-  //     } catch {}
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      console.log(code);
+    })();
+  }, []);
 
   return (
     <div className={styles.wrapper}>
