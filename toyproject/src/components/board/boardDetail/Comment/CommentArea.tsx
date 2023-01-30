@@ -71,9 +71,9 @@ export default function CommentArea({
           type='submit'
           className={styles.commentButton}
           value='댓글 등록'
-          onClick={(e) => {
+          onClick={async (e) => {
             e.preventDefault();
-            postComment(token, postId, commentInput);
+            await postComment(token, postId, commentInput);
           }}
         />
       </form>

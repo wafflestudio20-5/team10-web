@@ -51,32 +51,33 @@ export default function PostEdittingPage() {
   };
 
   // 게시글 올리기
-  const editPost = (
+  const editPost = async (
     token: string | null,
     post_id: number,
     title: string,
     content: string,
     category: string
   ) => {
-    apiPatchPost(token, post_id, title, content, category)
-      .then((res) => {
-        toast('게시글을 성공적으로 수정했습니다.', {
+    try {
+      const localRefresh = localStorage.getItem('refresh');
+      const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
+      apiPatchPost(res.data.access, post_id, title, content, category);
+      toast('게시글을 성공적으로 수정했습니다.', {
+        position: 'top-center',
+        theme: 'colored',
+        autoClose: 1000,
+      });
+      setTitleEditInput('');
+      setContentEditInput('');
+      navigate(-1);
+    } catch (err: any) {
+      if (err.response.status === 400) {
+        toast('수정할 제목과 내용을 입력하세요.', {
           position: 'top-center',
           theme: 'colored',
-          autoClose: 1000,
         });
-        setTitleEditInput('');
-        setContentEditInput('');
-        navigate(-1);
-      })
-      .catch((err) => {
-        if (err.response.status === 400) {
-          toast('수정할 제목과 내용을 입력하세요.', {
-            position: 'top-center',
-            theme: 'colored',
-          });
-        }
-      });
+      }
+    }
   };
 
   const goBack = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -102,9 +103,9 @@ export default function PostEdittingPage() {
                 type='submit'
                 className={styles.submit}
                 value='등록'
-                onClick={(e) => {
+                onClick={async (e) => {
                   e.preventDefault();
-                  editPost(
+                  await editPost(
                     token,
                     Number(postId),
                     titleEditInput,

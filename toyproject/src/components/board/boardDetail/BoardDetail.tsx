@@ -31,6 +31,7 @@ export default function BoardDetail() {
       })
       .catch((err) => console.log(err));
   };
+
   useEffect(() => {
     (async () => {
       getPost(token, postId, category);
@@ -38,21 +39,20 @@ export default function BoardDetail() {
   }, [token]);
 
   // 게시글 삭제하기
-  const deletePost = (
+  const deletePost = async (
     token: string | null,
     post_id: number | undefined,
     category: string
   ) => {
-    apiDeletePost(token, post_id, category)
-      .then((res) => {
-        toast('게시글을 성공적으로 삭제했습니다.', {
-          position: 'top-center',
-          theme: 'colored',
-          autoClose: 1000,
-        });
-        navigate(-1);
-      })
-      .catch((err) => console.log(err));
+    const localRefresh = localStorage.getItem('refresh');
+    const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
+    await apiDeletePost(res.data.access, post_id, category);
+    toast('게시글을 성공적으로 삭제했습니다.', {
+      position: 'top-center',
+      theme: 'colored',
+      autoClose: 1000,
+    });
+    navigate(-1);
   };
 
   return (
@@ -98,9 +98,9 @@ export default function BoardDetail() {
               수정
             </button>
             <button
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.preventDefault();
-                deletePost(token, post?.id, category);
+                await deletePost(token, post?.id, category);
               }}
             >
               삭제

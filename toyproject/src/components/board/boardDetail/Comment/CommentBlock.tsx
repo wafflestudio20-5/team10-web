@@ -59,7 +59,7 @@ export default function CommentBlock({
       const localRefresh = localStorage.getItem('refresh');
       const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
       await apiDeleteReply(res.data.access, comment_id);
-      await getPost(token, postId, category);
+      await getPost(res.data.access, postId, category);
     } catch (e) {
       console.log(e);
     }
@@ -102,9 +102,9 @@ export default function CommentBlock({
               type='submit'
               className={styles.editButton}
               value='완료'
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.preventDefault();
-                editComment(token, comment.id, commentEditInput);
+                await editComment(token, comment.id, commentEditInput);
               }}
             />
           </div>
@@ -135,9 +135,9 @@ export default function CommentBlock({
               수정
             </button>
             <button
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.preventDefault();
-                deleteComment(token, comment.id);
+                await deleteComment(token, comment.id);
               }}
             >
               삭제
