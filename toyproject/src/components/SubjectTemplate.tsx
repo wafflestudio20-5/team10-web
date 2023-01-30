@@ -56,7 +56,7 @@ export default function SubjectTemplate({
         const resToken = await getRefreshToken(
           localRefreshToken ? localRefreshToken : 'temp'
         );
-        const res = await apiGetSubjectInfo(resToken.data.access, id);
+        const res = await apiGetSubjectInfo(resToken, id);
         setTitle(res.data.name);
       } catch (e) {
         if (axios.isAxiosError(e)) {

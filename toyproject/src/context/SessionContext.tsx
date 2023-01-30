@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import {CardColor, SubjectType, User} from '../lib/types';
+import { CardColor, SubjectType, User } from '../lib/types';
 import {
   apiGetUserInfo,
   apiLogin,
@@ -20,7 +20,7 @@ type SessionContextType = {
   logout: (token: string) => Promise<any>;
   refreshUserInfo: (token: string) => void;
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
-  getRefreshToken: (refreshToken: string) => Promise<AxiosResponse<any, any>>;
+  getRefreshToken: (refreshToken: string) => Promise<string>;
   colors: CardColor[];
   setColors: React.Dispatch<CardColor[]>;
 };
@@ -62,11 +62,13 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     })();
   }, []);
 
+  //refresh token 을 통해 access token을 받아오고 local storage에 저장
   const getRefreshToken = async (refreshToken: string) => {
     const res = await apiRefreshToken(refreshToken);
     setToken(res.data.access); //setToken 여기서 하나 밖에서 해주나 별 차이가 없음
     localStorage.setItem('refresh', res.data.refresh);
-    return res;
+    const accessToken = res.data.access;
+    return accessToken;
   };
 
   const login = async (email: string, password: string): Promise<any> => {
@@ -81,12 +83,14 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         loginRes.data.token.access_token
       );
       setUser(userInfoRes.data);
-      setColors(userInfoRes.data.classes.map((c: SubjectType): CardColor => {
-        return {
-          id: c.id,
-          color: "#97bdf5",
-        };
-      }))
+      setColors(
+        userInfoRes.data.classes.map((c: SubjectType): CardColor => {
+          return {
+            id: c.id,
+            color: '#97bdf5',
+          };
+        })
+      );
       navigate('/');
     } catch (err: any) {
       const errorMessage = err.response.data.non_field_errors;
@@ -128,7 +132,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         setToken,
         getRefreshToken,
         colors,
-        setColors
+        setColors,
       }}
     >
       {children}
