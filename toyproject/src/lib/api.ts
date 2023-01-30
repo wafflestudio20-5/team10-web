@@ -50,6 +50,26 @@ export const apiRefreshToken = (token: string | null) => {
   });
 };
 
+export const apiPatchUserInfo = (
+  user_id: string | null,
+  token: string,
+  username: string,
+  student_id: string,
+  is_professor: boolean
+) => {
+  return axios({
+    method: 'patch',
+    url: url(`/authentication/user/${user_id}/`),
+    headers: auth(token),
+    data: {
+      username,
+      student_id,
+      is_professor,
+    },
+    withCredentials: true,
+  });
+};
+
 export const apiGetUserInfo = (user_id: number, token: string) => {
   return axios({
     method: 'get',
@@ -335,7 +355,7 @@ export const apiGetFile = async (
 ) => {
   const response = await axios({
     url: file,
-    method: 'GET',
+    method: 'get',
     responseType: 'blob', // important
     withCredentials: true,
     headers: auth(token),
@@ -349,10 +369,10 @@ export const apiGetFile = async (
   return response;
 };
 
-export const apiKakaoLogin = async (code: string) => {
+export const apiKakaoLogin = async (code: string | null) => {
   return await axios({
+    method: 'post',
     url: url('/authentication/kakao/callback/'),
-    method: 'GET',
     data: {
       code: code,
     },

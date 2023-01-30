@@ -1,12 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import loginHeader from '../../resources/loginHeader.png';
-import google from '../../resources/google.png';
 import styles from './LoginPage.module.scss';
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 import { useSessionContext } from '../../context/SessionContext';
 import kakaoLogin from '../../resources/kakaologin.png';
-import { KAKAO_AUTH_URL, url } from '../../lib/api';
+import { KAKAO_AUTH_URL } from '../../lib/api';
 
 function LoginPage() {
   const [email, setEmail] = useState('');

@@ -33,7 +33,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
-  const [refreshToken, setRefreshToken] = useState<string | null>(null);
+  // const [refreshToken, setRefreshToken] = useState<string | null>(null);
   const [colors, setColors] = useState<CardColor[]>([]);
   const navigate = useNavigate();
 
@@ -73,7 +73,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     try {
       const loginRes = await apiLogin(email, password);
       setToken(loginRes.data.token.access_token);
-      setRefreshToken(loginRes.data.token.refresh_token);
+      // setRefreshToken(loginRes.data.token.refresh_token);
       localStorage.setItem('refresh', loginRes.data.token.refresh_token); //우선 로컬storage에 refresh 저장해둠
       localStorage.setItem('userId', loginRes.data.token.user_id);
       const userInfoRes = await apiGetUserInfo(
