@@ -267,8 +267,8 @@ export const apiAssignmentScore = async (
 };
 
 export const apiAllAssignmentScore = async (
-    token: string | null,
-    class_id: number
+  token: string | null,
+  class_id: number
 ) => {
   return await axios({
     method: 'get',
@@ -347,6 +347,17 @@ export const apiGetFile = async (
   document.body.appendChild(link);
   link.click();
   return response;
+};
+
+export const apiKakaoLogin = async (code: string) => {
+  return await axios({
+    url: url('/authentication/kakao/callback/'),
+    method: 'GET',
+    data: {
+      code: code,
+    },
+    withCredentials: true,
+  });
 };
 
 //kakaotalk social login 관련 변수

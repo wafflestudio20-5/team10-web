@@ -24,8 +24,6 @@ export default function SocialSignUpPage() {
     is_professor: false,
   });
 
-  const [pwChecking, setPwChecking] = useState<boolean>(false);
-  const [pwRepeat, setPwRepeat] = useState<string>('');
   const [firstStudent_id, setFirstStudent_id] = useState<string>('');
   const [lastStudent_id, setLastStudent_id] = useState<string>('');
   const [idOfEmail, setIdOfEmail] = useState<string>('');
@@ -261,88 +259,6 @@ export default function SocialSignUpPage() {
                   });
                 }}
               />
-            </div>
-          </div>
-          <div className={styles.wrapper}>
-            <p className={styles.title}>이메일</p>
-            <div className={styles.email}>
-              <input
-                type='text'
-                placeholder='wafflestudio'
-                className={styles.idOfEmail}
-                onChange={(event) => {
-                  setIdOfEmail(event.target.value);
-                  setUserInfo({
-                    ...userInfo,
-                    email: `${event.target.value}@${domainOfEmail}`,
-                  });
-                }}
-              />
-              <FontAwesomeIcon icon={faAt} className={styles.at} />
-              <input
-                defaultValue={domainOfEmail}
-                className={styles.domainInput}
-                onChange={(event) => {
-                  setDomainOfEmail(event.target.value);
-                  setUserInfo({
-                    ...userInfo,
-                    email: `${idOfEmail}@${event.target.value}`,
-                  });
-                }}
-              ></input>
-              <select
-                className={styles.domainOption}
-                value={domainOfEmail}
-                onChange={(event) => {
-                  setDomainOfEmail(event.target.value);
-                  setUserInfo({
-                    ...userInfo,
-                    email: `${idOfEmail}@${event.target.value}`,
-                  });
-                }}
-              >
-                <option>직접 입력</option>
-                <option value='snu.ac.kr'>snu.ac.kr</option>
-                <option value='gmail.com'>gmail.com</option>
-                <option value='naver.com'>naver.com</option>
-                <option value='yahoo.com'>yahoo.com</option>
-                <option value='daum.net'>daum.net</option>
-                <option value='narasarang.or.kr'>narasarang.or.kr</option>
-              </select>
-            </div>
-          </div>
-          <div className={styles.wrapper}>
-            <p className={styles.title}>비밀번호</p>
-            <input
-              type='password'
-              className={styles.input}
-              onChange={(event) => {
-                setUserInfo({ ...userInfo, password: event.target.value });
-              }}
-            />
-          </div>
-          <div className={styles.wrapper}>
-            <p className={styles.title}>비밀번호 확인</p>
-            <div className={styles.repeat}>
-              <input
-                type='password'
-                className={styles.input}
-                onChange={(event) => {
-                  setPwChecking(true);
-                  setPwRepeat(event.target.value);
-                }}
-              />
-              {pwChecking ? (
-                <img
-                  className={styles.alert}
-                  src={
-                    pwRepeat === userInfo.password
-                      ? 'https://cdn-icons-png.flaticon.com/512/5610/5610944.png'
-                      : 'https://cdn-icons-png.flaticon.com/512/1828/1828843.png'
-                  }
-                  alt='비밀번호 확인'
-                />
-              ) : null}
             </div>
           </div>
         </div>
