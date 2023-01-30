@@ -32,22 +32,9 @@ export default function BoardDetail() {
   };
   useEffect(() => {
     (async () => {
-      try {
-        const localRefreshToken = localStorage.getItem('refresh');
-        const resToken = await getRefreshToken(
-          localRefreshToken ? localRefreshToken : 'temp'
-        );
-        getPost(resToken.data.access, postId, category);
-      } catch (e) {
-        if (axios.isAxiosError(e)) {
-          toast(e.response?.data.message);
-          navigate('/login');
-        } else {
-          console.log(e);
-        }
-      }
+      getPost(token, postId, category);
     })();
-  }, []);
+  }, [token]);
 
   // 게시글 삭제하기
   const deletePost = (

@@ -43,26 +43,12 @@ export default function StudentsPage() {
 
   useEffect(() => {
     (async () => {
-      try {
-        const id = Number(subjectid);
-        const localRefreshToken = localStorage.getItem('refresh');
-        const resToken = await getRefreshToken(
-          localRefreshToken ? localRefreshToken : 'temp'
-        );
-
-        const res = await apiGetSubjectInfo(resToken.data.access, id);
-        setSubTitle(res.data.name);
-        getStudentsOfSubject(resToken.data.access, id, 1);
-      } catch (e) {
-        if (axios.isAxiosError(e)) {
-          toast(e.response?.data.message);
-          navigate('/login');
-        } else {
-          console.log(e);
-        }
-      }
+      const id = Number(subjectid);
+      const res = await apiGetSubjectInfo(token, id);
+      setSubTitle(res.data.name);
+      getStudentsOfSubject(token, id, 1);
     })();
-  }, [subjectid]);
+  }, [subjectid, token]);
 
   const filterStudents = () => {
     let filteredStudents = students;

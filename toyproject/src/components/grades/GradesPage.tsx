@@ -27,28 +27,12 @@ export default function GradesPage() {
 
   useEffect(() => {
     (async () => {
-      try {
-        const localRefreshToken = localStorage.getItem('refresh');
-        const resToken = await getRefreshToken(
-          localRefreshToken ? localRefreshToken : 'temp'
-        );
-        const assignRes = await apiAssignments(resToken.data.access, id); //token을 이전거를 사용하게 된다.
-        setAssignments(assignRes.data);
-        const scoreRes = await apiAssignmentTotalScore(
-          resToken.data.access,
-          id
-        );
-        setScores(scoreRes.data);
-      } catch (e) {
-        if (axios.isAxiosError(e)) {
-          toast(e.response?.data.message);
-          navigate('/login');
-        } else {
-          console.log(e);
-        }
-      }
+      const assignRes = await apiAssignments(token, id); //token을 이전거를 사용하게 된다.
+      setAssignments(assignRes.data);
+      const scoreRes = await apiAssignmentTotalScore(token, id);
+      setScores(scoreRes.data);
     })();
-  }, [subjectid]);
+  }, [subjectid, token]);
 
   return (
     <SubjectTemplate

@@ -61,12 +61,13 @@ export function SubjectProvider({ children }: { children: React.ReactNode }) {
 
   const dropClass = () => {};
 
+  //subjectTemplate에서 사용
   const getSubjectInfo = async (id: number) => {
     const localRefreshToken = localStorage.getItem('refresh');
     const resToken = await getRefreshToken(
       localRefreshToken ? localRefreshToken : 'temp'
     );
-    const res = await apiGetSubjectInfo(resToken, id);
+    const res = await apiGetSubjectInfo(resToken.data.access, id);
     return res;
   };
 

@@ -20,7 +20,7 @@ type SessionContextType = {
   logout: (token: string) => Promise<any>;
   refreshUserInfo: (token: string) => void;
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
-  getRefreshToken: (refreshToken: string) => Promise<string>;
+  getRefreshToken: (refreshToken: string) => Promise<AxiosResponse<any, any>>;
   colors: CardColor[];
   setColors: React.Dispatch<CardColor[]>;
 };
@@ -35,7 +35,6 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
   const [colors, setColors] = useState<CardColor[]>([]);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -67,8 +66,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     const res = await apiRefreshToken(refreshToken);
     setToken(res.data.access); //setToken 여기서 하나 밖에서 해주나 별 차이가 없음
     localStorage.setItem('refresh', res.data.refresh);
-    const accessToken = res.data.access;
-    return accessToken;
+    return res;
   };
 
   const login = async (email: string, password: string): Promise<any> => {

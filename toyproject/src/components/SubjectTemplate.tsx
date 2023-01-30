@@ -50,24 +50,11 @@ export default function SubjectTemplate({
   const navigate = useNavigate();
   useEffect(() => {
     (async () => {
-      try {
-        const id = Number(subject);
-        const localRefreshToken = localStorage.getItem('refresh');
-        const resToken = await getRefreshToken(
-          localRefreshToken ? localRefreshToken : 'temp'
-        );
-        const res = await apiGetSubjectInfo(resToken, id);
-        setTitle(res.data.name);
-      } catch (e) {
-        if (axios.isAxiosError(e)) {
-          toast(e.response?.data.message);
-          navigate('/login');
-        } else {
-          console.log(e);
-        }
-      }
+      const id = Number(subject);
+      const res = await apiGetSubjectInfo(token, id);
+      setTitle(res.data.name);
     })();
-  }, []);
+  }, [token]);
 
   return (
     <div className={styles.wrapper}>

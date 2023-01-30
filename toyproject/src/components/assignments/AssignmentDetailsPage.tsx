@@ -41,32 +41,16 @@ export default function AssignmentDetailsPage() {
 
   useEffect(() => {
     (async () => {
-      try {
-        const localRefreshToken = localStorage.getItem('refresh');
-        const resToken = await getRefreshToken(
-          localRefreshToken ? localRefreshToken : 'temp'
-        );
-        const res = await apiAssignment(
-          resToken.data.access,
-          parseInt(assignmentID as string)
-        );
-        const a = await apiAssignmentScore(resToken.data.access, res.data.id);
-        setUserAssignment({
-          assignment: res.data,
-          is_submitted: a.data.is_submitted,
-          is_graded: a.data.is_graded,
-          score: a.data.score,
-        });
-      } catch (e) {
-        if (axios.isAxiosError(e)) {
-          toast(e.response?.data.message);
-          navigate('/login');
-        } else {
-          console.log(e);
-        }
-      }
+      const res = await apiAssignment(token, parseInt(assignmentID as string));
+      const a = await apiAssignmentScore(token, res.data.id);
+      setUserAssignment({
+        assignment: res.data,
+        is_submitted: a.data.is_submitted,
+        is_graded: a.data.is_graded,
+        score: a.data.score,
+      });
     })();
-  }, []);
+  }, [token]);
 
   return (
     <SubjectTemplate

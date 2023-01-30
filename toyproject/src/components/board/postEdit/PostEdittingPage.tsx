@@ -34,22 +34,9 @@ export default function PostEdittingPage() {
   };
   useEffect(() => {
     (async () => {
-      try {
-        const localRefreshToken = localStorage.getItem('refresh');
-        const resToken = await getRefreshToken(
-          localRefreshToken ? localRefreshToken : 'temp'
-        );
-        getPostContent(resToken.data.access, postId, category);
-      } catch (e) {
-        if (axios.isAxiosError(e)) {
-          toast(e.response?.data.message);
-          navigate('/login');
-        } else {
-          console.log(e);
-        }
-      }
+      getPostContent(token, postId, category);
     })();
-  }, []);
+  }, [token]);
 
   // titleEditInput 상자 관리
   const handleTitleEditInput = (e: React.ChangeEvent<HTMLInputElement>) => {
