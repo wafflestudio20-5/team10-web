@@ -24,6 +24,7 @@ import DescriptionPage from './components/description/DescriptionPage';
 import EvaluationPage from './components/evaluation/pages/EvaluationPage';
 import EvaluationDetailPage from './components/evaluation/pages/EvaluationDetailPage';
 import PrivateRoute from './components/PrivateRoute';
+import SocialSignUpPage from './components/auth/SocialSignUpPage';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             {/* 인증 여부 상관 없이 접속 가능한 페이지 : 회원가입, 로그인, 소셜 로그인 */}
             <Route path='/login/new' element={<SignUpPage />} />
             <Route path='/login' element={<LoginPage />} />
+            <Route path='/login/social' element={<SocialSignUpPage />} />
             <Route
               path='/authentication/kakao/callback'
               element={<KakaoLoginPage />}

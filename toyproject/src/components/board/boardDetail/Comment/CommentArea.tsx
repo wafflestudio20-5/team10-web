@@ -28,21 +28,16 @@ export default function CommentArea({
   };
 
   // 댓글 달기
-  const postComment = (
+  const postComment = async (
     token: string | null,
     post_id: number,
     content: string
   ) => {
     const localRefresh = localStorage.getItem('refresh');
-    getRefreshToken(localRefresh ? localRefresh : 'temp')
-      .then((res) => {
-        apiPostReply(res.data.access, post_id, content);
-      })
-      .then((res) => {
-        getPost(token, postId, category);
-        setCommentInput('');
-      })
-      .catch((err) => console.log(err));
+    const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
+    await apiPostReply(res.data.access, post_id, content);
+    await getPost(res.data.access, postId, category);
+    setCommentInput('');
   };
 
   return (
