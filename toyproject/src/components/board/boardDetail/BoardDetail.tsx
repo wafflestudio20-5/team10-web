@@ -27,6 +27,7 @@ export default function BoardDetail() {
     apiGetPost(token, post_id, category)
       .then((res) => {
         setPost(res.data);
+        console.log(res);
       })
       .catch((err) => console.log(err));
   };

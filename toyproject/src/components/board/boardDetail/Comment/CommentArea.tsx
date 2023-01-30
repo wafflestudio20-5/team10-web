@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import styles from "./CommentArea.module.scss";
-import CommentBlock from "./CommentBlock";
-import { PostDetail } from "../../../../lib/types";
-import { apiPostReply } from "../../../../lib/api";
-import { useSessionContext } from "../../../../context/SessionContext";
+import React, { useState } from 'react';
+import styles from './CommentArea.module.scss';
+import CommentBlock from './CommentBlock';
+import { PostDetail } from '../../../../lib/types';
+import { apiPostReply } from '../../../../lib/api';
+import { useSessionContext } from '../../../../context/SessionContext';
 
 export type CommentAreaPropsType = {
   getPost: (token: string | null, post_id: number, category: string) => void;
@@ -18,8 +18,8 @@ export default function CommentArea({
   category,
   post,
 }: CommentAreaPropsType) {
-  const [commentInput, setCommentInput] = useState("");
-  const { token } = useSessionContext();
+  const [commentInput, setCommentInput] = useState('');
+  const { token, getRefreshToken } = useSessionContext();
 
   // 댓글 인풋 상자 관리
   const handleCommentInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,10 +33,14 @@ export default function CommentArea({
     post_id: number,
     content: string
   ) => {
-    apiPostReply(token, post_id, content)
+    const localRefresh = localStorage.getItem('refresh');
+    getRefreshToken(localRefresh ? localRefresh : 'temp')
+      .then((res) => {
+        apiPostReply(res.data.access, post_id, content);
+      })
       .then((res) => {
         getPost(token, postId, category);
-        setCommentInput("");
+        setCommentInput('');
       })
       .catch((err) => console.log(err));
   };
@@ -63,7 +67,7 @@ export default function CommentArea({
       })}
       <form>
         <input
-          placeholder={"댓글 입력"}
+          placeholder={'댓글 입력'}
           value={commentInput}
           onChange={handleCommentInput}
           className={styles.commentInput}
