@@ -31,7 +31,9 @@ const SessionContext = createContext<SessionContextType>(
 );
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem('refresh') !== null
+  );
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   // const [refreshToken, setRefreshToken] = useState<string | null>(null);
@@ -40,24 +42,25 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     (async () => {
+      if (!isLoggedIn) {
+        return;
+      }
       try {
         const localRefresh = localStorage.getItem('refresh');
         const localUserId = Number(localStorage.getItem('userId'));
         const res = await getRefreshToken(localRefresh ? localRefresh : 'temp'); //렌더링 시 refreshToken 요청
         if (res.status === 200) {
-          const resUser = await apiGetUserInfo(localUserId, res.data.access); //이 작업을 위해선 userId가 필요한데 우선 local Storage에 저장..?
+          const resUser = await apiGetUserInfo(localUserId, res.data.access); //이 작업을 위해선 userId가 필요한데 우선 local Storage에 저장
           setUser(resUser.data);
-          setIsLoggedIn(true);
         } else {
           console.log(res);
           setIsLoggedIn(false);
-          // navigate('/login');
         }
       } catch (err: any) {
         setIsLoggedIn(false);
         const errorMessage = err.response.data.code;
         toast(errorMessage);
-        // navigate('/login');
+        localStorage.removeItem('refresh');
       }
     })();
   }, []);
@@ -90,6 +93,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
           };
         })
       );
+      setIsLoggedIn(true);
       navigate('/');
     } catch (err: any) {
       const errorMessage = err.response.data.non_field_errors;
@@ -107,6 +111,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       setToken(null);
       navigate('/login/');
       localStorage.removeItem('refresh');
+      setIsLoggedIn(false);
     } catch (err) {
       return console.log(err);
     }
