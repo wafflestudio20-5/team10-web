@@ -27,6 +27,7 @@ export default function KakaoLoginPage() {
       if (userInfoRes.data.username === null) {
         navigate('/login/social');
       } else {
+        setUser(userInfoRes.data);
         navigate('/');
       }
       //refreshtoken, access token 저장하기
