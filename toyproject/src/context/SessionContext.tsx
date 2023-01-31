@@ -52,6 +52,14 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         if (res.status === 200) {
           const resUser = await apiGetUserInfo(localUserId, res.data.access); //이 작업을 위해선 userId가 필요한데 우선 local Storage에 저장
           setUser(resUser.data);
+          setColors(
+            resUser.data.classes.map((c: SubjectType): CardColor => {
+              return {
+                id: c.id,
+                color: '#97bdf5',
+              };
+            })
+          );
         } else {
           console.log(res);
           setIsLoggedIn(false);

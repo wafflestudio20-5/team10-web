@@ -15,7 +15,6 @@ export default function PrivateRoute({ authentication }: PrivateRouteProps) {
    */
 
   const { isLoggedIn } = useSessionContext();
-  console.log(isLoggedIn);
 
   if (authentication) {
     // 인증이 반드시 필요한 페이지
