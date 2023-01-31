@@ -19,6 +19,7 @@
   header {
     display: flex;
     .title {
+      font-size: 20px;
       text-align: left;
       margin: 0 auto auto 0;
       flex-grow: 1;
@@ -83,7 +84,7 @@
     button {
       background-color: white;
       padding: 5px 10px;
-      font-size: 14px;
+      font-size: 16px;
       border: 1px solid #AEADAD;
       border-radius: 3px;
       cursor: pointer;
