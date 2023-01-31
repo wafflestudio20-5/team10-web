@@ -23,9 +23,7 @@ export default function EvaluationDetailPage() {
   const handleScales = (index: number, scale: number) => {
     let temp = [...scales];
     temp[index-1] = scale;
-    console.log(index, scale);
     setScales(temp);
-    console.log("scales", scales);
   }
 
   const submit = () => {

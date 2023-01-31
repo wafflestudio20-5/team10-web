@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="290c869b-db95-469b-b2ba-81a776cd72fe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/evaluation/evalComponents/CheckList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/evaluation/evalComponents/CheckList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/toyproject/src/components/evaluation/pages/EvaluationDetailPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/evaluation/pages/EvaluationDetailPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/user/page/UserPage.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/user/page/UserPage.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/user/page/UserPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/user/page/UserPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,22 +40,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/andongha1/Desktop/WaffleStudio/team10-web",
-    "list.type.of.created.stylesheet": "SCSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Users/andongha1/team10-web/toyproject/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/andongha1/Desktop/WaffleStudio/team10-web&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/andongha1/team10-web/toyproject/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -82,6 +86,7 @@
       <workItem from="1674627900749" duration="840000" />
       <workItem from="1674641391846" duration="4146000" />
       <workItem from="1674645773007" duration="2149000" />
+      <workItem from="1675143514980" duration="1255000" />
     </task>
     <servers />
   </component>

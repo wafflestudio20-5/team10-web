@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './UserPage.module.scss';
 import contentStyles from '../userComponents/Content.module.scss'
 import { SideNavBar } from '../../sideNavbar/SideNavBar';
@@ -8,10 +8,16 @@ import PasswordForm from '../userComponents/PasswordForm';
 import { useSessionContext } from '../../../context/SessionContext';
 import {apiBye} from "../../../lib/api";
 import {useNavigate} from "react-router-dom";
+import Modal from "react-modal";
 
 export default function UserPage() {
   const { user, token } = useSessionContext();
   const nav = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  }
 
   const bye = (token: string | null, id: Number) => {
     apiBye(token, id)
@@ -40,6 +46,10 @@ export default function UserPage() {
           </div>
         </div>
       </div>
+      <Modal isOpen={isModalOpen} onRequestClose={toggleModal} className={styles.modal}>
+        TEST MODAL
+        <button onClick={toggleModal}>Close</button>
+      </Modal>
     </div>
   );
 }
