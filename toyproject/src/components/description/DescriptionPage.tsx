@@ -1,6 +1,5 @@
-import React from 'react';
-import styles from './DescriptionPage.module.scss';
-import { SideNavBar } from '../sideNavbar/SideNavBar';
+import styles from "./DescriptionPage.module.scss";
+import { SideNavBar } from "../sideNavbar/SideNavBar";
 export default function DescriptionPage() {
   return (
     <div className={styles.wrapper}>

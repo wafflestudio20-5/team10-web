@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import styles from './SubjectTemplate.module.scss';
-import { SideNavBar } from './sideNavbar/SideNavBar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { useLocation, useNavigate, Link, Navigate } from 'react-router-dom';
-import { UserBar } from './UserBar/UserBar';
-import { apiGetSubjectInfo } from '../lib/api';
-import { useSessionContext } from '../context/SessionContext';
-import { toast } from 'react-toastify';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import styles from "./SubjectTemplate.module.scss";
+import { SideNavBar } from "./sideNavbar/SideNavBar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import { UserBar } from "./UserBar/UserBar";
+import { apiGetSubjectInfo } from "../lib/api";
+import { useSessionContext } from "../context/SessionContext";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const ListElement = ({ current, name }: { current: string; name: string }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const pages = ['모듈', '게시판', '수강생', '과제', '성적'];
-  const address = ['', '/boardnav', '/students', '/assignments', '/grades'];
-  const subject = location.pathname.split('/')[1];
+  const pages = ["모듈", "게시판", "수강생", "과제", "성적"];
+  const address = ["", "/boardnav", "/students", "/assignments", "/grades"];
+  const subject = location.pathname.split("/")[1];
 
   return (
     <li
       className={current === name ? styles.current : undefined}
-      onClick={() => navigate('../' + subject + address[pages.indexOf(name)])}
+      onClick={() => navigate("../" + subject + address[pages.indexOf(name)])}
     >
       {name}
       {current === name && (
@@ -43,10 +43,10 @@ export default function SubjectTemplate({
 }) {
   const { token, getRefreshToken } = useSessionContext();
   const [toggleNav, setToggleNav] = useState<boolean>(true);
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState("");
 
-  const pages = ['모듈', '게시판', '수강생', '과제', '성적'];
-  const address = ['', '/boardnav', '/students', '/assignments', '/grades'];
+  const pages = ["모듈", "게시판", "수강생", "과제", "성적"];
+  const address = ["", "/boardnav", "/students", "/assignments", "/grades"];
   const navigate = useNavigate();
   useEffect(() => {
     (async () => {
@@ -70,7 +70,7 @@ export default function SubjectTemplate({
             <p className={styles.title}>{title}</p>
           </Link>
           <FontAwesomeIcon icon={faChevronRight} className={styles.arrow} />
-          <Link to={'../' + subject + address[pages.indexOf(page)]}>
+          <Link to={"../" + subject + address[pages.indexOf(page)]}>
             <p className={styles.title}>{page}</p>
           </Link>
           {content && (

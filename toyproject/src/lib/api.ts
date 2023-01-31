@@ -1,6 +1,6 @@
 import axios from "axios";
 // import { useCallback, useEffect, useRef, useState } from "react";
-import { Post, PostDetail, SignUpRequestBody, User } from "./types";
+import { Post, PostDetail, SignUpRequestBody } from "./types";
 
 export const url = (path: string, param?: Record<string, string>) => {
   return `http://etlclonetoyproject-env.eba-a6rqj2ev.ap-northeast-2.elasticbeanstalk.com${path}`;
@@ -134,14 +134,26 @@ export const apiGetPostList = async (
   token: string | null,
   class_id: number,
   category: string,
-  page: number
+  page: number,
+  searchValue: string
 ) => {
-  return await axios({
-    method: "get",
-    url: url(`/etl/class/${class_id}/${category}/?page=${page}`),
-    withCredentials: true,
-    headers: auth(token),
-  });
+  if (searchValue) {
+    return await axios({
+      method: "get",
+      url: url(
+        `/etl/class/${class_id}/${category}/?name=${searchValue}&page=${page}`
+      ),
+      withCredentials: true,
+      headers: auth(token),
+    });
+  } else {
+    return await axios({
+      method: "get",
+      url: url(`/etl/class/${class_id}/${category}/?page=${page}`),
+      withCredentials: true,
+      headers: auth(token),
+    });
+  }
 };
 
 // 게시글 세부 내용 가져오기

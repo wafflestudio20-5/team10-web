@@ -1,8 +1,6 @@
-import SubjectTemplate from '../SubjectTemplate';
-import styles from './ModulePage.module.scss';
-import ModuleBlock from './ModuleBlock';
-import { useParams } from 'react-router-dom';
-import { useSubjectContext } from '../../context/SubjectContext';
+import SubjectTemplate from "../SubjectTemplate";
+import ModuleBlock from "./ModuleBlock";
+import { useParams } from "react-router-dom";
 
 export default function ModulePage() {
   const { subjectid } = useParams();

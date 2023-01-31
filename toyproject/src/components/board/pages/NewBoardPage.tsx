@@ -1,4 +1,3 @@
-import React from "react";
 import PostingBoard from "../boardNew/PostingBoard";
 import SubjectTemplate from "../../SubjectTemplate";
 import { useParams, useLocation } from "react-router-dom";

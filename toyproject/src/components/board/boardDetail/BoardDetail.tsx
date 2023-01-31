@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./BoardDetail.module.scss";
 import CommentArea from "./Comment/CommentArea";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
 
 export default function BoardDetail() {
   const location = useLocation();

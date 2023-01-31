@@ -7,7 +7,6 @@ import { useSessionContext } from "../../../context/SessionContext";
 import { apiPatchPost, apiGetPost } from "../../../lib/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
 
 export default function PostEdittingPage() {
   const { subjectid } = useParams();
