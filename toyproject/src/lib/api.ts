@@ -220,6 +220,7 @@ export const apiPatchPost = async (
   category: string
 ) => {
   const modifiedCategory = category.slice(0, -1);
+<<<<<<< Updated upstream
   return await axios.patch<PostDetail>(
     url(`/etl/${modifiedCategory}/${post_id}/`),
     { title, content },
@@ -238,6 +239,11 @@ export const apiDeletePost = async (
 ) => {
   const modifiedCategory = category.slice(0, -1);
   return await axios.delete(url(`/etl/${modifiedCategory}/${post_id}/`), {
+=======
+  return await axios({
+    method: "post",
+    url: url(`/etl/${modifiedCategory}/${post_id}`),
+>>>>>>> Stashed changes
     withCredentials: true,
     headers: auth(token),
   });
