@@ -55,15 +55,6 @@ export default function SocialSignUpPage() {
           };
         })
       );
-      //  setUser(userInfoRes.data);
-      // setColors(
-      //   userInfoRes.data.classes.map((c: SubjectType): CardColor => {
-      //     return {
-      //       id: c.id,
-      //       color: '#97bdf5',
-      //     };
-      //   })
-      // ); login/social에서 해야 할 일
       nav('/');
     } catch (err: any) {
       console.log(err.response.data);
