@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./SubjectList.module.scss";
 import { useSessionContext } from "../../context/SessionContext";
 import { toast } from "react-toastify";
 import { ModalInfo } from "./page/SelectSubjectPage";
+import { useSubjectContext } from "../../context/SubjectContext";
 
 type SubjectListType = {
   classId: number;
@@ -23,7 +24,17 @@ export default function SubjectList({
 }: SubjectListType) {
   const { token, user, setUser, refreshUserInfo, getRefreshToken } =
     useSessionContext();
+  const { mySubjects } = useSubjectContext();
   const [subjectEnrolled, setSubjectEnrolled] = useState(isEnrolled);
+  useEffect(() => {
+    // (async () => {
+    // mySubjects?.includes()
+    if (mySubjects?.find((subject) => subject.id === classId)) {
+      setSubjectEnrolled(true);
+    } else {
+      setSubjectEnrolled(false);
+    }
+  }, [token, mySubjects]);
 
   return (
     <div className={styles.wrapper}>
