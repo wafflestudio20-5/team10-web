@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./BoardDetail.module.scss";
 import CommentArea from "./Comment/CommentArea";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { PostDetail } from "../../../lib/types";
+import { PostDetail, PostForPrevAndNex } from "../../../lib/types";
 import { apiGetPost, apiDeletePost } from "../../../lib/api";
 import { timestampToDateWithDash } from "../../../lib/formatting";
 import { useSessionContext } from "../../../context/SessionContext";
@@ -21,13 +21,17 @@ export default function BoardDetail() {
   const { subjectid } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState<PostDetail>();
+  const [prevPost, setPrevPost] = useState<PostForPrevAndNex>();
+  const [nextPost, setNextPost] = useState<PostForPrevAndNex>();
 
   // 게시글 세부사항 불러오기
   const getPost = (token: string | null, post_id: number, category: string) => {
     apiGetPost(token, post_id, category)
       .then((res) => {
-        setPost(res.data.post_info);
         console.log(res.data);
+        setPost(res.data.post_info);
+        setPrevPost(res.data.prev_post);
+        setNextPost(res.data.next_post);
       })
       .catch((err) => console.log(err));
   };
@@ -36,7 +40,7 @@ export default function BoardDetail() {
     (async () => {
       getPost(token, postId, category);
     })();
-  }, [token]);
+  }, [token, postId]);
 
   // 게시글 삭제하기
   const deletePost = async (
@@ -107,10 +111,38 @@ export default function BoardDetail() {
             </button>
           </div>
         )}
-        <div className={styles.previousContainer}>
-          <div className={styles.previousTitle}>이전글</div>
-          <div className={styles.previous}>어쩌구 저쩌구</div>
-        </div>
+        {prevPost?.title !== "" && (
+          <div
+            className={styles.previousContainer}
+            onClick={() =>
+              navigate(`/${subjectid}/${category}/${prevPost?.id}`)
+            }
+          >
+            <div className={styles.previous}>이전글</div>
+            <div className={styles.previousTitle}>
+              <span className={styles.literalTitle}>{prevPost?.title}</span>
+              <span
+                className={styles.commentCount}
+              >{`(${prevPost?.comment_count})`}</span>
+            </div>
+          </div>
+        )}
+        {nextPost?.title !== "" && (
+          <div
+            className={styles.previousContainer}
+            onClick={() =>
+              navigate(`/${subjectid}/${category}/${nextPost?.id}`)
+            }
+          >
+            <div className={styles.previous}>다음글</div>
+            <div className={styles.previousTitle}>
+              <span className={styles.literalTitle}>{nextPost?.title}</span>
+              <span
+                className={styles.commentCount}
+              >{`(${nextPost?.comment_count})`}</span>
+            </div>
+          </div>
+        )}
       </section>
       <CommentArea
         getPost={getPost}

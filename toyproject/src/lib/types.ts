@@ -71,6 +71,14 @@ export type PostDetail = Post & {
   comment: Comment[];
 };
 
+export type PostForPrevAndNex = {
+  id: number;
+  title: string;
+  created_by: StudentsOfSubject;
+  created_at: string;
+  comment_count: number;
+};
+
 export interface AssignmentInterface {
   id: number;
   lecture: number;

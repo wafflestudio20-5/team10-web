@@ -90,13 +90,13 @@ export default function PostingBoard() {
               value={titleInput}
               onChange={handleTitleInput}
               className={styles.titleInput}
-            ></input>
+            />
             <textarea
               placeholder='내용 입력'
               value={contentInput}
               onChange={handleContentInput}
               className={styles.contentInput}
-            ></textarea>
+            />
           </div>
         </section>
       </form>
