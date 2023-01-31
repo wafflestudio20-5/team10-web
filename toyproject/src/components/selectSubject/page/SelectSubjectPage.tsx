@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import styles from './SelectSubjectPage.module.scss';
-import { SideNavBar } from '../../sideNavbar/SideNavBar';
-import SubjectList from '../SubjectList';
-import { UserBar } from '../../UserBar/UserBar';
-import axios from 'axios';
-import { url } from 'inspector';
-import {apiDropClass, apiEnrollClass, apiGetSubjects} from '../../../lib/api';
-import { useSessionContext } from '../../../context/SessionContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { useSubjectContext } from '../../../context/SubjectContext';
-import { SubjectType } from '../../../lib/types';
-import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import styles from "./SelectSubjectPage.module.scss";
+import { SideNavBar } from "../../sideNavbar/SideNavBar";
+import SubjectList from "../SubjectList";
+import { UserBar } from "../../UserBar/UserBar";
+import { url } from "inspector";
+import { apiDropClass, apiEnrollClass, apiGetSubjects } from "../../../lib/api";
+import { useSessionContext } from "../../../context/SessionContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { useSubjectContext } from "../../../context/SubjectContext";
+import { SubjectType } from "../../../lib/types";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 
 const isEnrolled = (
@@ -30,10 +29,10 @@ export type ModalInfo = {
   classId: number;
   name: string;
   type: "enroll" | "drop";
-}
+};
 
 export default function SelectSubjectPage() {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [subjects, setSubjects] = useState<SubjectType[]>();
   const [totalNum, setTotalNum] = useState<number>(0);
   const [activeButton, setActiveButton] = useState({ activate: 0 });
@@ -42,11 +41,11 @@ export default function SelectSubjectPage() {
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
-  }
+  };
 
   const handleModal = (info: ModalInfo) => {
     setModalInfo(info);
-  }
+  };
 
   const { token, refreshUserInfo, getRefreshToken } = useSessionContext();
   const { mySubjects, previousApi, nextApi } = useSubjectContext();
@@ -56,11 +55,11 @@ export default function SelectSubjectPage() {
   const navigate = useNavigate();
 
   const enroll = async (token: string | null, classId: number) => {
-    const localRefresh = localStorage.getItem('refresh');
-    const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
+    const localRefresh = localStorage.getItem("refresh");
+    const res = await getRefreshToken(localRefresh ? localRefresh : "temp");
     await apiEnrollClass(res.data.access, classId);
     await apiEnrollClass(res.data.access, classId);
-    toast('신청되었습니다!');
+    toast("신청되었습니다!");
     await refreshUserInfo(res.data.access!);
     // .then((r) => {
     //     toast('신청되었습니다!');
@@ -75,14 +74,14 @@ export default function SelectSubjectPage() {
 
   const drop = (token: string | null, classId: number) => {
     apiDropClass(token, classId)
-        .then((r) => {
-          toast('드랍되었습니다!');
-          // setUser({...user, classes: r.data.classes})
-        })
-        .then((r) => {
-          refreshUserInfo(token!); //!를 삽입함으로서 token이 항상 존재한다는 걸 알릴 수 있다.
-        })
-        .catch((r) => console.log(r));
+      .then((r) => {
+        toast("드랍되었습니다!");
+        // setUser({...user, classes: r.data.classes})
+      })
+      .then((r) => {
+        refreshUserInfo(token!); //!를 삽입함으로서 token이 항상 존재한다는 걸 알릴 수 있다.
+      })
+      .catch((r) => console.log(r));
   };
 
   useEffect(() => {
@@ -149,11 +148,11 @@ export default function SelectSubjectPage() {
                   ></SubjectList>
                 );
               })}
-            <div className={styles['button-container']}>
+            <div className={styles["button-container"]}>
               {Array.from({ length: buttonCount }).map((_, idx) => (
                 <button
-                  className={`${styles['nav-button']} ${
-                    activeButton.activate === idx ? styles['active'] : ''
+                  className={`${styles["nav-button"]} ${
+                    activeButton.activate === idx ? styles["active"] : ""
                   }`}
                   key={idx}
                   onClick={(event) => goToPage(event, idx + 1, idx)}
@@ -165,16 +164,36 @@ export default function SelectSubjectPage() {
           </article>
         </section>
       </div>
-      <Modal isOpen={isModalOpen} onRequestClose={toggleModal} className={styles.modal}>
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={toggleModal}
+        className={styles.modal}
+      >
         <article>
-          <div><b>{modalInfo?.name}</b><br/>과목을 {modalInfo?.type === "enroll" ? "수강 신청" : "수강 취소"} 하시겠습니까?</div>
+          <div>
+            <b>{modalInfo?.name}</b>
+            <br />
+            과목을 {modalInfo?.type === "enroll"
+              ? "수강 신청"
+              : "수강 취소"}{" "}
+            하시겠습니까?
+          </div>
         </article>
         <footer>
-          <button className={styles.cancel} onClick={toggleModal}>취소</button>
-          <button className={styles.ok} onClick={() => {
-            modalInfo?.type === "enroll" ? enroll(token, modalInfo?.classId) : drop(token, modalInfo?.classId ? modalInfo.classId : -1);
-            toggleModal()
-          }}>확인</button>
+          <button className={styles.cancel} onClick={toggleModal}>
+            취소
+          </button>
+          <button
+            className={styles.ok}
+            onClick={() => {
+              modalInfo?.type === "enroll"
+                ? enroll(token, modalInfo?.classId)
+                : drop(token, modalInfo?.classId ? modalInfo.classId : -1);
+              toggleModal();
+            }}
+          >
+            확인
+          </button>
         </footer>
       </Modal>
       <ToastContainer />

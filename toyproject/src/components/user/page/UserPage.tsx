@@ -19,13 +19,13 @@ export default function UserPage() {
   const toggleModal = () => {
     setImageFile(null);
     setIsModalOpen(!isModalOpen);
-  }
+  };
 
   const bye = (token: string | null, id: Number) => {
     apiBye(token, id)
-        .then(() => nav('/login'))
-        .catch((r) => console.log(r))
-  }
+      .then(() => nav("/login"))
+      .catch((r) => console.log(r));
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -35,16 +35,21 @@ export default function UserPage() {
         <div className={styles.body}>
           <Profile toggleModal={toggleModal}></Profile>
           <div className={styles.title}>개인정보</div>
-          <Content title={'전체이름:'} content={`${user?.username}`} />
-          <Content title={'이메일 주소'} content={`${user?.email}`} />
-          <Content title={'학번'} content={`${user?.student_id}`} />
+          <Content title={"전체이름:"} content={`${user?.username}`} />
+          <Content title={"이메일 주소"} content={`${user?.email}`} />
+          <Content title={"학번"} content={`${user?.student_id}`} />
           {/*return에 userpassword가 없어 다음과 같이 ui 로 보여지게 함*/}
-          <PasswordForm title={'비밀번호'} content={'********'} />{' '}
+          <PasswordForm title={"비밀번호"} content={"********"} />{" "}
           <div className={contentStyles.wrapper}>
             <div className={contentStyles.content}>자퇴 신청</div>
-            <button className={styles.button} onClick={() => {
-              user && bye(token, user.id)
-            }}>자퇴</button>
+            <button
+              className={styles.button}
+              onClick={() => {
+                user && bye(token, user.id);
+              }}
+            >
+              자퇴
+            </button>
           </div>
         </div>
       </div>

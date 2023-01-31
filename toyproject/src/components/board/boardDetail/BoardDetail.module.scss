@@ -109,13 +109,11 @@
       margin-bottom: 20px;
       height: 50px;
       border: 1px solid rgb(204, 204, 204);
-      .previousTitle {
+      .previous {
         display: flex;
         padding: 0 20px;
         width: 90px;
         align-items: center;
-        font-family: Pretendard;
-        font-style: normal;
         font-size: 14px;
         line-height: 17px;
         font-weight: 700;
@@ -123,15 +121,25 @@
         border-radius: 5px 0px 0px 5px;
         border-right: 1px solid rgb(204, 204, 204);
       }
-      .previous {
+      .previousTitle {
         display: flex;
         align-items: center;
-        font-family: Pretendard;
-        font-style: normal;
         font-weight: 400;
         font-size: 14px;
         line-height: 17px;
         padding: 17px 20px;
+        &:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+        .literalTitle {
+          text-align: left;
+          text-decoration: none;
+        }
+        .commentCount {
+          color: #167ef4;
+          padding-left: 3px;
+        }
       }
     }
   }
