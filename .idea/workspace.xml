@@ -6,12 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="290c869b-db95-469b-b2ba-81a776cd72fe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/evaluation/pages/EvaluationDetailPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/evaluation/pages/EvaluationDetailPage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/toyproject/src/components/user/page/UserPage.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/user/page/UserPage.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/toyproject/src/components/user/page/UserPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/user/page/UserPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/user/userComponents/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/user/userComponents/Profile.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +30,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2JGeD450EwZIygDk2MBkF4fPNnL" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -86,7 +86,7 @@
       <workItem from="1674627900749" duration="840000" />
       <workItem from="1674641391846" duration="4146000" />
       <workItem from="1674645773007" duration="2149000" />
-      <workItem from="1675143514980" duration="1255000" />
+      <workItem from="1675143514980" duration="3644000" />
     </task>
     <servers />
   </component>

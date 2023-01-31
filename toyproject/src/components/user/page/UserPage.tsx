@@ -9,11 +9,13 @@ import { useSessionContext } from '../../../context/SessionContext';
 import {apiBye} from "../../../lib/api";
 import {useNavigate} from "react-router-dom";
 import Modal from "react-modal";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faXmark, faImage} from "@fortawesome/free-solid-svg-icons";
 
 export default function UserPage() {
   const { user, token } = useSessionContext();
   const nav = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -31,7 +33,7 @@ export default function UserPage() {
       <div className={styles.right}>
         <div className={styles.header}>{user?.username}의 계정</div>
         <div className={styles.body}>
-          <Profile></Profile>
+          <Profile toggleModal={toggleModal}></Profile>
           <div className={styles.title}>개인정보</div>
           <Content title={'전체이름:'} content={`${user?.username}`} />
           <Content title={'이메일 주소'} content={`${user?.email}`} />
@@ -47,8 +49,19 @@ export default function UserPage() {
         </div>
       </div>
       <Modal isOpen={isModalOpen} onRequestClose={toggleModal} className={styles.modal}>
-        TEST MODAL
-        <button onClick={toggleModal}>Close</button>
+        <header>
+          <p className={styles.title}>프로필 사진 변경</p>
+          <FontAwesomeIcon icon={faXmark} className={styles.x} onClick={toggleModal}/>
+        </header>
+        <article>
+          <FontAwesomeIcon icon={faImage} className={styles.image}/>
+          <p>여기에 파일 끌어서 놓기<br/>혹은</p>
+          <button>파일 선택</button>
+        </article>
+        <footer>
+          <button className={styles.cancel} onClick={toggleModal}>취소</button>
+          <button className={styles.save}>저장</button>
+        </footer>
       </Modal>
     </div>
   );
