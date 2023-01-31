@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import styles from './PostingBoard.module.scss';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import { useSessionContext } from '../../../context/SessionContext';
-import { apiPostNewPost } from '../../../lib/api';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useState } from "react";
+import styles from "./PostingBoard.module.scss";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useSessionContext } from "../../../context/SessionContext";
+import { apiPostNewPost } from "../../../lib/api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function PostingBoard() {
   const { subjectid } = useParams();
   const { token, getRefreshToken } = useSessionContext();
   const location = useLocation();
-  const category = location.pathname.split('/')[2];
-  const [titleInput, setTitleInput] = useState('');
-  const [contentInput, setContentInput] = useState('');
+  const category = location.pathname.split("/")[2];
+  const [titleInput, setTitleInput] = useState("");
+  const [contentInput, setContentInput] = useState("");
   const navigate = useNavigate();
 
   // titleInput 상자 관리
@@ -22,7 +22,7 @@ export default function PostingBoard() {
   };
 
   // contentInput 상자 관리
-  const handleContentInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleContentInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     setContentInput(e.target.value);
   };
@@ -35,16 +35,16 @@ export default function PostingBoard() {
     content: string,
     category: string
   ) => {
-    const localRefresh = localStorage.getItem('refresh');
-    const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
+    const localRefresh = localStorage.getItem("refresh");
+    const res = await getRefreshToken(localRefresh ? localRefresh : "temp");
     await apiPostNewPost(res.data.access, class_id, title, content, category);
-    toast('게시글을 성공적으로 등록했습니다.', {
-      position: 'top-center',
-      theme: 'colored',
+    toast("게시글을 성공적으로 등록했습니다.", {
+      position: "top-center",
+      theme: "colored",
       autoClose: 1000,
     });
-    setTitleInput('');
-    setContentInput('');
+    setTitleInput("");
+    setContentInput("");
     navigate(-1);
   };
 
@@ -91,12 +91,12 @@ export default function PostingBoard() {
               onChange={handleTitleInput}
               className={styles.titleInput}
             ></input>
-            <input
+            <textarea
               placeholder='내용 입력'
               value={contentInput}
               onChange={handleContentInput}
               className={styles.contentInput}
-            ></input>
+            ></textarea>
           </div>
         </section>
       </form>
