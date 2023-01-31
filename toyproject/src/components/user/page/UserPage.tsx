@@ -1,23 +1,23 @@
-import { useState } from "react";
-import styles from "./UserPage.module.scss";
-import contentStyles from "../userComponents/Content.module.scss";
-import { SideNavBar } from "../../sideNavbar/SideNavBar";
-import Content from "../userComponents/Content";
-import Profile from "../userComponents/Profile";
-import PasswordForm from "../userComponents/PasswordForm";
-import { useSessionContext } from "../../../context/SessionContext";
-import { apiBye } from "../../../lib/api";
-import { useNavigate } from "react-router-dom";
-import Modal from "react-modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faImage } from "@fortawesome/free-solid-svg-icons";
+import React, {useState} from 'react';
+import styles from './UserPage.module.scss';
+import contentStyles from '../userComponents/Content.module.scss'
+import { SideNavBar } from '../../sideNavbar/SideNavBar';
+import Content from '../userComponents/Content';
+import Profile from '../userComponents/Profile';
+import PasswordForm from '../userComponents/PasswordForm';
+import { useSessionContext } from '../../../context/SessionContext';
+import {apiBye} from "../../../lib/api";
+import {useNavigate} from "react-router-dom";
+import {ImageModal} from "../userComponents/ImageModal";
 
 export default function UserPage() {
   const { user, token } = useSessionContext();
   const nav = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const toggleModal = () => {
+    setImageFile(null);
     setIsModalOpen(!isModalOpen);
   };
 
@@ -53,35 +53,12 @@ export default function UserPage() {
           </div>
         </div>
       </div>
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={toggleModal}
-        className={styles.modal}
-      >
-        <header>
-          <p className={styles.title}>프로필 사진 변경</p>
-          <FontAwesomeIcon
-            icon={faXmark}
-            className={styles.x}
-            onClick={toggleModal}
-          />
-        </header>
-        <article>
-          <FontAwesomeIcon icon={faImage} className={styles.image} />
-          <p>
-            여기에 파일 끌어서 놓기
-            <br />
-            혹은
-          </p>
-          <button>파일 선택</button>
-        </article>
-        <footer>
-          <button className={styles.cancel} onClick={toggleModal}>
-            취소
-          </button>
-          <button className={styles.save}>저장</button>
-        </footer>
-      </Modal>
+      <ImageModal
+          isModalOpen={isModalOpen}
+          toggleModal={toggleModal}
+          imageFile={imageFile}
+          setImageFile={setImageFile}
+      />
     </div>
   );
 }
