@@ -61,6 +61,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         const errorMessage = err.response.data.code;
         toast(errorMessage);
         localStorage.removeItem('refresh');
+        navigate('/login');
       }
     })();
   }, []);
@@ -77,7 +78,6 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     try {
       const loginRes = await apiLogin(email, password);
       setToken(loginRes.data.token.access_token);
-      // setRefreshToken(loginRes.data.token.refresh_token);
       localStorage.setItem('refresh', loginRes.data.token.refresh_token); //우선 로컬storage에 refresh 저장해둠
       localStorage.setItem('userId', loginRes.data.token.user_id);
       const userInfoRes = await apiGetUserInfo(
@@ -106,7 +106,11 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async (token: string) => {
     try {
-      const res = await apiLogout(token);
+      const localRefresh = localStorage.getItem('refresh');
+      const resToken = await getRefreshToken(
+        localRefresh ? localRefresh : 'temp'
+      );
+      const res = await apiLogout(resToken.data.access);
       setUser(null);
       setToken(null);
       navigate('/login/');
