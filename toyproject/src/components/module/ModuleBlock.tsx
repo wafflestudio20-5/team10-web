@@ -120,25 +120,12 @@ export default function ModuleBlock() {
 
   useEffect(() => {
     (async () => {
-      try {
-        const localRefreshToken = localStorage.getItem('refresh');
-        const resToken = await getRefreshToken(
-          localRefreshToken ? localRefreshToken : 'temp'
-        );
-        const id = Number(subjectid);
-        const res = await getModules(resToken.data.access, id);
-        setModules(res.data[0].weekly);
-        setOpenedToggles(Array(res.data[0].weekly.length).fill(true));
-      } catch (e) {
-        if (axios.isAxiosError(e)) {
-          toast(e.response?.data.message);
-          navigate('/login');
-        } else {
-          console.log(e);
-        }
-      }
+      const id = Number(subjectid);
+      const res = await getModules(token, id);
+      setModules(res.data[0].weekly);
+      setOpenedToggles(Array(res.data[0].weekly.length).fill(true));
     })();
-  }, [subjectid]);
+  }, [subjectid, token]);
 
   return (
     <div className={styles.wrapper}>

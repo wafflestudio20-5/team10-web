@@ -27,44 +27,32 @@ export default function BoardDetail() {
     apiGetPost(token, post_id, category)
       .then((res) => {
         setPost(res.data);
+        console.log(res.data);
       })
       .catch((err) => console.log(err));
   };
+
   useEffect(() => {
     (async () => {
-      try {
-        const localRefreshToken = localStorage.getItem('refresh');
-        const resToken = await getRefreshToken(
-          localRefreshToken ? localRefreshToken : 'temp'
-        );
-        getPost(resToken.data.access, postId, category);
-      } catch (e) {
-        if (axios.isAxiosError(e)) {
-          toast(e.response?.data.message);
-          navigate('/login');
-        } else {
-          console.log(e);
-        }
-      }
+      getPost(token, postId, category);
     })();
-  }, []);
+  }, [token]);
 
   // 게시글 삭제하기
-  const deletePost = (
+  const deletePost = async (
     token: string | null,
     post_id: number | undefined,
     category: string
   ) => {
-    apiDeletePost(token, post_id, category)
-      .then((res) => {
-        toast('게시글을 성공적으로 삭제했습니다.', {
-          position: 'top-center',
-          theme: 'colored',
-          autoClose: 1000,
-        });
-        navigate(-1);
-      })
-      .catch((err) => console.log(err));
+    const localRefresh = localStorage.getItem('refresh');
+    const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
+    await apiDeletePost(res.data.access, post_id, category);
+    toast('게시글을 성공적으로 삭제했습니다.', {
+      position: 'top-center',
+      theme: 'colored',
+      autoClose: 1000,
+    });
+    navigate(-1);
   };
 
   return (
@@ -110,9 +98,9 @@ export default function BoardDetail() {
               수정
             </button>
             <button
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.preventDefault();
-                deletePost(token, post?.id, category);
+                await deletePost(token, post?.id, category);
               }}
             >
               삭제

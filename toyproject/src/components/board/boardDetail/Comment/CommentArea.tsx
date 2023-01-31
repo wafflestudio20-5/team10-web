@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import styles from "./CommentArea.module.scss";
-import CommentBlock from "./CommentBlock";
-import { PostDetail } from "../../../../lib/types";
-import { apiPostReply } from "../../../../lib/api";
-import { useSessionContext } from "../../../../context/SessionContext";
+import React, { useState } from 'react';
+import styles from './CommentArea.module.scss';
+import CommentBlock from './CommentBlock';
+import { PostDetail } from '../../../../lib/types';
+import { apiPostReply } from '../../../../lib/api';
+import { useSessionContext } from '../../../../context/SessionContext';
 
 export type CommentAreaPropsType = {
   getPost: (token: string | null, post_id: number, category: string) => void;
@@ -18,8 +18,8 @@ export default function CommentArea({
   category,
   post,
 }: CommentAreaPropsType) {
-  const [commentInput, setCommentInput] = useState("");
-  const { token } = useSessionContext();
+  const [commentInput, setCommentInput] = useState('');
+  const { token, getRefreshToken } = useSessionContext();
 
   // 댓글 인풋 상자 관리
   const handleCommentInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,17 +28,16 @@ export default function CommentArea({
   };
 
   // 댓글 달기
-  const postComment = (
+  const postComment = async (
     token: string | null,
     post_id: number,
     content: string
   ) => {
-    apiPostReply(token, post_id, content)
-      .then((res) => {
-        getPost(token, postId, category);
-        setCommentInput("");
-      })
-      .catch((err) => console.log(err));
+    const localRefresh = localStorage.getItem('refresh');
+    const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
+    await apiPostReply(res.data.access, post_id, content);
+    await getPost(res.data.access, postId, category);
+    setCommentInput('');
   };
 
   return (
@@ -63,7 +62,7 @@ export default function CommentArea({
       })}
       <form>
         <input
-          placeholder={"댓글 입력"}
+          placeholder={'댓글 입력'}
           value={commentInput}
           onChange={handleCommentInput}
           className={styles.commentInput}
@@ -72,9 +71,9 @@ export default function CommentArea({
           type='submit'
           className={styles.commentButton}
           value='댓글 등록'
-          onClick={(e) => {
+          onClick={async (e) => {
             e.preventDefault();
-            postComment(token, postId, commentInput);
+            await postComment(token, postId, commentInput);
           }}
         />
       </form>

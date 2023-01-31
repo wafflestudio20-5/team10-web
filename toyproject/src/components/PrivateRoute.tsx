@@ -1,6 +1,6 @@
-import { ReactElement } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { useSessionContext } from "../context/SessionContext";
+import { ReactElement, useEffect } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useSessionContext } from '../context/SessionContext';
 
 interface PrivateRouteProps {
   children?: ReactElement; // Router.tsx에서 PrivateRoute가 감싸고 있는 Component Element
@@ -13,6 +13,7 @@ export default function PrivateRoute({ authentication }: PrivateRouteProps) {
    * 로그인 했을 경우 : true 반환
    * 로그인 안했을 경우 : null or false(로그아웃 버튼 눌렀을경우 false로 설정) 반환
    */
+
   const { isLoggedIn } = useSessionContext();
 
   if (authentication) {

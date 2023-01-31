@@ -2,30 +2,39 @@ import React, { useEffect } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
 import styles from './KakaoLoginPage.module.scss';
 import axios from 'axios';
-import { url } from '../../lib/api';
+import { apiGetUserInfo, apiKakaoLogin, url } from '../../lib/api';
+import { useNavigate } from 'react-router-dom';
+import { useSessionContext } from '../../context/SessionContext';
+import { CardColor, SubjectType } from '../../lib/types';
 
 export default function KakaoLoginPage() {
-  let code = new URL(window.location.href).searchParams.get('code');
+  const { setToken, setUser, setColors, setIsLoggedIn } = useSessionContext();
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const res = await axios({
-  //         method: 'get',
-  //         url: url(`/authentication/kakao/login/`),
-  //         data: {
-  //           grant_type: 'authorization_code',
-  //           client_id: '52dd93ef1080aec2f79528f6aa8a9d68',
-  //           redirection_uri:
-  //             'http://localhost:3000/authentication/kakao/callback/',
-  //           code: code,
-  //         },
-  //         withCredentials: true,
-  //       });
-  //       console.log(res);
-  //     } catch {}
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      let code = new URL(window.location.href).searchParams.get('code');
+      const res = await apiKakaoLogin(code);
+      setToken(res.data.access_token);
+      localStorage.setItem('refresh', res.data.refresh_token); //우선 로컬storage에 refresh 저장해둠
+      localStorage.setItem('userId', res.data.user);
+      const userInfoRes = await apiGetUserInfo(
+        res.data.user,
+        res.data.access_token
+      );
+      console.log(userInfoRes);
+
+      if (userInfoRes.data.username === null) {
+        navigate('/login/social');
+      } else {
+        setIsLoggedIn(true);
+        setUser(userInfoRes.data);
+        navigate('/');
+      }
+      //refreshtoken, access token 저장하기
+      console.log(res);
+    })();
+  }, []);
 
   return (
     <div className={styles.wrapper}>

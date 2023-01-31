@@ -1,160 +1,107 @@
 import React, { useState } from 'react';
 import styles from './SocialSignUpPage.module.scss';
-import { useNavigate } from 'react-router';
+import { Navigate, useNavigate } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
-import { apiSignUp } from '../../lib/api';
+import { apiGetUserInfo, apiPatchUserInfo } from '../../lib/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAt, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faMinus } from '@fortawesome/free-solid-svg-icons';
 import loginHeader from '../../resources/loginHeader.png';
 import headerStyles from './LoginPage.module.scss';
-import { SignUpRequestBody } from '../../lib/types';
+import {
+  CardColor,
+  SocialSignUpRequestBody,
+  SubjectType,
+} from '../../lib/types';
+import { useSessionContext } from '../../context/SessionContext';
 
 export default function SocialSignUpPage() {
   //소셜로그인 완료시 => userid, access, refreshtoken 발급
   //userid, accesstoken으로 user정보 받아올 수 있고 그걸 여기 띄운다
-  //그 외 받아오지 못한 정보를 추가로 입력 후 dashboard로 navigate
+  //그 외 받아오지 못한 정보를 추가로 입력 후 dashboard로 navigate\
+  const { getRefreshToken, setUser, setColors, setIsLoggedIn } =
+    useSessionContext();
 
-  //sign up page에서 이름, 학번만 있으면 될 것 같은데
-  const [currentStage, setCurrentStage] = useState<number>(0);
-  const [userInfo, setUserInfo] = useState<SignUpRequestBody>({
-    email: '',
-    password: '',
+  const [userInfo, setUserInfo] = useState<SocialSignUpRequestBody>({
     username: '',
     student_id: '',
     is_professor: false,
   });
 
-  const [pwChecking, setPwChecking] = useState<boolean>(false);
-  const [pwRepeat, setPwRepeat] = useState<string>('');
   const [firstStudent_id, setFirstStudent_id] = useState<string>('');
   const [lastStudent_id, setLastStudent_id] = useState<string>('');
-  const [idOfEmail, setIdOfEmail] = useState<string>('');
-  const [domainOfEmail, setDomainOfEmail] = useState<string>('');
   const nav = useNavigate();
 
-  const signUp = (userinfo: SignUpRequestBody) =>
-    apiSignUp(
-      userinfo.email,
-      userinfo.password,
-      userinfo.username,
-      userinfo.student_id,
-      userinfo.is_professor
-    )
-      .then((res) => {
-        setCurrentStage(currentStage + 1);
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-        if (Object.keys(err.response.data).includes('password')) {
-          if (
-            err.response.data.password?.includes(
-              'This password is too short. It must contain at least 8 characters.'
-            )
-          ) {
-            toast('비밀번호는 최소 8글자 이상으로 입력해주세요.', {
-              position: 'top-center',
-              theme: 'colored',
-            });
-          }
-          if (
-            err.response.data.password?.includes('This password is too common.')
-          ) {
-            toast('비밀번호는 너무 흔하지 않은 조합으로 입력해주세요.', {
-              position: 'top-center',
-              theme: 'colored',
-            });
-          }
-          if (
-            err.response.data.password?.includes(
-              'This password is entirely numeric.'
-            )
-          ) {
-            toast('숫자로만 구성된 비밀번호는 사용할 수 없습니다.', {
-              position: 'top-center',
-              theme: 'colored',
-            });
-          }
-          if (
-            err.response.data.password?.includes('This field may not be blank.')
-          ) {
-            toast('비밀번호는 반드시 입력해야 합니다.', {
-              position: 'top-center',
-              theme: 'colored',
-            });
-          }
+  const signUp = async (userinfo: SocialSignUpRequestBody) => {
+    try {
+      const localRefresh = localStorage.getItem('refresh');
+      const localUserId = localStorage.getItem('userId');
+      const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
+      const patchRes = await apiPatchUserInfo(
+        localUserId,
+        res.data.access,
+        userinfo.username,
+        userinfo.student_id,
+        userinfo.is_professor
+      );
+      const userInfoRes = await apiGetUserInfo(
+        Number(localUserId),
+        res.data.access
+      );
+      setUser(userInfoRes.data);
+      setColors(
+        userInfoRes.data.classes.map((c: SubjectType): CardColor => {
+          return {
+            id: c.id,
+            color: '#97bdf5',
+          };
+        })
+      );
+      setIsLoggedIn(true);
+      nav('/');
+    } catch (err: any) {
+      console.log(err.response.data);
+      if (Object.keys(err.response.data).includes('student_id')) {
+        if (
+          err.response.data.student_id?.includes('This field may not be blank.')
+        ) {
+          toast('학번은 반드시 입력해야 합니다.', {
+            position: 'top-center',
+            theme: 'colored',
+          });
         }
-        if (Object.keys(err.response.data).includes('student_id')) {
-          if (
-            err.response.data.student_id?.includes(
-              'This field may not be blank.'
-            )
-          ) {
-            toast('학번은 반드시 입력해야 합니다.', {
-              position: 'top-center',
-              theme: 'colored',
-            });
-          }
-          if (
-            err.response.data.student_id?.includes(
-              'student_id should be 10 length' ||
-                'student_id form should be XXXX-XXXXX'
-            )
-          ) {
-            toast('학번은 XXXX-XXXXX 형식의 숫자열로 입력해주세요.', {
-              position: 'top-center',
-              theme: 'colored',
-            });
-          }
-          if (
-            err.response.data.student_id?.includes(
-              'already existing student_id'
-            )
-          ) {
-            toast('이미 존재하는 학번입니다.', {
-              position: 'top-center',
-              theme: 'colored',
-            });
-          }
+        if (
+          err.response.data.student_id?.includes(
+            'student_id should be 10 length' ||
+              'student_id form should be XXXX-XXXXX'
+          )
+        ) {
+          toast('학번은 XXXX-XXXXX 형식의 숫자열로 입력해주세요.', {
+            position: 'top-center',
+            theme: 'colored',
+          });
         }
-        if (Object.keys(err.response.data).includes('email')) {
-          if (
-            err.response.data.email?.includes('This field may not be blank.')
-          ) {
-            toast('이메일은 반드시 입력해야 합니다.', {
-              position: 'top-center',
-              theme: 'colored',
-            });
-          }
-          if (
-            err.response.data.email?.includes('Enter a valid email address.')
-          ) {
-            toast('유효한 이메일 주소를 입력해주세요.', {
-              position: 'top-center',
-              theme: 'colored',
-            });
-          }
-          if (
-            err.response.data.email?.includes(
-              'user with this email already exists.'
-            )
-          ) {
-            toast('이미 존재하는 이메일입니다.', {
-              position: 'top-center',
-              theme: 'colored',
-            });
-          }
+        if (
+          err.response.data.student_id?.includes('already existing student_id')
+        ) {
+          toast('이미 존재하는 학번입니다.', {
+            position: 'top-center',
+            theme: 'colored',
+          });
         }
-        if (Object.keys(err.response.data).includes('username')) {
-          if (
-            err.response.data.username?.includes('This field may not be blank.')
-          ) {
-            toast('이름은 반드시 입력해야 합니다.', {
-              position: 'top-center',
-              theme: 'colored',
-            });
-          }
+      }
+
+      if (Object.keys(err.response.data).includes('username')) {
+        if (
+          err.response.data.username?.includes('This field may not be blank.')
+        ) {
+          toast('이름은 반드시 입력해야 합니다.', {
+            position: 'top-center',
+            theme: 'colored',
+          });
         }
-      });
+      }
+    }
+  };
 
   return (
     <div className={styles.signup}>
@@ -263,93 +210,13 @@ export default function SocialSignUpPage() {
               />
             </div>
           </div>
-          <div className={styles.wrapper}>
-            <p className={styles.title}>이메일</p>
-            <div className={styles.email}>
-              <input
-                type='text'
-                placeholder='wafflestudio'
-                className={styles.idOfEmail}
-                onChange={(event) => {
-                  setIdOfEmail(event.target.value);
-                  setUserInfo({
-                    ...userInfo,
-                    email: `${event.target.value}@${domainOfEmail}`,
-                  });
-                }}
-              />
-              <FontAwesomeIcon icon={faAt} className={styles.at} />
-              <input
-                defaultValue={domainOfEmail}
-                className={styles.domainInput}
-                onChange={(event) => {
-                  setDomainOfEmail(event.target.value);
-                  setUserInfo({
-                    ...userInfo,
-                    email: `${idOfEmail}@${event.target.value}`,
-                  });
-                }}
-              ></input>
-              <select
-                className={styles.domainOption}
-                value={domainOfEmail}
-                onChange={(event) => {
-                  setDomainOfEmail(event.target.value);
-                  setUserInfo({
-                    ...userInfo,
-                    email: `${idOfEmail}@${event.target.value}`,
-                  });
-                }}
-              >
-                <option>직접 입력</option>
-                <option value='snu.ac.kr'>snu.ac.kr</option>
-                <option value='gmail.com'>gmail.com</option>
-                <option value='naver.com'>naver.com</option>
-                <option value='yahoo.com'>yahoo.com</option>
-                <option value='daum.net'>daum.net</option>
-                <option value='narasarang.or.kr'>narasarang.or.kr</option>
-              </select>
-            </div>
-          </div>
-          <div className={styles.wrapper}>
-            <p className={styles.title}>비밀번호</p>
-            <input
-              type='password'
-              className={styles.input}
-              onChange={(event) => {
-                setUserInfo({ ...userInfo, password: event.target.value });
-              }}
-            />
-          </div>
-          <div className={styles.wrapper}>
-            <p className={styles.title}>비밀번호 확인</p>
-            <div className={styles.repeat}>
-              <input
-                type='password'
-                className={styles.input}
-                onChange={(event) => {
-                  setPwChecking(true);
-                  setPwRepeat(event.target.value);
-                }}
-              />
-              {pwChecking ? (
-                <img
-                  className={styles.alert}
-                  src={
-                    pwRepeat === userInfo.password
-                      ? 'https://cdn-icons-png.flaticon.com/512/5610/5610944.png'
-                      : 'https://cdn-icons-png.flaticon.com/512/1828/1828843.png'
-                  }
-                  alt='비밀번호 확인'
-                />
-              ) : null}
-            </div>
-          </div>
         </div>
         <button
           className={styles.next}
-          onClick={() => {
-            signUp(userInfo);
+          onClick={async (e) => {
+            e.preventDefault();
+            await signUp(userInfo);
+            nav('/');
           }}
         >
           다음

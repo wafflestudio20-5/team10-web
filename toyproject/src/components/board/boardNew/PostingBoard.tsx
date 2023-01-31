@@ -1,18 +1,18 @@
-import { useState } from "react";
-import styles from "./PostingBoard.module.scss";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
-import { useSessionContext } from "../../../context/SessionContext";
-import { apiPostNewPost } from "../../../lib/api";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useState } from 'react';
+import styles from './PostingBoard.module.scss';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useSessionContext } from '../../../context/SessionContext';
+import { apiPostNewPost } from '../../../lib/api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function PostingBoard() {
   const { subjectid } = useParams();
-  const { token } = useSessionContext();
+  const { token, getRefreshToken } = useSessionContext();
   const location = useLocation();
-  const category = location.pathname.split("/")[2];
-  const [titleInput, setTitleInput] = useState("");
-  const [contentInput, setContentInput] = useState("");
+  const category = location.pathname.split('/')[2];
+  const [titleInput, setTitleInput] = useState('');
+  const [contentInput, setContentInput] = useState('');
   const navigate = useNavigate();
 
   // titleInput 상자 관리
@@ -28,25 +28,24 @@ export default function PostingBoard() {
   };
 
   // 게시글 올리기
-  const postNewPost = (
+  const postNewPost = async (
     token: string | null,
     class_id: number,
     title: string,
     content: string,
     category: string
   ) => {
-    apiPostNewPost(token, class_id, title, content, category)
-      .then((res) => {
-        toast("게시글을 성공적으로 등록했습니다.", {
-          position: "top-center",
-          theme: "colored",
-          autoClose: 1000,
-        });
-        setTitleInput("");
-        setContentInput("");
-        navigate(-1);
-      })
-      .catch((err) => console.log(err));
+    const localRefresh = localStorage.getItem('refresh');
+    const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
+    await apiPostNewPost(res.data.access, class_id, title, content, category);
+    toast('게시글을 성공적으로 등록했습니다.', {
+      position: 'top-center',
+      theme: 'colored',
+      autoClose: 1000,
+    });
+    setTitleInput('');
+    setContentInput('');
+    navigate(-1);
   };
 
   const goBack = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -67,9 +66,9 @@ export default function PostingBoard() {
               type='submit'
               className={styles.submit}
               value='등록'
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.preventDefault();
-                postNewPost(
+                await postNewPost(
                   token,
                   Number(subjectid),
                   titleInput,

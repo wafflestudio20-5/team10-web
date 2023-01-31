@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { apiGetSubjects } from '../lib/api';
+import { apiGetSubjectInfo, apiGetSubjects } from '../lib/api';
 import { useSessionContext } from '../context/SessionContext';
 import { SubjectType } from '../lib/types';
+import { AxiosResponse } from 'axios';
 
 type SubjectContextType = {
   subjects: SubjectType[] | undefined;
@@ -11,6 +12,7 @@ type SubjectContextType = {
   getSubjects: (token: string | null, page: number | null) => void;
   nextApi: string | null;
   previousApi: string | null;
+  getSubjectInfo: (id: number) => Promise<AxiosResponse<any, any>>;
 };
 
 const SubjectContext = createContext<SubjectContextType>(
@@ -19,7 +21,7 @@ const SubjectContext = createContext<SubjectContextType>(
 
 //default 붙이면 prettier 이상하게 적용됨
 export function SubjectProvider({ children }: { children: React.ReactNode }) {
-  const { token, user } = useSessionContext();
+  const { token, user, getRefreshToken } = useSessionContext();
 
   //페이지네이션에 사용해야겠다.
   const [subjects, setSubjects] = useState<SubjectType[] | undefined>(
@@ -59,6 +61,16 @@ export function SubjectProvider({ children }: { children: React.ReactNode }) {
 
   const dropClass = () => {};
 
+  //subjectTemplate에서 사용
+  const getSubjectInfo = async (id: number) => {
+    const localRefreshToken = localStorage.getItem('refresh');
+    const resToken = await getRefreshToken(
+      localRefreshToken ? localRefreshToken : 'temp'
+    );
+    const res = await apiGetSubjectInfo(resToken.data.access, id);
+    return res;
+  };
+
   return (
     <SubjectContext.Provider
       value={{
@@ -69,6 +81,7 @@ export function SubjectProvider({ children }: { children: React.ReactNode }) {
         getSubjects,
         nextApi,
         previousApi,
+        getSubjectInfo,
       }}
     >
       {children}

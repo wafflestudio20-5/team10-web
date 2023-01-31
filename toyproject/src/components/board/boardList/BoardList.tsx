@@ -45,25 +45,12 @@ export default function BoardList({ category }: BoardListType) {
   };
   useEffect(() => {
     (async () => {
-      try {
-        const id = Number(subjectid);
-        const localRefreshToken = localStorage.getItem('refresh');
-        const resToken = await getRefreshToken(
-          localRefreshToken ? localRefreshToken : 'temp'
-        );
-        getPostList(resToken.data.access, id, category, 1);
-        const res = await apiGetSubjectInfo(resToken.data.access, id);
-        setSubTitle(res.data.name);
-      } catch (e) {
-        if (axios.isAxiosError(e)) {
-          toast(e.response?.data.message);
-          navigate('/login');
-        } else {
-          console.log(e);
-        }
-      }
+      const id = Number(subjectid);
+      getPostList(token, id, category, 1);
+      const res = await apiGetSubjectInfo(token, id);
+      setSubTitle(res.data.name);
     })();
-  }, [subjectid]);
+  }, [subjectid, token]);
 
   const goToPage = async (
     event: React.MouseEvent<HTMLButtonElement>,
