@@ -5,7 +5,7 @@ import SubjectList from '../SubjectList';
 import { UserBar } from '../../UserBar/UserBar';
 import axios from 'axios';
 import { url } from 'inspector';
-import { apiGetSubjects } from '../../../lib/api';
+import {apiDropClass, apiEnrollClass, apiGetSubjects} from '../../../lib/api';
 import { useSessionContext } from '../../../context/SessionContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +13,7 @@ import { useSubjectContext } from '../../../context/SubjectContext';
 import { SubjectType } from '../../../lib/types';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import Modal from "react-modal";
 
 const isEnrolled = (
   mySubjects: SubjectType[] | undefined,
@@ -25,18 +26,64 @@ const isEnrolled = (
   return false;
 };
 
+export type ModalInfo = {
+  classId: number;
+  name: string;
+  type: "enroll" | "drop";
+}
+
 export default function SelectSubjectPage() {
   const [searchValue, setSearchValue] = useState('');
   const [subjects, setSubjects] = useState<SubjectType[]>();
   const [totalNum, setTotalNum] = useState<number>(0);
   const [activeButton, setActiveButton] = useState({ activate: 0 });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalInfo, setModalInfo] = useState<ModalInfo | undefined>(undefined);
 
-  const { token, getRefreshToken } = useSessionContext();
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  }
+
+  const handleModal = (info: ModalInfo) => {
+    setModalInfo(info);
+  }
+
+  const { token, refreshUserInfo, getRefreshToken } = useSessionContext();
   const { mySubjects, previousApi, nextApi } = useSubjectContext();
   //ToDO
   //sever 연결되면
   //subjects useSubjectContext에서 가져와보기
   const navigate = useNavigate();
+
+  const enroll = async (token: string | null, classId: number) => {
+    const localRefresh = localStorage.getItem('refresh');
+    const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
+    await apiEnrollClass(res.data.access, classId);
+    await apiEnrollClass(res.data.access, classId);
+    toast('신청되었습니다!');
+    await refreshUserInfo(res.data.access!);
+    // .then((r) => {
+    //     toast('신청되었습니다!');
+    //     // setUser({...user, classes: r.data.classes})
+    // })
+    // .then((r) => {
+    //     setSubjectEnrolled((prev) => !prev);
+    //     refreshUserInfo(token!); //!를 삽입함으로서 token이 항상 존재한다는 걸 알릴 수 있다.
+    // })
+    // .catch((r) => console.log(r));
+  };
+
+  const drop = (token: string | null, classId: number) => {
+    apiDropClass(token, classId)
+        .then((r) => {
+          toast('드랍되었습니다!');
+          // setUser({...user, classes: r.data.classes})
+        })
+        .then((r) => {
+          refreshUserInfo(token!); //!를 삽입함으로서 token이 항상 존재한다는 걸 알릴 수 있다.
+        })
+        .catch((r) => console.log(r));
+  };
 
   useEffect(() => {
     (async () => {
@@ -97,6 +144,8 @@ export default function SelectSubjectPage() {
                     name={subject.name}
                     professor={subject.created_by.username}
                     isEnrolled={isEnrolled(mySubjects, subject)}
+                    toggleModal={toggleModal}
+                    handleModal={handleModal}
                   ></SubjectList>
                 );
               })}
@@ -116,6 +165,18 @@ export default function SelectSubjectPage() {
           </article>
         </section>
       </div>
+      <Modal isOpen={isModalOpen} onRequestClose={toggleModal} className={styles.modal}>
+        <article>
+          <div><b>{modalInfo?.name}</b><br/>과목을 {modalInfo?.type === "enroll" ? "수강 신청" : "수강 취소"} 하시겠습니까?</div>
+        </article>
+        <footer>
+          <button className={styles.cancel} onClick={toggleModal}>취소</button>
+          <button className={styles.ok} onClick={() => {
+            modalInfo?.type === "enroll" ? enroll(token, modalInfo?.classId) : drop(token, modalInfo?.classId ? modalInfo.classId : -1);
+            toggleModal()
+          }}>확인</button>
+        </footer>
+      </Modal>
       <ToastContainer />
     </div>
   );
