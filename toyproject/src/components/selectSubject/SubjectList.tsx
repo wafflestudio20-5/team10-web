@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import styles from './SubjectList.module.scss';
-import { useSessionContext } from '../../context/SessionContext';
-import { apiDropClass, apiEnrollClass } from '../../lib/api';
-import { toast } from 'react-toastify';
-import Modal from "react-modal";
-import {ModalInfo} from "./page/SelectSubjectPage";
+import React, { useState } from "react";
+import styles from "./SubjectList.module.scss";
+import { useSessionContext } from "../../context/SessionContext";
+import { toast } from "react-toastify";
+import { ModalInfo } from "./page/SelectSubjectPage";
 
 type SubjectListType = {
   classId: number;
@@ -15,7 +13,14 @@ type SubjectListType = {
   handleModal: (info: ModalInfo) => void;
 };
 
-export default function SubjectList({classId, name, professor, isEnrolled, toggleModal, handleModal}: SubjectListType) {
+export default function SubjectList({
+  classId,
+  name,
+  professor,
+  isEnrolled,
+  toggleModal,
+  handleModal,
+}: SubjectListType) {
   const { token, user, setUser, refreshUserInfo, getRefreshToken } =
     useSessionContext();
   const [subjectEnrolled, setSubjectEnrolled] = useState(isEnrolled);
@@ -32,7 +37,7 @@ export default function SubjectList({classId, name, professor, isEnrolled, toggl
               handleModal({
                 classId: classId,
                 name: name,
-                type: "drop"
+                type: "drop",
               });
               toggleModal();
             }}
@@ -45,9 +50,9 @@ export default function SubjectList({classId, name, professor, isEnrolled, toggl
               handleModal({
                 classId: classId,
                 name: name,
-                type: "enroll"
+                type: "enroll",
               });
-              toggleModal()
+              toggleModal();
             }}
           >
             수강신청

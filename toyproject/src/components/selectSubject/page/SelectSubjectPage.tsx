@@ -86,11 +86,11 @@ export default function SelectSubjectPage() {
 
   useEffect(() => {
     (async () => {
-      const res = await apiGetSubjects(token, 1);
+      const res = await apiGetSubjects(token, 1, searchValue);
       setSubjects(res.data.results);
       setTotalNum(res.data.count);
     })();
-  }, [token]);
+  }, [token, searchValue]);
 
   const goToPage = async (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -98,7 +98,7 @@ export default function SelectSubjectPage() {
     idx: number
   ) => {
     event.preventDefault();
-    const res = await apiGetSubjects(token, page);
+    const res = await apiGetSubjects(token, page, searchValue);
     setSubjects(res.data.results);
     setActiveButton({ ...activeButton, activate: idx });
   };
@@ -112,21 +112,22 @@ export default function SelectSubjectPage() {
         <header>
           <FontAwesomeIcon icon={faBars} className={styles.bars} />
           <h1>강좌검색</h1>
-          <UserBar></UserBar>
+          <UserBar />
         </header>
         <section>
           <div className={styles.search}>
             <input
+              value={searchValue}
               className={styles.searchbar}
-              placeholder='전체 강좌 검색은 돋보기 버튼을 클릭하세요 (아직 검색 안돼요)'
+              placeholder='검색어를 입력하세요'
               onChange={(e) => setSearchValue(e.target.value)}
             />
-            <button>
+            {/* <button>
               <FontAwesomeIcon
                 icon={faMagnifyingGlass}
                 className={styles.icon}
               />
-            </button>
+            </button> */}
           </div>
           <article>
             <div className={styles.index}>
