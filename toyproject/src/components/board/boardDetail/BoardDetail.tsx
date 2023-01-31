@@ -111,22 +111,6 @@ export default function BoardDetail() {
             </button>
           </div>
         )}
-        {prevPost?.title !== "" && (
-          <div
-            className={styles.previousContainer}
-            onClick={() =>
-              navigate(`/${subjectid}/${category}/${prevPost?.id}`)
-            }
-          >
-            <div className={styles.previous}>이전글</div>
-            <div className={styles.previousTitle}>
-              <span className={styles.literalTitle}>{prevPost?.title}</span>
-              <span
-                className={styles.commentCount}
-              >{`(${prevPost?.comment_count})`}</span>
-            </div>
-          </div>
-        )}
         {nextPost?.title !== "" && (
           <div
             className={styles.previousContainer}
@@ -140,6 +124,22 @@ export default function BoardDetail() {
               <span
                 className={styles.commentCount}
               >{`(${nextPost?.comment_count})`}</span>
+            </div>
+          </div>
+        )}
+        {prevPost?.title !== "" && (
+          <div
+            className={styles.previousContainer}
+            onClick={() =>
+              navigate(`/${subjectid}/${category}/${prevPost?.id}`)
+            }
+          >
+            <div className={styles.previous}>이전글</div>
+            <div className={styles.previousTitle}>
+              <span className={styles.literalTitle}>{prevPost?.title}</span>
+              <span
+                className={styles.commentCount}
+              >{`(${prevPost?.comment_count})`}</span>
             </div>
           </div>
         )}
