@@ -23,6 +23,7 @@ type SessionContextType = {
   getRefreshToken: (refreshToken: string) => Promise<AxiosResponse<any, any>>;
   colors: CardColor[];
   setColors: React.Dispatch<CardColor[]>;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const SessionContext = createContext<SessionContextType>(
@@ -131,6 +132,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         getRefreshToken,
         colors,
         setColors,
+        setIsLoggedIn,
       }}
     >
       {children}

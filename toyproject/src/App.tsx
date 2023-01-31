@@ -41,58 +41,58 @@ function App() {
               element={<KakaoLoginPage />}
             />
             {/* 인증을 반드시 해야지만 접속 가능한 페이지 정의 */}
-            {/* <Route element={<PrivateRoute authentication={true} />}> */}
-            <Route path='/' element={<DashBoardPage />} />
-            <Route path='/:subjectid' element={<ModulePage />} />
-            <Route path='/selectsubject' element={<SelectSubjectPage />} />
-            <Route path='/:subjectid/boardnav' element={<BoardNavPage />} />
-            <Route path='/:subjectid/questions' element={<QnABoardPage />} />
-            <Route path='/user' element={<UserPage />} />
-            <Route
-              path='/:subjectid/questions/:qnaBoardId'
-              element={<BoardDetailPage />}
-            />
-            <Route
-              path='/:subjectid/announcements/:noticeBoardId'
-              element={<BoardDetailPage />}
-            />
-            <Route
-              path='/:subjectid/announcements'
-              element={<NoticeBoardPage />}
-            />
-            <Route
-              path='/:subjectid/questions/new'
-              element={<NewBoardPage />}
-            />
-            <Route
-              path='/:subjectid/announcements/new'
-              element={<NewBoardPage />}
-            />
-            <Route
-              path='/:subjectid/announcements/:noticeBoardId/edit'
-              element={<PostEdittingPage />}
-            />
-            <Route
-              path='/:subjectid/questions/:qnaBoardId/edit'
-              element={<PostEdittingPage />}
-            />
-            <Route path='/:subjectid/students' element={<StudentsPage />} />
-            <Route
-              path='/:subjectid/assignments'
-              element={<AssignmentPage />}
-            />
-            <Route
-              path='/:subjectid/assignments/:assignmentID'
-              element={<AssignmentDetailsPage />}
-            />
-            <Route path='/:subjectid/grades' element={<GradesPage />} />{' '}
-            <Route path='/evaluation' element={<EvaluationPage />} />
-            <Route
-              path='/evaluation/:subjectid'
-              element={<EvaluationDetailPage />}
-            />
-            <Route path='/description' element={<DescriptionPage />} />
-            {/* </Route> */}
+            <Route element={<PrivateRoute authentication={true} />}>
+              <Route path='/' element={<DashBoardPage />} />
+              <Route path='/:subjectid' element={<ModulePage />} />
+              <Route path='/selectsubject' element={<SelectSubjectPage />} />
+              <Route path='/:subjectid/boardnav' element={<BoardNavPage />} />
+              <Route path='/:subjectid/questions' element={<QnABoardPage />} />
+              <Route path='/user' element={<UserPage />} />
+              <Route
+                path='/:subjectid/questions/:qnaBoardId'
+                element={<BoardDetailPage />}
+              />
+              <Route
+                path='/:subjectid/announcements/:noticeBoardId'
+                element={<BoardDetailPage />}
+              />
+              <Route
+                path='/:subjectid/announcements'
+                element={<NoticeBoardPage />}
+              />
+              <Route
+                path='/:subjectid/questions/new'
+                element={<NewBoardPage />}
+              />
+              <Route
+                path='/:subjectid/announcements/new'
+                element={<NewBoardPage />}
+              />
+              <Route
+                path='/:subjectid/announcements/:noticeBoardId/edit'
+                element={<PostEdittingPage />}
+              />
+              <Route
+                path='/:subjectid/questions/:qnaBoardId/edit'
+                element={<PostEdittingPage />}
+              />
+              <Route path='/:subjectid/students' element={<StudentsPage />} />
+              <Route
+                path='/:subjectid/assignments'
+                element={<AssignmentPage />}
+              />
+              <Route
+                path='/:subjectid/assignments/:assignmentID'
+                element={<AssignmentDetailsPage />}
+              />
+              <Route path='/:subjectid/grades' element={<GradesPage />} />{' '}
+              <Route path='/evaluation' element={<EvaluationPage />} />
+              <Route
+                path='/evaluation/:subjectid'
+                element={<EvaluationDetailPage />}
+              />
+              <Route path='/description' element={<DescriptionPage />} />
+            </Route>
           </Routes>
         </SubjectProvider>
       </SessionProvider>

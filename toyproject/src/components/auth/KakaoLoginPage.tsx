@@ -8,7 +8,7 @@ import { useSessionContext } from '../../context/SessionContext';
 import { CardColor, SubjectType } from '../../lib/types';
 
 export default function KakaoLoginPage() {
-  const { setToken, setUser, setColors } = useSessionContext();
+  const { setToken, setUser, setColors, setIsLoggedIn } = useSessionContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +27,7 @@ export default function KakaoLoginPage() {
       if (userInfoRes.data.username === null) {
         navigate('/login/social');
       } else {
+        setIsLoggedIn(true);
         setUser(userInfoRes.data);
         navigate('/');
       }

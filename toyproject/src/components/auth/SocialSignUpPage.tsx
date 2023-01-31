@@ -18,7 +18,8 @@ export default function SocialSignUpPage() {
   //소셜로그인 완료시 => userid, access, refreshtoken 발급
   //userid, accesstoken으로 user정보 받아올 수 있고 그걸 여기 띄운다
   //그 외 받아오지 못한 정보를 추가로 입력 후 dashboard로 navigate\
-  const { getRefreshToken, setUser, setColors } = useSessionContext();
+  const { getRefreshToken, setUser, setColors, setIsLoggedIn } =
+    useSessionContext();
 
   const [userInfo, setUserInfo] = useState<SocialSignUpRequestBody>({
     username: '',
@@ -55,6 +56,7 @@ export default function SocialSignUpPage() {
           };
         })
       );
+      setIsLoggedIn(true);
       nav('/');
     } catch (err: any) {
       console.log(err.response.data);
