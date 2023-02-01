@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SubjectTemplate from '../SubjectTemplate';
 import styles from './AssignmentDetailsPage.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
-import { apiAssignmentScore, auth, url } from '../../lib/api';
+import { apiAssignmentScore, apiAssignments, auth, url } from '../../lib/api';
 import { useSessionContext } from '../../context/SessionContext';
 import { UserAssignmentInterface } from '../../lib/types';
 import { timestampToDateWithLetters } from '../../lib/formatting';
@@ -40,15 +40,38 @@ export default function AssignmentDetailsPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!token) return;
     (async () => {
-      const res = await apiAssignment(token, parseInt(assignmentID as string));
-      const a = await apiAssignmentScore(token, res.data.id);
-      setUserAssignment({
-        assignment: res.data,
-        is_submitted: a.data.is_submitted,
-        is_graded: a.data.is_graded,
-        score: a.data.score,
-      });
+      try {
+        const res = await apiAssignment(
+          token,
+          parseInt(assignmentID as string)
+        );
+        const a = await apiAssignmentScore(token, res.data.id);
+        setUserAssignment({
+          assignment: res.data,
+          is_submitted: a.data.is_submitted,
+          is_graded: a.data.is_graded,
+          score: a.data.score,
+        });
+      } catch {
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        const newToken = resToken.data.access;
+        const res = await apiAssignment(
+          token,
+          parseInt(assignmentID as string)
+        );
+        const a = await apiAssignmentScore(newToken, res.data.id);
+        setUserAssignment({
+          assignment: res.data,
+          is_submitted: a.data.is_submitted,
+          is_graded: a.data.is_graded,
+          score: a.data.score,
+        });
+      }
     })();
   }, [token]);
 

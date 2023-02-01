@@ -58,10 +58,11 @@ export default function SubjectTemplate({
       } catch {
         const id = Number(subject);
         const localRefreshToken = localStorage.getItem('refresh');
-        const newToken = await getRefreshToken(
+        const resToken = await getRefreshToken(
           localRefreshToken ? localRefreshToken : 'temp'
         );
-        const res = await apiGetSubjectInfo(newToken.data.access, id);
+        const newToken = resToken.data.access;
+        const res = await apiGetSubjectInfo(newToken, id);
         setTitle(res.data.name);
       }
     })();
