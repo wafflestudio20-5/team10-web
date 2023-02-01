@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './EvaluationDetailPage.module.scss';
 import { SideNavBar } from '../../sideNavbar/SideNavBar';
 import CheckList from '../evalComponents/CheckList';
 import FreeAnswer from '../evalComponents/FreeAnswer';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import { useSessionContext } from '../../../context/SessionContext';
+import { apiGetSubjectInfo } from '../../../lib/api';
 export default function EvaluationDetailPage() {
   const [goodPoint, setGoodPoint] = useState('');
   const [badPoint, setBadPoint] = useState('');
   const [scales, setScales] = useState(new Array(7).fill(0));
+  const [subjectName, setSubjectName] = useState('');
   const { subjectid } = useParams();
+  const { token, getRefreshToken } = useSessionContext();
   const nav = useNavigate();
 
   const handleGoodPoint = (input: string) => {
@@ -33,12 +37,31 @@ export default function EvaluationDetailPage() {
     nav('/');
   };
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const id = Number(subjectid);
+        const res = await apiGetSubjectInfo(token, id);
+        setSubjectName(res.data.name);
+      } catch {
+        const id = Number(subjectid);
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        const newToken = resToken.data.access;
+        const res = await apiGetSubjectInfo(newToken, id);
+        setSubjectName(res.data.name);
+      }
+    })();
+  }, [token, subjectid]);
+
   return (
     <div className={styles.wrapper}>
       <SideNavBar></SideNavBar>
       <div className={styles.right}>
-        <div className={styles.header}>강의 평가</div>
-        <div className={styles['sub-title']}>{`${subjectid}`} 강의평가</div>
+        <div className={styles.header}>{subjectName} 강의 평가</div>
+        <div className={styles['sub-title']}>{`${subjectName}`} 강의평가</div>
         <div className={styles.body}>
           <div className={styles.title}>공통 및 선택 문항</div>
           <CheckList scales={scales} handleScales={handleScales}></CheckList>
