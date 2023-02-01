@@ -137,21 +137,21 @@ export default function BoardList({ category }: BoardListType) {
           })}
         </ul>
       </section>
-      <footer>
-        <div className={styles['button-container']}>
-          {Array.from({ length: buttonCount }).map((_, idx) => (
-            <button
-              className={`${styles['nav-button']} ${
-                activeButton.activate === idx ? styles['active'] : ''
-              }`}
-              key={idx}
-              onClick={(event) => goToPage(event, idx + 1, idx)}
-            >
-              {idx + 1}
-            </button>
-          ))}
-        </div>
-      </footer>
+      {/* <footer> */}
+      <div className={styles['button-container']}>
+        {Array.from({ length: buttonCount }).map((_, idx) => (
+          <button
+            className={`${styles['nav-button']} ${
+              activeButton.activate === idx ? styles['active'] : ''
+            }`}
+            key={idx}
+            onClick={(event) => goToPage(event, idx + 1, idx)}
+          >
+            {idx + 1}
+          </button>
+        ))}
+      </div>
+      {/* </footer> */}
     </div>
   );
 }
