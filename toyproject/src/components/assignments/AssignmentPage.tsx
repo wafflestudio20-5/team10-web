@@ -76,9 +76,20 @@ export default function AssignmentPage() {
   };
 
   useEffect(() => {
+    if (!token) return;
     (async () => {
-      const id = Number(subjectid);
-      getAllAssignments(token, id);
+      try {
+        const id = Number(subjectid);
+        getAllAssignments(token, id);
+      } catch {
+        const id = Number(subjectid);
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        const newToken = resToken.data.access;
+        getAllAssignments(newToken, id);
+      }
     })();
   }, [setAssignments, setScores, setCategoryBlocks, token]);
 

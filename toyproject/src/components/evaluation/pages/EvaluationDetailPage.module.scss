@@ -42,11 +42,65 @@
   justify-content: flex-end;
   margin-top: 10px;
   .submit {
+    margin-left: 10px;
+    padding: 9px 15px;
+    height: 35px;
     width: 60px;
-    height: 30px;
-    background: #0f0f6b;
-    border-radius: 5px;
+    background-color: #0f0f6b;
     color: white;
-    cursor: pointer;
+    border: solid 0.9px #777777;
+    border-radius: 5px;
+    &:hover {
+      cursor: pointer;
+      background-color: #0b4b95;
+    }
+  }
+  .cancel {
+    padding: 9px 15px;
+    height: 35px;
+    width: 60px;
+    background-color: white;
+    border: solid 0.9px #777777;
+    border-radius: 5px;
+    &:hover {
+      cursor: pointer;
+      background-color: #0b4b95;
+      color: white;
+    }
   }
 }
+// header {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   .buttonContainer {
+//     .cancel {
+//       padding: 9px 15px;
+//       height: 35px;
+//       width: 60px;
+//       background-color: white;
+//       border: solid 0.9px #777777;
+//       border-radius: 5px;
+//       &:hover {
+//         cursor: pointer;
+//         background-color: #0b4b95;
+//         color: white;
+//       }
+//     }
+
+//     .submit {
+//       margin-left: 10px;
+//       padding: 9px 15px;
+//       height: 35px;
+//       width: 60px;
+//       background-color: #0f0f6b;
+//       color: white;
+//       border: solid;
+//       border-radius: 5px;
+//       &:hover {
+//         cursor: pointer;
+//         background-color: #0b4b95;
+//       }
+//     }
+//   }
+// }

@@ -12,11 +12,21 @@ export default function PasswordForm({
   content: string;
 }) {
   const [passwordBox, setPasswordBox] = useState<boolean>(false);
+  const [curPw, setCurPw] = useState('');
   const [newPw, setNewPw] = useState('');
+  const [newPwConfirm, setNewPwConfirm] = useState('');
   const { token } = useSessionContext();
+
+  const handleCurPw = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCurPw(event.target.value);
+  };
 
   const handleNewPw = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewPw(event.target.value);
+  };
+
+  const handleNewPwConfirm = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewPwConfirm(event.target.value);
   };
 
   const togglePasswordBox = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -29,11 +39,12 @@ export default function PasswordForm({
     hiddenPassword += '*';
   }
 
-  const changePassword = async (newPw: string) => {
+  const changePassword = async (curPw: string, newPw: string) => {
     const res = await axios({
       method: 'post',
       url: url('/authentication/change-password/'),
       data: {
+        password: curPw,
         new_password: newPw,
       },
       withCredentials: true,
@@ -44,9 +55,17 @@ export default function PasswordForm({
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (newPw.length === 0) {
+      toast('새 비밀번호를 입력해주십시오.');
+      return;
+    } else if (newPw !== newPwConfirm) {
+      toast('새 비밀번호를 확인해주십시오');
+      return;
+    }
     try {
-      const res = await changePassword(newPw);
+      const res = await changePassword(curPw, newPw);
       setNewPw('');
+      setNewPwConfirm('');
       setPasswordBox((prev) => !prev);
       toast('비밀번호 변경 완료', {
         position: 'top-center',
@@ -82,10 +101,12 @@ export default function PasswordForm({
         {passwordBox && (
           <div className={styles.content}>
             <div className={styles.container}>
-              {/* 이전 비밀번호:
-              <input type={'password'} onChange={handlePreviousPw}></input> */}
-              새 비밀번호:
-              <input type={'password'} onChange={handleNewPw}></input>
+              이전 비밀번호:
+              <input type={'password'} onChange={handleCurPw}></input>새
+              비밀번호:
+              <input type={'password'} onChange={handleNewPw}></input>새
+              비밀번호 확인:
+              <input type={'password'} onChange={handleNewPwConfirm}></input>
               <div className={styles['button-container']}>
                 <button
                   className={styles['cancel-button']}

@@ -22,9 +22,11 @@ const DownloadFile = ({
 }) => {
   const originalFileURL = decodeURI(file);
   const urlParams = originalFileURL.split('modules/')[1].split('?X-Amz')[0];
+  const parts = urlParams.split('.');
+  const extension = parts[parts.length - 1];
   const handleDownload = async (event: React.MouseEvent<HTMLSpanElement>) => {
     event.preventDefault();
-    await apiGetFile(file, token, urlParams);
+    await apiGetFile(file, token, urlParams, extension);
   };
 
   return (
@@ -71,7 +73,7 @@ const Module = ({
           >
             <FontAwesomeIcon icon={faPaperclip} className={styles.paperClip} />
             <DownloadFile file={content.url} token={token} />
-            {/* <a href={content.file} download>
+            {/* <a href={content.url} download>
               download
             </a> */}
           </section>
@@ -120,10 +122,22 @@ export default function ModuleBlock() {
 
   useEffect(() => {
     (async () => {
-      const id = Number(subjectid);
-      const res = await getModules(token, id);
-      setModules(res.data[0].weekly);
-      setOpenedToggles(Array(res.data[0].weekly.length).fill(true));
+      try {
+        const id = Number(subjectid);
+        const res = await getModules(token, id);
+        setModules(res.data[0].weekly);
+        setOpenedToggles(Array(res.data[0].weekly.length).fill(true));
+      } catch {
+        const id = Number(subjectid);
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        const newToken = resToken.data.access;
+        const res = await getModules(newToken, id);
+        setModules(res.data[0].weekly);
+        setOpenedToggles(Array(res.data[0].weekly.length).fill(true));
+      }
     })();
   }, [subjectid, token]);
 
