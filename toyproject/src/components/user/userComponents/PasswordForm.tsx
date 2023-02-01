@@ -56,10 +56,16 @@ export default function PasswordForm({
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (newPw.length === 0) {
-      toast('새 비밀번호를 입력해주십시오.');
+      toast('새 비밀번호를 입력해주십시오.', {
+        position: 'top-center',
+        theme: 'colored',
+      });
       return;
     } else if (newPw !== newPwConfirm) {
-      toast('새 비밀번호를 확인해주십시오');
+      toast('새 비밀번호를 확인해주십시오', {
+        position: 'top-center',
+        theme: 'colored',
+      });
       return;
     }
     try {

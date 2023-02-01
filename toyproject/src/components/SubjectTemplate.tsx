@@ -7,8 +7,6 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { UserBar } from './UserBar/UserBar';
 import { apiGetSubjectInfo } from '../lib/api';
 import { useSessionContext } from '../context/SessionContext';
-import { toast } from 'react-toastify';
-import axios from 'axios';
 
 const ListElement = ({ current, name }: { current: string; name: string }) => {
   const navigate = useNavigate();

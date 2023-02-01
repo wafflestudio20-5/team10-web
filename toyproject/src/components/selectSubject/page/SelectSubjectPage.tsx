@@ -60,7 +60,7 @@ export default function SelectSubjectPage() {
     const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
     await apiEnrollClass(res.data.access, classId);
     await apiEnrollClass(res.data.access, classId);
-    toast('신청되었습니다!');
+    toast('신청되었습니다!', { position: 'top-center', theme: 'colored' });
     await refreshUserInfo(res.data.access!);
     setActiveButton({ ...activeButton, activate: 0 });
 
@@ -78,7 +78,7 @@ export default function SelectSubjectPage() {
   const drop = (token: string | null, classId: number) => {
     apiDropClass(token, classId)
       .then((r) => {
-        toast('드랍되었습니다!');
+        toast('드랍되었습니다!', { position: 'top-center', theme: 'colored' });
         // setUser({...user, classes: r.data.classes})
       })
       .then((r) => {
