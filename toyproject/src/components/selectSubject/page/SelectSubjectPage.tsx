@@ -62,6 +62,8 @@ export default function SelectSubjectPage() {
     await apiEnrollClass(res.data.access, classId);
     toast('신청되었습니다!');
     await refreshUserInfo(res.data.access!);
+    setActiveButton({ ...activeButton, activate: 0 });
+
     // .then((r) => {
     //     toast('신청되었습니다!');
     //     // setUser({...user, classes: r.data.classes})
@@ -81,6 +83,7 @@ export default function SelectSubjectPage() {
       })
       .then((r) => {
         refreshUserInfo(token!); //!를 삽입함으로서 token이 항상 존재한다는 걸 알릴 수 있다.
+        setActiveButton({ ...activeButton, activate: 0 });
       })
       .catch((r) => console.log(r));
   };
@@ -88,7 +91,8 @@ export default function SelectSubjectPage() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await apiGetSubjects(token, curPage, searchValue);
+        const res = await apiGetSubjects(token, 1, searchValue);
+        //while문으로 결과 null이면 page 하나씩 적게 요청하도록 할 수 있긴 한데.
         setSubjects(res.data.results);
         setTotalNum(res.data.count);
       } catch {
@@ -97,7 +101,7 @@ export default function SelectSubjectPage() {
           localRefreshToken ? localRefreshToken : 'temp'
         );
         const newToken = resToken.data.access;
-        const res = await apiGetSubjects(newToken, curPage, searchValue);
+        const res = await apiGetSubjects(newToken, 1, searchValue);
         setSubjects(res.data.results);
         setTotalNum(res.data.count);
       }
@@ -113,7 +117,7 @@ export default function SelectSubjectPage() {
     const res = await apiGetSubjects(token, page, searchValue);
     setSubjects(res.data.results);
     setActiveButton({ ...activeButton, activate: idx });
-    setCurPage(page);
+    // setCurPage(page);
   };
 
   const buttonCount = Math.ceil(totalNum / 10);
@@ -199,7 +203,8 @@ export default function SelectSubjectPage() {
           </button>
           <button
             className={styles.ok}
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               modalInfo?.type === 'enroll'
                 ? enroll(token, modalInfo?.classId)
                 : drop(token, modalInfo?.classId ? modalInfo.classId : -1);
