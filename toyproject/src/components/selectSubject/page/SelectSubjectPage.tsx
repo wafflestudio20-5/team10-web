@@ -38,6 +38,7 @@ export default function SelectSubjectPage() {
   const [activeButton, setActiveButton] = useState({ activate: 0 });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalInfo, setModalInfo] = useState<ModalInfo | undefined>(undefined);
+  const [curPage, setCurPage] = useState<number>(1);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -87,7 +88,7 @@ export default function SelectSubjectPage() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await apiGetSubjects(token, 1, searchValue);
+        const res = await apiGetSubjects(token, curPage, searchValue);
         setSubjects(res.data.results);
         setTotalNum(res.data.count);
       } catch {
@@ -96,7 +97,7 @@ export default function SelectSubjectPage() {
           localRefreshToken ? localRefreshToken : 'temp'
         );
         const newToken = resToken.data.access;
-        const res = await apiGetSubjects(newToken, 1, searchValue);
+        const res = await apiGetSubjects(newToken, curPage, searchValue);
         setSubjects(res.data.results);
         setTotalNum(res.data.count);
       }
@@ -112,6 +113,7 @@ export default function SelectSubjectPage() {
     const res = await apiGetSubjects(token, page, searchValue);
     setSubjects(res.data.results);
     setActiveButton({ ...activeButton, activate: idx });
+    setCurPage(page);
   };
 
   const buttonCount = Math.ceil(totalNum / 10);
