@@ -118,12 +118,16 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       const resToken = await getRefreshToken(
         localRefresh ? localRefresh : 'temp'
       );
-      const res = await apiLogout(resToken.data.access);
-      setUser(null);
-      setToken(null);
-      navigate('/login/');
-      localStorage.removeItem('refresh');
-      setIsLoggedIn(false);
+      if (user?.is_social_login === true) {
+        //어떤 로그아웃 페이지로 이동}
+      } else {
+        const res = await apiLogout(resToken.data.access);
+        setUser(null);
+        setToken(null);
+        navigate('/login/');
+        localStorage.removeItem('refresh');
+        setIsLoggedIn(false);
+      }
     } catch (err) {
       return console.log(err);
     }
