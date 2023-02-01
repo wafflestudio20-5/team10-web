@@ -399,7 +399,7 @@ export const apiGetFile = async (
     const url_1 = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement('a');
     link.href = url_1;
-    link.setAttribute('download', `${filename}.${extension}`);
+    link.setAttribute('download', `${filename}`);
     document.body.appendChild(link);
     link.click();
     return response;

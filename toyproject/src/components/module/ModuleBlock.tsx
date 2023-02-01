@@ -73,9 +73,9 @@ const Module = ({
           >
             <FontAwesomeIcon icon={faPaperclip} className={styles.paperClip} />
             <DownloadFile file={content.url} token={token} />
-            <a href={content.url} download>
+            {/* <a href={content.url} download>
               download
-            </a>
+            </a> */}
           </section>
         ))}
       </article>
