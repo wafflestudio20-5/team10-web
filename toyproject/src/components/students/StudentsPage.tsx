@@ -43,10 +43,22 @@ export default function StudentsPage() {
 
   useEffect(() => {
     (async () => {
-      const id = Number(subjectid);
-      const res = await apiGetSubjectInfo(token, id);
-      setSubTitle(res.data.name);
-      getStudentsOfSubject(token, id, 1);
+      try {
+        const id = Number(subjectid);
+        const res = await apiGetSubjectInfo(token, id);
+        setSubTitle(res.data.name);
+        getStudentsOfSubject(token, id, 1);
+      } catch {
+        const id = Number(subjectid);
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        const newToken = resToken.data.access;
+        const res = await apiGetSubjectInfo(newToken, id);
+        setSubTitle(res.data.name);
+        getStudentsOfSubject(newToken, id, 1);
+      }
     })();
   }, [subjectid, token]);
 

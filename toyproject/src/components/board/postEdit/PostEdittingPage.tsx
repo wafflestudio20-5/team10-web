@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
-import styles from "./PostEdittingPage.module.scss";
-import SubjectTemplate from "../../SubjectTemplate";
-import { boardIdentifier } from "../../../lib/formatting";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
-import { useSessionContext } from "../../../context/SessionContext";
-import { apiPatchPost, apiGetPost } from "../../../lib/api";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useState, useEffect } from 'react';
+import styles from './PostEdittingPage.module.scss';
+import SubjectTemplate from '../../SubjectTemplate';
+import { boardIdentifier } from '../../../lib/formatting';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useSessionContext } from '../../../context/SessionContext';
+import { apiPatchPost, apiGetPost } from '../../../lib/api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function PostEdittingPage() {
   const { subjectid } = useParams();
   const location = useLocation();
-  const category = location.pathname.split("/")[2];
-  const postId = Number(location.pathname.split("/")[3]);
+  const category = location.pathname.split('/')[2];
+  const postId = Number(location.pathname.split('/')[3]);
   const { token, getRefreshToken } = useSessionContext();
-  const [titleEditInput, setTitleEditInput] = useState("");
-  const [contentEditInput, setContentEditInput] = useState("");
+  const [titleEditInput, setTitleEditInput] = useState('');
+  const [contentEditInput, setContentEditInput] = useState('');
   const navigate = useNavigate();
 
   // 게시글 내용 불러오기
@@ -33,7 +33,16 @@ export default function PostEdittingPage() {
   };
   useEffect(() => {
     (async () => {
-      getPostContent(token, postId, category);
+      try {
+        getPostContent(token, postId, category);
+      } catch {
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        const newToken = resToken.data.access;
+        getPostContent(newToken, postId, category);
+      }
     })();
   }, [token]);
 
@@ -60,22 +69,22 @@ export default function PostEdittingPage() {
     category: string
   ) => {
     try {
-      const localRefresh = localStorage.getItem("refresh");
-      const res = await getRefreshToken(localRefresh ? localRefresh : "temp");
+      const localRefresh = localStorage.getItem('refresh');
+      const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
       apiPatchPost(res.data.access, post_id, title, content, category);
-      toast("게시글을 성공적으로 수정했습니다.", {
-        position: "top-center",
-        theme: "colored",
+      toast('게시글을 성공적으로 수정했습니다.', {
+        position: 'top-center',
+        theme: 'colored',
         autoClose: 1000,
       });
-      setTitleEditInput("");
-      setContentEditInput("");
+      setTitleEditInput('');
+      setContentEditInput('');
       navigate(-1);
     } catch (err: any) {
       if (err.response.status === 400) {
-        toast("수정할 제목과 내용을 입력하세요.", {
-          position: "top-center",
-          theme: "colored",
+        toast('수정할 제목과 내용을 입력하세요.', {
+          position: 'top-center',
+          theme: 'colored',
         });
       }
     }

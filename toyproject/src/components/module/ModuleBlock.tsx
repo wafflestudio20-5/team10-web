@@ -120,10 +120,22 @@ export default function ModuleBlock() {
 
   useEffect(() => {
     (async () => {
-      const id = Number(subjectid);
-      const res = await getModules(token, id);
-      setModules(res.data[0].weekly);
-      setOpenedToggles(Array(res.data[0].weekly.length).fill(true));
+      try {
+        const id = Number(subjectid);
+        const res = await getModules(token, id);
+        setModules(res.data[0].weekly);
+        setOpenedToggles(Array(res.data[0].weekly.length).fill(true));
+      } catch {
+        const id = Number(subjectid);
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        const newToken = resToken.data.access;
+        const res = await getModules(newToken, id);
+        setModules(res.data[0].weekly);
+        setOpenedToggles(Array(res.data[0].weekly.length).fill(true));
+      }
     })();
   }, [subjectid, token]);
 

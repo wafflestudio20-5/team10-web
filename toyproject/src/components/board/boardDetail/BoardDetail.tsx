@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
-import styles from "./BoardDetail.module.scss";
-import CommentArea from "./Comment/CommentArea";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { PostDetail, PostForPrevAndNex } from "../../../lib/types";
-import { apiGetPost, apiDeletePost } from "../../../lib/api";
-import { timestampToDateWithDash } from "../../../lib/formatting";
-import { useSessionContext } from "../../../context/SessionContext";
-import { boardIdentifier } from "../../../lib/formatting";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useState, useEffect } from 'react';
+import styles from './BoardDetail.module.scss';
+import CommentArea from './Comment/CommentArea';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { PostDetail, PostForPrevAndNex } from '../../../lib/types';
+import { apiGetPost, apiDeletePost } from '../../../lib/api';
+import { timestampToDateWithDash } from '../../../lib/formatting';
+import { useSessionContext } from '../../../context/SessionContext';
+import { boardIdentifier } from '../../../lib/formatting';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock } from '@fortawesome/free-regular-svg-icons';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function BoardDetail() {
   const location = useLocation();
-  const category = location.pathname.split("/")[2];
-  const postId = Number(location.pathname.split("/")[3]);
+  const category = location.pathname.split('/')[2];
+  const postId = Number(location.pathname.split('/')[3]);
   const { token, user, getRefreshToken } = useSessionContext();
   const { subjectid } = useParams();
   const navigate = useNavigate();
@@ -37,7 +37,16 @@ export default function BoardDetail() {
 
   useEffect(() => {
     (async () => {
-      getPost(token, postId, category);
+      try {
+        getPost(token, postId, category);
+      } catch {
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        const newToken = resToken.data.access;
+        getPost(newToken, postId, category);
+      }
     })();
   }, [token, postId]);
 
@@ -47,12 +56,12 @@ export default function BoardDetail() {
     post_id: number | undefined,
     category: string
   ) => {
-    const localRefresh = localStorage.getItem("refresh");
-    const res = await getRefreshToken(localRefresh ? localRefresh : "temp");
+    const localRefresh = localStorage.getItem('refresh');
+    const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
     await apiDeletePost(res.data.access, post_id, category);
-    toast("게시글을 성공적으로 삭제했습니다.", {
-      position: "top-center",
-      theme: "colored",
+    toast('게시글을 성공적으로 삭제했습니다.', {
+      position: 'top-center',
+      theme: 'colored',
       autoClose: 1000,
     });
     navigate(-1);
@@ -74,12 +83,12 @@ export default function BoardDetail() {
             <div className={styles.content}>{post?.created_by.username}</div>
             <div className={styles.contentName}>등록일시:</div>
             <div className={styles.content}>
-              {timestampToDateWithDash(Number(post?.created_at), "date")}
+              {timestampToDateWithDash(Number(post?.created_at), 'date')}
               {` `}
               <FontAwesomeIcon icon={faClock} className={styles.clockIcon} />
               {` `}
 
-              {timestampToDateWithDash(Number(post?.created_at), "time")}
+              {timestampToDateWithDash(Number(post?.created_at), 'time')}
             </div>
           </div>
           <div className={styles.flex}>
@@ -110,7 +119,7 @@ export default function BoardDetail() {
             </button>
           </div>
         )}
-        {nextPost?.title !== "" && (
+        {nextPost?.title !== '' && (
           <div
             className={styles.previousContainer}
             onClick={() =>
@@ -126,7 +135,7 @@ export default function BoardDetail() {
             </div>
           </div>
         )}
-        {prevPost?.title !== "" && (
+        {prevPost?.title !== '' && (
           <div
             className={styles.previousContainer}
             onClick={() =>
