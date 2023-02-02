@@ -44,7 +44,7 @@ export default function CheckList({
       />
       <EvaluateArticleAndCheckList
         index={6}
-        content={"강의자는 결강 없이 충실히 진행되었다."}
+        content={"강의자는 결강 없이 수업을 충실히 진행하였다."}
         scales={scales}
         handleScales={handleScales}
       />
@@ -83,7 +83,7 @@ const EvaluateArticleAndCheckList = ({
 }) => {
   return (
     <>
-      <div className={styles.item}>{index}.</div>
+      <div className={styles.item}>{index}</div>
       <div className={styles.question}>{content}</div>
       <div className={styles.item}>
         <input
