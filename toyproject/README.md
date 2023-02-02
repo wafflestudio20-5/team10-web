@@ -1,73 +1,49 @@
-# Getting Started with Create React App
+# 와플스튜디오 토이프로젝트 10조
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+팀명: eTL 너무십조 ㅋㅋ
 
-## Available Scripts
+## ⭐️ About the Project
 
-In the project directory, you can run:
+애증의 웹사이트, 서울대학교 eTL 입니다.
 
-### `npm start`
+(LOGO)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### ❗️ 체험 시 `유의 사항`
+* 최적의 체험을 위해서는 **구글 크롬**을 이용해 주세요!
+* 너무 **고화질의 사진, 고용량의 파일**은 업로드 하지 말아주세요! 백엔드가 아파합니다.
+* `신규 계정`을 생성하면 수업, 과제, 성적이 하나도 없어서 체험의 재미가 반감됩니다. 회원가입은 맛만 보시고 미리 만들어진 계정으로 로그인해 주세요!
+> `ID`: <br/>
+> `PASSWORD`:
+* `자퇴` 버튼은 재확인 절차 없이 **누르는 즉시** 계정이 서버 상에서 삭제됩니다. 주의해 주세요!
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🌊 Workflow
+(워크플로우 그림)
 
-### `npm test`
+### 🔧 기술 스택
+```json
+"react": 
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🔹 원본 사이트와의 비교
+(이게핵심)
 
-### `npm run build`
+## ⭐️ 함께한 사람들
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🧇 Front End
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+| <img src="/resources/profile_panghwi.jpeg"/>                                  |          | <img src="/resources/dongha.jpeg"/>            |
+|:-----------------------------------------------------------------------------|:-----------------------------------------|:-----------------------------------------------|
+| **`이름`** 안광휘<br/>**`주요 업적`**  소셜 로그인 및 세션 관리<br/>**`한줄 소감`** "공동저자 CHAT GPT" | **`이름`** 김채현<br/>**`주요 업적`**  <br/>**`한줄 소감`** | **`이름`** 안동하<br/>**`주요 업적`**  <br/>**`한줄 소감`** |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 🧇 Back End
 
-### `npm run eject`
+|(사진)|(사진)|(사진)|
+|:---|:---|:---|
+|**`이름`** 김영인<br/>**`주요 업적`**  <br/>**`한줄 소감`** |**`이름`** 이현진<br/>**`주요 업적`**  <br/>**`한줄 소감`** |**`이름`** 임수<br/>**`주요 업적`**  <br/>**`한줄 소감`** |
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 🧇 Designer
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-안광휘
+|(사진)|
+|:---|
+|**`이름`** Amina<br/>**`주요 업적`**  <br/>**`한줄 소감`** |
 
