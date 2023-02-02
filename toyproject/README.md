@@ -17,12 +17,13 @@
 * `자퇴` 버튼은 재확인 절차 없이 **누르는 즉시** 계정이 서버 상에서 삭제됩니다. 주의해 주세요!
 
 ### 🌊 Workflow
-(워크플로우 그림)
+<img src="./src/resources/workflow.jpeg" width="1080px"/>
 
 ### 🔧 기술 스택
-```json
-"react": 
-```
+
+|                                        프론트엔드                                        |백엔드|디자인|
+|:-----------------------------------------------------------------------------------:|:---:|:---:|
+| TypeScript<br/>React<br/>SCSS Modules<br/>Axios<br/> ESLint & Prettier<br/> ~~Chat GPT~~ ||
 
 ### 🔹 원본 사이트와의 비교
 (이게핵심)
@@ -31,19 +32,19 @@
 
 ### 🧇 Front End
 
-| <img src="./src/resources/profile_panghwi.jpeg" width="300px"/>                             |                                                                                     | <img src="./src/resources/profile_dongha.jpeg" width="300px"/>                         |
+| <img src="./src/resources/profile_panghwi.jpeg" width="300px"/>                             | <img src="./src/resources/profile_panghwi.jpeg" width="300px"/>          | <img src="./src/resources/profile_dongha.jpeg" width="300px"/>                         |
 |:--------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------|
 | **`이름`** &nbsp;안광휘<br/>**`주요 업적`**&nbsp;소셜 로그인 및 세션 관리<br/>**`한줄 소감`**&nbsp;"공동저자 CHAT GPT" | **`이름`**&nbsp;김채현<br/>**`주요 업적`**&nbsp;(여기에 업적 적기)<br/>**`한줄 소감`**&nbsp;(여기에 소감 적기) | **`이름`**&nbsp;안동하<br/>**`주요 업적`** &nbsp;(여기에 업적 적기) <br/>**`한줄 소감`** &nbsp;(여기에 소감 적기) |
 
 ### 🧇 Back End
 
-|(사진)|(사진)|(사진)|
-|:---|:---|:---|
-|**`이름`** 김영인<br/>**`주요 업적`**  <br/>**`한줄 소감`** |**`이름`** 이현진<br/>**`주요 업적`**  <br/>**`한줄 소감`** |**`이름`** 임수<br/>**`주요 업적`**  <br/>**`한줄 소감`** |
+| <img src="./src/resources/profile_panghwi.jpeg" width="300px"/> |<img src="./src/resources/profile_panghwi.jpeg" width="300px"/>| <img src="./src/resources/profile_su.jpeg" width="300px"/> |
+|:----------------------------------------------------------------|:---|:-----------------------------------------------------------|
+| **`이름`** 김영인<br/>**`주요 업적`**  <br/>**`한줄 소감`**                  |**`이름`** 이현진<br/>**`주요 업적`**  <br/>**`한줄 소감`** | **`이름`** 임수<br/>**`주요 업적`**  AWS 연결 및 잡다한 일 담당<br/>**`한줄 소감`**  "실력의 부족함을 많이 느꼈습니다."  |
 
 ### 🧇 Designer
 
-|(사진)|
+|<img src="./src/resources/profile_panghwi.jpeg" width="300px"/>|
 |:---|
 |**`이름`** Amina<br/>**`주요 업적`**  <br/>**`한줄 소감`** |
 
