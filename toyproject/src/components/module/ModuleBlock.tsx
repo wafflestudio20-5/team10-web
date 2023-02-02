@@ -13,7 +13,7 @@ import { ModuleInterface } from '../../lib/types';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const DownloadFile = ({
+export const DownloadFile = ({
   file,
   token,
 }: {

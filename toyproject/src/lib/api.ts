@@ -354,6 +354,19 @@ export const apiAssignmentTotalScore = async (
   });
 };
 
+export const apiSubmitAssignment = async (
+    token: string | null,
+    class_id: number,
+    file: File | null,
+) => {
+  return await axios({
+    method: 'PUT',
+    url: url(`/etl/assignments/${class_id}/upload`),
+    withCredentials: true,
+    headers: auth(token),
+  })
+}
+
 export const apiEnrollClass = async (
   token: string | null,
   class_id: number

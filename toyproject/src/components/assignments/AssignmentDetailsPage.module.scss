@@ -57,6 +57,10 @@
     border-radius: 2px;
     font-size: medium;
     cursor: pointer;
+    display: flex;
+    p {
+      margin: auto;
+    }
   }
 }
 

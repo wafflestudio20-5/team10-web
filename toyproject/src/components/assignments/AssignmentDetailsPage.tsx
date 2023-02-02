@@ -6,13 +6,13 @@ import { apiAssignmentScore, apiAssignments, auth, url } from '../../lib/api';
 import { useSessionContext } from '../../context/SessionContext';
 import { UserAssignmentInterface } from '../../lib/types';
 import { timestampToDateWithLetters } from '../../lib/formatting';
-
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircleCheck,
   faCircleXmark,
 } from '@fortawesome/free-solid-svg-icons';
+import {DownloadFile} from "../module/ModuleBlock";
 
 export const apiAssignment = async (
   token: string | null,
@@ -34,9 +34,13 @@ const isOpen = (due_date: string): boolean => {
 export default function AssignmentDetailsPage() {
   const { token, getRefreshToken } = useSessionContext();
   const { subjectid, assignmentID } = useParams();
-  const [userAssignment, setUserAssignment] =
-    useState<UserAssignmentInterface>();
+  const [userAssignment, setUserAssignment] = useState<UserAssignmentInterface>();
+  const [submitFile, setSubmitFile] = useState<File | null>(null);
   const navigate = useNavigate();
+
+  const onSubmission = () => {
+
+  }
 
   useEffect(() => {
     if (!token) return;
@@ -84,7 +88,15 @@ export default function AssignmentDetailsPage() {
         <div className={styles.left}>
           <header className={styles.header}>
             <p className={styles.title}>{userAssignment?.assignment.name}</p>
-            <button className={styles.submit}>과제 제출하기</button>
+            <input
+                type="file"
+                id="fileUpload"
+                style={{display: "none"}}
+                onChange={onSubmission}
+            />
+            <label htmlFor="fileUpload" className={styles.submit}>
+              <p>{userAssignment?.is_submitted ? "다시 제출하기" : "과제 제출하기"}</p>
+            </label>
           </header>
           <ul className={styles.details}>
             <b>마감</b>
@@ -98,7 +110,7 @@ export default function AssignmentDetailsPage() {
             <b>파일</b>
             <li>
               {userAssignment?.assignment.file
-                ? userAssignment?.assignment.file
+                ? <a>userAssignment?.assignment.file</a>
                 : '파일 없음'}
             </li>
           </ul>
