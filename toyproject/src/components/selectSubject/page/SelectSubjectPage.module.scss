@@ -86,16 +86,21 @@
       border-bottom: 2px solid #aeadad;
       display: flex;
       text-align: center;
+      font-size: 20px;
+      font-weight: 400;
       .name {
         padding-left: 5%;
         flex-grow: 1;
         text-align: left;
+        font-weight: 500;
       }
       .professor {
         width: 50%;
+        font-weight: 500;
       }
       .enroll {
         width: 15%;
+        font-weight: 500;
       }
     }
   }
