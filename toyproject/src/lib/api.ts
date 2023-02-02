@@ -42,7 +42,7 @@ export const apiLogout = (token: string) => {
 export const apiSocialLogout = (token: string) => {
   return axios({
     method: 'get',
-    url: url('/kakao/logout/'),
+    url: url('/authentication/kakao/logout/'),
     withCredentials: true,
     headers: auth(token),
   });
@@ -64,7 +64,8 @@ export const apiPatchUserInfo = (
   token: string,
   username: string,
   student_id: string,
-  is_professor: boolean
+  is_professor: boolean,
+  is_social_login: boolean
 ) => {
   return axios({
     method: 'patch',
@@ -74,6 +75,7 @@ export const apiPatchUserInfo = (
       username,
       student_id,
       is_professor,
+      is_social_login,
     },
     withCredentials: true,
   });
@@ -429,7 +431,7 @@ export const apiKakaoLogin = async (code: string | null) => {
 
 //kakaotalk social login 관련 변수
 const CLIENT_ID = '52dd93ef1080aec2f79528f6aa8a9d68';
-// const CLIENT_ID = "9abd4a226f299f3b2c393cc8dd0b9ed8";
+// const CLIENT_ID = '9abd4a226f299f3b2c393cc8dd0b9ed8';
 const REDIRECT_URI = 'http://localhost:3000/authentication/kakao/callback/';
 // const REDIRECT_URI = url('/authentication/kakao/login');
 

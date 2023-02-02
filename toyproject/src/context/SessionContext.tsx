@@ -5,6 +5,7 @@ import {
   apiLogin,
   apiLogout,
   apiRefreshToken,
+  apiSocialLogout,
 } from '../lib/api';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -49,6 +50,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         const localRefresh = localStorage.getItem('refresh');
         const localUserId = Number(localStorage.getItem('userId'));
         const res = await getRefreshToken(localRefresh ? localRefresh : 'temp'); //렌더링 시 refreshToken 요청
+        console.log(res.data.access);
         if (res.status === 200) {
           const resUser = await apiGetUserInfo(localUserId, res.data.access); //이 작업을 위해선 userId가 필요한데 우선 local Storage에 저장
           setUser(resUser.data);
@@ -119,10 +121,11 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         localRefresh ? localRefresh : 'temp'
       );
       if (user?.is_social_login === true) {
-        const res = await apiLogout(resToken.data.access);
+        const res = await apiSocialLogout(resToken.data.access);
+        console.log(res);
         setUser(null);
         setToken(null);
-        navigate('/login/');
+        // navigate('/login/');
         localStorage.removeItem('refresh');
         setIsLoggedIn(false);
         //어떤 로그아웃 페이지로 이동}

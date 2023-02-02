@@ -41,7 +41,8 @@ export default function SocialSignUpPage() {
         res.data.access,
         userinfo.username,
         userinfo.student_id,
-        userinfo.is_professor
+        userinfo.is_professor,
+        true
       );
       const userInfoRes = await apiGetUserInfo(
         Number(localUserId),

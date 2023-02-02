@@ -13,23 +13,28 @@
 
   header {
     align-items: center;
-    border-bottom: solid black;
+    border-bottom: 1px solid #c7cdd1;
+    padding-bottom: 10px;
     width: 100%;
-    font-size: 30px;
+    font-size: 25px;
   }
 
   section {
-    border-bottom: solid black;
+    border-bottom: 1px solid #c7cdd1;
+    padding-bottom: 20px;
     ul {
       list-style-type: none;
       padding-left: 0;
-
+      margin: 0;
       li {
-        width: 316px;
-        height: 40px;
-        span {
-          &:hover {
-            text-decoration: underline;
+        text-decoration: none;
+        padding-top: 20px;
+        a {
+          color: #067bf9;
+          span {
+            &:hover {
+              text-decoration: underline;
+            }
           }
         }
       }
@@ -40,23 +45,27 @@
     position: absolute;
     top: 8px;
     right: 10px;
-    border: solid black;
     padding: 10px;
     &:hover {
       cursor: pointer;
     }
   }
 
-  a {
-    text-decoration: none;
-    color: #2282f9;
-  }
-
-  footer {
-    margin-top: 10px;
-    font-size: large;
+  button {
+    width: 100px;
+    border: 1px solid #0a1971;
+    background-color: #0a1971;
+    color: white !important;
+    padding: 0 3px;
+    line-height: 41px;
+    font-size: 15px;
+    border-radius: 5px;
+    margin: 20px auto 0;
+    &:hover {
+      cursor: pointer;
+    }
     a {
-      color: black;
+      color: white;
     }
   }
 }
