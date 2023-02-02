@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import styles from './PasswordForm.module.scss';
-import axios from 'axios';
-import { auth, url } from '../../../lib/api';
-import { useSessionContext } from '../../../context/SessionContext';
-import { toast } from 'react-toastify';
+import React, { useState } from "react";
+import styles from "./PasswordForm.module.scss";
+import axios from "axios";
+import { auth, url } from "../../../lib/api";
+import { useSessionContext } from "../../../context/SessionContext";
+import { toast } from "react-toastify";
 export default function PasswordForm({
   title,
   content,
@@ -12,9 +12,9 @@ export default function PasswordForm({
   content: string;
 }) {
   const [passwordBox, setPasswordBox] = useState<boolean>(false);
-  const [curPw, setCurPw] = useState('');
-  const [newPw, setNewPw] = useState('');
-  const [newPwConfirm, setNewPwConfirm] = useState('');
+  const [curPw, setCurPw] = useState("");
+  const [newPw, setNewPw] = useState("");
+  const [newPwConfirm, setNewPwConfirm] = useState("");
   const { token } = useSessionContext();
 
   const handleCurPw = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,15 +34,15 @@ export default function PasswordForm({
     setPasswordBox((prev) => !prev);
   };
 
-  let hiddenPassword = '';
+  let hiddenPassword = "";
   for (let i = 0; i < content.length; i++) {
-    hiddenPassword += '*';
+    hiddenPassword += "*";
   }
 
   const changePassword = async (curPw: string, newPw: string) => {
     const res = await axios({
-      method: 'post',
-      url: url('/authentication/change-password/'),
+      method: "post",
+      url: url("/authentication/change-password/"),
       data: {
         password: curPw,
         new_password: newPw,
@@ -56,37 +56,37 @@ export default function PasswordForm({
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (newPw.length === 0) {
-      toast('새 비밀번호를 입력해주십시오.', {
-        position: 'top-center',
-        theme: 'colored',
+      toast("새 비밀번호를 입력해주십시오.", {
+        position: "top-center",
+        theme: "colored",
       });
       return;
     } else if (newPw !== newPwConfirm) {
-      toast('새 비밀번호를 확인해주십시오', {
-        position: 'top-center',
-        theme: 'colored',
+      toast("새 비밀번호를 확인해주십시오", {
+        position: "top-center",
+        theme: "colored",
       });
       return;
     }
     try {
       const res = await changePassword(curPw, newPw);
-      setNewPw('');
-      setNewPwConfirm('');
+      setNewPw("");
+      setNewPwConfirm("");
       setPasswordBox((prev) => !prev);
-      toast('비밀번호 변경 완료', {
-        position: 'top-center',
-        theme: 'colored',
+      toast("비밀번호 변경 완료", {
+        position: "top-center",
+        theme: "colored",
       });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast(error.response?.data.error, {
-          position: 'top-center',
-          theme: 'colored',
+          position: "top-center",
+          theme: "colored",
         });
       } else {
-        toast('unknown error', {
-          position: 'top-center',
-          theme: 'colored',
+        toast("unknown error", {
+          position: "top-center",
+          theme: "colored",
         });
       }
     }
@@ -98,7 +98,7 @@ export default function PasswordForm({
         <div className={styles.title}>{title}</div>
         {!passwordBox && (
           <div className={styles.content}>
-            {hiddenPassword}
+            <span>{hiddenPassword}</span>
             <div className={styles.edit}>
               <button onClick={togglePasswordBox}>편집</button>
             </div>
@@ -108,20 +108,20 @@ export default function PasswordForm({
           <div className={styles.content}>
             <div className={styles.container}>
               이전 비밀번호:
-              <input type={'password'} onChange={handleCurPw}></input>새
+              <input type={"password"} onChange={handleCurPw}></input>새
               비밀번호:
-              <input type={'password'} onChange={handleNewPw}></input>새
+              <input type={"password"} onChange={handleNewPw}></input>새
               비밀번호 확인:
-              <input type={'password'} onChange={handleNewPwConfirm}></input>
-              <div className={styles['button-container']}>
+              <input type={"password"} onChange={handleNewPwConfirm}></input>
+              <div className={styles["button-container"]}>
                 <button
-                  className={styles['cancel-button']}
+                  className={styles["cancel-button"]}
                   onClick={togglePasswordBox}
                   type='button'
                 >
                   취소
                 </button>
-                <button className={styles['submit-button']} type='submit'>
+                <button className={styles["submit-button"]} type='submit'>
                   저장
                 </button>
               </div>
