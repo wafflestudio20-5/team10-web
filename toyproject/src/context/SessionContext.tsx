@@ -143,6 +143,14 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     const localUserId = Number(localStorage.getItem('userId'));
     const userInfoRes = await apiGetUserInfo(localUserId, token);
     setUser(userInfoRes.data);
+    setColors(
+      userInfoRes.data.classes.map((c: SubjectType): CardColor => {
+        return {
+          id: c.id,
+          color: '#97bdf5',
+        };
+      })
+    );
   };
 
   return (

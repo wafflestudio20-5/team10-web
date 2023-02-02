@@ -58,7 +58,7 @@ export default function SelectSubjectPage() {
   const enroll = async (token: string | null, classId: number) => {
     const localRefresh = localStorage.getItem('refresh');
     const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
-    await apiEnrollClass(res.data.access, classId);
+    // await apiEnrollClass(res.data.access, classId);
     await apiEnrollClass(res.data.access, classId);
     toast('신청되었습니다!', { position: 'top-center', theme: 'colored' });
     await refreshUserInfo(res.data.access!);
