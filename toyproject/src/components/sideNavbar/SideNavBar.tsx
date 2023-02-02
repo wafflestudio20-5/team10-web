@@ -116,7 +116,7 @@ export const SideNavBar = () => {
                 icon={faMagnifyingGlass}
                 className={styles.faIcon}
               />
-              강좌검색
+              수강신청
             </div>
           </Link>
           <Link to='/description'>
