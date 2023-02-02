@@ -48,91 +48,96 @@ export const SideNavBar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <div className={styles['logo-container']}>
+        <div className={styles['button-wrapper']}>
+          <div className={styles['logo-container']}>
+            <Link to='/'>
+              <img src={snulogo} alt='snulogo'></img>
+            </Link>
+          </div>
+          <div
+            className={`${styles['button-container']} ${
+              isSelected === 1 ? styles['selected'] : ''
+            }`}
+            // 계정과 과목 모달 띄울땐 그 외의 모달 state를 false로 함
+            onClick={() => {
+              setIsSelected(1);
+              closeOtherModal();
+              navigate('/user');
+            }}
+          >
+            {/*<UserIcon></UserIcon>*/}
+            <FontAwesomeIcon icon={faCircleUser} className={styles.faIcon} />
+            계정
+          </div>
           <Link to='/'>
-            <img src={snulogo} alt='snulogo'></img>
+            <div
+              className={`${styles['button-container']} ${
+                isSelected === 2 ? styles['selected'] : ''
+              }`}
+              onClick={() => {
+                setIsSelected(2);
+                closeOtherModal();
+              }}
+            >
+              {/*<DashBoard></DashBoard>*/}
+              <FontAwesomeIcon
+                icon={faRectangleList}
+                className={styles.faIcon}
+              />
+              대시보드
+            </div>
+          </Link>
+          <div
+            className={`${styles['button-container']} ${
+              isSelected === 3 ? styles['selected'] : ''
+            }`}
+            onClick={() => {
+              setIsSelected(3);
+              closeOtherModal();
+              openSubjectModal();
+            }}
+          >
+            {/*<Book></Book>*/}
+            <FontAwesomeIcon icon={faBookOpen} className={styles.faIcon} />
+            과목
+          </div>
+          <Link to='/selectsubject'>
+            <div
+              className={`${styles['button-container']} ${
+                isSelected === 4 ? styles['selected'] : ''
+              }`}
+              onClick={() => {
+                setIsSelected(4);
+                closeOtherModal();
+              }}
+            >
+              {/*<Calender></Calender>*/}
+              <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                className={styles.faIcon}
+              />
+              강좌검색
+            </div>
+          </Link>
+          <Link to='/description'>
+            <div
+              className={`${styles['button-container']} ${
+                isSelected === 5 ? styles['selected'] : ''
+              }`}
+              onClick={() => {
+                setIsSelected(5);
+                closeOtherModal();
+              }}
+            >
+              {/*<Question></Question>*/}
+              <FontAwesomeIcon
+                icon={faCircleQuestion}
+                className={styles.faIcon}
+              />
+              이용안내
+            </div>
           </Link>
         </div>
-        <div
-          className={`${styles['button-container']} ${
-            isSelected === 1 ? styles['selected'] : ''
-          }`}
-          // 계정과 과목 모달 띄울땐 그 외의 모달 state를 false로 함
-          onClick={() => {
-            setIsSelected(1);
-            closeOtherModal();
-            navigate('/user');
-          }}
-        >
-          {/*<UserIcon></UserIcon>*/}
-          <FontAwesomeIcon icon={faCircleUser} className={styles.faIcon} />
-          계정
-        </div>
-        <Link to='/'>
-          <div
-            className={`${styles['button-container']} ${
-              isSelected === 2 ? styles['selected'] : ''
-            }`}
-            onClick={() => {
-              setIsSelected(2);
-              closeOtherModal();
-            }}
-          >
-            {/*<DashBoard></DashBoard>*/}
-            <FontAwesomeIcon icon={faRectangleList} className={styles.faIcon} />
-            대시보드
-          </div>
-        </Link>
-        <div
-          className={`${styles['button-container']} ${
-            isSelected === 3 ? styles['selected'] : ''
-          }`}
-          onClick={() => {
-            setIsSelected(3);
-            closeOtherModal();
-            openSubjectModal();
-          }}
-        >
-          {/*<Book></Book>*/}
-          <FontAwesomeIcon icon={faBookOpen} className={styles.faIcon} />
-          과목
-        </div>
-        <Link to='/selectsubject'>
-          <div
-            className={`${styles['button-container']} ${
-              isSelected === 4 ? styles['selected'] : ''
-            }`}
-            onClick={() => {
-              setIsSelected(4);
-              closeOtherModal();
-            }}
-          >
-            {/*<Calender></Calender>*/}
-            <FontAwesomeIcon
-              icon={faMagnifyingGlass}
-              className={styles.faIcon}
-            />
-            강좌검색
-          </div>
-        </Link>
-        <Link to='/description'>
-          <div
-            className={`${styles['button-container']} ${
-              isSelected === 5 ? styles['selected'] : ''
-            }`}
-            onClick={() => {
-              setIsSelected(5);
-              closeOtherModal();
-            }}
-          >
-            {/*<Question></Question>*/}
-            <FontAwesomeIcon
-              icon={faCircleQuestion}
-              className={styles.faIcon}
-            />
-            이용안내
-          </div>
-        </Link>
       </div>
       {subjectModal && (
         <SubjectModal
