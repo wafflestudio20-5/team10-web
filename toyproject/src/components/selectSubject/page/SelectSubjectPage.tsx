@@ -128,7 +128,7 @@ export default function SelectSubjectPage() {
       <div className={styles.body}>
         <header>
           <FontAwesomeIcon icon={faBars} className={styles.bars} />
-          <h1>강좌검색</h1>
+          <h1>수강신청</h1>
           <UserBar />
         </header>
         <section>
@@ -136,7 +136,7 @@ export default function SelectSubjectPage() {
             <input
               value={searchValue}
               className={styles.searchbar}
-              placeholder='검색어를 입력하세요'
+              placeholder='수업명을 검색하세요'
               onChange={(e) => setSearchValue(e.target.value)}
             />
           </div>
