@@ -29,6 +29,14 @@ export default function KakaoLoginPage() {
       } else {
         setIsLoggedIn(true);
         setUser(userInfoRes.data);
+        setColors(
+          userInfoRes.data.classes.map((c: SubjectType): CardColor => {
+            return {
+              id: c.id,
+              color: '#97bdf5',
+            };
+          })
+        );
         navigate('/');
       }
       //refreshtoken, access token 저장하기
