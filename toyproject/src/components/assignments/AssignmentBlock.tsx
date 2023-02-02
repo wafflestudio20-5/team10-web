@@ -40,7 +40,10 @@ const Assignment = ({
     );
 };
 
-export default function AssignmentBlock({assignmentBlock}: { assignmentBlock: UserAssignmentInterface[] }) {
+export default function AssignmentBlock({isCategorized, assignmentBlock}: {
+    isCategorized: boolean,
+    assignmentBlock: UserAssignmentInterface[]
+}) {
     const [toggleOpen, setToggleOpen] = useState<boolean>(true);
     return (
         <div className={styles.block}>
@@ -53,7 +56,7 @@ export default function AssignmentBlock({assignmentBlock}: { assignmentBlock: Us
                         icon={toggleOpen ? faCaretDown : faCaretRight}
                         className={styles.arrow}
                     />
-                    <p className={styles.category}>{assignmentBlock[0].assignment.category}</p>
+                    <p className={styles.category}>{isCategorized ? assignmentBlock[0].assignment.category : "마감일 순"}</p>
                     <FontAwesomeIcon icon={faFileExport} className={styles.icon}/>
                 </button>
                 <div className={styles.weight}>전체 비중의 XX%</div>
