@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './SocialSignUpPage.module.scss';
-import { Navigate, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
 import { apiGetUserInfo, apiPatchUserInfo } from '../../lib/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

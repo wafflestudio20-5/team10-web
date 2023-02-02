@@ -11,7 +11,7 @@ export const RightSide = () => {
         </ul>
       </section>
       <h2>최근 피드백</h2>
-      공부를 열심히 하자
+      <span>공부를 열심히 하자</span>
     </div>
   );
 };

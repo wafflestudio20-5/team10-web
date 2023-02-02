@@ -10,23 +10,26 @@
 }
 
 .header {
+  width: 95%;
   height: 72px;
-  margin: 0px 24px;
+  margin: 0 24px;
   border-bottom: 1px solid #c7cdd1;
   display: flex;
-  vertical-align: middle;
-  box-sizing: border-box;
-  align-items: center;
-}
 
+  h1 {
+    margin: auto 0;
+    font-size: 25px;
+    font-weight: 400;
+  }
+}
 .body {
   display: flex;
   flex-direction: column;
-  padding: 50px 10%;
+  padding: 50px 15% 50px 10%;
 }
 
 .title {
-  font-family: 'Helvetica Neue';
+  font-family: "Helvetica Neue";
   font-style: normal;
   font-weight: 400;
   font-size: 25px;
@@ -43,4 +46,3 @@
     color: white;
   }
 }
-

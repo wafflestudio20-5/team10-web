@@ -10,8 +10,6 @@ import {
 } from '../../lib/api';
 import { AssignmentInterface, UserScoreInterface } from '../../lib/types';
 import dayjs from 'dayjs';
-import axios from 'axios';
-import { toast } from 'react-toastify';
 
 export default function GradesPage() {
   const { subjectid } = useParams();

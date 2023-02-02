@@ -8,6 +8,7 @@ export type User = {
   is_superuser: boolean;
   classes: SubjectType[];
   token: string | null;
+  is_social_login: boolean;
 };
 
 // 이용 약관

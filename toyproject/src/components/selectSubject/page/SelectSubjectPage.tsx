@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import styles from './SelectSubjectPage.module.scss';
-import { SideNavBar } from '../../sideNavbar/SideNavBar';
-import SubjectList from '../SubjectList';
-import { UserBar } from '../../UserBar/UserBar';
-import { url } from 'inspector';
-import { apiDropClass, apiEnrollClass, apiGetSubjects } from '../../../lib/api';
-import { useSessionContext } from '../../../context/SessionContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { useSubjectContext } from '../../../context/SubjectContext';
-import { SubjectType } from '../../../lib/types';
-import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import Modal from 'react-modal';
+import React, { useEffect, useState } from "react";
+import styles from "./SelectSubjectPage.module.scss";
+import { SideNavBar } from "../../sideNavbar/SideNavBar";
+import SubjectList from "../SubjectList";
+import { UserBar } from "../../UserBar/UserBar";
+import { url } from "inspector";
+import { apiDropClass, apiEnrollClass, apiGetSubjects } from "../../../lib/api";
+import { useSessionContext } from "../../../context/SessionContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { useSubjectContext } from "../../../context/SubjectContext";
+import { SubjectType } from "../../../lib/types";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import Modal from "react-modal";
 
 const isEnrolled = (
   mySubjects: SubjectType[] | undefined,
@@ -28,11 +28,11 @@ const isEnrolled = (
 export type ModalInfo = {
   classId: number;
   name: string;
-  type: 'enroll' | 'drop';
+  type: "enroll" | "drop";
 };
 
 export default function SelectSubjectPage() {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [subjects, setSubjects] = useState<SubjectType[]>();
   const [totalNum, setTotalNum] = useState<number>(0);
   const [activeButton, setActiveButton] = useState({ activate: 0 });
@@ -56,11 +56,11 @@ export default function SelectSubjectPage() {
   const navigate = useNavigate();
 
   const enroll = async (token: string | null, classId: number) => {
-    const localRefresh = localStorage.getItem('refresh');
-    const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
+    const localRefresh = localStorage.getItem("refresh");
+    const res = await getRefreshToken(localRefresh ? localRefresh : "temp");
+    // await apiEnrollClass(res.data.access, classId);
     await apiEnrollClass(res.data.access, classId);
-    await apiEnrollClass(res.data.access, classId);
-    toast('신청되었습니다!');
+    toast("신청되었습니다!", { position: "top-center", theme: "colored" });
     await refreshUserInfo(res.data.access!);
     setActiveButton({ ...activeButton, activate: 0 });
 
@@ -78,7 +78,7 @@ export default function SelectSubjectPage() {
   const drop = (token: string | null, classId: number) => {
     apiDropClass(token, classId)
       .then((r) => {
-        toast('드랍되었습니다!');
+        toast("드랍되었습니다!", { position: "top-center", theme: "colored" });
         // setUser({...user, classes: r.data.classes})
       })
       .then((r) => {
@@ -96,9 +96,9 @@ export default function SelectSubjectPage() {
         setSubjects(res.data.results);
         setTotalNum(res.data.count);
       } catch {
-        const localRefreshToken = localStorage.getItem('refresh');
+        const localRefreshToken = localStorage.getItem("refresh");
         const resToken = await getRefreshToken(
-          localRefreshToken ? localRefreshToken : 'temp'
+          localRefreshToken ? localRefreshToken : "temp"
         );
         const newToken = resToken.data.access;
         const res = await apiGetSubjects(newToken, 1, searchValue);
@@ -139,12 +139,6 @@ export default function SelectSubjectPage() {
               placeholder='검색어를 입력하세요'
               onChange={(e) => setSearchValue(e.target.value)}
             />
-            {/* <button>
-              <FontAwesomeIcon
-                icon={faMagnifyingGlass}
-                className={styles.icon}
-              />
-            </button> */}
           </div>
           <article>
             <div className={styles.index}>
@@ -166,11 +160,11 @@ export default function SelectSubjectPage() {
                   ></SubjectList>
                 );
               })}
-            <div className={styles['button-container']}>
+            <div className={styles["button-container"]}>
               {Array.from({ length: buttonCount }).map((_, idx) => (
                 <button
-                  className={`${styles['nav-button']} ${
-                    activeButton.activate === idx ? styles['active'] : ''
+                  className={`${styles["nav-button"]} ${
+                    activeButton.activate === idx ? styles["active"] : ""
                   }`}
                   key={idx}
                   onClick={(event) => goToPage(event, idx + 1, idx)}
@@ -191,9 +185,9 @@ export default function SelectSubjectPage() {
           <div>
             <b>{modalInfo?.name}</b>
             <br />
-            과목을 {modalInfo?.type === 'enroll'
-              ? '수강 신청'
-              : '수강 취소'}{' '}
+            과목을 {modalInfo?.type === "enroll"
+              ? "수강 신청"
+              : "수강 취소"}{" "}
             하시겠습니까?
           </div>
         </article>
@@ -205,7 +199,7 @@ export default function SelectSubjectPage() {
             className={styles.ok}
             onClick={(e) => {
               e.preventDefault();
-              modalInfo?.type === 'enroll'
+              modalInfo?.type === "enroll"
                 ? enroll(token, modalInfo?.classId)
                 : drop(token, modalInfo?.classId ? modalInfo.classId : -1);
               toggleModal();

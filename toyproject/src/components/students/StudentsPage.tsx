@@ -9,8 +9,6 @@ import Searchbar from '../Searchbar';
 import { useSessionContext } from '../../context/SessionContext';
 import { StudentsOfSubject } from '../../lib/types';
 import { apiGetStudentsOfSubject, apiGetSubjectInfo } from '../../lib/api';
-import axios from 'axios';
-import { toast } from 'react-toastify';
 
 export default function StudentsPage() {
   const { token, getRefreshToken } = useSessionContext();

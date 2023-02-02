@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
-import styles from './UserPage.module.scss';
-import contentStyles from '../userComponents/Content.module.scss'
-import { SideNavBar } from '../../sideNavbar/SideNavBar';
-import Content from '../userComponents/Content';
-import Profile from '../userComponents/Profile';
-import PasswordForm from '../userComponents/PasswordForm';
-import { useSessionContext } from '../../../context/SessionContext';
-import {apiBye} from "../../../lib/api";
-import {useNavigate} from "react-router-dom";
-import {ImageModal} from "../userComponents/ImageModal";
+import React, { useState } from "react";
+import styles from "./UserPage.module.scss";
+import contentStyles from "../userComponents/Content.module.scss";
+import { SideNavBar } from "../../sideNavbar/SideNavBar";
+import Content from "../userComponents/Content";
+import Profile from "../userComponents/Profile";
+import { UserBar } from "../../UserBar/UserBar";
+import PasswordForm from "../userComponents/PasswordForm";
+import { useSessionContext } from "../../../context/SessionContext";
+import { apiBye } from "../../../lib/api";
+import { useNavigate } from "react-router-dom";
+import { ImageModal } from "../userComponents/ImageModal";
 
 export default function UserPage() {
   const { user, token } = useSessionContext();
@@ -31,7 +32,10 @@ export default function UserPage() {
     <div className={styles.wrapper}>
       <SideNavBar />
       <div className={styles.right}>
-        <div className={styles.header}>{user?.username}의 계정</div>
+        <div className={styles.header}>
+          <h1>{user?.username}의 계정</h1>
+          <UserBar />
+        </div>
         <div className={styles.body}>
           <Profile toggleModal={toggleModal}></Profile>
           <div className={styles.title}>개인정보</div>
@@ -54,10 +58,10 @@ export default function UserPage() {
         </div>
       </div>
       <ImageModal
-          isModalOpen={isModalOpen}
-          toggleModal={toggleModal}
-          imageFile={imageFile}
-          setImageFile={setImageFile}
+        isModalOpen={isModalOpen}
+        toggleModal={toggleModal}
+        imageFile={imageFile}
+        setImageFile={setImageFile}
       />
     </div>
   );

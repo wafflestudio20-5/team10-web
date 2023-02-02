@@ -10,8 +10,6 @@ import {
   apiAllAssignmentScore,
 } from '../../lib/api';
 import { useSessionContext } from '../../context/SessionContext';
-import axios from 'axios';
-import { toast } from 'react-toastify';
 
 function sortByCategory(assignments: UserAssignmentInterface[]) {
   for (const assignment of assignments) {

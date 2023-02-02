@@ -13,7 +13,6 @@ import {
   faCircleCheck,
   faCircleXmark,
 } from '@fortawesome/free-solid-svg-icons';
-import { toast } from 'react-toastify';
 
 export const apiAssignment = async (
   token: string | null,

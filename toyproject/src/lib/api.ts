@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Post, PostDetail, SignUpRequestBody } from './types';
 
 export const url = (path: string, param?: Record<string, string>) => {
-  return `http://etlclonetoyproject-env.eba-a6rqj2ev.ap-northeast-2.elasticbeanstalk.com${path}`;
+  return `http://etlclone-env.eba-dxtv92ct.ap-northeast-2.elasticbeanstalk.com${path}`;
 };
 
 export const auth = (token: string | null) => ({
@@ -34,6 +34,15 @@ export const apiLogin = (email: string, password: string) => {
 
 export const apiLogout = (token: string) => {
   return axios.get(url('/authentication/logout/'), {
+    withCredentials: true,
+    headers: auth(token),
+  });
+};
+
+export const apiSocialLogout = (token: string) => {
+  return axios({
+    method: 'get',
+    url: url('/kakao/logout/'),
     withCredentials: true,
     headers: auth(token),
   });
@@ -395,7 +404,6 @@ export const apiGetFile = async (
       withCredentials: true,
       // headers: auth(token),
     });
-    console.log(response);
     const url_1 = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement('a');
     link.href = url_1;
