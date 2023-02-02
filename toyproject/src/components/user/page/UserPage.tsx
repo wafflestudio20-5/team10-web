@@ -4,6 +4,7 @@ import contentStyles from "../userComponents/Content.module.scss";
 import { SideNavBar } from "../../sideNavbar/SideNavBar";
 import Content from "../userComponents/Content";
 import Profile from "../userComponents/Profile";
+import { UserBar } from "../../UserBar/UserBar";
 import PasswordForm from "../userComponents/PasswordForm";
 import { useSessionContext } from "../../../context/SessionContext";
 import { apiBye } from "../../../lib/api";
@@ -33,6 +34,7 @@ export default function UserPage() {
       <div className={styles.right}>
         <div className={styles.header}>
           <h1>{user?.username}의 계정</h1>
+          <UserBar />
         </div>
         <div className={styles.body}>
           <Profile toggleModal={toggleModal}></Profile>
