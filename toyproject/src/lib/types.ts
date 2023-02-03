@@ -119,3 +119,8 @@ export interface CardColor {
   id: number;
   color: string;
 }
+
+export interface ProfilePicture {
+  id: number;
+  url: string | null;
+}

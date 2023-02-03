@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./UserPage.module.scss";
 import contentStyles from "../userComponents/Content.module.scss";
 import { SideNavBar } from "../../sideNavbar/SideNavBar";
@@ -7,10 +7,12 @@ import Profile from "../userComponents/Profile";
 import { UserBar } from "../../UserBar/UserBar";
 import PasswordForm from "../userComponents/PasswordForm";
 import { useSessionContext } from "../../../context/SessionContext";
-import { apiBye } from "../../../lib/api";
+import {apiBye, apiDownloadImage} from "../../../lib/api";
 import { useNavigate } from "react-router-dom";
 import { ImageModal } from "../userComponents/ImageModal";
 import Modal from "react-modal";
+import {ToastContainer} from "react-toastify";
+import {ProfilePicture} from "../../../lib/types";
 
 export default function UserPage() {
   const { user, token } = useSessionContext();
@@ -18,6 +20,7 @@ export default function UserPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [byeModalOpen, setByeModalOpen] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [profile, setProfile] = useState<ProfilePicture | null>(null);
 
   const toggleImageModal = () => {
     setImageFile(null);
@@ -34,6 +37,12 @@ export default function UserPage() {
       .catch((r) => console.log(r));
   };
 
+  useEffect(() => {
+    apiDownloadImage(token)
+        .then((r) => setProfile(r.data))
+        .catch((r) => console.log(r));
+  })
+
   return (
     <div className={styles.wrapper}
          onDragEnter={e => e.preventDefault()}
@@ -48,7 +57,7 @@ export default function UserPage() {
           <UserBar />
         </div>
         <div className={styles.body}>
-          <Profile toggleModal={toggleImageModal}></Profile>
+          <Profile toggleModal={toggleImageModal} image={profile?.url}></Profile>
           <div className={styles.title}>개인정보</div>
           <Content title={"전체이름:"} content={`${user?.username}`} />
           <Content title={"이메일 주소"} content={`${user?.email}`} />
@@ -102,6 +111,7 @@ export default function UserPage() {
           </button>
         </footer>
       </Modal>
+      <ToastContainer/>
     </div>
   );
 }

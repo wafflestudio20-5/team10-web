@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { CardColor, SubjectType, User } from '../lib/types';
+import {CardColor, SubjectType, User} from '../lib/types';
 import {
   apiGetUserInfo,
   apiLogin,

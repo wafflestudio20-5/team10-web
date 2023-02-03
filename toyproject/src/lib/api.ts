@@ -369,16 +369,28 @@ export const apiSubmitAssignment = async (
 
 export const apiUploadImage = async (
     token: string | null,
-    file: File | null,
+    file: FormData | null,
 ) => {
   return await axios({
     method: 'PUT',
     url: url(`/authentication/profile/`),
+    data: file,
     withCredentials: true,
     headers: {
       "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${token}`
     }
+  })
+}
+
+export const apiDownloadImage = async (
+    token: string | null,
+) => {
+  return await axios({
+    method: 'GET',
+    url: url(`/authentication/profile/download/`),
+    withCredentials: true,
+    headers: auth(token)
   })
 }
 

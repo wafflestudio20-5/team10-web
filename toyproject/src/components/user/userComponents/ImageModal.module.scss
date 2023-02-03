@@ -79,29 +79,35 @@
       background-color: #f8f8f8;
     }
   }
-  footer {
+  form {
     display: flex;
-    button {
+    .cancel {
       background-color: white;
       padding: 5px 10px;
       font-size: 16px;
       border: 1px solid #AEADAD;
       border-radius: 3px;
       cursor: pointer;
+      margin: auto 0 auto auto;
+      &:hover {
+        background-color: #F1F1F1;
+      }
     }
-    button.save {
+    .save {
       background-color: #3679F1;
+      padding: 5px 10px;
+      font-size: 16px;
+      border: 1px solid #AEADAD;
+      border-radius: 3px;
+      cursor: pointer;
       color: white;
       margin: auto 0 auto 20px;
       &:hover {
         background-color: #3669F1;
       }
     }
-    button.cancel {
-      margin: auto 0 auto auto;
-      &:hover {
-        background-color: #F1F1F1;
-      }
+    .cancel {
+
     }
   }
 }

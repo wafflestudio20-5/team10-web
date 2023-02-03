@@ -9,6 +9,9 @@ import React, {
     useEffect,
     ChangeEvent
 } from "react";
+import {toast} from "react-toastify";
+import {apiUploadImage} from "../../../lib/api";
+import {useSessionContext} from "../../../context/SessionContext";
 
 type ImageModalType = {
     isModalOpen: boolean,
@@ -19,6 +22,7 @@ type ImageModalType = {
 
 export function ImageModal({isModalOpen, toggleModal, imageFile, setImageFile}: ImageModalType) {
 
+    const {token} = useSessionContext();
     const [isDragging, setIsDragging] = useState<boolean>(false);
     const dragRef = useRef<HTMLLabelElement | null>(null);
 
@@ -33,6 +37,19 @@ export function ImageModal({isModalOpen, toggleModal, imageFile, setImageFile}: 
             setImageFile(selectFiles[0]);
         }, [imageFile]
     );
+
+    const onSubmit = () => {
+        if (imageFile) {
+            const formData = new FormData();
+            formData.append("photo", imageFile);
+            apiUploadImage(token, formData)
+                .then(() => {
+                    toast("등록되었습니다!", {position: "top-center", theme: "colored"});
+                    toggleModal();
+                })
+                .catch((r) => console.log(r))
+        }
+    }
 
     const handleDragIn = useCallback((e: DragEvent): void => {
         e.preventDefault();
@@ -113,10 +130,19 @@ export function ImageModal({isModalOpen, toggleModal, imageFile, setImageFile}: 
                     <div className={styles.fileName}>{imageFile ? imageFile.name : ""}</div>
                 </label>
             </div>
-            <footer>
+            <form
+                name="photo"
+                encType="multipart/form-data"
+                onSubmit={onSubmit}
+            >
                 <button className={styles.cancel} onClick={toggleModal}>취소</button>
-                <button className={styles.save}>저장</button>
-            </footer>
+                <input type={imageFile ? "submit" : "button"}
+                       style={{display:"none"}}
+                       id="submitImage"
+                       onClick={!imageFile ? () => toast("사진을 선택해 주세요!", {position: "top-center", theme: "colored"}) : undefined}
+                />
+                <label className={styles.save} htmlFor="submitImage">저장</label>
+            </form>
         </Modal>
     )
 }
