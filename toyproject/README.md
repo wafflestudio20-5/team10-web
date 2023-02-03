@@ -4,7 +4,7 @@
 
 ## ⭐️ About the Project
 
-<img src="./src/resources/eTL_logo.png" width="1080px"/>
+<img src="./src/resources/eTL_logo.png" width="540px"/>
 
 애증의 웹사이트, 서울대학교 eTL 입니다.
 
@@ -40,7 +40,7 @@
 
 ### 🔹 원본 사이트와의 비교
 
-추가 예정
+<img src="./src/resources/etldifference.jpeg" width="1080px"/>
 
 ## ⭐️ 함께한 사람들
 
