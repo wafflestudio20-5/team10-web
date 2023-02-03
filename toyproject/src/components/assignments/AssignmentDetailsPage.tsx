@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import SubjectTemplate from '../SubjectTemplate';
-import styles from './AssignmentDetailsPage.module.scss';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import SubjectTemplate from "../SubjectTemplate";
+import styles from "./AssignmentDetailsPage.module.scss";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   apiAssignmentScore,
   apiAssignments,
   apiGetFile,
   auth,
   url,
-} from '../../lib/api';
-import { useSessionContext } from '../../context/SessionContext';
-import { UserAssignmentInterface } from '../../lib/types';
-import { timestampToDateWithLetters } from '../../lib/formatting';
-import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+} from "../../lib/api";
+import { useSessionContext } from "../../context/SessionContext";
+import { UserAssignmentInterface } from "../../lib/types";
+import { timestampToDateWithLetters } from "../../lib/formatting";
+import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleCheck,
   faCircleXmark,
-} from '@fortawesome/free-solid-svg-icons';
+} from "@fortawesome/free-solid-svg-icons";
 
 export const apiAssignment = async (
   token: string | null,
   assignment_id: number
 ) => {
   return await axios({
-    method: 'get',
+    method: "get",
     url: url(`/etl/assignments/${assignment_id}/`),
     withCredentials: true,
     headers: auth(token),
@@ -44,8 +44,8 @@ const DownloadFile = ({
   token: string | null;
 }) => {
   const originalFileURL = decodeURI(file);
-  const urlParams = originalFileURL.split('assignments/')[1].split('?X-Amz')[0];
-  const parts = urlParams.split('.');
+  const urlParams = originalFileURL.split("assignments/")[1].split("?X-Amz")[0];
+  const parts = urlParams.split(".");
   const extension = parts[parts.length - 1];
   const handleDownload = async (event: React.MouseEvent<HTMLSpanElement>) => {
     event.preventDefault();
@@ -87,9 +87,9 @@ export default function AssignmentDetailsPage() {
           score: a.data.score,
         });
       } catch {
-        const localRefreshToken = localStorage.getItem('refresh');
+        const localRefreshToken = localStorage.getItem("refresh");
         const resToken = await getRefreshToken(
-          localRefreshToken ? localRefreshToken : 'temp'
+          localRefreshToken ? localRefreshToken : "temp"
         );
         const newToken = resToken.data.access;
         const res = await apiAssignment(
@@ -120,14 +120,14 @@ export default function AssignmentDetailsPage() {
             <input
               type='file'
               id='fileUpload'
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               onChange={onSubmission}
             />
             <label htmlFor='fileUpload' className={styles.submit}>
               <p>
                 {userAssignment?.is_submitted
-                  ? '다시 제출하기'
-                  : '과제 제출하기'}
+                  ? "다시 제출하기"
+                  : "과제 제출하기"}
               </p>
             </label>
           </header>
@@ -148,7 +148,7 @@ export default function AssignmentDetailsPage() {
                   token={token}
                 ></DownloadFile>
               ) : (
-                '파일 없음'
+                "파일 없음"
               )}
             </li>
           </ul>
@@ -174,7 +174,7 @@ export default function AssignmentDetailsPage() {
               제출됨
               {userAssignment?.assignment.file
                 ? userAssignment?.assignment.file
-                : '파일 없음'}
+                : "파일 없음"}
             </b>
           ) : (
             <b className={styles.closed}>
@@ -184,7 +184,7 @@ export default function AssignmentDetailsPage() {
           )}
           <header>성적</header>
           {userAssignment?.is_graded ? (
-            <b className={styles.score}>{'' + userAssignment?.score + '점'}</b>
+            <b className={styles.score}>{"" + userAssignment?.score + "점"}</b>
           ) : (
             <b className={styles.score}>채점되지 않음</b>
           )}
