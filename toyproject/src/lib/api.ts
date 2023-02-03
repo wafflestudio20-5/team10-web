@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 // import { useCallback, useEffect, useRef, useState } from "react";
-import { Post, PostDetail, SignUpRequestBody } from './types';
+import { Post, PostDetail, SignUpRequestBody } from "./types";
 
 export const url = (path: string, param?: Record<string, string>) => {
   return `http://etlclone-env.eba-dxtv92ct.ap-northeast-2.elasticbeanstalk.com${path}`;
@@ -18,7 +18,7 @@ export const apiSignUp = (
   is_professor: boolean
 ) => {
   return axios.post<SignUpRequestBody>(
-    url('/authentication/signup/'),
+    url("/authentication/signup/"),
     { email, password, username, student_id, is_professor },
     { withCredentials: true }
   );
@@ -26,14 +26,14 @@ export const apiSignUp = (
 
 export const apiLogin = (email: string, password: string) => {
   return axios.post(
-    url('/authentication/login/'),
+    url("/authentication/login/"),
     { email, password },
     { withCredentials: true }
   );
 };
 
 export const apiLogout = (token: string) => {
-  return axios.get(url('/authentication/logout/'), {
+  return axios.get(url("/authentication/logout/"), {
     withCredentials: true,
     headers: auth(token),
   });
@@ -41,8 +41,8 @@ export const apiLogout = (token: string) => {
 
 export const apiSocialLogout = (token: string) => {
   return axios({
-    method: 'get',
-    url: url('/authentication/kakao/logout/'),
+    method: "get",
+    url: url("/authentication/kakao/logout/"),
     withCredentials: true,
     // headers: auth(token),
   });
@@ -50,8 +50,8 @@ export const apiSocialLogout = (token: string) => {
 
 export const apiRefreshToken = (token: string | null) => {
   return axios({
-    method: 'post',
-    url: url('/authentication/token/refresh/'),
+    method: "post",
+    url: url("/authentication/token/refresh/"),
     data: {
       refresh: token,
     },
@@ -68,7 +68,7 @@ export const apiPatchUserInfo = (
   is_social_login: boolean
 ) => {
   return axios({
-    method: 'patch',
+    method: "patch",
     url: url(`/authentication/user/${user_id}/`),
     headers: auth(token),
     data: {
@@ -83,7 +83,7 @@ export const apiPatchUserInfo = (
 
 export const apiGetUserInfo = (user_id: number, token: string) => {
   return axios({
-    method: 'get',
+    method: "get",
     url: url(`/authentication/user/${user_id}`),
     headers: auth(token),
     withCredentials: true,
@@ -98,14 +98,14 @@ export const apiGetSubjects = async (
 ) => {
   if (searchValue) {
     return await axios({
-      method: 'get',
+      method: "get",
       url: url(`/etl/classes/?name=${searchValue}&page=${page}`),
       withCredentials: true,
       headers: auth(token),
     });
   } else {
     return await axios({
-      method: 'get',
+      method: "get",
       url: url(`/etl/classes/?page=${page}`),
       withCredentials: true,
       headers: auth(token),
@@ -137,7 +137,7 @@ export const apiGetSubjects = async (
 
 export const apiGetSubjectInfo = async (token: string | null, id: number) => {
   return await axios({
-    method: 'get',
+    method: "get",
     url: url(`/etl/class/${id}`),
     withCredentials: true,
     headers: auth(token),
@@ -174,7 +174,7 @@ export const apiGetPostList = async (
 ) => {
   if (searchValue) {
     return await axios({
-      method: 'get',
+      method: "get",
       url: url(
         `/etl/class/${class_id}/${category}/?name=${searchValue}&page=${page}`
       ),
@@ -183,7 +183,7 @@ export const apiGetPostList = async (
     });
   } else {
     return await axios({
-      method: 'get',
+      method: "get",
       url: url(`/etl/class/${class_id}/${category}/?page=${page}`),
       withCredentials: true,
       headers: auth(token),
@@ -311,7 +311,7 @@ export const apiAssignments = async (
 
 export const apiBye = async (token: string | null, id: Number) => {
   return await axios({
-    method: 'delete',
+    method: "delete",
     url: url(`/authentication/user/${id}/`),
     withCredentials: true,
     headers: auth(token),
@@ -323,7 +323,7 @@ export const apiAssignmentScore = async (
   assignment_id: number
 ) => {
   return await axios({
-    method: 'get',
+    method: "get",
     url: url(`/etl/assignments/${assignment_id}/score/`),
     withCredentials: true,
     headers: auth(token),
@@ -335,7 +335,7 @@ export const apiAllAssignmentScore = async (
   class_id: number
 ) => {
   return await axios({
-    method: 'get',
+    method: "get",
     url: url(`/etl/assignments/class/${class_id}/totalscore/`),
     withCredentials: true,
     headers: auth(token),
@@ -347,7 +347,7 @@ export const apiAssignmentTotalScore = async (
   class_id: number
 ) => {
   return await axios({
-    method: 'get',
+    method: "get",
     url: url(`/etl/assignments/class/${class_id}/totalscore/`),
     withCredentials: true,
     headers: auth(token),
@@ -360,7 +360,7 @@ export const apiSubmitAssignment = async (
   file: FormData | null
 ) => {
   return await axios({
-    method: 'PUT',
+    method: "PUT",
     url: url(`/etl/assignments/${class_id}/upload`),
     data: file,
     withCredentials: true,
@@ -373,12 +373,12 @@ export const apiUploadImage = async (
   file: FormData | null
 ) => {
   return await axios({
-    method: 'PUT',
+    method: "PATCH",
     url: url(`/authentication/profile/`),
     data: file,
     withCredentials: true,
     headers: {
-      'Content-Type': 'multipart/form-data',
+      "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -386,7 +386,7 @@ export const apiUploadImage = async (
 
 export const apiDownloadImage = async (token: string | null) => {
   return await axios({
-    method: 'GET',
+    method: "GET",
     url: url(`/authentication/profile/download/`),
     withCredentials: true,
     headers: auth(token),
@@ -398,7 +398,7 @@ export const apiEnrollClass = async (
   class_id: number
 ) => {
   return await axios({
-    method: 'post',
+    method: "post",
     url: url(`/etl/class/enroll/`),
     data: {
       class_id,
@@ -410,7 +410,7 @@ export const apiEnrollClass = async (
 
 export const apiDropClass = async (token: string | null, class_id: number) => {
   return await axios({
-    method: 'post',
+    method: "post",
     url: url(`/etl/class/drop/`),
     data: {
       class_id,
@@ -424,7 +424,7 @@ export const apiDropClass = async (token: string | null, class_id: number) => {
 
 export const apiGetModules = async (token: string | null, class_id: number) => {
   return await axios({
-    method: 'get',
+    method: "get",
     url: url(`/etl/module/class/${class_id}/`),
     withCredentials: true,
     headers: auth(token),
@@ -440,15 +440,15 @@ export const apiGetFile = async (
   try {
     const response = await axios({
       url: file,
-      method: 'get',
-      responseType: 'blob', // important
+      method: "get",
+      responseType: "blob", // important
       withCredentials: true,
       // headers: auth(token),
     });
     const url_1 = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = url_1;
-    link.setAttribute('download', `${filename}`);
+    link.setAttribute("download", `${filename}`);
     document.body.appendChild(link);
     link.click();
     return response;
@@ -459,8 +459,8 @@ export const apiGetFile = async (
 
 export const apiKakaoLogin = async (code: string | null) => {
   return await axios({
-    method: 'post',
-    url: url('/authentication/kakao/callback/'),
+    method: "post",
+    url: url("/authentication/kakao/callback/"),
     data: {
       code: code,
     },
@@ -469,12 +469,12 @@ export const apiKakaoLogin = async (code: string | null) => {
 };
 
 //kakaotalk social login 관련 변수
-export const CLIENT_ID = '52dd93ef1080aec2f79528f6aa8a9d68';
+export const CLIENT_ID = "52dd93ef1080aec2f79528f6aa8a9d68";
 // const CLIENT_ID = '9abd4a226f299f3b2c393cc8dd0b9ed8';
 // export const REDIRECT_URI =
 // 'http://localhost:3000/authentication/kakao/callback/';
 const REDIRECT_URI =
-  'http://dvn7ib10xdyoj.cloudfront.net/authentication/kakao/callback/';
+  "http://dvn7ib10xdyoj.cloudfront.net/authentication/kakao/callback/";
 // const REDIRECT_URI = url('/authentication/kakao/login');
 
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
