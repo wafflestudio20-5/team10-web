@@ -1,7 +1,11 @@
-import styles from "./ImageModal.module.scss";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faImage, faXmark, faArrowDown} from "@fortawesome/free-solid-svg-icons";
-import Modal from "react-modal";
+import styles from './ImageModal.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faImage,
+  faXmark,
+  faArrowDown,
+} from '@fortawesome/free-solid-svg-icons';
+import Modal from 'react-modal';
 import React, {
     useState,
     useCallback,
@@ -14,11 +18,11 @@ import {apiUploadImage} from "../../../lib/api";
 import {useSessionContext} from "../../../context/SessionContext";
 
 type ImageModalType = {
-    isModalOpen: boolean,
-    toggleModal: () => void,
-    imageFile: File | null,
-    setImageFile: React.Dispatch<File | null>
-}
+  isModalOpen: boolean;
+  toggleModal: () => void;
+  imageFile: File | null;
+  setImageFile: React.Dispatch<File | null>;
+};
 
 export function ImageModal({isModalOpen, toggleModal, imageFile, setImageFile}: ImageModalType) {
 
@@ -146,3 +150,4 @@ export function ImageModal({isModalOpen, toggleModal, imageFile, setImageFile}: 
         </Modal>
     )
 }
+
