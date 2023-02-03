@@ -14,6 +14,7 @@ export default function KakaoLoginPage() {
   useEffect(() => {
     (async () => {
       let code = new URL(window.location.href).searchParams.get('code');
+      console.log(code);
       const res = await apiKakaoLogin(code);
       setToken(res.data.access_token);
       localStorage.setItem('refresh', res.data.refresh_token); //우선 로컬storage에 refresh 저장해둠
