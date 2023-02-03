@@ -161,6 +161,7 @@ export default function AssignmentDetailsPage() {
                         type='file'
                         id='fileUpload'
                         style={{ display: "none" }}
+                        accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
                         onChange={onUpload}
                     />
                     <label htmlFor='fileUpload' className={styles.upload}>
