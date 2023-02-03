@@ -44,7 +44,7 @@ export const apiSocialLogout = (token: string) => {
     method: 'get',
     url: url('/authentication/kakao/logout/'),
     withCredentials: true,
-    headers: auth(token),
+    // headers: auth(token),
   });
 };
 
@@ -355,25 +355,22 @@ export const apiAssignmentTotalScore = async (
 };
 
 export const apiSubmitAssignment = async (
-    token: string | null,
-    class_id: number,
-    file: FormData | null,
+  token: string | null,
+  class_id: number,
+  file: File | null
 ) => {
   return await axios({
     method: 'PUT',
     url: url(`/etl/assignments/${class_id}/upload`),
     data: file,
     withCredentials: true,
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`
-    },
-  })
-}
+    headers: auth(token),
+  });
+};
 
 export const apiUploadImage = async (
-    token: string | null,
-    file: FormData | null,
+  token: string | null,
+  file: FormData | null
 ) => {
   return await axios({
     method: 'PUT',
@@ -381,22 +378,20 @@ export const apiUploadImage = async (
     data: file,
     withCredentials: true,
     headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`
-    }
-  })
-}
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
 
-export const apiDownloadImage = async (
-    token: string | null,
-) => {
+export const apiDownloadImage = async (token: string | null) => {
   return await axios({
     method: 'GET',
     url: url(`/authentication/profile/download/`),
     withCredentials: true,
-    headers: auth(token)
-  })
-}
+    headers: auth(token),
+  });
+};
 
 export const apiEnrollClass = async (
   token: string | null,
@@ -476,7 +471,9 @@ export const apiKakaoLogin = async (code: string | null) => {
 //kakaotalk social login 관련 변수
 const CLIENT_ID = '52dd93ef1080aec2f79528f6aa8a9d68';
 // const CLIENT_ID = '9abd4a226f299f3b2c393cc8dd0b9ed8';
-const REDIRECT_URI = 'http://localhost:3000/authentication/kakao/callback/';
+// const REDIRECT_URI = 'http://localhost:3000/authentication/kakao/callback/';
+const REDIRECT_URI =
+  'https://dvn7ib10xdyoj.cloudfront.net/authentication/kakao/callback/';
 // const REDIRECT_URI = url('/authentication/kakao/login');
 
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
