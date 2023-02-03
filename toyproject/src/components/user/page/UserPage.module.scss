@@ -38,11 +38,14 @@
 }
 
 .button {
-  margin: auto auto auto 0;
-  width: 100px;
-  cursor: pointer;
+  border: none;
+  color: darkblue;
+  background-color: white;
+  font-weight: 700;
+  font-size: 15px;
+  margin-left: auto;
+
   &:hover {
-    background-color: red;
-    color: white;
+    cursor: pointer;
   }
 }

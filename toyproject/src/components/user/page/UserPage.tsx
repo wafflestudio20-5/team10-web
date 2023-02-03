@@ -46,14 +46,16 @@ export default function UserPage() {
           <PasswordForm title={"비밀번호"} content={"********"} />{" "}
           <div className={contentStyles.wrapper}>
             <div className={contentStyles.content}>자퇴 신청</div>
-            <button
-              className={styles.button}
-              onClick={() => {
-                user && bye(token, user.id);
-              }}
-            >
-              자퇴
-            </button>
+            <div className={contentStyles.buttonWrapper}>
+              <button
+                className={styles.button}
+                onClick={() => {
+                  user && bye(token, user.id);
+                }}
+              >
+                자퇴
+              </button>
+            </div>
           </div>
         </div>
       </div>
