@@ -367,6 +367,21 @@ export const apiSubmitAssignment = async (
   })
 }
 
+export const apiUploadImage = async (
+    token: string | null,
+    file: File | null,
+) => {
+  return await axios({
+    method: 'PUT',
+    url: url(`/authentication/profile/`),
+    withCredentials: true,
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`
+    }
+  })
+}
+
 export const apiEnrollClass = async (
   token: string | null,
   class_id: number

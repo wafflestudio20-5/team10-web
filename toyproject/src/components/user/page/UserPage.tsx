@@ -35,7 +35,12 @@ export default function UserPage() {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper}
+         onDragEnter={e => e.preventDefault()}
+         onDragExit={e => e.preventDefault()}
+         onDragOver={e => e.preventDefault()}
+         onDrop={e=> e.preventDefault()}
+    >
       <SideNavBar />
       <div className={styles.right}>
         <div className={styles.header}>
