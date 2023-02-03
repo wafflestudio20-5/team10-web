@@ -44,7 +44,7 @@ export const apiSocialLogout = (token: string) => {
     method: 'get',
     url: url('/authentication/kakao/logout/'),
     withCredentials: true,
-    headers: auth(token),
+    // headers: auth(token),
   });
 };
 
@@ -355,25 +355,22 @@ export const apiAssignmentTotalScore = async (
 };
 
 export const apiSubmitAssignment = async (
-    token: string | null,
-    class_id: number,
-    file: FormData | null,
+  token: string | null,
+  class_id: number,
+  file: File | null
 ) => {
   return await axios({
     method: 'PUT',
     url: url(`/etl/assignments/${class_id}/upload`),
     data: file,
     withCredentials: true,
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`
-    },
-  })
-}
+    headers: auth(token),
+  });
+};
 
 export const apiUploadImage = async (
-    token: string | null,
-    file: FormData | null,
+  token: string | null,
+  file: File | null
 ) => {
   return await axios({
     method: 'PUT',
@@ -381,22 +378,20 @@ export const apiUploadImage = async (
     data: file,
     withCredentials: true,
     headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`
-    }
-  })
-}
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
 
-export const apiDownloadImage = async (
-    token: string | null,
-) => {
+export const apiDownloadImage = async (token: string | null) => {
   return await axios({
     method: 'GET',
     url: url(`/authentication/profile/download/`),
     withCredentials: true,
-    headers: auth(token)
-  })
-}
+    headers: auth(token),
+  });
+};
 
 export const apiEnrollClass = async (
   token: string | null,

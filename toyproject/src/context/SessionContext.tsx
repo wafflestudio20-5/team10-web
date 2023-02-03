@@ -127,10 +127,10 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         setToken(null);
         // navigate('/login/');
         localStorage.removeItem('refresh');
-        setIsLoggedIn(false);
+        // setIsLoggedIn(false);
         //어떤 로그아웃 페이지로 이동}
       } else {
-        const res = await apiLogout(resToken.data.access);
+        // const res = await apiLogout(resToken.data.access);
         setUser(null);
         setToken(null);
         navigate('/login/');
