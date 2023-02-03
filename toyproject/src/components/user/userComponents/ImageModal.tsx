@@ -72,7 +72,7 @@ export function ImageModal({isModalOpen, toggleModal, imageFile, setImageFile}: 
         if (e.dataTransfer!.files) {
             setIsDragging(true);
         }
-    }, []);
+    }, []);``
 
     const handleDrop = useCallback(
         (e: DragEvent): void => {
