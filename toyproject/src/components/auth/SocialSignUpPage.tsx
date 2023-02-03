@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import styles from './SocialSignUpPage.module.scss';
-import { useNavigate } from 'react-router';
-import { ToastContainer, toast } from 'react-toastify';
-import { apiGetUserInfo, apiPatchUserInfo } from '../../lib/api';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinus } from '@fortawesome/free-solid-svg-icons';
-import loginHeader from '../../resources/loginHeader.png';
-import headerStyles from './LoginPage.module.scss';
+import React, { useState } from "react";
+import styles from "./SocialSignUpPage.module.scss";
+import { useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
+import { apiGetUserInfo, apiPatchUserInfo } from "../../lib/api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMinus } from "@fortawesome/free-solid-svg-icons";
+import loginHeader from "../../resources/loginHeader.png";
+import headerStyles from "./LoginPage.module.scss";
 import {
   CardColor,
   SocialSignUpRequestBody,
   SubjectType,
-} from '../../lib/types';
-import { useSessionContext } from '../../context/SessionContext';
+} from "../../lib/types";
+import { useSessionContext } from "../../context/SessionContext";
 
 export default function SocialSignUpPage() {
   //소셜로그인 완료시 => userid, access, refreshtoken 발급
@@ -22,20 +22,20 @@ export default function SocialSignUpPage() {
     useSessionContext();
 
   const [userInfo, setUserInfo] = useState<SocialSignUpRequestBody>({
-    username: '',
-    student_id: '',
+    username: "",
+    student_id: "",
     is_professor: false,
   });
 
-  const [firstStudent_id, setFirstStudent_id] = useState<string>('');
-  const [lastStudent_id, setLastStudent_id] = useState<string>('');
+  const [firstStudent_id, setFirstStudent_id] = useState<string>("");
+  const [lastStudent_id, setLastStudent_id] = useState<string>("");
   const nav = useNavigate();
 
   const signUp = async (userinfo: SocialSignUpRequestBody) => {
     try {
-      const localRefresh = localStorage.getItem('refresh');
-      const localUserId = localStorage.getItem('userId');
-      const res = await getRefreshToken(localRefresh ? localRefresh : 'temp');
+      const localRefresh = localStorage.getItem("refresh");
+      const localUserId = localStorage.getItem("userId");
+      const res = await getRefreshToken(localRefresh ? localRefresh : "temp");
       const patchRes = await apiPatchUserInfo(
         localUserId,
         res.data.access,
@@ -53,51 +53,50 @@ export default function SocialSignUpPage() {
         userInfoRes.data.classes.map((c: SubjectType): CardColor => {
           return {
             id: c.id,
-            color: '#97bdf5',
+            color: "#97bdf5",
           };
         })
       );
       setIsLoggedIn(true);
-      nav('/');
+      nav("/");
     } catch (err: any) {
-      console.log(err.response.data);
-      if (Object.keys(err.response.data).includes('student_id')) {
+      if (Object.keys(err.response.data).includes("student_id")) {
         if (
-          err.response.data.student_id?.includes('This field may not be blank.')
+          err.response.data.student_id?.includes("This field may not be blank.")
         ) {
-          toast('학번은 반드시 입력해야 합니다.', {
-            position: 'top-center',
-            theme: 'colored',
+          toast("학번은 반드시 입력해야 합니다.", {
+            position: "top-center",
+            theme: "colored",
           });
         }
         if (
           err.response.data.student_id?.includes(
-            'student_id should be 10 length' ||
-              'student_id form should be XXXX-XXXXX'
+            "student_id should be 10 length" ||
+              "student_id form should be XXXX-XXXXX"
           )
         ) {
-          toast('학번은 XXXX-XXXXX 형식의 숫자열로 입력해주세요.', {
-            position: 'top-center',
-            theme: 'colored',
+          toast("학번은 XXXX-XXXXX 형식의 숫자열로 입력해주세요.", {
+            position: "top-center",
+            theme: "colored",
           });
         }
         if (
-          err.response.data.student_id?.includes('already existing student_id')
+          err.response.data.student_id?.includes("already existing student_id")
         ) {
-          toast('이미 존재하는 학번입니다.', {
-            position: 'top-center',
-            theme: 'colored',
+          toast("이미 존재하는 학번입니다.", {
+            position: "top-center",
+            theme: "colored",
           });
         }
       }
 
-      if (Object.keys(err.response.data).includes('username')) {
+      if (Object.keys(err.response.data).includes("username")) {
         if (
-          err.response.data.username?.includes('This field may not be blank.')
+          err.response.data.username?.includes("This field may not be blank.")
         ) {
-          toast('이름은 반드시 입력해야 합니다.', {
-            position: 'top-center',
-            theme: 'colored',
+          toast("이름은 반드시 입력해야 합니다.", {
+            position: "top-center",
+            theme: "colored",
           });
         }
       }
@@ -134,8 +133,8 @@ export default function SocialSignUpPage() {
             <img
               src={
                 !userInfo.is_professor
-                  ? 'https://nsso.snu.ac.kr/sso/resources/snu/usr/images/student_on.svg'
-                  : 'https://nsso.snu.ac.kr/sso/resources/snu/usr/images/student.svg'
+                  ? "https://nsso.snu.ac.kr/sso/resources/snu/usr/images/student_on.svg"
+                  : "https://nsso.snu.ac.kr/sso/resources/snu/usr/images/student.svg"
               }
               alt='student'
               className={styles.image}
@@ -159,8 +158,8 @@ export default function SocialSignUpPage() {
             <img
               src={
                 userInfo.is_professor
-                  ? 'https://nsso.snu.ac.kr/sso/resources/snu/usr/images/teacher_on.svg'
-                  : 'https://nsso.snu.ac.kr/sso/resources/snu/usr/images/teacher.svg'
+                  ? "https://nsso.snu.ac.kr/sso/resources/snu/usr/images/teacher_on.svg"
+                  : "https://nsso.snu.ac.kr/sso/resources/snu/usr/images/teacher.svg"
               }
               alt='professor'
               className={styles.image}
@@ -217,7 +216,7 @@ export default function SocialSignUpPage() {
           onClick={async (e) => {
             e.preventDefault();
             await signUp(userInfo);
-            nav('/');
+            nav("/");
           }}
         >
           다음

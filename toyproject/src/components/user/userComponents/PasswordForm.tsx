@@ -3,7 +3,9 @@ import styles from "./PasswordForm.module.scss";
 import axios from "axios";
 import { auth, url } from "../../../lib/api";
 import { useSessionContext } from "../../../context/SessionContext";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function PasswordForm({
   title,
   content,
@@ -77,14 +79,32 @@ export default function PasswordForm({
         position: "top-center",
         theme: "colored",
       });
-    } catch (error) {
+    } catch (error: any) {
       if (axios.isAxiosError(error)) {
-        toast(error.response?.data.error, {
-          position: "top-center",
-          theme: "colored",
-        });
+        const err = error.response?.data.error;
+        if (err === "too short password. password length should be >=8.") {
+          toast("비밀번호는 최소 8글자 이상으로 입력해주세요.", {
+            position: "top-center",
+            theme: "colored",
+          });
+        } else if (err === "This password is too common.") {
+          toast("비밀번호는 너무 흔하지 않은 조합으로 입력해주세요.", {
+            position: "top-center",
+            theme: "colored",
+          });
+        } else if (err === "This password is entirely numeric.") {
+          toast("숫자로만 구성된 비밀번호는 사용할 수 없습니다.", {
+            position: "top-center",
+            theme: "colored",
+          });
+        } else if (err === "This field may not be blank.") {
+          toast("비밀번호는 반드시 입력해야 합니다.", {
+            position: "top-center",
+            theme: "colored",
+          });
+        }
       } else {
-        toast("unknown error", {
+        toast("알 수 없는 오류가 발생했습니다. 다시 시도해 주세요.", {
           position: "top-center",
           theme: "colored",
         });
@@ -129,6 +149,7 @@ export default function PasswordForm({
           </div>
         )}
       </div>
+      <ToastContainer />
     </form>
   );
 }

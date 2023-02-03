@@ -9,7 +9,6 @@ type SubjectContextType = {
   mySubjects: SubjectType[] | undefined;
   curSubject: SubjectType | undefined;
   handleClick: (subject: SubjectType) => void;
-  // getSubjects: (token: string | null, page: number | null) => void;
   nextApi: string | null;
   previousApi: string | null;
   getSubjectInfo: (id: number) => Promise<AxiosResponse<any, any>>;
@@ -34,32 +33,11 @@ export function SubjectProvider({ children }: { children: React.ReactNode }) {
   const [nextApi, setNextApi] = useState("");
   const [previousApi, setPreviousApi] = useState("");
 
-  // const getSubjects = async (token: string | null, page: number | null) => {
-  //   try {
-  //     const res = await apiGetSubjects(token, page);
-  //     setNextApi(res.data.next && res.data.next.match(/page=([^&]+)/)[1]);
-  //     setPreviousApi(
-  //       res.data.previous && res.data.previous.match(/page=([^&]+)/)[1]
-  //     );
-  //     setSubjects(res.data.results);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (token) getSubjects(token, '');
-  // }, [token]);
-
   const mySubjects = user?.classes;
 
   const handleClick = (subject: SubjectType) => {
     setCurSubject(subject);
   };
-
-  const enrollClass = () => {};
-
-  const dropClass = () => {};
 
   //subjectTemplate에서 사용
   const getSubjectInfo = async (id: number) => {
@@ -78,7 +56,6 @@ export function SubjectProvider({ children }: { children: React.ReactNode }) {
         mySubjects,
         curSubject,
         handleClick,
-        // getSubjects,
         nextApi,
         previousApi,
         getSubjectInfo,

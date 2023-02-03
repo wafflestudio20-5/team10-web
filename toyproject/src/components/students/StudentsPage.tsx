@@ -1,26 +1,28 @@
-import React from 'react';
-import SubjectTemplate from '../SubjectTemplate';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
-import styles from './StudentsPage.module.scss';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import Searchbar from '../Searchbar';
-import { useSessionContext } from '../../context/SessionContext';
-import { StudentsOfSubject } from '../../lib/types';
-import { apiGetStudentsOfSubject, apiGetSubjectInfo } from '../../lib/api';
+import React from "react";
+import SubjectTemplate from "../SubjectTemplate";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import styles from "./StudentsPage.module.scss";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Searchbar from "../Searchbar";
+import { useSessionContext } from "../../context/SessionContext";
+import { StudentsOfSubject } from "../../lib/types";
+import { apiGetStudentsOfSubject, apiGetSubjectInfo } from "../../lib/api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function StudentsPage() {
   const { token, getRefreshToken } = useSessionContext();
   const { subjectid } = useParams();
 
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [searchType, setSearchType] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [searchType, setSearchType] = useState<string>("");
   const [students, setStudents] = useState<StudentsOfSubject[] | undefined>([]);
   const [studentsToShow, setStudentsToShow] = useState<
     StudentsOfSubject[] | undefined
   >(students);
-  const [subTitle, setSubTitle] = useState('');
+  const [subTitle, setSubTitle] = useState("");
   const [totalNum, setTotalNum] = useState<number>(0);
   const [activeButton, setActiveButton] = useState({ activate: 0 });
 
@@ -36,7 +38,12 @@ export default function StudentsPage() {
         setStudents(res.data.results);
         setTotalNum(res.data.count);
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        toast("수강생 목록을 불러오지 못했습니다. 다시 시도해주세요.", {
+          position: "top-center",
+          theme: "colored",
+        })
+      );
   };
 
   useEffect(() => {
@@ -48,9 +55,9 @@ export default function StudentsPage() {
         getStudentsOfSubject(token, id, 1);
       } catch {
         const id = Number(subjectid);
-        const localRefreshToken = localStorage.getItem('refresh');
+        const localRefreshToken = localStorage.getItem("refresh");
         const resToken = await getRefreshToken(
-          localRefreshToken ? localRefreshToken : 'temp'
+          localRefreshToken ? localRefreshToken : "temp"
         );
         const newToken = resToken.data.access;
         const res = await apiGetSubjectInfo(newToken, id);
@@ -62,11 +69,11 @@ export default function StudentsPage() {
 
   const filterStudents = () => {
     let filteredStudents = students;
-    if (searchType === 'student') {
+    if (searchType === "student") {
       filteredStudents = filteredStudents?.filter(
         (student) => !student.is_professor
       );
-    } else if (searchType === 'professor') {
+    } else if (searchType === "professor") {
       filteredStudents = filteredStudents?.filter(
         (student) => student.is_professor
       );
@@ -82,9 +89,9 @@ export default function StudentsPage() {
 
   const handleType = (type: boolean) => {
     if (type === true) {
-      return '교수자';
+      return "교수자";
     } else if (type === false) {
-      return '학생';
+      return "학생";
     }
   };
 
@@ -152,11 +159,11 @@ export default function StudentsPage() {
           </tbody>
         </table>
       )}
-      <div className={styles['button-container']}>
+      <div className={styles["button-container"]}>
         {Array.from({ length: buttonCount }).map((_, idx) => (
           <button
-            className={`${styles['nav-button']} ${
-              activeButton.activate === idx ? styles['active'] : ''
+            className={`${styles["nav-button"]} ${
+              activeButton.activate === idx ? styles["active"] : ""
             }`}
             key={idx}
             onClick={(event) => goToPage(event, idx + 1, idx)}
@@ -165,6 +172,7 @@ export default function StudentsPage() {
           </button>
         ))}
       </div>
+      <ToastContainer />
     </SubjectTemplate>
   );
 }
