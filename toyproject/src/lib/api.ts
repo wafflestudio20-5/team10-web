@@ -370,7 +370,7 @@ export const apiSubmitAssignment = async (
 
 export const apiUploadImage = async (
   token: string | null,
-  file: File | null
+  file: FormData | null
 ) => {
   return await axios({
     method: 'PUT',
