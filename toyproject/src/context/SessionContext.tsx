@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { CardColor, SubjectType, User } from "../lib/types";
+=======
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { CardColor, SubjectType, User } from '../lib/types';
+>>>>>>> cc521dc (login temp)
 import {
   apiGetUserInfo,
   apiLogin,
@@ -106,6 +111,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       setIsLoggedIn(true);
       navigate("/");
     } catch (err: any) {
+<<<<<<< HEAD
       if (Object.keys(err.response.data).includes("non_field_errors")) {
         toast("이메일 또는 비밀번호가 틀렸습니다.", {
           position: "top-center",
@@ -117,6 +123,14 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
           theme: "colored",
         });
       }
+=======
+      console.log(err);
+      const errorMessage = err.response.data.non_field_errors;
+      toast(errorMessage[0], {
+        position: 'top-center',
+        theme: 'colored',
+      });
+>>>>>>> cc521dc (login temp)
     }
   };
 
