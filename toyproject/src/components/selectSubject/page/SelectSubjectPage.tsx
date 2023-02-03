@@ -39,6 +39,7 @@ export default function SelectSubjectPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalInfo, setModalInfo] = useState<ModalInfo | undefined>(undefined);
   const [curPage, setCurPage] = useState<number>(1);
+  const [buttonCount, setbuttonCount] = useState<number>(1);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -62,7 +63,7 @@ export default function SelectSubjectPage() {
     await apiEnrollClass(res.data.access, classId);
     toast('신청되었습니다!', { position: 'top-center', theme: 'colored' });
     await refreshUserInfo(res.data.access!);
-    setActiveButton({ ...activeButton, activate: 0 });
+    // setActiveButton({ ...activeButton, activate: 0 });
 
     // .then((r) => {
     //     toast('신청되었습니다!');
@@ -83,7 +84,7 @@ export default function SelectSubjectPage() {
       })
       .then((r) => {
         refreshUserInfo(token!); //!를 삽입함으로서 token이 항상 존재한다는 걸 알릴 수 있다.
-        setActiveButton({ ...activeButton, activate: 0 });
+        // setActiveButton({ ...activeButton, activate: 0 });
       })
       .catch((r) => console.log(r));
   };
@@ -91,10 +92,20 @@ export default function SelectSubjectPage() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await apiGetSubjects(token, 1, searchValue);
-        //while문으로 결과 null이면 page 하나씩 적게 요청하도록 할 수 있긴 한데.
-        setSubjects(res.data.results);
-        setTotalNum(res.data.count);
+        const initRes = await apiGetSubjects(token, 1, searchValue);
+        if (initRes.data.count < curPage) {
+          const newRes = await apiGetSubjects(token, 1, searchValue);
+          setSubjects(newRes.data.results);
+          setTotalNum(initRes.data.count);
+          const btnCount = Math.ceil(initRes.data.count / 10);
+          setbuttonCount(btnCount);
+        } else {
+          const res = await apiGetSubjects(token, curPage, searchValue);
+          setSubjects(res.data.results);
+          setTotalNum(res.data.count);
+          const btnCount = Math.ceil(res.data.count / 10);
+          setbuttonCount(btnCount);
+        }
       } catch (err: any) {
         if (err.response.status === 401) {
           const localRefreshToken = localStorage.getItem('refresh');
@@ -102,13 +113,18 @@ export default function SelectSubjectPage() {
             localRefreshToken ? localRefreshToken : 'temp'
           );
           const newToken = resToken.data.access;
-          const res = await apiGetSubjects(newToken, 1, searchValue);
+          const res = await apiGetSubjects(newToken, curPage, searchValue);
           setSubjects(res.data.results);
           setTotalNum(res.data.count);
         }
       }
     })();
-  }, [token, searchValue]);
+  }, [token, searchValue, buttonCount]);
+
+  useEffect(() => {
+    setCurPage(1);
+    setActiveButton({ ...activeButton, activate: 0 });
+  }, [searchValue]);
 
   const goToPage = async (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -119,10 +135,10 @@ export default function SelectSubjectPage() {
     const res = await apiGetSubjects(token, page, searchValue);
     setSubjects(res.data.results);
     setActiveButton({ ...activeButton, activate: idx });
-    // setCurPage(page);
+    setCurPage(page);
   };
 
-  const buttonCount = Math.ceil(totalNum / 10);
+  // const buttonCount = Math.ceil(totalNum / 10);
 
   return (
     <div className={styles.selectSubjectPagewrapper}>
