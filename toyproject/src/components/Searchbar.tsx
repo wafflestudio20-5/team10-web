@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction } from 'react';
-import styles from './Searchbar.module.scss';
+import { Dispatch, SetStateAction } from "react";
+import styles from "./Searchbar.module.scss";
 
 interface SearchbarPropsType {
   searchValue: string;
