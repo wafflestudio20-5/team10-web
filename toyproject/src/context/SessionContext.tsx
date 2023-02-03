@@ -50,7 +50,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         const localRefresh = localStorage.getItem('refresh');
         const localUserId = Number(localStorage.getItem('userId'));
         const res = await getRefreshToken(localRefresh ? localRefresh : 'temp'); //렌더링 시 refreshToken 요청
-        console.log(res.data.access);
+        // console.log(res.data.access);
         if (res.status === 200) {
           const resUser = await apiGetUserInfo(localUserId, res.data.access); //이 작업을 위해선 userId가 필요한데 우선 local Storage에 저장
           setUser(resUser.data);
