@@ -105,7 +105,7 @@ export default function AssignmentPage() {
       category: "마감일 순",
       assignments: copy
     }])
-  }, [assignments, scores])
+  }, [assignments, scores, searchValue, setSearchValue])
 
   return (
     <SubjectTemplate
