@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 import SubjectTemplate from '../SubjectTemplate';
 import styles from './AssignmentDetailsPage.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
-import { apiAssignmentScore, apiAssignments, auth, url } from '../../lib/api';
+import {
+  apiAssignmentScore,
+  apiAssignments,
+  apiGetFile,
+  auth,
+  url,
+} from '../../lib/api';
 import { useSessionContext } from '../../context/SessionContext';
 import { UserAssignmentInterface } from '../../lib/types';
 import { timestampToDateWithLetters } from '../../lib/formatting';
@@ -12,7 +18,6 @@ import {
   faCircleCheck,
   faCircleXmark,
 } from '@fortawesome/free-solid-svg-icons';
-import {DownloadFile} from "../module/ModuleBlock";
 
 export const apiAssignment = async (
   token: string | null,
@@ -31,16 +36,40 @@ const isOpen = (due_date: string): boolean => {
   return timestamp - Date.now() > 0;
 };
 
+const DownloadFile = ({
+  file,
+  token,
+}: {
+  file: string;
+  token: string | null;
+}) => {
+  const originalFileURL = decodeURI(file);
+  const urlParams = originalFileURL.split('assignments/')[1].split('?X-Amz')[0];
+  const parts = urlParams.split('.');
+  const extension = parts[parts.length - 1];
+  const handleDownload = async (event: React.MouseEvent<HTMLSpanElement>) => {
+    event.preventDefault();
+    await apiGetFile(file, token, urlParams, extension);
+  };
+
+  return (
+    <span className={styles.download} onClick={handleDownload}>
+      {urlParams}
+    </span>
+  );
+};
+
 export default function AssignmentDetailsPage() {
   const { token, getRefreshToken } = useSessionContext();
   const { subjectid, assignmentID } = useParams();
-  const [userAssignment, setUserAssignment] = useState<UserAssignmentInterface>();
+  const [userAssignment, setUserAssignment] =
+    useState<UserAssignmentInterface>();
   const [submitFile, setSubmitFile] = useState<File | null>(null);
   const navigate = useNavigate();
 
   const onSubmission = () => {
     // 제출 함수
-  }
+  };
 
   useEffect(() => {
     if (!token) return;
@@ -89,13 +118,17 @@ export default function AssignmentDetailsPage() {
           <header className={styles.header}>
             <p className={styles.title}>{userAssignment?.assignment.name}</p>
             <input
-                type="file"
-                id="fileUpload"
-                style={{display: "none"}}
-                onChange={onSubmission}
+              type='file'
+              id='fileUpload'
+              style={{ display: 'none' }}
+              onChange={onSubmission}
             />
-            <label htmlFor="fileUpload" className={styles.submit}>
-              <p>{userAssignment?.is_submitted ? "다시 제출하기" : "과제 제출하기"}</p>
+            <label htmlFor='fileUpload' className={styles.submit}>
+              <p>
+                {userAssignment?.is_submitted
+                  ? '다시 제출하기'
+                  : '과제 제출하기'}
+              </p>
             </label>
           </header>
           <ul className={styles.details}>
@@ -109,9 +142,14 @@ export default function AssignmentDetailsPage() {
             <li>{userAssignment?.assignment.max_grade}</li>
             <b>파일</b>
             <li>
-              {userAssignment?.assignment.file
-                ? <a>userAssignment?.assignment.file</a>
-                : '파일 없음'}
+              {userAssignment?.assignment.file ? (
+                <DownloadFile
+                  file={userAssignment?.assignment.file}
+                  token={token}
+                ></DownloadFile>
+              ) : (
+                '파일 없음'
+              )}
             </li>
           </ul>
           <article className={styles.content}>내용 없음</article>
