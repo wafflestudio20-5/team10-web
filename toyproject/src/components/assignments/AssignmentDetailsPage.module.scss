@@ -15,7 +15,7 @@
   flex-direction: column;
   header {
     font-weight: bold;
-    border-bottom: 1px solid #C7CDD1;
+    border-bottom: 1px solid #c7cdd1;
     padding-bottom: 5px;
     margin-bottom: 15px;
   }
@@ -31,7 +31,7 @@
     }
   }
   b.closed {
-    color: #FF3333;
+    color: #ff3333;
   }
   b.score {
     color: black;
@@ -51,7 +51,7 @@
     width: 120px;
     height: 42px;
     margin: 2px;
-    background-color: #0F0F70;
+    background-color: #0f0f70;
     color: white;
     border: 0 solid;
     border-radius: 2px;
@@ -65,8 +65,8 @@
 }
 
 .details {
-  border-top: 1px solid #C7CDD1;
-  border-bottom: 1px solid #C7CDD1;
+  border-top: 1px solid #c7cdd1;
+  border-bottom: 1px solid #c7cdd1;
   display: flex;
   height: 24px;
   padding: 12px 0;
@@ -83,4 +83,10 @@
 
 .content {
   padding: 0;
+}
+
+.download {
+  &:hover {
+    cursor: pointer;
+  }
 }
