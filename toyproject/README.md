@@ -4,9 +4,9 @@
 
 ## ⭐️ About the Project
 
-애증의 웹사이트, 서울대학교 eTL 입니다.
+<img src="./src/resources/eTL_logo.png" width="1080px"/>
 
-(LOGO)
+애증의 웹사이트, 서울대학교 eTL 입니다.
 
 ### ❗️ 체험 시 `유의 사항`
 * 최적의 체험을 위해서는 **구글 크롬**을 이용해 주세요!
@@ -14,19 +14,33 @@
 * `신규 계정`을 생성하면 수업, 과제, 성적이 하나도 없어서 체험의 재미가 반감됩니다. 회원가입은 맛만 보시고 미리 만들어진 계정으로 로그인해 주세요!
 > `ID`: <br/>
 > `PASSWORD`:
-* `자퇴` 버튼은 재확인 절차 없이 **누르는 즉시** 계정이 서버 상에서 삭제됩니다. 주의해 주세요!
+* `자퇴` 시 계정이 서버 상에서 **즉시** 삭제됩니다. 주의해 주세요! (시연용 계정을 자퇴시키지 말아주세요)
+
+#### 🔸   주소
+
+> https://dvn7ib10xdyoj.cloudfront.net
+
+#### 🔸   연결이 되지 않을 경우
+
+> 1. Git Clone으로 프로젝트 파일을 받아옵니다. <br/>
+> `git clone "https://github.com/wafflestudio20-5/team10-web.git"`
+> 2. toyproject 디렉토리로 이동합니다. <br/>
+> `cd team10-web/toyproject`
+> 3. npm이나 yarn을 이용해 실행해 줍니다. <br/>
+> `npm run start` or `yarn start`
 
 ### 🌊 Workflow
 <img src="./src/resources/workflow.jpeg" width="1080px"/>
 
 ### 🔧 기술 스택
 
-|                                               프론트엔드                                               |백엔드|디자인|
-|:-------------------------------------------------------------------------------------------------:|:---:|:---:|
-|    TypeScript<br/>React<br/>SCSS Modules<br/>Axios<br/> ESLint & Prettier<br/>S3 + Cloudfront     ||
+|                                               프론트엔드                                               |                          백엔드                          |디자인|
+|:-------------------------------------------------------------------------------------------------:|:-----------------------------------------------------:|:---:|
+|    TypeScript<br/>React<br/>SCSS Modules<br/>Axios<br/> ESLint & Prettier<br/>S3 + Cloudfront     | Django<br/>MySQL<br/>Simple JWT<br/>Elastic Beanstalk | Figma<br/>Adobe Illustrator |
 
 ### 🔹 원본 사이트와의 비교
-(이게핵심)
+
+추가 예정
 
 ## ⭐️ 함께한 사람들
 
@@ -38,9 +52,9 @@
 
 ### 🧇 Back End
 
-| <img src="./src/resources/profile_yeongin.png" width="300px"/> |<img src="./src/resources/profile_panghwi.jpeg" width="300px"/>| <img src="./src/resources/profile_su.jpeg" width="300px"/> |
-|:---------------------------------------------------------------|:---|:-----------------------------------------------------------|
-| **`이름`** 김영인<br/>**`주요 업적`** JWT, 소셜로그인, 게시판 구현   <br/>**`한줄 소감`** 세상에 혼자 할 수 있는 일은 없다.|**`이름`** 이현진<br/>**`주요 업적`**  <br/>**`한줄 소감`** | **`이름`** 임수<br/>**`주요 업적`**  AWS 연결 및 잡다한 일 담당<br/>**`한줄 소감`**  "실력의 부족함을 많이 느꼈습니다."  |
+| <img src="./src/resources/profile_yeongin.png" width="300px"/> | <img src="./src/resources/profile_hyeonjin.jpeg" width="300px"/>         | <img src="./src/resources/profile_su.jpeg" width="300px"/> |
+|:---------------------------------------------------------------|:-------------------------------------------------------------------------|:-----------------------------------------------------------|
+| **`이름`** 김영인<br/>**`주요 업적`** JWT, 소셜로그인, 게시판 구현   <br/>**`한줄 소감`** "세상에 혼자 할 수 있는 일은 없다."| **`이름`** 이현진<br/>**`주요 업적`** ETL 과제, 파일 관리 <br/>**`한줄 소감`** "개발은 끝이 없네요" | **`이름`** 임수<br/>**`주요 업적`**  AWS 연결 및 잡다한 일 담당<br/>**`한줄 소감`**  "실력의 부족함을 많이 느꼈습니다."  |
 
 ### 🧇 Designer
 
