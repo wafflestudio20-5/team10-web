@@ -8,8 +8,8 @@
   ul {
     padding-left: 0;
     box-sizing: border-box;
-    border-top: solid RGB(199, 205, 209);
-    border-left: solid RGB(199, 205, 209);
+    border-top: 1px solid #c7cdd1;
+    border-left: 1px solid #c7cdd1;
   }
 
   li {
@@ -19,8 +19,8 @@
     display: flex;
     align-items: center;
     padding-left: 30px;
-    border-right: solid RGB(199, 205, 209);
-    border-bottom: solid RGB(199, 205, 209);
+    border-right: 1px solid #c7cdd1;
+    border-bottom: 1px solid #c7cdd1;
     span {
       &:hover {
         text-decoration: underline;

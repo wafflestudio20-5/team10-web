@@ -14,6 +14,7 @@
         background-color: white;
         border: solid 0.9px #777777;
         border-radius: 5px;
+        font-size: 14px;
         &:hover {
           cursor: pointer;
           background-color: #0b4b95;
@@ -27,9 +28,10 @@
         height: 35px;
         width: 60px;
         background-color: #167ef4;
+        border: solid 0.9px #777777;
         color: white;
-        border: solid;
         border-radius: 5px;
+        font-size: 14px;
         &:hover {
           cursor: pointer;
           background-color: #0b4b95;
@@ -40,7 +42,7 @@
 
   section {
     display: flex;
-    border-top: solid #808080;
+    border-top: 2px solid rgb(128, 128, 128);
     padding-top: 20px;
 
     .titleContainer {
@@ -70,7 +72,7 @@
       .titleInput {
         padding: 10px 12px;
         height: 16px;
-        border: #ced4d9 solid;
+        border: 1px solid #ced4d9;
         border-radius: 5px;
         font-family: normal;
       }
@@ -80,7 +82,7 @@
         height: 425px;
         margin-top: 20px;
         padding: 8px;
-        border: #ced4d9 solid;
+        border: 1px solid #ced4d9;
         border-radius: 5px;
         font-family: normal;
       }
