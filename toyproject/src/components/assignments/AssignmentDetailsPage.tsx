@@ -39,7 +39,7 @@ export default function AssignmentDetailsPage() {
   const navigate = useNavigate();
 
   const onSubmission = () => {
-
+    // 제출 함수
   }
 
   useEffect(() => {
