@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="290c869b-db95-469b-b2ba-81a776cd72fe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/auth/SignUpPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/auth/SignUpPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/user/userComponents/ImageModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/user/userComponents/ImageModal.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +96,7 @@
       <workItem from="1675231751329" duration="6745000" />
       <workItem from="1675326121107" duration="9916000" />
       <workItem from="1675349217569" duration="2715000" />
-      <workItem from="1675403979284" duration="8492000" />
+      <workItem from="1675403979284" duration="10366000" />
     </task>
     <servers />
   </component>
