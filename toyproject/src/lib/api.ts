@@ -357,7 +357,7 @@ export const apiAssignmentTotalScore = async (
 export const apiSubmitAssignment = async (
   token: string | null,
   class_id: number,
-  file: File | null
+  file: FormData | null
 ) => {
   return await axios({
     method: 'PUT',

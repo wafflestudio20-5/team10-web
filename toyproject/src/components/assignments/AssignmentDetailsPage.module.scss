@@ -47,7 +47,29 @@
     flex-grow: 1;
     margin: 5px 0;
   }
-  .submit {
+  .headerSubmit {
+    display: flex;
+    .fileName {
+      margin: auto;
+      padding: 5px;
+      background-color: #f4f4f4;
+    }
+    .submit {
+      width: 60px;
+      height: 42px;
+      margin: 2px 2px 2px 10px;
+      background-color: #0f0f70;
+      color: white;
+      border-radius: 2px;
+      font-size: medium;
+      cursor: pointer;
+      display: flex;
+      p {
+        margin: auto;
+      }
+    }
+  }
+  .upload {
     width: 120px;
     height: 42px;
     margin: 2px;

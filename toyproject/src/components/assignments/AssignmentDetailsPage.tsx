@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {ChangeEvent, FormEvent, useCallback, useEffect, useState} from "react";
 import SubjectTemplate from "../SubjectTemplate";
 import styles from "./AssignmentDetailsPage.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
@@ -7,7 +7,7 @@ import {
   apiAssignments,
   apiGetFile,
   auth,
-  url,
+  url, apiUploadImage, apiSubmitAssignment,
 } from "../../lib/api";
 import { useSessionContext } from "../../context/SessionContext";
 import { UserAssignmentInterface } from "../../lib/types";
@@ -18,6 +18,7 @@ import {
   faCircleCheck,
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import {toast} from "react-toastify";
 
 export const apiAssignment = async (
   token: string | null,
@@ -62,13 +63,37 @@ const DownloadFile = ({
 export default function AssignmentDetailsPage() {
   const { token, getRefreshToken } = useSessionContext();
   const { subjectid, assignmentID } = useParams();
-  const [userAssignment, setUserAssignment] =
-    useState<UserAssignmentInterface>();
+  const [userAssignment, setUserAssignment] = useState<UserAssignmentInterface>();
   const [submitFile, setSubmitFile] = useState<File | null>(null);
   const navigate = useNavigate();
 
-  const onSubmission = () => {
-    // 제출 함수
+  const onUpload = useCallback(
+      (e: ChangeEvent<HTMLInputElement> | any): void => {
+        let selectFiles: File[];
+        if (e.type === "drop") {
+          selectFiles = e.dataTransfer.files;
+        } else {
+          selectFiles = e.target.files;
+        }
+        setSubmitFile(selectFiles[0]);
+      }, [submitFile]
+  );
+
+  const onSubmission = (e: FormEvent<HTMLElement>) => {
+    e.preventDefault();
+    if (submitFile) {
+      const formData = new FormData();
+      formData.append("photo", submitFile);
+      apiSubmitAssignment(token, parseInt(subjectid as string), formData)
+          .then(() => {
+            setSubmitFile(null);
+            toast("제출되었습니다!", {position: "top-center", theme: "colored"});
+          })
+          .catch((r) => {
+            toast("제출에 실패했습니다", {position: "top-center", theme: "colored"});
+            console.log(r)
+          })
+    }
   };
 
   useEffect(() => {
@@ -117,19 +142,36 @@ export default function AssignmentDetailsPage() {
         <div className={styles.left}>
           <header className={styles.header}>
             <p className={styles.title}>{userAssignment?.assignment.name}</p>
-            <input
-              type='file'
-              id='fileUpload'
-              style={{ display: "none" }}
-              onChange={onSubmission}
-            />
-            <label htmlFor='fileUpload' className={styles.submit}>
-              <p>
-                {userAssignment?.is_submitted
-                  ? "다시 제출하기"
-                  : "과제 제출하기"}
-              </p>
-            </label>
+            {
+              submitFile ?
+                  <div className={styles.headerSubmit}>
+                    <p className={styles.fileName}>{submitFile.name}</p>
+                    <form
+                        name="assignment"
+                        encType="multipart/form-data"
+                        onSubmit={e => onSubmission(e)}
+                    >
+                      <input type="submit" style={{display: "none"}} id="fileSubmit"/>
+                      <label htmlFor="fileSubmit" className={styles.submit}><p>제출</p></label>
+                    </form>
+                  </div>
+                  :
+                  <div>
+                    <input
+                        type='file'
+                        id='fileUpload'
+                        style={{ display: "none" }}
+                        onChange={onUpload}
+                    />
+                    <label htmlFor='fileUpload' className={styles.upload}>
+                      <p>
+                        {userAssignment?.is_submitted
+                            ? "다시 제출하기"
+                            : "과제 제출하기"}
+                      </p>
+                    </label>
+                  </div>
+            }
           </header>
           <ul className={styles.details}>
             <b>마감</b>

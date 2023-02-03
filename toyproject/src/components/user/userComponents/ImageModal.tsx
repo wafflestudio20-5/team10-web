@@ -11,7 +11,7 @@ import React, {
     useCallback,
     useRef,
     useEffect,
-    ChangeEvent
+    ChangeEvent, FormEvent
 } from "react";
 import {toast} from "react-toastify";
 import {apiUploadImage} from "../../../lib/api";
