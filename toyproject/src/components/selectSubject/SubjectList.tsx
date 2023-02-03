@@ -22,13 +22,10 @@ export default function SubjectList({
   toggleModal,
   handleModal,
 }: SubjectListType) {
-  const { token, user, setUser, refreshUserInfo, getRefreshToken } =
-    useSessionContext();
+  const { token } = useSessionContext();
   const { mySubjects } = useSubjectContext();
   const [subjectEnrolled, setSubjectEnrolled] = useState(isEnrolled);
   useEffect(() => {
-    // (async () => {
-    // mySubjects?.includes()
     if (mySubjects?.find((subject) => subject.id === classId)) {
       setSubjectEnrolled(true);
     } else {

@@ -1,22 +1,22 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import loginHeader from '../../resources/loginHeader.png';
-import styles from './LoginPage.module.scss';
-import { useSessionContext } from '../../context/SessionContext';
-import kakaoLogin from '../../resources/kakaologin.png';
-import { KAKAO_AUTH_URL } from '../../lib/api';
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import loginHeader from "../../resources/loginHeader.png";
+import styles from "./LoginPage.module.scss";
+import { useSessionContext } from "../../context/SessionContext";
+import kakaoLogin from "../../resources/kakaologin.png";
+import { KAKAO_AUTH_URL } from "../../lib/api";
 
 function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const { login } = useSessionContext();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await login(email, password);
-    setEmail('');
-    setPassword('');
+    setEmail("");
+    setPassword("");
   };
 
   return (
@@ -65,7 +65,7 @@ function LoginPage() {
             </h3>
             <a href={KAKAO_AUTH_URL}>
               <img
-                className={styles['kakao-login']}
+                className={styles["kakao-login"]}
                 src={kakaoLogin}
                 alt='kakaoLogin'
               ></img>
