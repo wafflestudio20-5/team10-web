@@ -38,7 +38,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "aws s3 sync ./build s3://waffletoyproject10 --profile=waffle-2019dahn"
+    "deploy": "aws s3 sync ./build s3://waffletoyproject10 --profile=waffle-2019dahn",
+    "invalidate": "aws cloudfront create-invalidation --profile=waffle-2019dahn --distribution-id E3CDZW00PCDYEJ --paths / /index.html /error.html /service-worker.js /manifest.json /favicon.ico"
   },
   "eslintConfig": {
     "extends": [
