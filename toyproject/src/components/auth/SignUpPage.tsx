@@ -356,7 +356,7 @@ export default function SignUpPage() {
               onClick={() =>
                 setUserInfo({
                   ...userInfo,
-                  is_professor: !userInfo.is_professor,
+                  is_professor: false,
                 })
               }
             >
@@ -381,7 +381,7 @@ export default function SignUpPage() {
               onClick={() =>
                 setUserInfo({
                   ...userInfo,
-                  is_professor: !userInfo.is_professor,
+                  is_professor: true,
                 })
               }
             >
@@ -530,7 +530,7 @@ export default function SignUpPage() {
           <button
             className={styles.next}
             onClick={() => {
-              signUp(userInfo);
+              userInfo.is_professor ? toast("교수용 서비스는 준비중입니다", {position: "top-center", theme: "colored"}) : signUp(userInfo);
             }}
           >
             다음
