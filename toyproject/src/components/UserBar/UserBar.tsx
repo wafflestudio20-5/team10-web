@@ -1,8 +1,11 @@
-import styles from "./UserBar.module.scss";
-import { useSessionContext } from "../../context/SessionContext";
+import styles from './UserBar.module.scss';
+import { useSessionContext } from '../../context/SessionContext';
+import { useNavigate } from 'react-router-dom';
+import { CLIENT_ID } from '../../lib/api';
 
 export const UserBar = () => {
   const { user, token, logout } = useSessionContext();
+  const navigate = useNavigate();
 
   return (
     <div className={styles.wrapper}>
@@ -10,7 +13,11 @@ export const UserBar = () => {
       <button
         className={styles.logoutButton}
         onClick={(e) => {
-          logout(token as string);
+          if (user?.is_social_login === true) {
+            window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${CLIENT_ID}&logout_redirect_uri=http://dvn7ib10xdyoj.cloudfront.net/authentication/logout/`;
+          } else {
+            logout(token as string);
+          }
         }}
       >
         로그아웃

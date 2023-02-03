@@ -122,27 +122,27 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async (token: string) => {
     try {
-      const localRefresh = localStorage.getItem('refresh');
-      const resToken = await getRefreshToken(
-        localRefresh ? localRefresh : 'temp'
-      );
-      if (user?.is_social_login === true) {
-        const res = await apiSocialLogout(resToken.data.access);
-        console.log(res);
-        setUser(null);
-        setToken(null);
-        navigate('/login/');
-        localStorage.removeItem('refresh');
-        setIsLoggedIn(false);
-        //어떤 로그아웃 페이지로 이동}
-      } else {
-        // const res = await apiLogout(resToken.data.access);
-        setUser(null);
-        setToken(null);
-        navigate('/login/');
-        localStorage.removeItem('refresh');
-        setIsLoggedIn(false);
-      }
+      // const localRefresh = localStorage.getItem('refresh');
+      // const resToken = await getRefreshToken(
+      //   localRefresh ? localRefresh : 'temp'
+      // );
+      // if (user?.is_social_login === true) {
+      //   const res = await apiSocialLogout(resToken.data.access);
+      //   console.log(res);
+      //   setUser(null);
+      //   setToken(null);
+      //   navigate('/login/');
+      //   localStorage.removeItem('refresh');
+      //   setIsLoggedIn(false);
+      //어떤 로그아웃 페이지로 이동}
+      // } else {
+      // const res = await apiLogout(resToken.data.access);
+      setUser(null);
+      setToken(null);
+      navigate('/login/');
+      localStorage.removeItem('refresh');
+      setIsLoggedIn(false);
+      // }
     } catch (err) {
       return console.log(err);
     }
