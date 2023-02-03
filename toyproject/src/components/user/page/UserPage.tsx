@@ -10,17 +10,23 @@ import { useSessionContext } from "../../../context/SessionContext";
 import { apiBye } from "../../../lib/api";
 import { useNavigate } from "react-router-dom";
 import { ImageModal } from "../userComponents/ImageModal";
+import Modal from "react-modal";
 
 export default function UserPage() {
   const { user, token } = useSessionContext();
   const nav = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [byeModalOpen, setByeModalOpen] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
-  const toggleModal = () => {
+  const toggleImageModal = () => {
     setImageFile(null);
     setIsModalOpen(!isModalOpen);
   };
+
+  const toggleByeModal = () => {
+    setByeModalOpen(!byeModalOpen);
+  }
 
   const bye = (token: string | null, id: Number) => {
     apiBye(token, id)
@@ -37,7 +43,7 @@ export default function UserPage() {
           <UserBar />
         </div>
         <div className={styles.body}>
-          <Profile toggleModal={toggleModal}></Profile>
+          <Profile toggleModal={toggleImageModal}></Profile>
           <div className={styles.title}>개인정보</div>
           <Content title={"전체이름:"} content={`${user?.username}`} />
           <Content title={"이메일 주소"} content={`${user?.email}`} />
@@ -50,7 +56,7 @@ export default function UserPage() {
               <button
                 className={styles.button}
                 onClick={() => {
-                  user && bye(token, user.id);
+                  user && toggleByeModal();
                 }}
               >
                 자퇴
@@ -61,10 +67,36 @@ export default function UserPage() {
       </div>
       <ImageModal
         isModalOpen={isModalOpen}
-        toggleModal={toggleModal}
+        toggleModal={toggleImageModal}
         imageFile={imageFile}
         setImageFile={setImageFile}
       />
+      <Modal
+          isOpen={byeModalOpen}
+          onRequestClose={toggleByeModal}
+          className={styles.byeModal}
+      >
+        <article>
+          <div>
+            <b>정말로 자퇴하시겠습니까?</b>
+            <br />
+            이 과정은 되돌릴 수 없습니다.
+          </div>
+        </article>
+        <footer>
+          <button className={styles.cancel} onClick={toggleByeModal}>
+            취소
+          </button>
+          <button
+              className={styles.ok}
+              onClick={() => {
+                user && bye(token, user.id)
+              }}
+          >
+            확인
+          </button>
+        </footer>
+      </Modal>
     </div>
   );
 }
