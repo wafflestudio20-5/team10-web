@@ -95,10 +95,11 @@ export default function AssignmentDetailsPage() {
     e.preventDefault();
     if (submitFile) {
       const formData = new FormData(formRef.current ? formRef.current : undefined);
-      formData.append('submit', submitFile);
+      formData.append('file', submitFile);
       apiSubmitAssignment(token, userAssignment?.assignment.id as number, formData)
         .then(() => {
           setSubmitFile(null);
+          setUserAssignment(userAssignment ? {...userAssignment, is_submitted: true} : undefined)
           toast('제출되었습니다!', {
             position: 'top-center',
             theme: 'colored',
@@ -182,7 +183,7 @@ export default function AssignmentDetailsPage() {
             ) : (
               <div>
                 <form
-                    name="image"
+                    name="submit"
                     encType='multipart/form-data'
                     ref={formRef}
                 >
