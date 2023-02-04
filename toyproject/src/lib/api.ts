@@ -356,12 +356,12 @@ export const apiAssignmentTotalScore = async (
 
 export const apiSubmitAssignment = async (
   token: string | null,
-  class_id: number,
+  assignment_id: number,
   file: FormData | null
 ) => {
   return await axios({
     method: 'PUT',
-    url: url(`/etl/assignments/${class_id}/upload`),
+    url: url(`/etl/assignments/${assignment_id}/upload/`),
     data: file,
     withCredentials: true,
     headers: auth(token),

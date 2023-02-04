@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useEffect,
   useState,
+    useRef,
 } from 'react';
 import SubjectTemplate from '../SubjectTemplate';
 import styles from './AssignmentDetailsPage.module.scss';
@@ -74,6 +75,7 @@ export default function AssignmentDetailsPage() {
   const [userAssignment, setUserAssignment] =
     useState<UserAssignmentInterface>();
   const [submitFile, setSubmitFile] = useState<File | null>(null);
+  const formRef = useRef<HTMLFormElement | null >(null);
   const navigate = useNavigate();
 
   const onUpload = useCallback(
@@ -92,10 +94,9 @@ export default function AssignmentDetailsPage() {
   const onSubmission = (e: FormEvent<HTMLElement>) => {
     e.preventDefault();
     if (submitFile) {
-      console.log(submitFile);
-      const formData = new FormData();
-      formData.append('photo', submitFile);
-      apiSubmitAssignment(token, parseInt(subjectid as string), formData)
+      const formData = new FormData(formRef.current ? formRef.current : undefined);
+      formData.append('submit', submitFile);
+      apiSubmitAssignment(token, userAssignment?.assignment.id as number, formData)
         .then(() => {
           setSubmitFile(null);
           toast('제출되었습니다!', {
@@ -171,6 +172,7 @@ export default function AssignmentDetailsPage() {
                     type='submit'
                     style={{ display: 'none' }}
                     id='fileSubmit'
+                    accept='image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv'
                   />
                   <label htmlFor='fileSubmit' className={styles.submit}>
                     <p>제출</p>
@@ -179,20 +181,26 @@ export default function AssignmentDetailsPage() {
               </div>
             ) : (
               <div>
-                <input
-                  type='file'
-                  id='fileUpload'
-                  style={{ display: 'none' }}
-                  accept='image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv'
-                  onChange={onUpload}
-                />
-                <label htmlFor='fileUpload' className={styles.upload}>
-                  <p>
-                    {userAssignment?.is_submitted
-                      ? '다시 제출하기'
-                      : '과제 제출하기'}
-                  </p>
-                </label>
+                <form
+                    name="image"
+                    encType='multipart/form-data'
+                    ref={formRef}
+                >
+                  <input
+                      type='file'
+                      id='fileUpload'
+                      style={{ display: 'none' }}
+                      accept='image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv'
+                      onChange={onUpload}
+                  />
+                  <label htmlFor='fileUpload' className={styles.upload}>
+                    <p>
+                      {userAssignment?.is_submitted
+                          ? '다시 제출하기'
+                          : '과제 제출하기'}
+                    </p>
+                  </label>
+                </form>
               </div>
             )}
           </header>
