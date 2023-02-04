@@ -1,31 +1,39 @@
-import React, {ChangeEvent, FormEvent, useCallback, useEffect, useState} from "react";
-import SubjectTemplate from "../SubjectTemplate";
-import styles from "./AssignmentDetailsPage.module.scss";
-import { useNavigate, useParams } from "react-router-dom";
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
+import SubjectTemplate from '../SubjectTemplate';
+import styles from './AssignmentDetailsPage.module.scss';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   apiAssignmentScore,
   apiAssignments,
   apiGetFile,
   auth,
-  url, apiUploadImage, apiSubmitAssignment,
-} from "../../lib/api";
-import { useSessionContext } from "../../context/SessionContext";
-import { UserAssignmentInterface } from "../../lib/types";
-import { timestampToDateWithLetters } from "../../lib/formatting";
-import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+  url,
+  apiUploadImage,
+  apiSubmitAssignment,
+} from '../../lib/api';
+import { useSessionContext } from '../../context/SessionContext';
+import { UserAssignmentInterface } from '../../lib/types';
+import { timestampToDateWithLetters } from '../../lib/formatting';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircleCheck,
   faCircleXmark,
-} from "@fortawesome/free-solid-svg-icons";
-import {toast} from "react-toastify";
+} from '@fortawesome/free-solid-svg-icons';
+import { toast } from 'react-toastify';
 
 export const apiAssignment = async (
   token: string | null,
   assignment_id: number
 ) => {
   return await axios({
-    method: "get",
+    method: 'get',
     url: url(`/etl/assignments/${assignment_id}/`),
     withCredentials: true,
     headers: auth(token),
@@ -45,8 +53,8 @@ const DownloadFile = ({
   token: string | null;
 }) => {
   const originalFileURL = decodeURI(file);
-  const urlParams = originalFileURL.split("assignments/")[1].split("?X-Amz")[0];
-  const parts = urlParams.split(".");
+  const urlParams = originalFileURL.split('assignments/')[1].split('?X-Amz')[0];
+  const parts = urlParams.split('.');
   const extension = parts[parts.length - 1];
   const handleDownload = async (event: React.MouseEvent<HTMLSpanElement>) => {
     event.preventDefault();
@@ -63,36 +71,45 @@ const DownloadFile = ({
 export default function AssignmentDetailsPage() {
   const { token, getRefreshToken } = useSessionContext();
   const { subjectid, assignmentID } = useParams();
-  const [userAssignment, setUserAssignment] = useState<UserAssignmentInterface>();
+  const [userAssignment, setUserAssignment] =
+    useState<UserAssignmentInterface>();
   const [submitFile, setSubmitFile] = useState<File | null>(null);
   const navigate = useNavigate();
 
   const onUpload = useCallback(
-      (e: ChangeEvent<HTMLInputElement> | any): void => {
-        let selectFiles: File[];
-        if (e.type === "drop") {
-          selectFiles = e.dataTransfer.files;
-        } else {
-          selectFiles = e.target.files;
-        }
-        setSubmitFile(selectFiles[0]);
-      }, [submitFile]
+    (e: ChangeEvent<HTMLInputElement> | any): void => {
+      let selectFiles: File[];
+      if (e.type === 'drop') {
+        selectFiles = e.dataTransfer.files;
+      } else {
+        selectFiles = e.target.files;
+      }
+      setSubmitFile(selectFiles[0]);
+    },
+    [submitFile]
   );
 
   const onSubmission = (e: FormEvent<HTMLElement>) => {
     e.preventDefault();
     if (submitFile) {
+      console.log(submitFile);
       const formData = new FormData();
-      formData.append("photo", submitFile);
+      formData.append('photo', submitFile);
       apiSubmitAssignment(token, parseInt(subjectid as string), formData)
-          .then(() => {
-            setSubmitFile(null);
-            toast("제출되었습니다!", {position: "top-center", theme: "colored"});
-          })
-          .catch((r) => {
-            toast("제출에 실패했습니다", {position: "top-center", theme: "colored"});
-            console.log(r)
-          })
+        .then(() => {
+          setSubmitFile(null);
+          toast('제출되었습니다!', {
+            position: 'top-center',
+            theme: 'colored',
+          });
+        })
+        .catch((r) => {
+          toast('제출에 실패했습니다', {
+            position: 'top-center',
+            theme: 'colored',
+          });
+          console.log(r);
+        });
     }
   };
 
@@ -112,9 +129,9 @@ export default function AssignmentDetailsPage() {
           score: a.data.score,
         });
       } catch {
-        const localRefreshToken = localStorage.getItem("refresh");
+        const localRefreshToken = localStorage.getItem('refresh');
         const resToken = await getRefreshToken(
-          localRefreshToken ? localRefreshToken : "temp"
+          localRefreshToken ? localRefreshToken : 'temp'
         );
         const newToken = resToken.data.access;
         const res = await apiAssignment(
@@ -142,37 +159,42 @@ export default function AssignmentDetailsPage() {
         <div className={styles.left}>
           <header className={styles.header}>
             <p className={styles.title}>{userAssignment?.assignment.name}</p>
-            {
-              submitFile ?
-                  <div className={styles.headerSubmit}>
-                    <p className={styles.fileName}>{submitFile.name}</p>
-                    <form
-                        name="assignment"
-                        encType="multipart/form-data"
-                        onSubmit={e => onSubmission(e)}
-                    >
-                      <input type="submit" style={{display: "none"}} id="fileSubmit"/>
-                      <label htmlFor="fileSubmit" className={styles.submit}><p>제출</p></label>
-                    </form>
-                  </div>
-                  :
-                  <div>
-                    <input
-                        type='file'
-                        id='fileUpload'
-                        style={{ display: "none" }}
-                        accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
-                        onChange={onUpload}
-                    />
-                    <label htmlFor='fileUpload' className={styles.upload}>
-                      <p>
-                        {userAssignment?.is_submitted
-                            ? "다시 제출하기"
-                            : "과제 제출하기"}
-                      </p>
-                    </label>
-                  </div>
-            }
+            {submitFile ? (
+              <div className={styles.headerSubmit}>
+                <p className={styles.fileName}>{submitFile.name}</p>
+                <form
+                  name='assignment'
+                  encType='multipart/form-data'
+                  onSubmit={(e) => onSubmission(e)}
+                >
+                  <input
+                    type='submit'
+                    style={{ display: 'none' }}
+                    id='fileSubmit'
+                  />
+                  <label htmlFor='fileSubmit' className={styles.submit}>
+                    <p>제출</p>
+                  </label>
+                </form>
+              </div>
+            ) : (
+              <div>
+                <input
+                  type='file'
+                  id='fileUpload'
+                  style={{ display: 'none' }}
+                  accept='image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv'
+                  onChange={onUpload}
+                />
+                <label htmlFor='fileUpload' className={styles.upload}>
+                  <p>
+                    {userAssignment?.is_submitted
+                      ? '다시 제출하기'
+                      : '과제 제출하기'}
+                  </p>
+                </label>
+              </div>
+            )}
           </header>
           <ul className={styles.details}>
             <b>마감</b>
@@ -191,7 +213,7 @@ export default function AssignmentDetailsPage() {
                   token={token}
                 ></DownloadFile>
               ) : (
-                "파일 없음"
+                '파일 없음'
               )}
             </li>
           </ul>
@@ -217,7 +239,7 @@ export default function AssignmentDetailsPage() {
               제출됨
               {userAssignment?.assignment.file
                 ? userAssignment?.assignment.file
-                : "파일 없음"}
+                : '파일 없음'}
             </b>
           ) : (
             <b className={styles.closed}>
@@ -227,7 +249,7 @@ export default function AssignmentDetailsPage() {
           )}
           <header>성적</header>
           {userAssignment?.is_graded ? (
-            <b className={styles.score}>{"" + userAssignment?.score + "점"}</b>
+            <b className={styles.score}>{'' + userAssignment?.score + '점'}</b>
           ) : (
             <b className={styles.score}>채점되지 않음</b>
           )}
