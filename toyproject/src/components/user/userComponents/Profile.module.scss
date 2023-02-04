@@ -10,6 +10,13 @@
     height: 156px;
     border: solid #b9b9b9;
     border-radius: 50%;
+    .profileImage {
+      margin: auto;
+      width: 154px;
+      height: 154px;
+      border: 0;
+      border-radius: 50%;
+    }
     .userIcon {
       margin: auto;
     }

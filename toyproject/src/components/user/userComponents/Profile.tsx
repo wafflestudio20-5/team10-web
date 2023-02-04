@@ -14,7 +14,7 @@ export default function Profile({ toggleModal, image }: {
       <div className={styles["svg-container"]}>
           {
               image ?
-                  <img src={image} alt="사진"/>
+                  <img src={image} alt="사진" className={styles.profileImage}/>
                   : <FontAwesomeIcon
                       icon={faUser}
                       size='5x'

@@ -38,6 +38,14 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    form {
+      border: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      margin: 0;
+    }
     .file {
       height: 100%;
       //pointer-events: none;
@@ -45,7 +53,7 @@
         color: #AEADAD;
         width: 80px;
         height: 80px;
-        margin: 70px auto 20px auto;
+        margin: 30px auto 20px auto;
       }
       img {
         width: 80px;

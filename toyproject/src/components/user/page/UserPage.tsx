@@ -39,7 +39,10 @@ export default function UserPage() {
 
   useEffect(() => {
     apiDownloadImage(token)
-        .then((r) => setProfile(r.data))
+        .then((r) => {
+          console.log(r.data);
+          setProfile(r.data);
+        })
         .catch((r) => console.log(r));
   }, [])
 
@@ -57,7 +60,7 @@ export default function UserPage() {
           <UserBar />
         </div>
         <div className={styles.body}>
-          <Profile toggleModal={toggleImageModal} image={profile?.url}></Profile>
+          <Profile toggleModal={toggleImageModal} image={profile?.download_link}></Profile>
           <div className={styles.title}>개인정보</div>
           <Content title={"전체이름:"} content={`${user?.username}`} />
           <Content title={"이메일 주소"} content={`${user?.email}`} />

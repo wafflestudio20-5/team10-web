@@ -122,5 +122,5 @@ export interface CardColor {
 
 export interface ProfilePicture {
   id: number;
-  url: string | null;
+  download_link: string | null;
 }
