@@ -16,13 +16,16 @@ import React, {
 } from "react";
 import { toast } from "react-toastify";
 import { apiUploadImage } from "../../../lib/api";
+import { ProfilePicture } from "../../../lib/types";
 import { useSessionContext } from "../../../context/SessionContext";
+import userEvent from "@testing-library/user-event";
 
 type ImageModalType = {
   isModalOpen: boolean;
   toggleModal: () => void;
   imageFile: File | null;
   setImageFile: React.Dispatch<File | null>;
+  setProfile: React.Dispatch<React.SetStateAction<ProfilePicture | null>>;
 };
 
 export function ImageModal({
@@ -30,8 +33,9 @@ export function ImageModal({
   toggleModal,
   imageFile,
   setImageFile,
+  setProfile,
 }: ImageModalType) {
-  const { token } = useSessionContext();
+  const { token, user } = useSessionContext();
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const dragRef = useRef<HTMLLabelElement | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -52,10 +56,16 @@ export function ImageModal({
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (imageFile) {
-      const formData = new FormData(formRef.current ? formRef.current: undefined);
+      const formData = new FormData(
+        formRef.current ? formRef.current : undefined
+      );
       formData.append("file", imageFile);
       apiUploadImage(token, formData)
         .then(() => {
+          setProfile({
+            id: Number(user?.id),
+            download_link: URL.createObjectURL(imageFile),
+          });
           toast("등록되었습니다!", {
             position: "top-center",
             theme: "colored",
@@ -135,30 +145,30 @@ export function ImageModal({
       <div className={styles.dragdrop}>
         <form name='image' encType='multipart/form-data' ref={formRef}>
           <input
-              type='file'
-              id='fileUpload'
-              style={{ display: "none" }}
-              accept='image/*'
-              onChange={onChangeFiles}
+            type='file'
+            id='fileUpload'
+            style={{ display: "none" }}
+            accept='image/*'
+            onChange={onChangeFiles}
           />
           <label
-              className={
-                isDragging ? `${styles.file} ${styles.dragging}` : styles.file
-              }
-              htmlFor='fileUpload'
-              ref={dragRef}
+            className={
+              isDragging ? `${styles.file} ${styles.dragging}` : styles.file
+            }
+            htmlFor='fileUpload'
+            ref={dragRef}
           >
             {imageFile ? (
-                <img
-                    className={styles.image}
-                    src={URL.createObjectURL(imageFile)}
-                    alt='사진'
-                />
+              <img
+                className={styles.image}
+                src={URL.createObjectURL(imageFile)}
+                alt='사진'
+              />
             ) : (
-                <FontAwesomeIcon
-                    icon={isDragging ? faArrowDown : faImage}
-                    className={styles.fa}
-                />
+              <FontAwesomeIcon
+                icon={isDragging ? faArrowDown : faImage}
+                className={styles.fa}
+              />
             )}
             <p>
               여기에 파일 끌어서 놓기

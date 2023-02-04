@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./UserPage.module.scss";
 import contentStyles from "../userComponents/Content.module.scss";
 import { SideNavBar } from "../../sideNavbar/SideNavBar";
@@ -7,12 +7,12 @@ import Profile from "../userComponents/Profile";
 import { UserBar } from "../../UserBar/UserBar";
 import PasswordForm from "../userComponents/PasswordForm";
 import { useSessionContext } from "../../../context/SessionContext";
-import {apiBye, apiDownloadImage} from "../../../lib/api";
+import { apiBye, apiDownloadImage } from "../../../lib/api";
 import { useNavigate } from "react-router-dom";
 import { ImageModal } from "../userComponents/ImageModal";
 import Modal from "react-modal";
-import {ToastContainer} from "react-toastify";
-import {ProfilePicture} from "../../../lib/types";
+import { ToastContainer } from "react-toastify";
+import { ProfilePicture } from "../../../lib/types";
 
 export default function UserPage() {
   const { user, token } = useSessionContext();
@@ -29,7 +29,7 @@ export default function UserPage() {
 
   const toggleByeModal = () => {
     setByeModalOpen(!byeModalOpen);
-  }
+  };
 
   const bye = (token: string | null, id: Number) => {
     apiBye(token, id)
@@ -39,19 +39,20 @@ export default function UserPage() {
 
   useEffect(() => {
     apiDownloadImage(token)
-        .then((r) => {
-          console.log(r.data);
-          setProfile(r.data);
-        })
-        .catch((r) => console.log(r));
-  }, [])
+      .then((r) => {
+        console.log(r.data);
+        setProfile(r.data);
+      })
+      .catch((r) => console.log(r));
+  }, []);
 
   return (
-    <div className={styles.wrapper}
-         onDragEnter={e => e.preventDefault()}
-         onDragExit={e => e.preventDefault()}
-         onDragOver={e => e.preventDefault()}
-         onDrop={e=> e.preventDefault()}
+    <div
+      className={styles.wrapper}
+      onDragEnter={(e) => e.preventDefault()}
+      onDragExit={(e) => e.preventDefault()}
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={(e) => e.preventDefault()}
     >
       <SideNavBar />
       <div className={styles.right}>
@@ -60,7 +61,10 @@ export default function UserPage() {
           <UserBar />
         </div>
         <div className={styles.body}>
-          <Profile toggleModal={toggleImageModal} image={profile?.download_link}></Profile>
+          <Profile
+            toggleModal={toggleImageModal}
+            image={profile?.download_link}
+          ></Profile>
           <div className={styles.title}>개인정보</div>
           <Content title={"전체이름:"} content={`${user?.username}`} />
           <Content title={"이메일 주소"} content={`${user?.email}`} />
@@ -87,17 +91,17 @@ export default function UserPage() {
         toggleModal={toggleImageModal}
         imageFile={imageFile}
         setImageFile={setImageFile}
+        setProfile={setProfile}
       />
       <Modal
-          isOpen={byeModalOpen}
-          onRequestClose={toggleByeModal}
-          className={styles.byeModal}
+        isOpen={byeModalOpen}
+        onRequestClose={toggleByeModal}
+        className={styles.byeModal}
       >
         <article>
           <div>
             <b>정말로 자퇴하시겠습니까?</b>
-            <br />
-            이 과정은 되돌릴 수 없습니다.
+            <br />이 과정은 되돌릴 수 없습니다.
           </div>
         </article>
         <footer>
@@ -105,16 +109,16 @@ export default function UserPage() {
             취소
           </button>
           <button
-              className={styles.ok}
-              onClick={() => {
-                user && bye(token, user.id)
-              }}
+            className={styles.ok}
+            onClick={() => {
+              user && bye(token, user.id);
+            }}
           >
             확인
           </button>
         </footer>
       </Modal>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 }
