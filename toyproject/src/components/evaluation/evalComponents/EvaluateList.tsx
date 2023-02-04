@@ -11,7 +11,7 @@ type SubjectType = {
   created_by: {
     username: string;
   };
-  is_evaluated: boolean;
+  // is_evaluated: boolean;
 };
 
 type EvalType = {
@@ -35,7 +35,8 @@ export default function EvaluateList({ subject }: EvalType) {
       <div className={styles.subject}>{subject.name}</div>
       <div className={styles.professor}>{subject.created_by.username}</div>
       <div className={styles.evaluated}>
-        {subject.is_evaluated ? '평가 완료' : '평가 미완료'}
+        {/* {subject.is_evaluated ? '평가 완료' : '평가 미완료'} */}
+        미구현
       </div>
       <div className={styles.evaluation}>
         <button onClick={goToDetailPage}>강의 평가</button>

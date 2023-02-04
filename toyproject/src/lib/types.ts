@@ -46,7 +46,7 @@ export type SubjectType = {
   created_by: {
     username: string;
   };
-  is_evaluated: boolean;
+  // is_evaluated: boolean;
 };
 
 export type Post = {
