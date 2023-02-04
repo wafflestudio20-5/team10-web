@@ -18,7 +18,7 @@
 
 #### 🔸   주소
 
-> https://dvn7ib10xdyoj.cloudfront.net
+> http://waffletoyproject10.s3-website.ap-northeast-2.amazonaws.com/
 
 #### 🔸   연결이 되지 않을 경우
 
