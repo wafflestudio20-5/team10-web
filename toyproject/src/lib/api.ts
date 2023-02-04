@@ -368,6 +368,19 @@ export const apiSubmitAssignment = async (
   });
 };
 
+export const apiGetSubmittedAssignment = async (
+    token: string | null,
+    assignment_id: number,
+    user_id: number,
+) => {
+  return await axios({
+    method: 'GET',
+    url: url(`/etl/assignments/${assignment_id}/user/${user_id}/download/`),
+    withCredentials: true,
+    headers: auth(token),
+  });
+};
+
 export const apiUploadImage = async (
   token: string | null,
   file: FormData | null

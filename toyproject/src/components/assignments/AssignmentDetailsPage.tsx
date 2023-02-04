@@ -16,7 +16,7 @@ import {
   auth,
   url,
   apiUploadImage,
-  apiSubmitAssignment,
+  apiSubmitAssignment, apiGetSubmittedAssignment,
 } from '../../lib/api';
 import { useSessionContext } from '../../context/SessionContext';
 import { UserAssignmentInterface } from '../../lib/types';
@@ -70,12 +70,13 @@ const DownloadFile = ({
 };
 
 export default function AssignmentDetailsPage() {
-  const { token, getRefreshToken } = useSessionContext();
+  const { token, getRefreshToken, user } = useSessionContext();
   const { subjectid, assignmentID } = useParams();
   const [userAssignment, setUserAssignment] =
     useState<UserAssignmentInterface>();
   const [submitFile, setSubmitFile] = useState<File | null>(null);
   const formRef = useRef<HTMLFormElement | null >(null);
+  const [submittedFile, setSubmittedFile] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const onUpload = useCallback(
@@ -150,6 +151,16 @@ export default function AssignmentDetailsPage() {
       }
     })();
   }, [token]);
+
+  useEffect(() => {
+    if (userAssignment){
+      apiGetSubmittedAssignment(token, userAssignment.assignment.id, Number(user?.id))
+          .then((r) => {
+            setSubmittedFile(r.data.url)
+          })
+          .catch((r) => console.log(r))
+    }
+  }, [userAssignment])
 
   return (
     <SubjectTemplate
@@ -243,10 +254,18 @@ export default function AssignmentDetailsPage() {
           )}
           <header>제출물</header>
           {userAssignment?.is_submitted ? (
-            <b>
-              <FontAwesomeIcon icon={faCircleCheck} className={styles.fa} />
-              제출됨
-            </b>
+              <div>
+                <b>
+                  <FontAwesomeIcon icon={faCircleCheck} className={styles.fa} />
+                  제출됨
+                </b>
+                {
+                  submittedFile ?
+                      <a className={styles.link} onClick={() => window.open(submittedFile, '_blank')}>
+                        제출물 열람<br/><br/>
+                      </a> : null
+                }
+              </div>
           ) : (
             <b className={styles.closed}>
               <FontAwesomeIcon icon={faCircleXmark} className={styles.fa} />
