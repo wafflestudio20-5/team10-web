@@ -39,7 +39,11 @@ export default function EvaluateList({ subject }: EvalType) {
         {/* 미구현 */}
       </div>
       <div className={styles.evaluation}>
-        <button onClick={goToDetailPage}>강의 평가</button>
+        {subject.is_evaluated ? (
+          <div>확정됨</div>
+        ) : (
+          <button onClick={goToDetailPage}>강의 평가</button>
+        )}
       </div>
     </li>
   );
