@@ -245,9 +245,6 @@ export default function AssignmentDetailsPage() {
             <b>
               <FontAwesomeIcon icon={faCircleCheck} className={styles.fa} />
               제출됨
-              {userAssignment?.assignment.file
-                ? userAssignment?.assignment.file
-                : '파일 없음'}
             </b>
           ) : (
             <b className={styles.closed}>

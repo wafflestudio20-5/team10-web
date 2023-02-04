@@ -6,14 +6,14 @@ import FreeAnswer from '../evalComponents/FreeAnswer';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { useSessionContext } from '../../../context/SessionContext';
-import { apiGetSubjectInfo } from '../../../lib/api';
+import {apiEvaluate, apiGetSubjectInfo} from '../../../lib/api';
 export default function EvaluationDetailPage() {
   const [goodPoint, setGoodPoint] = useState('');
   const [badPoint, setBadPoint] = useState('');
   const [scales, setScales] = useState(new Array(7).fill(0));
   const [subjectName, setSubjectName] = useState('');
   const { subjectid } = useParams();
-  const { token, getRefreshToken } = useSessionContext();
+  const { token, getRefreshToken, user } = useSessionContext();
   const nav = useNavigate();
 
   const handleGoodPoint = (input: string) => {
@@ -31,10 +31,14 @@ export default function EvaluationDetailPage() {
   };
 
   const submit = () => {
-    // 아직 강의평가 제출 api가 없음
-    // scales, goodPoint, badPoint 이용해서 제출
-    toast('제출되었습니다!', { position: 'top-center', theme: 'colored' });
-    nav('/');
+    apiEvaluate(token, parseInt(subjectid as string), scales, goodPoint, badPoint, user?.id)
+        .then((r) => {
+          toast('제출되었습니다!', { position: 'top-center', theme: 'colored' });
+          nav('/');
+        })
+        .catch((r) => {
+          toast('제출에 실패했습니다', { position: 'top-center', theme: 'colored' });
+        })
   };
 
   useEffect(() => {

@@ -360,7 +360,7 @@ export const apiSubmitAssignment = async (
   file: FormData | null
 ) => {
   return await axios({
-    method: 'PUT',
+    method: 'PATCH',
     url: url(`/etl/assignments/${assignment_id}/upload/`),
     data: file,
     withCredentials: true,
@@ -455,6 +455,35 @@ export const apiGetFile = async (
   } catch (e) {
     console.log(e);
   }
+};
+
+export const apiEvaluate = async (
+    token: string | null,
+    class_id: number,
+    scales: number[],
+    goodPoint: string,
+    badPoint: string,
+    student_id: Number | undefined
+) => {
+  return await axios({
+    method: 'post',
+    url: url(`/etl/evaluation/class/${class_id}/`),
+    data: {
+      choice_1: scales[0],
+      choice_2: scales[1],
+      choice_3: scales[2],
+      choice_4: scales[3],
+      choice_5: scales[4],
+      choice_6: scales[5],
+      choice_7: scales[6],
+      descriptive_1: goodPoint,
+      descriptive_2: badPoint,
+      lecture: class_id,
+      student: student_id,
+    },
+    withCredentials: true,
+    headers: auth(token),
+  });
 };
 
 export const apiKakaoLogin = async (code: string | null) => {
