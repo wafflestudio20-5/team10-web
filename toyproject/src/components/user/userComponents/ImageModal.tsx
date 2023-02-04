@@ -34,6 +34,7 @@ export function ImageModal({
   const { token } = useSessionContext();
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const dragRef = useRef<HTMLLabelElement | null>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   const onChangeFiles = useCallback(
     (e: ChangeEvent<HTMLInputElement> | any): void => {
@@ -50,9 +51,8 @@ export function ImageModal({
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     if (imageFile) {
-      const formData = new FormData();
+      const formData = new FormData(formRef.current ? formRef.current: undefined);
       formData.append("file", imageFile);
       apiUploadImage(token, formData)
         .then(() => {
@@ -135,47 +135,49 @@ export function ImageModal({
         />
       </header>
       <div className={styles.dragdrop}>
-        <input
-          type='file'
-          id='fileUpload'
-          style={{ display: "none" }}
-          accept='image/*'
-          onChange={onChangeFiles}
-        />
-        <label
-          className={
-            isDragging ? `${styles.file} ${styles.dragging}` : styles.file
-          }
-          htmlFor='fileUpload'
-          ref={dragRef}
-        >
-          {imageFile ? (
-            <img
-              className={styles.image}
-              src={URL.createObjectURL(imageFile)}
-              alt='사진'
-            />
-          ) : (
-            <FontAwesomeIcon
-              icon={isDragging ? faArrowDown : faImage}
-              className={styles.fa}
-            />
-          )}
-          <p>
-            여기에 파일 끌어서 놓기
+        <form name='image' encType='multipart/form-data' ref={formRef}>
+          <input
+              type='file'
+              id='fileUpload'
+              style={{ display: "none" }}
+              accept='image/*'
+              onChange={onChangeFiles}
+          />
+          <label
+              className={
+                isDragging ? `${styles.file} ${styles.dragging}` : styles.file
+              }
+              htmlFor='fileUpload'
+              ref={dragRef}
+          >
+            {imageFile ? (
+                <img
+                    className={styles.image}
+                    src={URL.createObjectURL(imageFile)}
+                    alt='사진'
+                />
+            ) : (
+                <FontAwesomeIcon
+                    icon={isDragging ? faArrowDown : faImage}
+                    className={styles.fa}
+                />
+            )}
+            <p>
+              여기에 파일 끌어서 놓기
+              <br />
+              혹은
+            </p>
+            <label className={styles.button} htmlFor='fileUpload'>
+              파일 선택
+            </label>
             <br />
-            혹은
-          </p>
-          <label className={styles.button} htmlFor='fileUpload'>
-            파일 선택
+            <div className={styles.fileName}>
+              {imageFile ? imageFile.name : ""}
+            </div>
           </label>
-          <br />
-          <div className={styles.fileName}>
-            {imageFile ? imageFile.name : ""}
-          </div>
-        </label>
+        </form>
       </div>
-      <form name='photo' encType='multipart/form-data' onSubmit={onSubmit}>
+      <form name='submit' encType='multipart/form-data' onSubmit={onSubmit}>
         <button className={styles.cancel} onClick={toggleModal}>
           취소
         </button>
