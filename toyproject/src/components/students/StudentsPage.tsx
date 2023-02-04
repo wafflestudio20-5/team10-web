@@ -11,6 +11,7 @@ import { StudentsOfSubject } from "../../lib/types";
 import { apiGetStudentsOfSubject, apiGetSubjectInfo } from "../../lib/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import circleUser from "../../resources/circle-user-solid.svg";
 
 export default function StudentsPage() {
   const { token, getRefreshToken } = useSessionContext();
@@ -107,7 +108,9 @@ export default function StudentsPage() {
     getStudentsOfSubject(token, id, page);
     setActiveButton({ ...activeButton, activate: idx });
   };
-
+  const imageErrorHandler = (e: any) => {
+    e.target.src = circleUser;
+  };
   return (
     <SubjectTemplate subject={subjectid as string} page='수강생'>
       <section className={styles.section}>
@@ -144,10 +147,19 @@ export default function StudentsPage() {
             {studentsToShow?.map((student) => (
               <tr key={student.id}>
                 <td className={styles.pic}>
-                  <FontAwesomeIcon
-                    icon={faCircleUser}
-                    className={styles.circleUser}
-                  />
+                  {student.profile ? (
+                    <img
+                      src={student.profile}
+                      alt='img'
+                      className={styles.circleUser}
+                      onError={imageErrorHandler}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faCircleUser}
+                      className={styles.circleUser}
+                    />
+                  )}
                 </td>
                 <td className={styles.name}>{student.username}</td>
                 <td className={styles.subject}>{subTitle}</td>

@@ -1,4 +1,4 @@
-@import '../board/boardList/BoardList.module.scss';
+@import "../board/boardList/BoardList.module.scss";
 
 .section {
   display: flex;
@@ -82,7 +82,8 @@
         .circleUser {
           height: 35px;
           width: 35px;
-          color: gray;
+          border-radius: 50%;
+          line-height: 35px;
         }
 
         .name {

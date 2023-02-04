@@ -38,6 +38,7 @@ export interface StudentsOfSubject {
   username: string;
   student_id: string;
   is_professor: boolean;
+  profile: string;
 }
 
 export type SubjectType = {
