@@ -1,7 +1,6 @@
 .wrapper {
   box-sizing: border-box;
   width: 100%;
-  // padding: 24px;
   header {
     height: 72px;
     margin: 0 24px;
@@ -9,6 +8,8 @@
     display: flex;
 
     h1 {
+      margin: auto 0;
+      font-size: 28px;
       font-weight: 400;
     }
   }

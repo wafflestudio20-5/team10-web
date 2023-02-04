@@ -1,4 +1,3 @@
-import React from "react";
 import { Card } from "./Card";
 import styles from "./Cards.module.scss";
 import { useSubjectContext } from "../../context/SubjectContext";

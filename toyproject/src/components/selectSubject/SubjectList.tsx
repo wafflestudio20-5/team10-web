@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import styles from './SubjectList.module.scss';
-import { useSessionContext } from '../../context/SessionContext';
-import { apiEnrollClass } from '../../lib/api';
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from "react";
+import styles from "./SubjectList.module.scss";
+import { useSessionContext } from "../../context/SessionContext";
+import { toast } from "react-toastify";
+import { ModalInfo } from "./page/SelectSubjectPage";
+import { useSubjectContext } from "../../context/SubjectContext";
 
 type SubjectListType = {
   classId: number;
   name: string;
   professor: string;
   isEnrolled: boolean | undefined;
+  toggleModal: () => void;
+  handleModal: (info: ModalInfo) => void;
 };
 
 export default function SubjectList({
@@ -16,21 +19,19 @@ export default function SubjectList({
   name,
   professor,
   isEnrolled,
+  toggleModal,
+  handleModal,
 }: SubjectListType) {
-  const { token, user, setUser, refreshUserInfo } = useSessionContext();
+  const { token } = useSessionContext();
+  const { mySubjects } = useSubjectContext();
   const [subjectEnrolled, setSubjectEnrolled] = useState(isEnrolled);
-  const enroll = (token: string | null, classId: number) => {
-    apiEnrollClass(token, classId)
-      .then((r) => {
-        toast('신청되었습니다!');
-        // setUser({...user, classes: r.data.classes})
-      })
-      .then((r) => {
-        setSubjectEnrolled((prev) => !prev);
-        refreshUserInfo(token!); //!를 삽입함으로서 token이 항상 존재한다는 걸 알릴 수 있다.
-      })
-      .catch((r) => console.log(r));
-  };
+  useEffect(() => {
+    if (mySubjects?.find((subject) => subject.id === classId)) {
+      setSubjectEnrolled(true);
+    } else {
+      setSubjectEnrolled(false);
+    }
+  }, [token, mySubjects]);
 
   return (
     <div className={styles.wrapper}>
@@ -38,11 +39,28 @@ export default function SubjectList({
       <div className={styles.professor}>{professor}</div>
       <div className={styles.enroll}>
         {subjectEnrolled ? (
-          <p>수강중</p>
+          <button
+            className={styles.drop}
+            onClick={() => {
+              handleModal({
+                classId: classId,
+                name: name,
+                type: "drop",
+              });
+              toggleModal();
+            }}
+          >
+            수강취소
+          </button>
         ) : (
           <button
             onClick={() => {
-              enroll(token, classId);
+              handleModal({
+                classId: classId,
+                name: name,
+                type: "enroll",
+              });
+              toggleModal();
             }}
           >
             수강신청

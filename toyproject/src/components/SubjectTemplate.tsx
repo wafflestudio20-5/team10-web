@@ -39,18 +39,30 @@ export default function SubjectTemplate({
   content?: string | undefined; // 세부 항목의 제목 (ex. 게시글 제목. 페이지의 메인 화면이면 undefined)
   children?: React.ReactNode;
 }) {
-  const { token } = useSessionContext();
+  const { token, getRefreshToken } = useSessionContext();
   const [toggleNav, setToggleNav] = useState<boolean>(true);
   const [title, setTitle] = useState('');
 
   const pages = ['모듈', '게시판', '수강생', '과제', '성적'];
   const address = ['', '/boardnav', '/students', '/assignments', '/grades'];
-
+  const navigate = useNavigate();
   useEffect(() => {
     (async () => {
-      const id = Number(subject);
-      const res = await apiGetSubjectInfo(token, id);
-      setTitle(res.data.name);
+      if (!token) return;
+      try {
+        const id = Number(subject);
+        const res = await apiGetSubjectInfo(token, id);
+        setTitle(res.data.name);
+      } catch {
+        const id = Number(subject);
+        const localRefreshToken = localStorage.getItem('refresh');
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : 'temp'
+        );
+        const newToken = resToken.data.access;
+        const res = await apiGetSubjectInfo(newToken, id);
+        setTitle(res.data.name);
+      }
     })();
   }, [token]);
 

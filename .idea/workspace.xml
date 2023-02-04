@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="290c869b-db95-469b-b2ba-81a776cd72fe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/src/components/user/page/UserPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/user/page/UserPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentDetailsPage.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentDetailsPage.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentDetailsPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/assignments/AssignmentDetailsPage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/toyproject/src/lib/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/lib/api.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,8 +20,8 @@
       <list>
         <option value="TypeScript File" />
         <option value="CSS File" />
-        <option value="SCSS File" />
         <option value="TypeScript JSX File" />
+        <option value="SCSS File" />
       </list>
     </option>
   </component>
@@ -29,6 +30,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2JGeD450EwZIygDk2MBkF4fPNnL" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -41,17 +45,25 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/andongha1/Desktop/WaffleStudio/team10-web&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/andongha1/team10-web/toyproject/src/resources&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/andongha1/Desktop/WaffleStudio/team10-web/toyproject/node_modules/typescript/lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/andongha1/team10-web/toyproject/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/toyproject/src/resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/toyproject/src/resources" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -82,6 +94,13 @@
       <workItem from="1674627900749" duration="840000" />
       <workItem from="1674641391846" duration="4146000" />
       <workItem from="1674645773007" duration="2149000" />
+      <workItem from="1675143514980" duration="8405000" />
+      <workItem from="1675174800501" duration="6087000" />
+      <workItem from="1675231751329" duration="6745000" />
+      <workItem from="1675326121107" duration="9916000" />
+      <workItem from="1675349217569" duration="2715000" />
+      <workItem from="1675403979284" duration="19596000" />
+      <workItem from="1675433174214" duration="15172000" />
     </task>
     <servers />
   </component>

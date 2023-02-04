@@ -1,4 +1,5 @@
-.wrapper {
+@import "../../board/boardList/BoardList.module.scss";
+.selectSubjectPagewrapper {
   display: flex;
 
   .body {
@@ -14,22 +15,9 @@
       border-bottom: 1px solid #c7cdd1;
       display: flex;
 
-      .bars {
-        width: 25px;
-        height: 25px;
-        margin: auto 20px auto 0;
-        color: #3679f1;
-      }
-      .bars {
-        width: 25px;
-        height: 25px;
-        margin: auto 20px auto 0;
-        color: #3679f1;
-      }
-
       h1 {
         margin: auto 0;
-        font-size: 25px;
+        font-size: 27px;
         font-weight: 400;
       }
     }
@@ -48,7 +36,7 @@
           width: 50%;
           height: 45px;
           padding: 10px 14px;
-          margin: auto 10px auto auto;
+          margin: auto;
           box-sizing: border-box;
           border: 2px solid #d9d9d9;
           border-radius: 5px;
@@ -79,22 +67,91 @@
   article {
     margin: 50px auto;
     width: 80%;
+    margin-bottom: 20px;
     .index {
       padding-bottom: 30px;
       border-bottom: 2px solid #aeadad;
       display: flex;
       text-align: center;
+      font-size: 20px;
+      font-weight: 400;
       .name {
         padding-left: 5%;
         flex-grow: 1;
         text-align: left;
+        font-weight: 500;
       }
       .professor {
         width: 50%;
+        font-weight: 500;
       }
       .enroll {
         width: 15%;
+        font-weight: 500;
       }
+    }
+  }
+}
+
+.button-container {
+  @include button-container();
+}
+
+.nav-button {
+  @include nav-button();
+  font-size: 18px;
+  padding: 10px;
+}
+
+.active {
+  @include active();
+}
+
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 340px;
+  height: 200px;
+  background-color: white;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.34);
+  -webkit-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.34);
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  border-radius: 5px;
+  article {
+    display: flex;
+    flex-grow: 1;
+    text-align: center;
+    b {
+      font-size: 18px;
+    }
+    div {
+      margin: auto;
+    }
+  }
+  footer {
+    display: flex;
+    button {
+      width: 50%;
+      height: 50px;
+      border: 0;
+      font-weight: 700;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    button.cancel {
+      background-color: #d9d9d9;
+      color: white;
+      border-radius: 0 0 0 5px;
+    }
+    button.ok {
+      background-color: #0f0f6b;
+      color: white;
+      border-radius: 0 0 5px 0;
     }
   }
 }

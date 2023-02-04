@@ -1,0 +1,246 @@
+/* tos <-> terms of service */
+
+.signup {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  .notice {
+    width: 746px;
+    margin: auto;
+    background-color: #f9fafd;
+    border: 1px solid #cdd7ec;
+    text-align: left;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .header {
+    padding: 35px 0;
+    text-align: center;
+    background: #0f0f6b;
+    position: relative;
+    img {
+      width: 211px;
+      height: 51px;
+    }
+  }
+}
+
+.tos {
+  .header {
+    width: 788px;
+    height: 44px;
+    box-sizing: border-box;
+    margin: 0 auto auto auto;
+    padding: 10px;
+    display: flex;
+    border-top: 1px solid #e7ebf3;
+    border-bottom: 1px solid #e7ebf3;
+    background-color: #f9fafd;
+    .title {
+      margin: 2px auto 0 20px;
+    }
+    .title.all {
+      color: white;
+    }
+  }
+  .header.all {
+    background-color: #1b3b86;
+  }
+  .content {
+    width: 748px;
+    height: 150px;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 20px auto 20px auto;
+    border: 1px solid #e7ebf3;
+    overflow: auto;
+  }
+}
+
+.progress {
+  margin: 50px auto;
+  padding: 0;
+  display: flex;
+  .step {
+    width: 110px;
+    height: 110px;
+    box-sizing: border-box;
+    border: 1px solid #e7ebf3;
+    border-radius: 15%;
+    padding: 24px 0 24px 0;
+    margin: auto 30px 20px 30px;
+    background-color: #eaf2ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .cropper {
+      position: relative;
+      width: 28px;
+      height: 27px;
+      overflow: hidden;
+      margin: auto auto 10px auto;
+      .logo {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 28px;
+        height: 54px;
+      }
+    }
+  }
+  .step.active {
+    background-color: #1b3b86;
+    color: white;
+    .progress-logo {
+      top: -27px;
+    }
+  }
+  .arrow {
+    width: 15px;
+    height: 19px;
+    margin-top: 45px;
+  }
+}
+
+.next {
+  width: 146px;
+  height: 44px;
+  margin: 20px auto 50px auto;
+  background-color: #1b3b86;
+  border: none;
+  color: white;
+  font-size: medium;
+  font-weight: bold;
+  padding-top: 5px;
+  cursor: pointer;
+}
+
+.user_wrapper {
+  width: 808px;
+  display: flex;
+  margin: 20px auto auto auto;
+  padding: 0;
+  list-style: none;
+  .usertype {
+    width: 340px;
+    height: 200px;
+    border: 1px solid #d1d4d9;
+    border-radius: 15px;
+    margin: auto;
+    cursor: pointer;
+    .radio {
+      width: 25px;
+      height: 25px;
+      border: 1px solid #d1d4d9;
+      border-radius: 50%;
+      margin: 10px 10px auto auto;
+    }
+    .inner {
+      width: 15px;
+      height: 15px;
+      border: none;
+      border-radius: 50%;
+      margin: 5px auto;
+    }
+    .on {
+      width: 15px;
+      height: 15px;
+      border: none;
+      border-radius: 50%;
+      margin: 5px auto;
+      background-color: #1b3b86;
+    }
+    .image {
+      margin-top: 15px;
+    }
+  }
+  :hover {
+    background-color: #fcfcfc;
+  }
+}
+@mixin inputField {
+  height: 41px;
+  box-sizing: border-box;
+  padding: 0 10px;
+  border: 1px solid #c7c7c7;
+  border-radius: 5px;
+}
+.userinfo {
+  width: 746px;
+  margin: 20px auto;
+  padding: 25px 35px;
+  box-sizing: border-box;
+  border: 1px solid #d3d4da;
+  border-radius: 15px;
+  background-color: #fcfcfc;
+  display: flex;
+  flex-direction: column;
+  .wrapper {
+    margin: 10px 0;
+    display: flex;
+    .title {
+      margin: auto auto auto 0;
+    }
+    .input {
+      width: 550px;
+      @include inputField();
+    }
+    .input.short {
+      width: 240px;
+      flex-grow: 1;
+    }
+    .email {
+      display: flex;
+      width: 550px;
+      height: 41px;
+      text-align: justify;
+      .idOfEmail {
+        width: 200px;
+        @include inputField();
+      }
+      .domainInput {
+        width: 150px;
+        flex-grow: 1;
+        @include inputField();
+      }
+      .domainOption {
+        width: 150px;
+        margin-left: 10px;
+        flex-grow: 1;
+        @include inputField();
+      }
+      .at {
+        margin: 10px;
+        width: 20px;
+        height: 20px;
+      }
+      .minus {
+        margin: 10px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+  .repeat {
+    position: relative;
+    .alert {
+      margin: 0;
+      position: absolute;
+      top: 10px;
+      left: 510px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.done {
+  width: 746px;
+  box-sizing: border-box;
+  margin: auto auto 100px auto;
+  padding: 70px;
+  background-color: #f9fafd;
+  border-top: 1px solid #cdd7ec;
+  border-bottom: 1px solid #cdd7ec;
+}

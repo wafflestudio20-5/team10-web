@@ -10,15 +10,18 @@
 }
 
 .header {
+  width: 95%;
   height: 72px;
-  margin: 0px 24px;
+  margin: 0 24px;
   border-bottom: 1px solid #c7cdd1;
   display: flex;
-  vertical-align: middle;
-  box-sizing: border-box;
-  align-items: center;
-}
 
+  h1 {
+    margin: auto 0;
+    font-size: 27px;
+    font-weight: 400;
+  }
+}
 .body {
   display: flex;
   flex-direction: column;
@@ -26,7 +29,7 @@
 }
 
 .title {
-  font-family: 'Helvetica Neue';
+  font-family: "Helvetica Neue";
   font-style: normal;
   font-weight: 400;
   font-size: 25px;
@@ -35,11 +38,63 @@
 }
 
 .button {
-  margin: auto auto auto 0;
-  width: 100px;
-  cursor: pointer;
+  border: none;
+  color: darkblue;
+  background-color: white;
+  font-weight: 700;
+  font-size: 15px;
+  margin-left: auto;
+
   &:hover {
-    background-color: red;
-    color: white;
+    cursor: pointer;
+  }
+}
+
+.byeModal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 340px;
+  height: 200px;
+  background-color: white;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.34);
+  -webkit-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.34);
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  border-radius: 5px;
+  article {
+    display: flex;
+    flex-grow: 1;
+    text-align: center;
+    b {
+      font-size: 18px;
+    }
+    div {
+      margin: auto;
+    }
+  }
+  footer {
+    display: flex;
+    button {
+      width: 50%;
+      height: 50px;
+      border: 0;
+      font-weight: 700;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    button.cancel {
+      background-color: #d9d9d9;
+      color: white;
+      border-radius: 0 0 0 5px;
+    }
+    button.ok {
+      background-color: #0f0f6b;
+      color: white;
+      border-radius: 0 0 5px 0;
+    }
   }
 }

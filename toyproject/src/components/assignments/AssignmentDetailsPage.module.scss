@@ -15,7 +15,7 @@
   flex-direction: column;
   header {
     font-weight: bold;
-    border-bottom: 1px solid #C7CDD1;
+    border-bottom: 1px solid #c7cdd1;
     padding-bottom: 5px;
     margin-bottom: 15px;
   }
@@ -31,7 +31,7 @@
     }
   }
   b.closed {
-    color: #FF3333;
+    color: #ff3333;
   }
   b.score {
     color: black;
@@ -47,22 +47,48 @@
     flex-grow: 1;
     margin: 5px 0;
   }
-  .submit {
+  .headerSubmit {
+    display: flex;
+    .fileName {
+      margin: auto;
+      padding: 5px;
+      background-color: #f4f4f4;
+    }
+    .submit {
+      width: 60px;
+      height: 42px;
+      margin: 2px 2px 2px 10px;
+      background-color: #0f0f70;
+      color: white;
+      border-radius: 2px;
+      font-size: medium;
+      cursor: pointer;
+      display: flex;
+      p {
+        margin: auto;
+      }
+    }
+  }
+  .upload {
     width: 120px;
     height: 42px;
     margin: 2px;
-    background-color: #0F0F70;
+    background-color: #0f0f70;
     color: white;
     border: 0 solid;
     border-radius: 2px;
     font-size: medium;
     cursor: pointer;
+    display: flex;
+    p {
+      margin: auto;
+    }
   }
 }
 
 .details {
-  border-top: 1px solid #C7CDD1;
-  border-bottom: 1px solid #C7CDD1;
+  border-top: 1px solid #c7cdd1;
+  border-bottom: 1px solid #c7cdd1;
   display: flex;
   height: 24px;
   padding: 12px 0;
@@ -79,4 +105,16 @@
 
 .content {
   padding: 0;
+}
+
+.download {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.link {
+  color: #005dc6;
+  text-decoration: underline;
+  cursor: pointer;
 }

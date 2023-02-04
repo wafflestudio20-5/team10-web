@@ -8,6 +8,7 @@ export type User = {
   is_superuser: boolean;
   classes: SubjectType[];
   token: string | null;
+  is_social_login: boolean;
 };
 
 // 이용 약관
@@ -25,12 +26,19 @@ export interface SignUpRequestBody {
   is_professor: boolean;
 }
 
+export interface SocialSignUpRequestBody {
+  username: string;
+  student_id: string;
+  is_professor: boolean;
+}
+
 // 수강생 목록에서 user의 정보
 export interface StudentsOfSubject {
   id: number;
   username: string;
   student_id: string;
   is_professor: boolean;
+  profile: string;
 }
 
 export type SubjectType = {
@@ -39,6 +47,7 @@ export type SubjectType = {
   created_by: {
     username: string;
   };
+  is_evaluated: boolean;
 };
 
 export type Post = {
@@ -65,6 +74,14 @@ export type PostDetail = Post & {
   comment: Comment[];
 };
 
+export type PostForPrevAndNex = {
+  id: number;
+  title: string;
+  created_by: StudentsOfSubject;
+  created_at: string;
+  comment_count: number;
+};
+
 export interface AssignmentInterface {
   id: number;
   lecture: number;
@@ -88,4 +105,24 @@ export interface UserScoreInterface {
   is_submitted: boolean;
   is_graded: boolean;
   score: number;
+}
+
+export interface ModuleContent {
+  url: string;
+}
+
+export interface ModuleInterface {
+  id: number;
+  name: string;
+  module_content: ModuleContent[];
+}
+
+export interface CardColor {
+  id: number;
+  color: string;
+}
+
+export interface ProfilePicture {
+  id: number;
+  download_link: string | null;
 }

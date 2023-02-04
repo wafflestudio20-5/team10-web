@@ -53,21 +53,23 @@
   line-height: 32px;
 
   border-bottom: 1px solid #aeadad;
-  padding: 10px 20px;
+  padding: 12px 20px;
 
   .subject {
-    width: 60%;
+    margin-left: 10px;
+    width: 50%;
   }
 
   .professor {
-    width: 30%;
+    width: 20%;
   }
 
   .evaluated {
-    width: 10%;
+    width: 15%;
   }
 
   .evaluation {
-    width: 10%;
+    width: 15%;
+    padding-left: 5px;
   }
 }

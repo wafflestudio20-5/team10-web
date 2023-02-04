@@ -1,0 +1,92 @@
+.container {
+  flex-grow: 1;
+  padding: 20px;
+  padding-top: 0;
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .buttonContainer {
+      .cancel {
+        padding: 9px 15px;
+        height: 35px;
+        width: 60px;
+        background-color: white;
+        border: solid 0.9px #777777;
+        border-radius: 5px;
+        font-size: 14px;
+        &:hover {
+          cursor: pointer;
+          background-color: #0b4b95;
+          color: white;
+        }
+      }
+
+      .submit {
+        margin-left: 10px;
+        padding: 9px 15px;
+        height: 35px;
+        width: 60px;
+        background-color: #167ef4;
+        border: solid 0.9px #777777;
+
+        color: white;
+        border-radius: 5px;
+        font-size: 14px;
+        &:hover {
+          cursor: pointer;
+          background-color: #0b4b95;
+        }
+      }
+    }
+  }
+
+  section {
+    display: flex;
+    border-top: 2px solid rgb(128, 128, 128);
+    padding-top: 20px;
+
+    .titleContainer {
+      display: flex;
+      flex-direction: column;
+      .title {
+        width: 160px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .content {
+        width: 160px;
+        height: 425px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    .inputContainer {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+
+      .titleInput {
+        padding: 10px 12px;
+        height: 16px;
+        border: 1px solid #ced4d9;
+        border-radius: 5px;
+        font-family: normal;
+      }
+
+      .contentInput {
+        resize: none;
+        height: 425px;
+        margin-top: 20px;
+        padding: 8px;
+        border: 1px solid #ced4d9;
+        border-radius: 5px;
+        font-family: normal;
+      }
+    }
+  }
+}

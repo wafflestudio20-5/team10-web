@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./BoardDetail.module.scss";
+import CommentArea from "./Comment/CommentArea";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { PostDetail } from "../../../lib/types";
-import {
-  apiGetPost,
-  apiPostReply,
-  apiPatchReply,
-  apiDeleteReply,
-  apiDeletePost,
-} from "../../../lib/api";
+import { PostDetail, PostForPrevAndNex } from "../../../lib/types";
+import { apiGetPost, apiDeletePost } from "../../../lib/api";
 import { timestampToDateWithDash } from "../../../lib/formatting";
 import { useSessionContext } from "../../../context/SessionContext";
 import { boardIdentifier } from "../../../lib/formatting";
@@ -21,84 +16,60 @@ export default function BoardDetail() {
   const location = useLocation();
   const category = location.pathname.split("/")[2];
   const postId = Number(location.pathname.split("/")[3]);
-  const { token } = useSessionContext();
+  const { token, user, getRefreshToken } = useSessionContext();
   const { subjectid } = useParams();
   const navigate = useNavigate();
-  const [reply, setReply] = useState("");
   const [post, setPost] = useState<PostDetail>();
+  const [prevPost, setPrevPost] = useState<PostForPrevAndNex>();
+  const [nextPost, setNextPost] = useState<PostForPrevAndNex>();
 
   // 게시글 세부사항 불러오기
   const getPost = (token: string | null, post_id: number, category: string) => {
     apiGetPost(token, post_id, category)
       .then((res) => {
-        setPost(res.data);
+        console.log(res.data);
+        setPost(res.data.post_info);
+        setPrevPost(res.data.prev_post);
+        setNextPost(res.data.next_post);
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        toast("게시글을 불러오지 못했습니다. 다시 시도해주세요.", {
+          position: "top-center",
+          theme: "colored",
+        })
+      );
   };
+
   useEffect(() => {
-    getPost(token, postId, category);
-  }, [token]);
+    (async () => {
+      try {
+        getPost(token, postId, category);
+      } catch {
+        const localRefreshToken = localStorage.getItem("refresh");
+        const resToken = await getRefreshToken(
+          localRefreshToken ? localRefreshToken : "temp"
+        );
+        const newToken = resToken.data.access;
+        getPost(newToken, postId, category);
+      }
+    })();
+  }, [token, postId]);
 
   // 게시글 삭제하기
-  const deletePost = (
+  const deletePost = async (
     token: string | null,
     post_id: number | undefined,
     category: string
   ) => {
-    apiDeletePost(token, post_id, category)
-      .then((res) => {
-        toast("게시글을 성공적으로 삭제했습니다.", {
-          position: "top-center",
-          theme: "colored",
-          autoClose: 1000,
-        });
-        navigate(-1);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  // 댓글 인풋 상자 관리
-  const handleInputReply = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setReply(e.target.value);
-  };
-
-  // 댓글 달기
-  const postReply = (
-    token: string | null,
-    post_id: number,
-    content: string
-  ) => {
-    apiPostReply(token, post_id, content)
-      .then((res) => {
-        getPost(token, postId, category);
-        setReply("");
-      })
-      .catch((err) => console.log(err));
-  };
-
-  // 댓글 수정
-  const editReply = (
-    token: string | null,
-    comment_id: number,
-    content: string
-  ) => {
-    apiPatchReply(token, comment_id, content)
-      .then((res) => {
-        getPost(token, postId, category);
-        setReply("");
-      })
-      .catch((err) => console.log(err));
-  };
-
-  // 댓글 삭제
-  const deleteReply = (token: string | null, comment_id: number) => {
-    apiDeleteReply(token, comment_id)
-      .then((res) => {
-        getPost(token, postId, category);
-        setReply("");
-      })
-      .catch((err) => console.log(err));
+    const localRefresh = localStorage.getItem("refresh");
+    const res = await getRefreshToken(localRefresh ? localRefresh : "temp");
+    await apiDeletePost(res.data.access, post_id, category);
+    toast("게시글을 성공적으로 삭제했습니다.", {
+      position: "top-center",
+      theme: "colored",
+      autoClose: 1000,
+    });
+    navigate(-1);
   };
 
   return (
@@ -131,94 +102,67 @@ export default function BoardDetail() {
           </div>
         </div>
         <article>{post?.content}</article>
-        <div className={styles.buttons}>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              // editReply(token, comment.id, reply);
-            }}
+        {user?.id === post?.created_by.id && (
+          <div className={styles.buttons}>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(`/${subjectid}/${category}/${postId}/edit`, {
+                  state: { getPost: getPost },
+                });
+              }}
+            >
+              수정
+            </button>
+            <button
+              onClick={async (e) => {
+                e.preventDefault();
+                await deletePost(token, post?.id, category);
+              }}
+            >
+              삭제
+            </button>
+          </div>
+        )}
+        {nextPost?.title !== "" && (
+          <div
+            className={styles.previousContainer}
+            onClick={() =>
+              navigate(`/${subjectid}/${category}/${nextPost?.id}`)
+            }
           >
-            수정
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              deletePost(token, post?.id, category);
-            }}
+            <div className={styles.previous}>다음글</div>
+            <div className={styles.previousTitle}>
+              <span className={styles.literalTitle}>{nextPost?.title}</span>
+              <span
+                className={styles.commentCount}
+              >{`(${nextPost?.comment_count})`}</span>
+            </div>
+          </div>
+        )}
+        {prevPost?.title !== "" && (
+          <div
+            className={styles.previousContainer}
+            onClick={() =>
+              navigate(`/${subjectid}/${category}/${prevPost?.id}`)
+            }
           >
-            삭제
-          </button>
-        </div>
-        <div className={styles.previousContainer}>
-          <div className={styles.previousTitle}>이전글</div>
-          <div className={styles.previous}>어쩌구 저쩌구</div>
-        </div>
+            <div className={styles.previous}>이전글</div>
+            <div className={styles.previousTitle}>
+              <span className={styles.literalTitle}>{prevPost?.title}</span>
+              <span
+                className={styles.commentCount}
+              >{`(${prevPost?.comment_count})`}</span>
+            </div>
+          </div>
+        )}
       </section>
-      <footer>
-        <h3>
-          <span>댓글</span>
-          <button className={styles.numberOfComment}>
-            {post?.comment?.length}
-          </button>
-        </h3>
-        {post?.comment?.map((comment) => {
-          return (
-            <section key={comment.id}>
-              <div className={styles.commentCreaterInfo}>
-                <span>
-                  {`${comment.created_by.username}(${comment.created_by.student_id})`}
-                </span>
-                <div className={styles.content}>
-                  {timestampToDateWithDash(Number(comment?.created_at), "date")}
-                  {` `}
-                  <FontAwesomeIcon
-                    icon={faClock}
-                    className={styles.clockIcon}
-                  />
-                  {` `}
-                  {timestampToDateWithDash(Number(comment?.created_at), "time")}
-                </div>
-                <div className={styles.commentButtons}>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      editReply(token, comment.id, reply);
-                    }}
-                  >
-                    수정
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      deleteReply(token, comment.id);
-                    }}
-                  >
-                    삭제
-                  </button>
-                </div>
-              </div>
-              <p>{comment.content}</p>
-            </section>
-          );
-        })}
-        <form>
-          <input
-            placeholder={"댓글 입력"}
-            value={reply}
-            onChange={handleInputReply}
-            className={styles.replyInput}
-          />
-          <input
-            type='submit'
-            className={styles.commentButton}
-            value='댓글 등록'
-            onClick={(e) => {
-              e.preventDefault();
-              postReply(token, postId, reply);
-            }}
-          />
-        </form>
-      </footer>
+      <CommentArea
+        getPost={getPost}
+        postId={postId}
+        category={category}
+        post={post}
+      />
       <ToastContainer />
     </div>
   );

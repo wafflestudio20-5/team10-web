@@ -1,6 +1,6 @@
 import SubjectTemplate from '../SubjectTemplate';
 import styles from './GradesPage.module.scss';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSessionContext } from '../../context/SessionContext';
 import {
@@ -15,12 +15,13 @@ export default function GradesPage() {
   const { subjectid } = useParams();
 
   const { user } = useSessionContext();
-  const { token } = useSessionContext();
+  const { token, getRefreshToken } = useSessionContext();
 
   const [assignments, setAssignments] = useState<AssignmentInterface[]>([]);
   const [scores, setScores] = useState<UserScoreInterface[]>([]);
 
   const id = Number(subjectid);
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {

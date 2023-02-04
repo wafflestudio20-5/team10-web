@@ -1,73 +1,64 @@
-# Getting Started with Create React App
+# 와플스튜디오 토이프로젝트 10조
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+팀명: eTL 너무십조 ㅋㅋ
 
-## Available Scripts
+## ⭐️ About the Project
 
-In the project directory, you can run:
+<img src="./src/resources/eTL_logo.png" width="540px"/>
 
-### `npm start`
+애증의 웹사이트, 서울대학교 eTL 입니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### ❗️ 체험 시 `유의 사항`
+* 최적의 체험을 위해서는 **구글 크롬**을 이용해 주세요!
+* 너무 **고화질의 사진, 고용량의 파일**은 업로드 하지 말아주세요! 백엔드가 아파합니다.
+* `신규 계정`을 생성하면 수업, 과제, 성적이 하나도 없어서 체험의 재미가 반감됩니다. 회원가입은 맛만 보시고 미리 만들어진 계정으로 로그인해 주세요!
+> `ID:` wafflekim@snu.ac.kr <br/>
+> `PASSWORD:` wafflekim
+* `자퇴` 시 계정이 서버 상에서 **즉시** 삭제됩니다. 주의해 주세요! (시연용 계정을 자퇴시키지 말아주세요)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### 🔸   주소
 
-### `npm test`
+> https://dvn7ib10xdyoj.cloudfront.net
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### 🔸   연결이 되지 않을 경우
 
-### `npm run build`
+> 1. Git Clone으로 프로젝트 파일을 받아옵니다. <br/>
+> `git clone "https://github.com/wafflestudio20-5/team10-web.git"`
+> 2. toyproject 디렉토리로 이동합니다. <br/>
+> `cd team10-web/toyproject`
+> 3. npm이나 yarn을 이용해 실행해 줍니다. <br/>
+> `npm run start` or `yarn start`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🌊 Workflow
+<img src="./src/resources/workflow.jpeg" width="1080px"/>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 🔧 기술 스택
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+|                                               프론트엔드                                               |                          백엔드                          |디자인|
+|:-------------------------------------------------------------------------------------------------:|:-----------------------------------------------------:|:---:|
+|    TypeScript<br/>React<br/>SCSS Modules<br/>Axios<br/> ESLint & Prettier<br/>S3 + Cloudfront     | Django<br/>MySQL<br/>Simple JWT<br/>Elastic Beanstalk | Figma<br/>Adobe Illustrator |
 
-### `npm run eject`
+### 🔹 원본 사이트와의 비교
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<img src="./src/resources/etldifference.jpeg" width="1080px"/>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## ⭐️ 함께한 사람들
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 🧇 Front End
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+| <img src="./src/resources/profile_panghwi.jpeg" width="300px"/>                             | <img src="./src/resources/profile_chaehyeon.jpeg" width="300px"/>                | <img src="./src/resources/profile_dongha.jpeg" width="300px"/>                     |
+|:--------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------|
+| **`이름`** &nbsp;안광휘<br/>**`주요 업적`**&nbsp;소셜 로그인 및 세션 관리<br/>**`한줄 소감`**&nbsp;"공동저자 CHAT GPT" | **`이름`**&nbsp;김채현<br/>**`주요 업적`**&nbsp;게시판 CRUD 기능<br/>**`한줄 소감`**&nbsp;"개발이 재미있어요" | **`이름`**&nbsp;안동하<br/>**`주요 업적`** &nbsp;배포와 잡일 <br/>**`한줄 소감`** &nbsp;"이티엘 안십조..." |
 
-## Learn More
+### 🧇 Back End
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+| <img src="./src/resources/profile_yeongin.png" width="300px"/> | <img src="./src/resources/profile_hyeonjin.jpeg" width="300px"/>         | <img src="./src/resources/profile_su.jpeg" width="300px"/> |
+|:---------------------------------------------------------------|:-------------------------------------------------------------------------|:-----------------------------------------------------------|
+| **`이름`** 김영인<br/>**`주요 업적`** JWT, 소셜로그인, 게시판 구현   <br/>**`한줄 소감`** "세상에 혼자 할 수 있는 일은 없다."| **`이름`** 이현진<br/>**`주요 업적`** ETL 과제, 파일 관리 <br/>**`한줄 소감`** "개발은 끝이 없네요" | **`이름`** 임수<br/>**`주요 업적`**  AWS 연결 및 잡다한 일 담당<br/>**`한줄 소감`**  "실력의 부족함을 많이 느꼈습니다."  |
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 🧇 Designer
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-안광휘
+| <img src="./src/resources/profile_amina.jpeg" width="300px"/>              |
+|:---------------------------------------------------------------------------|
+| **`이름`** Amina<br/>**`주요 업적`** 디자인 <br/>**`한줄 소감`** "지난달 스크린타임 50% 증가했습니다" |
 

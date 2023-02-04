@@ -15,6 +15,7 @@
     "@types/node": "^18.11.17",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
+    "@types/react-modal": "^3.13.1",
     "axios": "^1.2.1",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.7",
@@ -37,7 +38,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "aws s3 sync ./build s3://waffletoyproject10 --profile=waffle-2019dahn"
+    "deploy": "aws s3 sync ./build s3://waffletoyproject10 --profile=waffle-2019dahn",
+    "invalidate": "aws cloudfront create-invalidation --profile=waffle-2019dahn --distribution-id E3CDZW00PCDYEJ --paths / /index.html /error.html /service-worker.js /manifest.json /favicon.ico"
   },
   "eslintConfig": {
     "extends": [
@@ -59,6 +61,7 @@
   },
   "devDependencies": {
     "@types/draft-js": "^0.11.10",
+    "@types/react-toastify": "^4.1.0",
     "sass": "^1.57.1"
   }
 }
