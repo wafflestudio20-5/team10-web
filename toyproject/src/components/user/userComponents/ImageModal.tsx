@@ -53,9 +53,11 @@ export function ImageModal({
 
     if (imageFile) {
       const formData = new FormData();
-      formData.append("photo", imageFile);
+      formData.append("file", imageFile);
       apiUploadImage(token, formData)
         .then(() => {
+          console.log("이미지 파일명: ", imageFile.name);
+          console.log("FormData: ", formData);
           toast("등록되었습니다!", {
             position: "top-center",
             theme: "colored",

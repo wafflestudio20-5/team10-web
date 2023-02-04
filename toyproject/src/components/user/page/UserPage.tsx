@@ -41,7 +41,7 @@ export default function UserPage() {
     apiDownloadImage(token)
         .then((r) => setProfile(r.data))
         .catch((r) => console.log(r));
-  })
+  }, [])
 
   return (
     <div className={styles.wrapper}

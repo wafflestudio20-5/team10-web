@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="290c869b-db95-469b-b2ba-81a776cd72fe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/toyproject/src/resources/etldifference.jpeg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toyproject/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/user/page/UserPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/user/page/UserPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toyproject/src/components/user/userComponents/ImageModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/toyproject/src/components/user/userComponents/ImageModal.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +99,7 @@
       <workItem from="1675326121107" duration="9916000" />
       <workItem from="1675349217569" duration="2715000" />
       <workItem from="1675403979284" duration="19596000" />
-      <workItem from="1675433174214" duration="3695000" />
+      <workItem from="1675433174214" duration="8087000" />
     </task>
     <servers />
   </component>
